@@ -8,8 +8,10 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-firebase/app": "^8.4.7",
     "expo": "~39.0.2",
     "expo-status-bar": "~1.0.2",
+    "firebase": "^8.0.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
@@ -18,5 +20,6 @@
   "devDependencies": {
     "@babel/core": "~7.9.0"
   },
-  "private": true
+  "private": true,
+  "name": "Wallet"
 }
