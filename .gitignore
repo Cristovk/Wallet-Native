@@ -6,6 +6,9 @@ npm-debug.*
 *.p12
 *.key
 *.mobileprovision
+*.env
+*.env.local
+*.env.production
 *.orig.*
 web-build/
 
