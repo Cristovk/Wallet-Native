@@ -4,6 +4,7 @@ import styles from './login-styles'
 import {TextInput, Button} from 'react-native-paper'
 import {Input} from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import db from "../../../firebase"
 
 const Login = ({navigation}) => {
     
@@ -20,18 +21,33 @@ const Login = ({navigation}) => {
     }
     
     const login = () => {
+        db.auth().signInWithEmailAndPassword(text.email, text.password)
+        .then(res => {
+            // navigation.navigate('Home')
+            Alert.alert(JSON.stringify(res.user)
+            )
+            console.log(res);
+        })
+        .catch(function(error) {
+            
         Alert.alert(
-            "Bienvenido!",
-            "Serás redirigido a tu perfil.",
+            "Ups!",
+            "Email o contraseña son incorrectas",
             [{text:'continuar'}]
         )
-        navigation.navigate('Home')
+      }) 
+
+        // Alert.alert(
+        //     "Bienvenido!",
+        //     "Serás redirigido a tu perfil.",
+        //     [{text:'continuar'}]
+        // )
     }
 
     return(
         <View style={styles.container}>
             <Text style={styles.text}>$ald∞</Text>
-            <View>
+            <View style= {styles.contentInput}>
                 <Input
                 textContentType='emailAddress'
                 autoCompleteType='email'
