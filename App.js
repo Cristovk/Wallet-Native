@@ -12,6 +12,9 @@ import Pagos from './client/Screen/Pagos';
 import Amigos from './client/Screen/Amigos';
 import Ayuda from './client/Screen/Ayuda';
 import Configuracion from './client/Screen/Configuracion';
+import { Provider as ProviderPaper } from 'react-native-paper'
+import Login from './client/Views/Login/login'
+import 'react-native-gesture-handler'
 
 
 const Stack = createStackNavigator()
@@ -25,6 +28,7 @@ const Drawer = createDrawerNavigator();
 function MyStack() {
   return (
     <Stack.Navigator>
+      <Stack.Screen name='Login' component={Login} />
       <Stack.Screen name="Home" component={MyDrowner} options={{ title: "Home" }} />
       <Stack.Screen name="Transferencias" component={Transferencias} options={{ title: "Transferencias" }} />
       <Stack.Screen name="Balance" component={Balance} options={{ title: "Balance" }} />
@@ -50,11 +54,15 @@ function MyDrowner() {
 
 
 
+
 export default function App() {
+
   return (
     /* para agregar mas pantallas */
-    <NavigationContainer>
-      <MyStack />
-    </NavigationContainer>
+    <ProviderPaper>
+      <NavigationContainer>
+        <MyStack />
+      </NavigationContainer>
+    </ProviderPaper>
   );
 }
