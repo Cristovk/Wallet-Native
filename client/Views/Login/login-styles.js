@@ -19,6 +19,14 @@ const styles = StyleSheet.create({
     },
     button:{
       width:150
+    },
+    viewLinks:{
+      flexDirection:'row',
+      justifyContent: 'space-between',
+      width: 330
+    },
+    link:{
+      color:'darkblue'
     }
   });
 

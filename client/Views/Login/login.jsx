@@ -1,11 +1,11 @@
 import React, {useState} from "react";
-import {View, Text,/* Button, */ Alert} from 'react-native'
+import {View, Text,/* Button, */ Alert, TouchableOpacity} from 'react-native'
 import styles from './login-styles'
 import {TextInput, Button} from 'react-native-paper'
 import {Input} from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-const Login = () => {
+const Login = ({navigation}) => {
     
     const [text,setText] = useState({
         email: "",
@@ -25,7 +25,7 @@ const Login = () => {
             "Serás redirigido a tu perfil.",
             [{text:'continuar'}]
         )
-        navigation.navigate('SignUp')
+        navigation.navigate('Home')
     }
 
     return(
@@ -64,7 +64,19 @@ const Login = () => {
                 color='darkblue'
             >
                 Login
-            </Button> 
+            </Button>
+            <View style={styles.viewLinks}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('SignUp')}
+                >
+                    <Text style={styles.link}>Recuperar password</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('SignUp')}
+                >
+                    <Text style={styles.link}>Crear cuenta</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }
