@@ -1,19 +1,22 @@
 import React from 'react'
 import { View, Text, ScrollView, Button, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { ListItem, Icon } from 'react-native-elements'
+import logo from '../../assets/index'
 
 
-const Home = (props) => {
-
-
+const Home = ({ navigation }) => {
 
   return (
-    <ScrollView style={style.contenedor}>
+    <ScrollView >
       <View style={style.barraSuperior}>
-        <TouchableOpacity style={style.boton}>
-          <Button
-            title="Menú"
-            onPress={() => alert("apretado")}
-            color="#FC7029"
+        <TouchableOpacity
+          style={style.boton}
+          onPress={() => navigation.openDrawer()}
+        >
+          <Icon
+            name="nav-icon-a"
+            type='fontisto'
+            onPress={() => navigation.openDrawer()}
           />
         </TouchableOpacity>
         <Text style={style.saludo}>Bienvenido Pepe!</Text>
@@ -26,38 +29,44 @@ const Home = (props) => {
         <Text style={style.tituloBalance}>Balance General</Text>
         <Text style={style.saldoBalance}>$35.000</Text>
       </View>
-      <View style={style.gastos}>
-        <View style={style.subGastos}>
-          <Text>Gasto 1</Text>
-        </View>
-        <View style={style.subGastos}>
-          <Text>Gasto 2</Text>
-        </View>
-        <View>
-          <Text style={style.subGastos}>Gasto 3</Text>
-        </View>
-        <View style={style.subGastos}>
-          <Text>Gasto 4</Text>
-        </View>
-      </View>
+      <ListItem>
+        <ListItem.Chevron />
+        <ListItem.Content>
+          <ListItem.Title>Netflix</ListItem.Title>
+          <ListItem.Subtitle>Gasto</ListItem.Subtitle>
+        </ListItem.Content>
+      </ListItem>
+
       <View style={style.barraInferior}>
         <TouchableOpacity
           style={style.boton2}
-          onPress={() => props.navigation.navigate('Transferencias')}
+          onPress={() => navigation.navigate('Transferencias')}
         >
-          <Text>Enviar/Recibir</Text>
+          {/* <Text>Enviar/Recibir</Text> */}
+          <Icon name='arrow-swap'
+            type='fontisto'
+            size="35px"
+          />
         </TouchableOpacity>
         <TouchableOpacity
           style={style.botonHome}
-          onPress={() => props.navigation.navigate('Home')}
+          onPress={() => navigation.navigate('Home')}
         >
-          <Text>Home</Text>
+          <Icon
+            name="home"
+            type='fontisto'
+            size="35px"
+          />
         </TouchableOpacity>
         <TouchableOpacity
           style={style.boton2}
-          onPress={() => props.navigation.navigate('Balance')}
+          onPress={() => navigation.navigate('Balance')}
         >
-          <Text>Balance</Text>
+          <Icon
+            name="bar-chart"
+            type='fontisto'
+            size="35px"
+          />
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -73,11 +82,13 @@ const style = StyleSheet.create({
     alignItems: "center"
   },
   boton: {
-    width: 60,
-    height: 40,
-    marginStart: 6,
     backgroundColor: "#FC7029",
-    flexDirection: "row"
+    height: 40,
+    width: 40,
+    marginStart: 10,
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
   },
   saludo: {
     color: "#FC7029",
@@ -108,7 +119,10 @@ const style = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     backgroundColor: "#FC7029",
-    height: 79
+    height: 79,
+    width: "100%",
+    bottom: 0,
+    position: "fixed"
   },
   gastos: {
     height: 350
@@ -119,7 +133,7 @@ const style = StyleSheet.create({
   },
   boton2: {
     marginTop: 15,
-    backgroundColor: "#E6E6E6",
+    backgroundColor: "#FC7029",
     justifyContent: "center",
     alignItems: "center",
     height: 50,
@@ -127,13 +141,14 @@ const style = StyleSheet.create({
     borderRadius: 10,
   },
   botonHome: {
-    marginTop: 5,
-    backgroundColor: "#E6E6E6",
+    borderTopColor: "#FC7029",
+    backgroundColor: "#FC7029",
     justifyContent: "center",
     alignItems: "center",
     height: 50,
     width: 50,
-    borderRadius: 50
+    borderRadius: 50,
+    marginTop: 12
   }
 })
 

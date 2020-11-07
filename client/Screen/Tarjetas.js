@@ -2,17 +2,17 @@ import React from 'react'
 import { View, Text, ScrollView, Button, Image, StyleSheet, TouchableOpacity } from 'react-native'
 
 
-const Balance = (props) => {
+const Tarjetas = (props) => {
 
 
   return (
     <ScrollView>
       <View >
-        <Text>Balance</Text>
+        <Text>Tarjetas</Text>
         <Button onPress={() => props.navigation.goBack()} title="Go back home" />
       </View>
     </ScrollView>
   )
 }
 
-export default Balance
+export default Tarjetas
