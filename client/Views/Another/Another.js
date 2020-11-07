@@ -5,12 +5,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
-const LoginScreen = ({ navigation }) => {
+
+const Another = ({ navigation }) => {
     return (
       <Button
-        title="Loguearme"
+        title="ir al inicio"
         onPress={() => {
-          navigation.navigate('AnotherPage')
+          navigation.navigate('StartScreen')
          
         }
         }
@@ -18,4 +19,4 @@ const LoginScreen = ({ navigation }) => {
     );
   };
 
-export default LoginScreen
+export default Another
