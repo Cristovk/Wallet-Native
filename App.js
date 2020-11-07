@@ -29,7 +29,7 @@ const Drawer = createDrawerNavigator();
 function MyStack() {
   return (
     <Stack.Navigator>
-      {/* <Stack.Screen name='Login' component={Login} /> */}
+      <Stack.Screen name='Login' component={Login} /> 
       <Stack.Screen name="Home" component={MyDrowner} options={{ title: "Home" }} />
       <Stack.Screen name="Transferencias" component={Transferencias} options={{ title: "Transferencias" }} />
       <Stack.Screen name="Balance" component={Balance} options={{ title: "Balance" }} />
