@@ -91,19 +91,18 @@ function MyDrowner() {
 
 
 
-
-
 function TablaInferior() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator initialRouteName='Home' >
+
+      <Tab.Screen
+        name="transferencias"
+        component={Transferencias}
+      />
 
       <Tab.Screen
         name="Home"
         component={Home}
-      />
-      <Tab.Screen
-        name="transferencias"
-        component={Transferencias}
       />
 
       <Tab.Screen
