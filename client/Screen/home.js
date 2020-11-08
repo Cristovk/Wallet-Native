@@ -122,7 +122,7 @@ const style = StyleSheet.create({
     height: 79,
     width: "100%",
     bottom: 0,
-    position: "fixed"
+    // position: "fixed"
   },
   gastos: {
     height: 350
