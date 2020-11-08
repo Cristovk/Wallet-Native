@@ -21,7 +21,7 @@ const Perfil = (props) => {
              <View style={styles.contenedorimagen}>
             <Image style={styles.imagenperfil} source={{ uri: 'https://sistemas.com/termino/wp-content/uploads/Usuario-Icono.jpg' }}  />
             <Icon
-                size='medium'
+                size={12}
                 name='camera'
                 type='font-awesome'
                 color='white'

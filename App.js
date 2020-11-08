@@ -16,7 +16,10 @@ import Perfil from './client/Screen/perfil/Perfil';
 import { Provider as ProviderPaper } from 'react-native-paper'
 import Login from './client/Views/Login/login'
 import 'react-native-gesture-handler'
-
+import SignUp from './client/Views/Sign-Up/Sign-Up'
+import SignUp1 from './client/Views/Sign-Up/SignUp1'
+import SignUp2 from './client/Views/Sign-Up/SignUp2'
+import SignIn from './client/Views/Login/login'
 
 const Stack = createStackNavigator()
 
@@ -33,6 +36,30 @@ function MyStack() {
       <Stack.Screen name="Home" component={MyDrowner} options={{ title: "Home" }} />
       <Stack.Screen name="Transferencias" component={Transferencias} options={{ title: "Transferencias" }} />
       <Stack.Screen name="Balance" component={Balance} options={{ title: "Balance" }} />
+      <Stack.Screen
+          name="SignUp" 
+          component={SignUp} 
+          // options={{
+          //   headerRight: () => (
+          //     <Switch
+          //     value={enable}
+          //     onValueChange={toggle}
+          //     />
+          //     )
+          //   }}
+        />
+        <Stack.Screen
+          name="SignUp1" 
+          component={SignUp1} 
+        />
+        <Stack.Screen
+          name="SignUp2" 
+          component={SignUp2} 
+        />
+        <Stack.Screen
+          name="SignIn" 
+          component={SignIn} 
+        />
     </Stack.Navigator>
   )
 }

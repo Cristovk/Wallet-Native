@@ -11,10 +11,12 @@ const SignUp1 = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Image
-        style={[styles.icon, styles.centered]}
-        source={require('../../../assets/icon.png')}
-      />
+      <View style={styles.centered}>
+        <Image
+          style={[styles.icon]}
+          source={require('../../../assets/icon.png')}
+        />
+      </View>
       <Text style={styles.label}>Teléfono</Text>
       <TextInput
         style={[styles.inputs]}

@@ -1,26 +1,24 @@
-
 import { StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
     inputperfil:{
-        padding:'5px',
-        paddingLeft:'10px',
+        padding:5,
+        paddingLeft:10,
         borderBottomColor:'rgb(240, 236, 236)',
         borderBottomWidth:1,
-        outline:'none'
     },
     labelinput:{
-        paddingLeft:'10px',
+        paddingLeft:10,
         color: '#02072f',
-        marginTop:'10px'
+        marginTop:10
     },
     grupoform:{
         position:'relative',
     },
     padrelapiz:{
         position:'absolute',
-        right:'0px',
-        top:'25px',
+        right:0,
+        top:25,
         backgroundColor:'transparent'
     }
    

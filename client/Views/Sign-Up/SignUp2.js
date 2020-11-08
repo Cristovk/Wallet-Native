@@ -2,11 +2,11 @@ import React, {useState} from 'react';
 import { TextInput, Text, View, Button, Image } from 'react-native';
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { styles } from "./Sing-Up-Styles";
-import {
-  TextField,
-  FilledTextField,
-  OutlinedTextField,
-} from 'react-native-material-textfield';
+// import {
+//   TextField,
+//   FilledTextField,
+//   OutlinedTextField,
+// } from 'react-native-material-textfield';
 
 
 
@@ -19,7 +19,6 @@ const SignUp2 = ({navigation}) => {
     shortPasswordErr: "",
     codeErr: "",
   });
-console.log('Error', Err)
   const handleOnPress = () => {
     const valid = validateForm();
     if (valid) {
@@ -28,7 +27,7 @@ console.log('Error', Err)
     }
   }
   const formatText = () => {
-   
+    
   }
 
   function validateForm() {
@@ -57,11 +56,13 @@ console.log('Error', Err)
   }
   return (
     <View style={styles.container}>
-      <Image
-        style={[styles.icon, styles.centered]}
-        source={require('../../../assets/icon.png')}
-      />  
-      {/* <Text style={styles.label}>Contraseña</Text>    
+      <View style={styles.centered}>
+        <Image
+          style={[styles.icon]}
+          source={require('../../../assets/icon.png')}
+        />
+      </View> 
+      <Text style={styles.label}>Contraseña</Text>    
       <TextInput
         style={[styles.inputs]}
         onChangeText={text => setPassword1(text)}
@@ -69,14 +70,19 @@ console.log('Error', Err)
         placeholder= '********'
         placeholderTextColor={grey}
         textContentType= 'password'
-      /> */}
-      <OutlinedTextField
+      />
+      {
+        Err.shortPasswordErr ? 
+        (<Text style={styles.error}>{Err.shortPasswordErr}</Text>) :
+        null
+      }
+      {/* <OutlinedTextField
         label='Contraseña'
         formatText={formatText}
         onSubmitEditing={handleOnPress()}
         ref={this.fieldRef}
         errorColor= 'red'
-      />
+      /> */}
       <Text style={styles.label}>Repite la contraseña</Text>    
       <TextInput
         style={[styles.inputs]}
@@ -86,6 +92,11 @@ console.log('Error', Err)
         placeholderTextColor={grey}
         textContentType= "password"
       />
+      {
+        Err.matchPasswordErr ? 
+        (<Text style={styles.error}>{Err.matchPasswordErr}</Text>) :
+        null
+      }
       <Text style={styles.label}>Código de seguridad</Text>    
       <TextInput
         style={[styles.inputs]}

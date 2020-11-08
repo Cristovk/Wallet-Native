@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     width: 100,
     height: 100,
     marginTop: 50,
-    marginLeft: 150,
+    marginHorizontal: 'auto',
     borderRadius: 50,
     borderColor: darkBlue,
     borderWidth: 1,
@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
   },
   centered: {
     justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: 'row'
   },
   button: {
     color: orange,
@@ -62,6 +62,7 @@ export const styles = StyleSheet.create({
     borderColor: grey, 
   },
   error: {
-    color: 'red'
+    color: 'red',
+    marginHorizontal: 35
   }
 })

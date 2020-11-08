@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Text, View, Dimensions, Image, TextInput, Button } from 'react-native';
 import { styles } from "./Sing-Up-Styles";
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
 Dimensions.get('window').width
 Dimensions.get('window').height
 
@@ -25,10 +25,12 @@ const SignUp = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
-      <Image
-        style={[styles.icon, styles.centered]}
-        source={require('../../../assets/icon.png')}
-      />
+      <View style={styles.centered}>
+        <Image
+          style={[styles.icon]}
+          source={require('../../../assets/icon.png')}
+        />
+      </View>
       <Text style={styles.label}>Nombre</Text>    
       <TextInput
         style={[styles.inputs]}
@@ -63,12 +65,12 @@ const SignUp = ({navigation}) => {
       >
         Select your Birthday
       </Text>
-      <DateTimePickerModal
+      {/* <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="date"
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
-      />
+      /> */}
       <View style={[styles.button, styles.box]}>
         <Button
           title='Anterior'
