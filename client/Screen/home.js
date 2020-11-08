@@ -1,10 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, ScrollView, Button, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import { ListItem, Icon } from 'react-native-elements'
 import logo from '../../assets/index'
+import db from '../../firebase'
 
 
 const Home = ({ navigation }) => {
+
+  const [users, setUsers] = useState([])
+
+
+  useEffect(() => {
+    db.firebases.collection('Users').onSnapshot(querySnapshot => {
+
+      const users = []
+
+      querySnapshot.docs.forEach(doc => {
+        const { name, id, birthday } = doc.data() //Como necesito guardar esos datos, hago destructuring de la data.
+        users.push({ //Lo guardamos principalmente en este array nuevo que creamos.
+          name,
+          id,
+          birthday
+        })
+      })
+      setUsers(users)
+    })
+  }, [])
+
+  console.log(users)
+
 
   return (
     <ScrollView >
@@ -45,7 +69,7 @@ const Home = ({ navigation }) => {
           {/* <Text>Enviar/Recibir</Text> */}
           <Icon name='arrow-swap'
             type='fontisto'
-            size="35px"
+            size={35}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -55,7 +79,7 @@ const Home = ({ navigation }) => {
           <Icon
             name="home"
             type='fontisto'
-            size="35px"
+            size={35}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -65,7 +89,7 @@ const Home = ({ navigation }) => {
           <Icon
             name="bar-chart"
             type='fontisto'
-            size="35px"
+            size={35}
           />
         </TouchableOpacity>
       </View>
