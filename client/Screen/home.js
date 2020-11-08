@@ -4,30 +4,29 @@ import { ListItem, Icon } from 'react-native-elements'
 import logo from '../../assets/index'
 import db from '../../firebase'
 
-
 const Home = ({ navigation }) => {
 
-  const [users, setUsers] = useState([])
+  // const [users, setUsers] = useState([])
 
 
-  useEffect(() => {
-    db.firebases.collection('Users').onSnapshot(querySnapshot => {
+  // useEffect(() => {
+  //   db.firebases.collection('Users').onSnapshot(querySnapshot => {
 
-      const users = []
+  //     const users = []
 
-      querySnapshot.docs.forEach(doc => {
-        const { name, id, birthday } = doc.data() //Como necesito guardar esos datos, hago destructuring de la data.
-        users.push({ //Lo guardamos principalmente en este array nuevo que creamos.
-          name,
-          id,
-          birthday
-        })
-      })
-      setUsers(users)
-    })
-  }, [])
+  //     querySnapshot.docs.forEach(doc => {
+  //       const { name, id, birthday } = doc.data() //Como necesito guardar esos datos, hago destructuring de la data.
+  //       users.push({ //Lo guardamos principalmente en este array nuevo que creamos.
+  //         name,
+  //         id,
+  //         birthday
+  //       })
+  //     })
+  //     setUsers(users)
+  //   })
+  // }, [])
 
-  console.log(users)
+  // console.log(users)
 
 
   return (
@@ -40,7 +39,7 @@ const Home = ({ navigation }) => {
           <Icon
             name="nav-icon-a"
             type='fontisto'
-            onPress={() => navigation.openDrawer()}
+          // onPress={() => navigation.openDrawer()}
           />
         </TouchableOpacity>
         <Text style={style.saludo}>Bienvenido Pepe!</Text>
@@ -61,37 +60,7 @@ const Home = ({ navigation }) => {
         </ListItem.Content>
       </ListItem>
 
-      <View style={style.barraInferior}>
-        <TouchableOpacity
-          style={style.boton2}
-          onPress={() => navigation.navigate('Transferencias')}
-        >
-          {/* <Text>Enviar/Recibir</Text> */}
-          <Icon name='arrow-swap'
-            type='fontisto'
-            size={35}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={style.botonHome}
-          onPress={() => navigation.navigate('Home')}
-        >
-          <Icon
-            name="home"
-            type='fontisto'
-            size={35}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={style.boton2}
-          onPress={() => navigation.navigate('Balance')}
-        >
-          <Icon
-            name="bar-chart"
-            type='fontisto'
-            size={35}
-          />
-        </TouchableOpacity>
+      <View>
       </View>
     </ScrollView>
   )
@@ -146,7 +115,7 @@ const style = StyleSheet.create({
     height: 79,
     width: "100%",
     bottom: 0,
-    position: "fixed"
+    position: "absolute"
   },
   gastos: {
     height: 350
