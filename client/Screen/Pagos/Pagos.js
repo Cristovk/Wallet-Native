@@ -9,16 +9,20 @@ const Pagos = ({ navigation }) => {
 
 
   return (
-    <ScrollView>
+    <ScrollView style={style.container}>
       <View style={{ backgroundColor: "#02072F", borderBottomRightRadius: 15, borderBottomLeftRadius: 15 }}>
         <View style={style.barraSuperior}>
           <View>
-            <Icon
-              name="arrow-swap"
-              type="fontisto"
-              size={40}
-              color="#FC7029"
-            />
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Home")}
+            >
+              <Icon
+                name="arrow-swap"
+                type="fontisto"
+                size={40}
+                color="#FC7029"
+              />
+            </TouchableOpacity>
           </View>
           <Text style={style.saludo}>Transferencias</Text>
           <Image
@@ -43,58 +47,77 @@ const Pagos = ({ navigation }) => {
       </View>
       <View style={style.opciones}>
         <TouchableOpacity
-          onPress={() => Alert.alert('apretado')}
+          onPress={() => navigation.navigate('Transferencias')}
         >
           <Icon
             name="phone"
             type='fontisto'
-            size={50}
+            size={40}
             color="#02072F"
           />
           <Text>Teléfono</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => Alert.alert('apretado')}
+          onPress={() => navigation.navigate('Transferencias')}
         >
           <Icon
             name="lightbulb"
             type='fontisto'
-            size={50}
+            size={40}
             color="#02072F"
           />
           <Text>Electricidad</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => Alert.alert('apretado')}
+          onPress={() => navigation.navigate('Transferencias')}
         >
           <Icon
             name="rss"
             type='fontisto'
-            size={50}
+            size={40}
             color="#02072F"
           />
           <Text>Internet</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => Alert.alert('apretado')}
+          onPress={() => navigation.navigate('Transferencias')}
         >
           <Icon
             name="blood-drop"
             type='fontisto'
-            size={50}
+            size={40}
             color="#02072F"
           />
           <Text>Agua</Text>
         </TouchableOpacity>
       </View>
-      <ListItem>
-        <ListItem.Chevron />
-        <ListItem.Content>
-          <ListItem.Title>Netflix</ListItem.Title>
-        </ListItem.Content>
-      </ListItem>
-      <Button onPress={() => navigation.navigate('Home')} title="Go back home" />
+      <View style={style.lista}>
 
+        <ListItem>
+          <ListItem.Chevron />
+          <ListItem.Content style={{ flexDirection: "row", justifyContent: "space-between" }}>
+            <ListItem.Title>Netflix</ListItem.Title>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Transferencias')}
+            >
+              <Text>Pagar</Text>
+            </TouchableOpacity>
+          </ListItem.Content>
+        </ListItem>
+      </View>
+      <View style={style.qrContainer} >
+        <TouchableOpacity
+          onPress={() => Alert.alert('QR')}
+          style={style.qr}
+        >
+          <Text style={{ fontWeight: "bold", fontSize: 20 }}>Escanear QR</Text>
+          <Icon
+            name="qrcode"
+            type="fontisto"
+            size={30}
+          />
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   )
 }

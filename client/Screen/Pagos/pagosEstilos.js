@@ -2,6 +2,10 @@ import { StyleSheet } from 'react-native'
 
 
 const style = StyleSheet.create({
+  container: {
+    height: "100%",
+    flex: 1
+  },
   barraSuperior: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -44,6 +48,24 @@ const style = StyleSheet.create({
   },
   wifi: {
     paddingStart: 20
+  },
+  qr: {
+    backgroundColor: "#FC7029",
+    height: 50,
+    width: 300,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    borderRadius: 10
+
+  },
+  qrContainer: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "center"
+  },
+  lista: {
+    height: 300
   }
 })
 

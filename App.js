@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './client/Screen/Home/home';
-import Transferencias from './client/Screen/transferencias';
+import Transferencias from './client/Screen/Transferencias/transferencias';
 import Balance from './client/Screen/Balance';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Movimientos from './client/Screen/Movimientos';
@@ -16,7 +16,6 @@ import Configuracion from './client/Screen/Configuracion';
 // import Perfil from './client/Screen/Perfil/Perfil';
 import { Provider as ProviderPaper } from 'react-native-paper'
 import Login from './client/Views/Login/login'
-import SignIn from './client/Views/Login/login'
 import 'react-native-gesture-handler'
 import SignUp from './client/Views/Sign-Up/Sign-Up'
 import SignUp1 from './client/Views/Sign-Up/SignUp1'
@@ -36,7 +35,7 @@ const Drawer = createDrawerNavigator();
 function MyStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='Login' component={Login} />
+      {/* <Stack.Screen name='Login' component={Login} /> */}
       <Stack.Screen name="Home" component={MyDrowner} options={{ title: "Home" }} />
       {/* <Stack.creen name='footer' component={TablaInferior} options={{ title: "Footer" }} /> */}
       <Stack.Screen name="Transferencias" component={Transferencias} options={{ title: "Transferencias" }} />
@@ -87,7 +86,7 @@ function TablaInferior() {
     <Tab.Navigator initialRouteName='Home' >
 
       <Tab.Screen
-        name="transferencias"
+        name="Transferir"
         component={Transferencias}
       />
 
@@ -97,7 +96,7 @@ function TablaInferior() {
       />
 
       <Tab.Screen
-        name='balance'
+        name='Balance'
         component={Balance}
       />
     </Tab.Navigator>
