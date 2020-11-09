@@ -77,7 +77,7 @@ const SignUp = ({ navigation }) => {
           <Button
             title='Anterior'
             color={orange}
-            onPress={() => navigation.navigate('SignIn')}
+            onPress={() => navigation.navigate('Login')}
           />
           <View style={styles.separator}></View>
           <Button

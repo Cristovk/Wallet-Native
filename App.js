@@ -16,10 +16,11 @@ import Configuracion from './client/Screen/Configuracion';
 // import Perfil from './client/Screen/Perfil/Perfil';
 import { Provider as ProviderPaper } from 'react-native-paper'
 import Login from './client/Views/Login/login'
+import SignIn from './client/Views/Login/login'
 import 'react-native-gesture-handler'
 import SignUp from './client/Views/Sign-Up/Sign-Up'
-import SignUp1 from './client/Views/Sign-Up/Sign-Up1'
-import SignUp2 from './client/Views/Sign-Up/Sign-Up2'
+import SignUp1 from './client/Views/Sign-Up/SignUp1'
+import SignUp2 from './client/Views/Sign-Up/SignUp2'
 import { Icon } from 'react-native-elements'
 
 
@@ -43,22 +44,17 @@ function MyStack() {
       <Stack.Screen
         name="SignUp"
         component={SignUp}
-      // options={{
-      //   headerRight: () => (
-      //     <Switch
-      //     value={enable}
-      //     onValueChange={toggle}
-      //     />
-      //     )
-      //   }}
+        options={{ title: "Registro" }}
       />
       <Stack.Screen
         name="SignUp1"
         component={SignUp1}
+        options={{ title: "Registro" }}
       />
       <Stack.Screen
         name="SignUp2"
         component={SignUp2}
+        options={{ title: "Registro" }}
       />
     </Stack.Navigator>
   )
