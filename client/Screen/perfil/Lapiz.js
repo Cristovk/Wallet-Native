@@ -9,7 +9,7 @@ const Editar = () => {
                 name='pencil'
                 type='font-awesome'
                 color='#02072f'
-                containerStyle={styles.lapiz}
+                // containerStyle={styles.lapiz}
             />
     );
 }

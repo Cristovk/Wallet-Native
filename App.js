@@ -20,7 +20,6 @@ import 'react-native-gesture-handler'
 import SignUp from './client/Views/Sign-Up/Sign-Up'
 import SignUp1 from './client/Views/Sign-Up/Sign-Up1'
 import SignUp2 from './client/Views/Sign-Up/Sign-Up2'
-import SignIn from './client/Views/Login/login'
 import { Icon } from 'react-native-elements'
 
 
@@ -60,10 +59,6 @@ function MyStack() {
       <Stack.Screen
         name="SignUp2"
         component={SignUp2}
-      />
-      <Stack.Screen
-        name="SignIn"
-        component={SignIn}
       />
     </Stack.Navigator>
   )

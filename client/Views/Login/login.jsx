@@ -20,13 +20,13 @@ const Login = ({ navigation }) => {
     })
   }
 
+
   const login = () => {
     db.auth().signInWithEmailAndPassword(text.email, text.password)
       .then(res => {
         navigation.navigate('Home')
         Alert.alert(JSON.stringify(res.user[0] && res.user[0].name)
         )
-        console.log(res);
       })
       .catch(function (error) {
 
