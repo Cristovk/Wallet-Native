@@ -74,9 +74,6 @@ export const styles = StyleSheet.create({
     marginHorizontal: 35,
     flexDirection: "row",
     justifyContent: "space-evenly",
-    height: 60, 
-    // borderColor: grey, 
-    // borderWidth: 1,
-    // borderStyle: "solid",
+    height: 60,
   }
 })

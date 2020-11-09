@@ -97,7 +97,7 @@ const SignUp = ({navigation}) => {
       navigation.navigate('SignUp1')
     }
   }
-                                                                         
+                                                                                 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.centered}>
@@ -185,5 +185,4 @@ const SignUp = ({navigation}) => {
     </ScrollView>
   )
 }
-
 export default SignUp;

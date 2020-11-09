@@ -15,7 +15,7 @@ const SignUp1 = ({navigation}) => {
     invalidCUILFormat: "",
     emptyCUIL: "",
   });
-                                                               
+                                                                               
   const validateForm = () => {
     setErr({ 
       invalidPhoneFormat: "",
@@ -62,7 +62,7 @@ const SignUp1 = ({navigation}) => {
       navigation.navigate('SignUp2');
     }
   }
-                                                             
+                                                                             
   return (
     <View style={styles.container}>
       <View style={styles.centered}>
@@ -80,12 +80,8 @@ const SignUp1 = ({navigation}) => {
         placeholderTextColor={grey}
         textContentType= "telephoneNumber"
       />
-      {
-        Err.emptyPhone ? (<Text style={styles.error}>{Err.emptyPhone}</Text>) : null
-      }
-      {
-        Err.invalidPhoneFormat ? (<Text style={styles.error}>{Err.invalidPhoneFormat}</Text>) : null
-      }
+      {Err.emptyPhone ? (<Text style={styles.error}>{Err.emptyPhone}</Text>) : null}
+      {Err.invalidPhoneFormat ? (<Text style={styles.error}>{Err.invalidPhoneFormat}</Text>) : null}
       <Text style={styles.label}>DNI</Text>
       <TextInput
         style={[styles.inputs]}
@@ -94,12 +90,8 @@ const SignUp1 = ({navigation}) => {
         placeholder='12.345.678'
         placeholderTextColor={grey}
       />
-      {
-        Err.emptyDNI ? (<Text style={styles.error}>{Err.emptyDNI}</Text>) : null
-      }
-      {
-        Err.invalidDNIFormat ? (<Text style={styles.error}>{Err.invalidDNIFormat}</Text>) : null
-      }
+      {Err.emptyDNI ? (<Text style={styles.error}>{Err.emptyDNI}</Text>) : null}
+      {Err.invalidDNIFormat ? (<Text style={styles.error}>{Err.invalidDNIFormat}</Text>) : null}
       <Text style={styles.label}>CUIL</Text>
       <TextInput
         style={styles.inputs}
@@ -108,12 +100,8 @@ const SignUp1 = ({navigation}) => {
         placeholder='00-12345678-9'
         placeholderTextColor={grey}
       />
-      {
-        Err.emptyCUIL ? (<Text style={styles.error}>{Err.emptyCUIL}</Text>) : null
-      }
-      {
-        Err.invalidCUILFormat ? (<Text style={styles.error}>{Err.invalidCUILFormat}</Text>) : null
-      }
+      {Err.emptyCUIL ? (<Text style={styles.error}>{Err.emptyCUIL}</Text>) : null}
+      {Err.invalidCUILFormat ? (<Text style={styles.error}>{Err.invalidCUILFormat}</Text>) : null}
       <View style={[styles.button, styles.box]}>
         <Button
           title='Anterior'

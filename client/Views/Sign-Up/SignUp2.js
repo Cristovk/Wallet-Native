@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { TextInput, Text, View, Button, Image } from 'react-native';
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { styles } from "./Sing-Up-Styles";
-                                                              
+                                                                             
 const SignUp2 = ({navigation}) => {
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
@@ -13,11 +13,10 @@ const SignUp2 = ({navigation}) => {
     notNumberPasswordErr: "",
     codeErr: "",
   });
-                                                             
+                                                                               
   const handleOnPress = () => {
     const valid = validateForm();
     if (valid) {
-      
       navigation.navigate('Login')
     }
   }
@@ -48,7 +47,7 @@ const SignUp2 = ({navigation}) => {
       return false;
     } else return true;
   }
-                                                         
+                                                                                     
   return (
     <View style={styles.container}>
       <View style={styles.centered}>
@@ -67,16 +66,8 @@ const SignUp2 = ({navigation}) => {
         textContentType= 'password'
         secureTextEntry={true}
       />
-      {
-        Err.shortPasswordErr ? 
-        (<Text style={styles.error}>{Err.shortPasswordErr}</Text>) :
-        null
-      }
-      {
-        Err.notNumberPasswordErr ? 
-        (<Text style={styles.error}>{Err.notNumberPasswordErr}</Text>) :
-        null
-      }
+      {Err.shortPasswordErr ? (<Text style={styles.error}>{Err.shortPasswordErr}</Text>) : null}
+      {Err.notNumberPasswordErr ? (<Text style={styles.error}>{Err.notNumberPasswordErr}</Text>) : null}
       <Text style={styles.label}>Repite la contraseña</Text>    
       <TextInput
         style={[styles.inputs]}
@@ -87,11 +78,7 @@ const SignUp2 = ({navigation}) => {
         textContentType= "password"
         secureTextEntry={true}
       />
-      {
-        Err.matchPasswordErr ? 
-        (<Text style={styles.error}>{Err.matchPasswordErr}</Text>) :
-        null
-      }
+      {Err.matchPasswordErr ? (<Text style={styles.error}>{Err.matchPasswordErr}</Text>) : null}
       <Text style={styles.label}>Código de seguridad</Text>    
       <TextInput
         style={[styles.inputs]}
@@ -117,5 +104,4 @@ const SignUp2 = ({navigation}) => {
     </View>
   )
 }
-
 export default SignUp2;
