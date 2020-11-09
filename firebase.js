@@ -4,6 +4,10 @@ import 'firebase/storage'
 import 'firebase/firestore'
 
 
+// var env = require('node-env-file');
+// env(__dirname + '/.env')
+
+// console.log(process.env);
 
 
 const db = firebase.initializeApp({
@@ -21,4 +25,6 @@ export const firebases = firebase.firestore()
 export const auth = db.auth()
 export const storage = db.storage()
 export default db
+
+
 

@@ -7,7 +7,7 @@ const Transferencias = ({ navigation }) => {
     <ScrollView>
       <View>
         <Text>Transferencias</Text>
-        <Button onPress={() => navigation.goBack()} title="Go back home" />
+        <Button onPress={() => navigation.navigate('Home')} title="Go back home" />
       </View>
     </ScrollView>
   )

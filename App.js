@@ -3,13 +3,13 @@ import { StyleSheet, Text, TextInput, View, } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Home from './client/Screen/home';
+import Home from './client/Screen/Home/home';
 import Transferencias from './client/Screen/transferencias';
 import Balance from './client/Screen/Balance';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Movimientos from './client/Screen/Movimientos';
 import Tarjetas from './client/Screen/Tarjetas';
-import Pagos from './client/Screen/Pagos';
+import Pagos from './client/Screen/Pagos/Pagos';
 import Amigos from './client/Screen/Amigos';
 import Ayuda from './client/Screen/Ayuda';
 import Configuracion from './client/Screen/Configuracion';
