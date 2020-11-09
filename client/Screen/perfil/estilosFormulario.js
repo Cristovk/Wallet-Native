@@ -1,3 +1,4 @@
+
 import { StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
     },
     padrelapiz:{
         position:'absolute',
-        right:0,
+        right:5,
         top:25,
         backgroundColor:'transparent'
     }

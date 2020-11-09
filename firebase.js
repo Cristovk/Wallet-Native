@@ -1,7 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/storage'
-
+import 'firebase/firestore'
 
 
 const db = firebase.initializeApp({
@@ -15,7 +15,8 @@ const db = firebase.initializeApp({
   measurementId: "G-82YMTQ231G"
 });
 
+
+export const firebases = firebase.firestore()
 export const auth = db.auth()
 export const storage = db.storage()
 export default db
-

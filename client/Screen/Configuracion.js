@@ -2,14 +2,14 @@ import React from 'react'
 import { View, Text, ScrollView, Button, Image, StyleSheet, TouchableOpacity } from 'react-native'
 
 
-const Configuracion = (props) => {
+const Configuracion = ({ navigation }) => {
 
 
   return (
     <ScrollView>
       <View >
         <Text>Configuración</Text>
-        <Button onPress={() => props.navigation.goBack()} title="Go back home" />
+        <Button onPress={() => navigation.navigate('Home')} title="Go back home" />
       </View>
     </ScrollView>
   )
