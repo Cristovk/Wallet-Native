@@ -2,18 +2,23 @@ import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { View, TouchableOpacity, SafeAreaView} from 'react-native';
 import { Icon, ListItem } from 'react-native-elements'
+
+// Navigator
 import {HomeScreen} from '../stack/stack'
 
+// Creamos el navegador
 const Drawer = createDrawerNavigator();
 
+// Navegador para listar los componentes de HomeScreen
 export default function MyDrowner(props){
     return(
       <Drawer.Navigator drawerContent={(props)=> CustomDrawerContent(props)}>
         <Drawer.Screen name='HomeScreen' component={HomeScreen}/>
       </Drawer.Navigator>
     )
-  }
-  
+}
+
+// Esta función nos permite configurar el drawer según lo que queremos mostrar (requerido en la línea 15)
 function CustomDrawerContent({navigation}){
     return(
         <SafeAreaView style={{flex:1,justifyContent:'space-between'}}>

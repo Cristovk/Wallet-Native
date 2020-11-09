@@ -1,16 +1,20 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {Icon} from 'react-native-elements'
+
+// COMPONENTES
 import Home from '../../Screen/Home/home';
 import Transferencias from '../../Screen/transferencias';
 import Perfil from '../../Screen/perfil/Perfil';
 
+// Creamos el navegador
 const Tab = createBottomTabNavigator();
 
+// Nos renderiza una tabBar con los componentes principales (logueado)
 export default function MyTab(){
     
     return(
-    <Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({
+    <Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({ // Configuración del tabBar
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
   
@@ -29,9 +33,9 @@ export default function MyTab(){
       inactiveTintColor: 'gray'
     }}
     >
-      <Tab.Screen name="Home" component={Home} options={{ title: "Home" ,headerShown:true}} />
-      <Tab.Screen name="Transferencias" component={Transferencias} options={{ title: "Transferencias" ,headerShown:true}} />
-      <Tab.Screen name="Perfil" component={Perfil} options={{ title: "Perfil" }} />
+      <Tab.Screen name="Home" component={Home}/>
+      <Tab.Screen name="Transferencias" component={Transferencias}/>
+      <Tab.Screen name="Perfil" component={Perfil}/>
     </Tab.Navigator>
     )
   }
