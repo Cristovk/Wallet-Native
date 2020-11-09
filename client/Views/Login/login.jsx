@@ -26,7 +26,6 @@ const Login = ({ navigation }) => {
         navigation.navigate('Home')
         Alert.alert(JSON.stringify(res.user)
         )
-        console.log(res);
       })
       .catch(function (error) {
 

@@ -39,26 +39,22 @@ function MyStack() {
       <Stack.Screen
           name="SignUp" 
           component={SignUp} 
-          // options={{
-          //   headerRight: () => (
-          //     <Switch
-          //     value={enable}
-          //     onValueChange={toggle}
-          //     />
-          //     )
-          //   }}
+          options={{ title: "Registro" }} 
         />
         <Stack.Screen
           name="SignUp1" 
           component={SignUp1} 
+          options={{ title: "Registro" }} 
         />
         <Stack.Screen
           name="SignUp2" 
           component={SignUp2} 
+          options={{ title: "Registro" }} 
         />
         <Stack.Screen
           name="SignIn" 
           component={SignIn} 
+          options={{ title: "Sign In" }} 
         />
     </Stack.Navigator>
   )
