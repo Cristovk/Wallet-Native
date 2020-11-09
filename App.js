@@ -13,7 +13,7 @@ import Pagos from './client/Screen/Pagos/Pagos';
 import Amigos from './client/Screen/Amigos';
 import Ayuda from './client/Screen/Ayuda';
 import Configuracion from './client/Screen/Configuracion';
-// import Perfil from './client/Screen/Perfil/Perfil';
+ import Perfil from './client/Screen/Perfil/Perfil';
 import { Provider as ProviderPaper } from 'react-native-paper'
 import Login from './client/Views/Login/login'
 import SignIn from './client/Views/Login/login'
@@ -36,9 +36,9 @@ const Drawer = createDrawerNavigator();
 function MyStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='Login' component={Login} />
+       <Stack.Screen name='Login' component={Login} /> 
       <Stack.Screen name="Home" component={MyDrowner} options={{ title: "Home" }} />
-      {/* <Stack.creen name='footer' component={TablaInferior} options={{ title: "Footer" }} /> */}
+      {/* <Stack.Screen name='footer' component={TablaInferior} options={{ title: "Footer" }} /> */}
       <Stack.Screen name="Transferencias" component={Transferencias} options={{ title: "Transferencias" }} />
       <Stack.Screen name="Balance" component={Balance} options={{ title: "Balance" }} />
       <Stack.Screen
@@ -66,7 +66,7 @@ function MyDrowner() {
       {/* <Drawer.Screen name="Home" component={Home} options={{ title: "Home" }} /> */}
       <Drawer.Screen name="Home" component={TablaInferior} />
 
-      {/* <Drawer.Screen name="Perfil" component={Perfil} options={{ title: "Perfil" }} /> */}
+       <Drawer.Screen name="Perfil" component={Perfil} options={{ title: "Perfil" }} /> 
       <Drawer.Screen name="Transferencias" component={Transferencias} options={{ title: "Transferencias" }} />
       <Drawer.Screen name="Tarjetas" component={Tarjetas} options={{ title: "Tarjetas" }} />
       <Drawer.Screen name="Pagos" component={Pagos} options={{ title: "Pagos" }} />
