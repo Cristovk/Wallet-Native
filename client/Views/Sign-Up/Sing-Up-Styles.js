@@ -1,3 +1,4 @@
+import React from "react"
 import { StyleSheet } from 'react-native'
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 
@@ -6,7 +7,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: white,
   },
-  icon:{
+  icon: {
     width: 100,
     height: 100,
     marginTop: 50,
@@ -22,8 +23,8 @@ export const styles = StyleSheet.create({
     textAlign: 'center'
   },
   inputs: {
-    height: 40, 
-    borderColor: grey, 
+    height: 40,
+    borderColor: grey,
     borderWidth: 1,
     borderStyle: "solid",
     marginHorizontal: 35,
@@ -57,12 +58,12 @@ export const styles = StyleSheet.create({
   separator: {
     borderTopWidth: 1,
     marginVertical: 15,
-    borderColor: grey, 
+    borderColor: grey,
   },
   verticalSeparator: {
     borderEndWidth: 1,
     marginHorizontal: 10,
-    borderColor: grey, 
+    borderColor: grey,
   },
   error: {
     color: 'red',
@@ -73,8 +74,8 @@ export const styles = StyleSheet.create({
     marginHorizontal: 35,
     flexDirection: "row",
     justifyContent: "space-evenly",
-    height: 60, 
-    borderColor: grey, 
+    height: 60,
+    borderColor: grey,
     borderWidth: 1,
     borderStyle: "solid",
   }
