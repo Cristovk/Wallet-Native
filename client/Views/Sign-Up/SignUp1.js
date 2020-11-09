@@ -53,7 +53,8 @@ const SignUp1 = ({ navigation }) => {
     if (emptyPhone || invalidPhoneFormat || emptyDNI || invalidDNIFormat || emptyCUIL || invalidCUILFormat) {
       setErr({ emptyPhone, invalidPhoneFormat, emptyDNI, invalidDNIFormat, emptyCUIL, invalidCUILFormat });
       return false;
-    } else return true;
+    }
+    else return true;
   }
   const handleOnPress = () => {
     const valid = validateForm();
@@ -75,16 +76,12 @@ const SignUp1 = ({ navigation }) => {
         style={[styles.inputs]}
         onChangeText={text => setPhone(text)}
         value={phone}
-        placeholder='+54 9 11 1234-5678'
+        placeholder='+5491123456789'
         placeholderTextColor={grey}
         textContentType="telephoneNumber"
       />
-      {
-        Err.emptyPhone ? (<Text style={styles.error}>{Err.emptyPhone}</Text>) : null
-      }
-      {
-        Err.invalidPhoneFormat ? (<Text style={styles.error}>{Err.invalidPhoneFormat}</Text>) : null
-      }
+      {Err.emptyPhone ? (<Text style={styles.error}>{Err.emptyPhone}</Text>) : null}
+      {Err.invalidPhoneFormat ? (<Text style={styles.error}>{Err.invalidPhoneFormat}</Text>) : null}
       <Text style={styles.label}>DNI</Text>
       <TextInput
         style={[styles.inputs]}
@@ -93,12 +90,8 @@ const SignUp1 = ({ navigation }) => {
         placeholder='12.345.678'
         placeholderTextColor={grey}
       />
-      {
-        Err.emptyDNI ? (<Text style={styles.error}>{Err.emptyDNI}</Text>) : null
-      }
-      {
-        Err.invalidDNIFormat ? (<Text style={styles.error}>{Err.invalidDNIFormat}</Text>) : null
-      }
+      {Err.emptyDNI ? (<Text style={styles.error}>{Err.emptyDNI}</Text>) : null}
+      {Err.invalidDNIFormat ? (<Text style={styles.error}>{Err.invalidDNIFormat}</Text>) : null}
       <Text style={styles.label}>CUIL</Text>
       <TextInput
         style={styles.inputs}
@@ -107,12 +100,8 @@ const SignUp1 = ({ navigation }) => {
         placeholder='00-12345678-9'
         placeholderTextColor={grey}
       />
-      {
-        Err.emptyCUIL ? (<Text style={styles.error}>{Err.emptyCUIL}</Text>) : null
-      }
-      {
-        Err.invalidCUILFormat ? (<Text style={styles.error}>{Err.invalidCUILFormat}</Text>) : null
-      }
+      {Err.emptyCUIL ? (<Text style={styles.error}>{Err.emptyCUIL}</Text>) : null}
+      {Err.invalidCUILFormat ? (<Text style={styles.error}>{Err.invalidCUILFormat}</Text>) : null}
       <View style={[styles.button, styles.box]}>
         <Button
           title='Anterior'
@@ -129,5 +118,4 @@ const SignUp1 = ({ navigation }) => {
     </View>
   )
 }
-
 export default SignUp1;
