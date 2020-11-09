@@ -123,7 +123,7 @@ const SignUp1 = ({ navigation }) => {
         <Button
           title='Siguiente'
           color={darkBlue}
-          onPress={() => navigation.navigate('SignUp2')}
+          onPress={() => handleOnPress()}
         />
       </View>
     </View>
