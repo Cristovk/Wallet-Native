@@ -60,6 +60,10 @@ function MyStack() {
         name="SignUp2"
         component={SignUp2}
       />
+      {/* <Stack.Screen
+        name="login"
+        component={Login}
+      /> */}
     </Stack.Navigator>
   )
 }
