@@ -3,6 +3,7 @@ import { Image, TouchableOpacity, StyleSheet} from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { Icon} from 'react-native-elements'
 
+// COMPONENTES
 import Balance from '../../Screen/Balance';
 import Movimientos from '../../Screen/Movimientos';
 import Tarjetas from '../../Screen/Tarjetas';
@@ -15,16 +16,19 @@ import SignUp from '../../Views/Sign-Up/Sign-Up'
 import SignUp1 from '../../Views/Sign-Up/SignUp1'
 import SignUp2 from '../../Views/Sign-Up/SignUp2'
 
+// NAVIGATORS
 import MyTab from '../tab/tab'
 import MyDrowner from '../drawer/drawer'
 
+// Creamos los navegadores
 const Stack = createStackNavigator()
 const HomeScreenStack = createStackNavigator()
 
+// Navegador Inicial para ingresar a la wallet (importado en App.js)
 export default function MyStack() {
     return (
       <Stack.Navigator>
-        <Stack.Screen name='Login' component={Login} /> 
+        <Stack.Screen name='Login' component={Login} options={{headerShown:false}}/> 
         <Stack.Screen name='HomeDrawer' component ={MyDrowner} options={{headerShown:false}}/>
         <Stack.Screen
           name="SignUp"
@@ -45,16 +49,17 @@ export default function MyStack() {
     )
   }
 
+// Navegador que se encarga de darle cabeceras a los componentes y renderizarlos (importado en drawer.jsx)
 export function HomeScreen(){
     return(
-      <HomeScreenStack.Navigator screenOptions={{
+      <HomeScreenStack.Navigator screenOptions={{ // Personalizamos las cabeceras en general
         headerStyle:{
           backgroundColor:"#02072F",
           borderColor:'none'
         },
         headerTintColor:"#FC7029"
       }}>
-        <HomeScreenStack.Screen name='HomeTab' component={MyTab} options={({navigation})=>({
+        <HomeScreenStack.Screen name='HomeTab' component={MyTab} options={({navigation})=>({ // Personalizamos las cabeceras de los atajos principales
           headerLeft: () => (
             <TouchableOpacity
               style={style.boton}
