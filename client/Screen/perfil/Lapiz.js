@@ -1,25 +1,17 @@
-import React from 'react'
-import { StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
 
+
 const Editar = () => {
-    return ( 
-        <Icon
-                size={12}
-                name='pencil'
-                type='font-awesome'
-                color='#02072f'
-                // containerStyle={styles.lapiz}
-            />
-    );
+  return (
+    <Icon
+      size={16}
+      name='pencil'
+      type='font-awesome'
+      color='#02072f'
+    />
+  );
 }
 
-const styles = StyleSheet.create({
-    lapiz:{
-        right:4,
-        width:30,
-        zIndex:100
-    }
-})
+
 
 export default Editar;
