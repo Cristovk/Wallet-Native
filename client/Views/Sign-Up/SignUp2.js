@@ -1,13 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { TextInput, Text, View, Button, Image } from 'react-native';
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { styles } from "./Sing-Up-Styles";
-// import {
-//   TextField,
-//   FilledTextField,
-//   OutlinedTextField,
-// } from 'react-native-material-textfield';
-
+                                                                             
 const SignUp2 = ({navigation}) => {
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
@@ -18,17 +13,16 @@ const SignUp2 = ({navigation}) => {
     notNumberPasswordErr: "",
     codeErr: "",
   });
-                                                             
+                                                                               
   const handleOnPress = () => {
     const valid = validateForm();
     if (valid) {
-      
-      navigation.navigate('SignIn')
+      navigation.navigate('Login')
     }
   }
 
   function validateForm() {
-    setErr({ 
+    setErr({
       matchPasswordErr: "",
       shortPasswordErr: "",
       notNumberPasswordErr: "",
@@ -45,7 +39,7 @@ const SignUp2 = ({navigation}) => {
     if (password1.length < 8 || password1.length > 15) {
       shortPasswordErr = "Debe tener entre 8 y 15 caracteres";
     }
-    else if (password1.search(/[0-9]/) == -1){
+    else if (password1.search(/[0-9]/) == -1) {
       notNumberPasswordErr = "Debe tener al menos un número"
     }
     if (matchPasswordErr || shortPasswordErr || codeErr || notNumberPasswordErr) {
@@ -53,7 +47,7 @@ const SignUp2 = ({navigation}) => {
       return false;
     } else return true;
   }
-                                                         
+
   return (
     <View style={styles.container}>
       <View style={styles.centered}>
@@ -61,37 +55,30 @@ const SignUp2 = ({navigation}) => {
           style={[styles.icon]}
           source={require('../../../assets/icon.png')}
         />
-      </View> 
-      <Text style={styles.label}>Contraseña</Text>    
+      </View>
+      <Text style={styles.label}>Contraseña</Text>
       <TextInput
         style={[styles.inputs]}
         onChangeText={text => setPassword1(text)}
         value={password1}
-        placeholder= '********'
+        placeholder='********'
         placeholderTextColor={grey}
-        textContentType= 'password'
+        textContentType='password'
         secureTextEntry={true}
       />
-      {
-        Err.shortPasswordErr ? 
-        (<Text style={styles.error}>{Err.shortPasswordErr}</Text>) :
-        null
-      }
+      {Err.shortPasswordErr ? (<Text style={styles.error}>{Err.shortPasswordErr}</Text>) : null}
+      {Err.notNumberPasswordErr ? (<Text style={styles.error}>{Err.notNumberPasswordErr}</Text>) : null}
       <Text style={styles.label}>Repite la contraseña</Text>    
       <TextInput
         style={[styles.inputs]}
         onChangeText={text => setPassword2(text)}
         value={password2}
-        placeholder= '********'
+        placeholder='********'
         placeholderTextColor={grey}
-        textContentType= "password"
+        textContentType="password"
         secureTextEntry={true}
       />
-      {
-        Err.matchPasswordErr ? 
-        (<Text style={styles.error}>{Err.matchPasswordErr}</Text>) :
-        null
-      }
+      {Err.matchPasswordErr ? (<Text style={styles.error}>{Err.matchPasswordErr}</Text>) : null}
       <Text style={styles.label}>Código de seguridad</Text>    
       <TextInput
         style={[styles.inputs]}
@@ -99,23 +86,22 @@ const SignUp2 = ({navigation}) => {
         value={code}
         placeholder='Js3jk56'
         placeholderTextColor={grey}
-        textContentType= "oneTimeCode"
+        textContentType="oneTimeCode"
       />
       <View style={[styles.button, styles.box]}>
         <Button
           title='Anterior'
           color={orange}
-          onPress={()=> navigation.navigate('SignUp1')}
+          onPress={() => navigation.navigate('SignUp1')}
         />
         <View style={styles.separator}></View>
         <Button
           title='Crear Cuenta'
           color={darkBlue}
-          onPress={()=> handleOnPress()}
+          onPress={() => handleOnPress()}
         />
       </View>
     </View>
   )
 }
-
 export default SignUp2;
