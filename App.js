@@ -13,7 +13,7 @@ import Pagos from './client/Screen/Pagos/Pagos';
 import Amigos from './client/Screen/Amigos';
 import Ayuda from './client/Screen/Ayuda';
 import Configuracion from './client/Screen/Configuracion';
-// import Perfil from './client/Screen/Perfil/Perfil';
+import Perfil from './client/Screen/Perfil/Perfil';
 import { Provider as ProviderPaper } from 'react-native-paper'
 import Login from './client/Views/Login/login'
 import 'react-native-gesture-handler'
@@ -43,14 +43,6 @@ function MyStack() {
       <Stack.Screen
         name="SignUp"
         component={SignUp}
-      // options={{
-      //   headerRight: () => (
-      //     <Switch
-      //     value={enable}
-      //     onValueChange={toggle}
-      //     />
-      //     )
-      //   }}
       />
       <Stack.Screen
         name="SignUp1"
@@ -67,10 +59,10 @@ function MyStack() {
 function MyDrowner() {
   return (
     <Drawer.Navigator initialRouteName="Home">
-      {/* <Drawer.Screen name="Home" component={Home} options={{ title: "Home" }} /> */}
+      <Drawer.Screen name="Home" component={Home} options={{ title: "Home" }} />
       <Drawer.Screen name="Home" component={TablaInferior} />
 
-      {/* <Drawer.Screen name="Perfil" component={Perfil} options={{ title: "Perfil" }} /> */}
+      <Drawer.Screen name="Perfil" component={Perfil} options={{ title: "Perfil" }} />
       <Drawer.Screen name="Transferencias" component={Transferencias} options={{ title: "Transferencias" }} />
       <Drawer.Screen name="Tarjetas" component={Tarjetas} options={{ title: "Tarjetas" }} />
       <Drawer.Screen name="Pagos" component={Pagos} options={{ title: "Pagos" }} />
