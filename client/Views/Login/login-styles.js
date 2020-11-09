@@ -3,6 +3,7 @@ import {StyleSheet} from 'react-native'
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+      width: 360,
       alignItems: 'center',
       justifyContent: 'space-evenly',
     },
@@ -14,7 +15,7 @@ const styles = StyleSheet.create({
     input:{
       height:40,
       margin:10,
-      width:200,
+      width:300,
       padding:10
     },
     button:{
@@ -27,11 +28,11 @@ const styles = StyleSheet.create({
     },
     link:{
       color:'darkblue'
-    },contentInput:{
+    },/* contentInput:{
       width:200,
       height:50,
       marginBottom: 70,
-    }
+    } */
   });
 
 export default styles;

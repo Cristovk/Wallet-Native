@@ -36,7 +36,7 @@ const Login = ({ navigation }) => {
           [{ text: 'continuar' }]
         )
       })
-
+      navigation.navigate('HomeDrawer')
     // Alert.alert(
     //     "Bienvenido!",
     //     "Serás redirigido a tu perfil.",
@@ -47,7 +47,7 @@ const Login = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>$ald∞</Text>
-      <View style={styles.contentInput}>
+      <View style={{width:'90%'}}>
         <Input
           textContentType='emailAddress'
           autoCompleteType='email'
@@ -59,7 +59,6 @@ const Login = ({ navigation }) => {
           onChangeText={(value) => handleChange('email', value)}
           defaultValue={text.email}
         />
-
         <Input
           secureTextEntry={true}
           autoCompleteType='password'
@@ -98,3 +97,4 @@ const Login = ({ navigation }) => {
 }
 
 export default Login;
+
