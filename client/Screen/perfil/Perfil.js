@@ -25,7 +25,7 @@ const Perfil = (props) => {
                 name='camera'
                 type='font-awesome'
                 color='white'
-                containerStyle={styles.camara}
+                // containerStyle={styles.camara}
             />
         </View>
         <Text style={styles.nombreusuario} >Camilo Andrés Sánchez</Text>

@@ -8,8 +8,6 @@ import { styles } from "./Sing-Up-Styles";
 //   OutlinedTextField,
 // } from 'react-native-material-textfield';
 
-
-
 const SignUp2 = ({navigation}) => {
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
@@ -17,8 +15,10 @@ const SignUp2 = ({navigation}) => {
   const [Err, setErr] = useState({
     matchPasswordErr: "",
     shortPasswordErr: "",
+    notNumberPasswordErr: "",
     codeErr: "",
   });
+                                                             
   const handleOnPress = () => {
     const valid = validateForm();
     if (valid) {
@@ -26,34 +26,34 @@ const SignUp2 = ({navigation}) => {
       navigation.navigate('SignIn')
     }
   }
-  const formatText = () => {
-    
-  }
 
   function validateForm() {
     setErr({ 
       matchPasswordErr: "",
       shortPasswordErr: "",
+      notNumberPasswordErr: "",
       codeErr: "",
     });
     let matchPasswordErr = "";
     let shortPasswordErr = "";
+    let notNumberPasswordErr = "";
     let codeErr = "";
 
     if (password1 !== password2) {
-      matchPasswordErr = " Las contraseñas no coinciden";
+      matchPasswordErr = "Las contraseñas no coinciden";
     }
-    if (password1.length < 8) {
-      shortPasswordErr = " Debe tener al menos 8 caracteres";
+    if (password1.length < 8 || password1.length > 15) {
+      shortPasswordErr = "Debe tener entre 8 y 15 caracteres";
     }
-    // if (codeErr ) {
-      
-    // }
-    if (matchPasswordErr || shortPasswordErr || codeErr) {
-      setErr({ matchPasswordErr, shortPasswordErr, codeErr });
+    else if (password1.search(/[0-9]/) == -1){
+      notNumberPasswordErr = "Debe tener al menos un número"
+    }
+    if (matchPasswordErr || shortPasswordErr || codeErr || notNumberPasswordErr) {
+      setErr({ matchPasswordErr, shortPasswordErr, codeErr, notNumberPasswordErr });
       return false;
     } else return true;
   }
+                                                         
   return (
     <View style={styles.container}>
       <View style={styles.centered}>
@@ -70,19 +70,13 @@ const SignUp2 = ({navigation}) => {
         placeholder= '********'
         placeholderTextColor={grey}
         textContentType= 'password'
+        secureTextEntry={true}
       />
       {
         Err.shortPasswordErr ? 
         (<Text style={styles.error}>{Err.shortPasswordErr}</Text>) :
         null
       }
-      {/* <OutlinedTextField
-        label='Contraseña'
-        formatText={formatText}
-        onSubmitEditing={handleOnPress()}
-        ref={this.fieldRef}
-        errorColor= 'red'
-      /> */}
       <Text style={styles.label}>Repite la contraseña</Text>    
       <TextInput
         style={[styles.inputs]}
@@ -91,6 +85,7 @@ const SignUp2 = ({navigation}) => {
         placeholder= '********'
         placeholderTextColor={grey}
         textContentType= "password"
+        secureTextEntry={true}
       />
       {
         Err.matchPasswordErr ? 

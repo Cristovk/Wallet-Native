@@ -1,4 +1,3 @@
-import React from "react";
 import { StyleSheet } from 'react-native'
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 
@@ -31,8 +30,6 @@ export const styles = StyleSheet.create({
     marginVertical: 15,
     borderWidth: 1,
     paddingLeft: 15,
-    fontWeight: "bold",
-    fontStyle: "italic",
     borderRadius: 10,
   },
   centered: {
@@ -55,14 +52,30 @@ export const styles = StyleSheet.create({
     marginHorizontal: 40,
     marginTop: 5,
     marginBottom: -10,
+    fontSize: 20
   },
   separator: {
     borderTopWidth: 1,
     marginVertical: 15,
     borderColor: grey, 
   },
+  verticalSeparator: {
+    borderEndWidth: 1,
+    marginHorizontal: 10,
+    borderColor: grey, 
+  },
   error: {
     color: 'red',
-    marginHorizontal: 35
+    marginHorizontal: 40,
+    marginTop: -15
+  },
+  cumple: {
+    marginHorizontal: 35,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    height: 60, 
+    borderColor: grey, 
+    borderWidth: 1,
+    borderStyle: "solid",
   }
 })
