@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, Button, Image, Text } from 'react-native'
 import { styles } from "./Sing-Up-Styles";
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
-                                                           
-const SignUp1 = ({navigation}) => {
+
+const SignUp1 = ({ navigation }) => {
   const [phone, setPhone] = useState('');
   const [DNI, setDNI] = useState('');
   const [CUIL, setCUIL] = useState('');
@@ -15,9 +15,9 @@ const SignUp1 = ({navigation}) => {
     invalidCUILFormat: "",
     emptyCUIL: "",
   });
-                                                               
+
   const validateForm = () => {
-    setErr({ 
+    setErr({
       invalidPhoneFormat: "",
       emptyPhone: "",
       invalidDNIFormat: "",
@@ -34,19 +34,19 @@ const SignUp1 = ({navigation}) => {
 
     if (!phone) {
       emptyPhone = 'El campo Teléfono es necesario';
-    } 
+    }
     else if (!/^[+549][0-9]{13,14}$/.test(phone)) {
       invalidPhoneFormat = " Formato de correo incorrecto, debe ser del tipo \n +549 11 2345 6789";
     }
     if (!DNI) {
       emptyDNI = 'El campo DNI es necesario';
-    } 
+    }
     else if (!/^[0-9]{8}$/.test(DNI)) {
       invalidDNIFormat = " El DNI debe tener 8 dígitos";
     }
     if (!CUIL) {
       emptyCUIL = 'El campo CUIL es necesario';
-    } 
+    }
     else if (!/^[0-9]{11}$/.test(CUIL)) {
       invalidCUILFormat = " Debe tener 11 dígitos";
     }
@@ -61,7 +61,7 @@ const SignUp1 = ({navigation}) => {
       navigation.navigate('SignUp2');
     }
   }
-                                                             
+
   return (
     <View style={styles.container}>
       <View style={styles.centered}>
@@ -77,7 +77,7 @@ const SignUp1 = ({navigation}) => {
         value={phone}
         placeholder='+54 9 11 1234-5678'
         placeholderTextColor={grey}
-        textContentType= "telephoneNumber"
+        textContentType="telephoneNumber"
       />
       {
         Err.emptyPhone ? (<Text style={styles.error}>{Err.emptyPhone}</Text>) : null
@@ -117,14 +117,14 @@ const SignUp1 = ({navigation}) => {
         <Button
           title='Anterior'
           color={orange}
-          onPress={()=> navigation.navigate('SignUp')}
-          />
+          onPress={() => navigation.navigate('SignUp')}
+        />
         <View style={styles.separator}></View>
         <Button
           title='Siguiente'
           color={darkBlue}
-          onPress={()=> handleOnPress()}
-          />
+          onPress={() => navigation.navigate('SignUp2')}
+        />
       </View>
     </View>
   )
