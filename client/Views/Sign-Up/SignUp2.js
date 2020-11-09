@@ -2,12 +2,7 @@ import React, {useState} from 'react';
 import { TextInput, Text, View, Button, Image } from 'react-native';
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { styles } from "./Sing-Up-Styles";
-// import {
-//   TextField,
-//   FilledTextField,
-//   OutlinedTextField,
-// } from 'react-native-material-textfield';
-
+                                                              
 const SignUp2 = ({navigation}) => {
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
@@ -23,7 +18,7 @@ const SignUp2 = ({navigation}) => {
     const valid = validateForm();
     if (valid) {
       
-      navigation.navigate('SignIn')
+      navigation.navigate('Login')
     }
   }
 
@@ -75,6 +70,11 @@ const SignUp2 = ({navigation}) => {
       {
         Err.shortPasswordErr ? 
         (<Text style={styles.error}>{Err.shortPasswordErr}</Text>) :
+        null
+      }
+      {
+        Err.notNumberPasswordErr ? 
+        (<Text style={styles.error}>{Err.notNumberPasswordErr}</Text>) :
         null
       }
       <Text style={styles.label}>Repite la contraseña</Text>    

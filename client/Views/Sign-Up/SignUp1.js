@@ -53,7 +53,8 @@ const SignUp1 = ({navigation}) => {
     if (emptyPhone || invalidPhoneFormat || emptyDNI || invalidDNIFormat || emptyCUIL || invalidCUILFormat) {
       setErr({ emptyPhone, invalidPhoneFormat, emptyDNI, invalidDNIFormat, emptyCUIL, invalidCUILFormat });
       return false;
-    } else return true;
+    }
+    else return true;
   }
   const handleOnPress = () => {
     const valid = validateForm();
@@ -75,7 +76,7 @@ const SignUp1 = ({navigation}) => {
         style={[styles.inputs]}
         onChangeText={text => setPhone(text)}
         value={phone}
-        placeholder='+54 9 11 1234-5678'
+        placeholder='+5491123456789'
         placeholderTextColor={grey}
         textContentType= "telephoneNumber"
       />

@@ -46,7 +46,8 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     justifyContent: "center",
-    alignSelf: "center"
+    alignSelf: "center",
+    fontSize: 20
   },
   label: {
     marginHorizontal: 40,
@@ -74,8 +75,8 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     height: 60, 
-    borderColor: grey, 
-    borderWidth: 1,
-    borderStyle: "solid",
+    // borderColor: grey, 
+    // borderWidth: 1,
+    // borderStyle: "solid",
   }
 })
