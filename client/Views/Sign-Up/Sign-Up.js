@@ -91,7 +91,6 @@ const SignUp = ({navigation}) => {
   }
   const handleOnPress = () => {
     const valid = validateForm();
-    console.log('valid', valid)
     if (valid) {
       setBirthday(newDate);
       navigation.navigate('SignUp1')
