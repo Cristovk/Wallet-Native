@@ -4,6 +4,7 @@ import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { styles } from "./Sing-Up-Styles";
 import { addUser } from '../../Redux/User';
 import { useDispatch, useSelector } from 'react-redux';
+import db, { firebases } from '../../../firebase'
 
 const SignUp2 = ({ navigation }) => {
   const [password1, setPassword1] = useState('');
@@ -19,15 +20,31 @@ const SignUp2 = ({ navigation }) => {
   const dispatch = useDispatch()
   const user = useSelector(store => store.user.userAuth)
   const userData = useSelector(store => store.user.userData)
-  console.log(user)
-  console.log(userData)
 
-  const handleOnPress = () => {
+
+  const handleOnPress = async () => {
     const valid = validateForm();
     if (valid) {
       dispatch(addUser('password', password2));
-      Alert.alert('Cuenta creada!')
-      navigation.navigate('Login')
+      try {
+        db.auth().createUserWithEmailAndPassword(user.email, password2)
+        const docRef = firebases.collection('Users').doc()
+        await docRef.set({
+          id: docRef.id,
+          created: Date.now(),
+          name: userData.name,
+          lastName: userData.lastname,
+          // birthday: userData.birthday,
+          phone: userData.phone,
+          dni: userData.dni,
+          cuil: userData.cuil
+        })
+        Alert.alert('Cuenta creada!')
+        navigation.navigate('Login')
+      } catch (error) {
+        console.log(error)
+      }
+
     }
   }
 
