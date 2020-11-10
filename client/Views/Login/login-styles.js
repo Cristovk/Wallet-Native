@@ -11,12 +11,6 @@ const styles = StyleSheet.create({
       fontWeight:'600',
       color:'#fc7029'
     },
-    input:{
-      height:40,
-      margin:10,
-      width:200,
-      padding:10
-    },
     button:{
       width:150
     },
@@ -27,10 +21,6 @@ const styles = StyleSheet.create({
     },
     link:{
       color:'darkblue'
-    },contentInput:{
-      width:200,
-      height:50,
-      marginBottom: 70,
     }
   });
 
