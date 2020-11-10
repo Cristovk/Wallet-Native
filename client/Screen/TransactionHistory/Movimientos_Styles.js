@@ -28,7 +28,6 @@ const style = StyleSheet.create({
       height: 79,
       width: "100%",
       marginBottom: 0,
-      // position: "fixed"
     },
     boton2: {
       marginTop: 15,

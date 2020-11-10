@@ -12,12 +12,7 @@ const historial = (lista,{ navigation }) => {
           <ListItem.Title >{item.title}</ListItem.Title>
           <ListItem.Subtitle>{`${item.type}`}</ListItem.Subtitle>
         </ListItem.Content>
-      
          <Text style={{marginRight:3}}>{`$${item.amount}`}</Text>
-        
-        
-       
-       
         <ListItem.Chevron />
       </ListItem>
     ))
