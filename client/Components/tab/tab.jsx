@@ -5,7 +5,7 @@ import { Icon } from 'react-native-elements'
 // COMPONENTES
 import Home from '../../Screen/Home/home';
 import Transferencias from '../../Screen/transferencias';
-// import Perfil from '../../Screen/Perfil/Perfil';
+import Perfil from '../../Screen/Perfil/Perfil';
 
 // Creamos el navegador
 const Tab = createBottomTabNavigator();
@@ -35,7 +35,7 @@ export default function MyTab() {
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Transferencias" component={Transferencias} />
-      {/* <Tab.Screen name="Perfil" component={Perfil}/> */}
+      <Tab.Screen name="Perfil" component={Perfil} />
     </Tab.Navigator>
   )
 }
