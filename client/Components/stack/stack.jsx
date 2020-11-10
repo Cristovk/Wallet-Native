@@ -37,7 +37,7 @@ const HomeScreenStack = createStackNavigator()
 export default function MyStack() {
   return (
     <Stack.Navigator>
-      {/* <Stack.Screen name='Login' component={Login} options={{headerShown:false}}/>  */}
+      <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
       <Stack.Screen name='HomeDrawer' component={MyDrowner} options={{ headerShown: false }} />
       <Stack.Screen
         name="SignUp"
