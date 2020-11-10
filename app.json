@@ -5,14 +5,15 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
+
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover"
+    },
+
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -23,10 +24,18 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+
+      "splash": {
+        "image": "./assets/splash.png",
+        "resizeMode": "cover"
       }
+
     },
     "web": {
       "favicon": "./assets/favicon.png"
     }
+
+
   }
 }
