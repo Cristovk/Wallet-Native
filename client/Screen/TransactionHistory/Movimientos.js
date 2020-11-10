@@ -1,7 +1,6 @@
 import React, { useEffect, useState} from 'react'
-import { View, Text, ScrollView,Image, TouchableOpacity, Dimensions } from 'react-native'
-import { Icon , ButtonGroup} from 'react-native-elements'
-import logo from "../../../assets/index"
+import { View,ScrollView } from 'react-native'
+import {ButtonGroup} from 'react-native-elements'
 import style from "./Movimientos_Styles"
 import historial from "./utils"
 //import { PieChart} from 'react-native-svg-charts'
@@ -100,6 +99,34 @@ const Movimientos = ({ navigation }) => {
       amount: 560,
       purchaseId: 6,
       type: "Videojuegos"
+    },
+    {
+      title: 'Netflix',
+      icon: 'av-timer',
+      amount: 645,
+      purchaseId: 1,
+      type: "Entretenimiento"
+    },
+    {
+      title: 'Medialunas del abuelo',
+      icon: 'flight-takeoff',
+      amount: 5000,
+      purchaseId: 2,
+      type: "Panaderia"
+    },
+    {
+      title: 'Netflix',
+      icon: 'av-timer',
+      amount: 645,
+      purchaseId: 1,
+      type: "Entretenimiento"
+    },
+    {
+      title: 'Medialunas del abuelo',
+      icon: 'flight-takeoff',
+      amount: 5000,
+      purchaseId: 2,
+      type: "Panaderia"
     }
     
   ]
@@ -116,81 +143,19 @@ const Movimientos = ({ navigation }) => {
   
   return (
    
-   <View style={{flex:1}}>
+      <View>
+
+        <View >
+          <ButtonGroup
+              onPress={setSelectedIndex}
+              selectedIndex={selectedIndex}
+              buttons={buttons}
+              containerStyle={{height: 50}}
+          />
+        </View>
       
-      <View style={style.barraSuperior}>
-        <TouchableOpacity
-          style={style.boton}
-          onPress={() => navigation.openDrawer()}
-        >
+        <ScrollView style={style.lista}>{historial(list, { navigation })}</ScrollView>  
 
-        <Icon
-           name="nav-icon-a"
-            type='fontisto'
-            onPress={() => navigation.openDrawer()}
-          />
-
-        </TouchableOpacity>
-
-        <Text style={style.saludo}>Mis Gastos</Text>
-
-        <Image
-          source={{ uri: 'https://3.bp.blogspot.com/-Zzvuxxgv-lA/XNselEiCizI/AAAAAAABS5E/HDEhGUaOK_QGvCREWJ0rcFR4bxWlm58XwCLcBGAs/s200/4076.jpg' }}
-          style={{ width: 60, height: 60, borderRadius: 50 }}
-        />
-
-      </View>
-
-     
-      
-
-
-
-      <View style={style.opciones}>
-        <ButtonGroup
-            onPress={setSelectedIndex}
-            selectedIndex={selectedIndex}
-            buttons={buttons}
-            containerStyle={{height: 50}}
-        />
-
-      </View>
-     
-       <ScrollView style={{maxHeight:200}}>{historial(list, { navigation })}</ScrollView> 
-      
-
-      <View style={style.barraInferior}>
-        <TouchableOpacity
-          style={style.boton2}
-          onPress={() => navigation.navigate('Transferencias')}
-        >
-          {/* <Text>Enviar/Recibir</Text> */}
-          <Icon name='arrow-swap'
-            type='fontisto'
-            size={35}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={style.botonHome}
-          onPress={() => navigation.navigate('Home')}
-        >
-          <Icon
-            name="home"
-            type='fontisto'
-            size={35}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={style.boton2}
-          onPress={() => navigation.navigate('Balance')}
-        >
-          <Icon
-            name="bar-chart"
-            type='fontisto'
-            size={35}
-          />
-        </TouchableOpacity>
-      </View>
     </View>
   )
 }
