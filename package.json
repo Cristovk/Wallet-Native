@@ -19,6 +19,7 @@
     "expo-status-bar": "~1.0.2",
     "firebase": "^8.0.1",
     "firebase-admin": "^9.3.0",
+    "firebase-functions": "^3.11.0",
     "native-base": "^2.13.14",
     "node-env-file": "^0.1.8",
     "react": "16.13.1",
