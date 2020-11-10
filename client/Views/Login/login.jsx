@@ -25,9 +25,9 @@ const Login = ({ navigation }) => {
   const login = () => {
     db.auth().signInWithEmailAndPassword(text.email, text.password)
       .then(res => {
-        navigation.navigate('Home')
-        Alert.alert(JSON.stringify(res.user[0] && res.user[0].name)
-        )
+        navigation.navigate('HomeDrawer')
+        // Alert.alert(JSON.stringify(res.user[0] && res.user[0].name)
+        // )
       })
       .catch(function (error) {
 
@@ -37,6 +37,7 @@ const Login = ({ navigation }) => {
           [{ text: 'continuar' }]
         )
       })
+      // hasta que funcione el back
 
     // Alert.alert(
     //     "Bienvenido!",
