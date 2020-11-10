@@ -1,5 +1,6 @@
 import React from 'react';
 import {StatusBar} from 'react-native';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider as ProviderPaper } from 'react-native-paper';
 import 'react-native-gesture-handler';
@@ -7,6 +8,9 @@ import {Provider} from 'react-redux';
 import generateStore from './client/Redux/Store/store';
 
 const store = generateStore();
+
+import Recargas from './client/Screen/Recargas/Recargas';
+
 
 // NAVIGATOR PRINCIPAL
 import MyStack from './client/Components/stack/stack';
@@ -16,6 +20,7 @@ import MyStack from './client/Components/stack/stack';
 export default function App() {
   return (
     /* para agregar mas pantallas */
+
     <Provider store={store}>
       <ProviderPaper>
         <NavigationContainer>
@@ -25,5 +30,6 @@ export default function App() {
       </ProviderPaper>
     </Provider>
   
+
   );
 }

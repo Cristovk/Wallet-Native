@@ -21,7 +21,7 @@ const Formulario = ({data}) => {
                     onChangeText={(data)=>setDatos({...datos,nombre:data})}
                   
                 />
-              <Text style={styles.padrelapiz} onPress={()=>setActivos({...activos,nombre:false})}><Lapiz /></Text>  
+              <Text style={styles.padrelapiz}><Lapiz /></Text>  
              
             </View>
 
@@ -32,7 +32,7 @@ const Formulario = ({data}) => {
                     style={styles.inputperfil}
                     onChangeText={(data)=>setDatos({...datos,correo:data})}
                 />
-                      <Text style={styles.padrelapiz} onPress={()=>setActivos({...activos,correo:false})}><Lapiz /></Text>   
+                     <Text style={styles.padrelapiz}><Lapiz /></Text>  
             </View>
 
             <View style={styles.grupoform}>
@@ -43,7 +43,7 @@ const Formulario = ({data}) => {
                     onChangeText={(data)=>setDatos({...datos,telefono:data})}
                    
                 />
-                <Text style={styles.padrelapiz} onPress={()=>setActivos({...activos,telefono:false})}><Lapiz /></Text>   
+                <Text style={styles.padrelapiz}><Lapiz /></Text>    
             </View>
 
             <View style={styles.grupoform}>
@@ -53,7 +53,7 @@ const Formulario = ({data}) => {
                      style={styles.inputperfil}
                      onChangeText={(data)=>setDatos({...datos,nacimiento:data})}
                 />
-                <Text style={styles.padrelapiz} onPress={()=>setActivos({...activos,nacimiento:false})}><Lapiz /></Text>   
+               <Text style={styles.padrelapiz}><Lapiz /></Text>    
             </View>
 
             <View style={styles.grupoform}>
@@ -63,7 +63,7 @@ const Formulario = ({data}) => {
                     style={styles.inputperfil}
                     onChangeText={(data)=>setDatos({...datos,dni:data})}
                 />
-                   <Text style={styles.padrelapiz} onPress={()=>setActivos({...activos,dni:false})}><Lapiz /></Text>   
+                 <Text style={styles.padrelapiz}><Lapiz /></Text>    
             </View>
 
             <View style={styles.grupoform}>
@@ -73,7 +73,7 @@ const Formulario = ({data}) => {
                     style={styles.inputperfil}
                     onChangeText={(data)=>setDatos({...datos,ocupacion:data})}
                 />
-                    <Text style={styles.padrelapiz} onPress={()=>setActivos({...activos,ocupacion:false})}><Lapiz /></Text>   
+                   <Text style={styles.padrelapiz}><Lapiz /></Text>     
             </View>
 
         </View>
