@@ -3,6 +3,7 @@ import {StatusBar} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { Provider as ProviderPaper } from 'react-native-paper'
 import 'react-native-gesture-handler'
+import Recargas from './client/Screen/Recargas/Recargas';
 
 // NAVIGATOR PRINCIPAL
 import MyStack from './client/Components/stack/stack'
@@ -14,8 +15,9 @@ export default function App() {
     /* para agregar mas pantallas */
     <ProviderPaper>
       <NavigationContainer>
-        <MyStack />
-        <StatusBar barStyle='light-content'/>
+         <MyStack />
+        <StatusBar barStyle='light-content'/> 
+
       </NavigationContainer>
     </ProviderPaper>
   );
