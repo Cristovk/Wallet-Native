@@ -49,11 +49,10 @@ const Login = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>$ald∞</Text>
-      <View style={styles.contentInput}>
+      <View style={{width:'90%'}}>
         <Input
           textContentType='emailAddress'
           autoCompleteType='email'
-          /* style={styles.input} */
           label=' Email'
           leftIcon={{ type: 'font-awesome', name: 'envelope' }}
           placeholderTextColor='grey'
@@ -65,7 +64,6 @@ const Login = ({ navigation }) => {
         <Input
           secureTextEntry={true}
           autoCompleteType='password'
-          /* style={styles.input} */
           label='Password'
           leftIcon={{ type: 'font-awesome', name: 'lock' }}
           placeholderTextColor='grey'
@@ -74,15 +72,16 @@ const Login = ({ navigation }) => {
           defaultValue={text.password}
         />
       </View>
-      <Button
-        style={styles.button}
-        mode='contained'
-        title='Login'
-        onPress={login}
-        color='darkblue'
-      >
-        Login
-            </Button>
+      <View style={styles.button}>
+        <Button
+          mode='contained'
+          title='Login'
+          onPress={login}
+          color='darkblue'
+        >
+          Login
+        </Button>
+      </View>
       <View style={styles.viewLinks}>
         <TouchableOpacity
           onPress={() => navigation.navigate('SignUp')}
