@@ -12,7 +12,8 @@ const style = StyleSheet.create({
   input: {
     width: '75%',
     height: 30,
-    borderRadius: 10
+    borderRadius: 10,
+    marginStart: 40
   },
   opciones: {
     alignItems: 'center',
@@ -25,9 +26,21 @@ const style = StyleSheet.create({
   wifi: {
     paddingStart: 20
   },
-  lista: {
+  qr: {
+    backgroundColor: "#FC7029",
+    height: 50,
+    width: 300,
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
+    alignItems: "center",
+    borderRadius: 10
+
+  },
+  qrContainer: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "center",
+    position: "relative"
   }
 })
 

@@ -9,8 +9,6 @@ import generateStore from './client/Redux/Store/store';
 
 const store = generateStore();
 
-import Recargas from './client/Screen/Recargas/Recargas';
-
 
 // NAVIGATOR PRINCIPAL
 import MyStack from './client/Components/stack/stack';

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity, ScrollView, Button } from 'react-native'
 import { Icon } from 'react-native-elements';
 import styles from './estilosPerfil';
 import Formulario from './Formulario';
@@ -42,7 +42,6 @@ const Perfil = (props) => {
 
 
         <View style={styles.generalvolver}>
-
           <TouchableOpacity style={styles.btnvolver} onPress={() => props.navigation.goBack()}>
             <Text style={styles.link}>Guardar</Text>
           </TouchableOpacity>

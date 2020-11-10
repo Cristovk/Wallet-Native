@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { Icon } from 'react-native-elements'
@@ -17,6 +17,11 @@ import SignUp1 from '../../Views/Sign-Up/SignUp1'
 import SignUp2 from '../../Views/Sign-Up/SignUp2'
 import TransactionHistory from '../../Screen/TransactionHistory/Movimientos'
 import Detalle from '../../Screen/TransactionHistory/DetailOfTransaction'
+import Recargas from '../../Screen/Recargas/Recargas';
+import { firebases } from '../../../firebase'
+
+
+
 // NAVIGATORS
 import MyTab from '../tab/tab'
 import MyDrowner from '../drawer/drawer'
@@ -24,6 +29,7 @@ import MyDrowner from '../drawer/drawer'
 // Creamos los navegadores
 const Stack = createStackNavigator()
 const HomeScreenStack = createStackNavigator()
+
 
 // Navegador Inicial para ingresar a la wallet (importado en App.js)
 export default function MyStack() {
@@ -52,6 +58,27 @@ export default function MyStack() {
 
 // Navegador que se encarga de darle cabeceras a los componentes y renderizarlos (importado en drawer.jsx)
 export function HomeScreen() {
+  const [users, setUsers] = useState([])
+
+
+  useEffect(() => {
+    firebases.collection('Users').onSnapshot(querySnapshot => {
+
+      const users = []
+
+      querySnapshot.docs.forEach(doc => {
+        const { name, id, birthday } = doc.data() //Como necesito guardar esos datos, hago destructuring de la data.
+        users.push({ //Lo guardamos principalmente en este array nuevo que creamos.
+          name,
+          id,
+          birthday
+        })
+      })
+      setUsers(users)
+    })
+  }, [])
+
+
   return (
     <HomeScreenStack.Navigator screenOptions={{ // Personalizamos las cabeceras en general
       headerStyle: {
@@ -71,7 +98,7 @@ export function HomeScreen() {
               type='ionicon'
             />
           </TouchableOpacity>),
-        title: 'Bienvenido Pepe!',
+        title: `Bienvenido ${users[0] && users[0].name}`,
         headerTitleAlign: 'center',
         headerRight: () => (
           <TouchableOpacity
@@ -93,7 +120,8 @@ export function HomeScreen() {
       <HomeScreenStack.Screen name='Ayuda' component={Ayuda} options={{ title: 'Soporte y Atención' }} />
       <HomeScreenStack.Screen name='Balance' component={Balance} options={{ title: 'Mi Balance' }} />
       <HomeScreenStack.Screen name='Detalle' component={Detalle} options={{ title: 'Detalle de la transaccion' }} />
-    </HomeScreenStack.Navigator>
+      <HomeScreenStack.Screen name='Recargas' component={Recargas} options={{ title: 'Recargar' }} />
+    </HomeScreenStack.Navigator >
   )
 }
 

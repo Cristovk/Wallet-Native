@@ -14,7 +14,7 @@ const Pagos = ({ navigation }) => {
           <TextInput placeholder="Buscar Servicio" style={style.input} />
           <TouchableOpacity
             onPress={() => Alert.alert('buscando')}
-            style={{ marginStart: 20 }}
+            style={{ marginStart: 10 }}
           >
             <Icon
               name="search"
@@ -71,17 +71,33 @@ const Pagos = ({ navigation }) => {
           <Text>Agua</Text>
         </TouchableOpacity>
       </View>
-      <ListItem>
-        <ListItem.Chevron />
-        <ListItem.Content style={style.lista}>
-          <ListItem.Title>Netflix</ListItem.Title>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Transferencias')}
-          >
-            <Text>Pagar</Text>
-          </TouchableOpacity>
-        </ListItem.Content>
-      </ListItem>
+      <View style={style.lista}>
+
+        <ListItem>
+          <ListItem.Chevron />
+          <ListItem.Content style={style.lista}>
+            <ListItem.Title>Netflix</ListItem.Title>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Transferencias')}
+            >
+              <Text>Pagar</Text>
+            </TouchableOpacity>
+          </ListItem.Content>
+        </ListItem>
+      </View>
+      <View style={style.qrContainer} >
+        <TouchableOpacity
+          onPress={() => Alert.alert('QR')}
+          style={style.qr}
+        >
+          <Text style={{ fontWeight: "bold", fontSize: 20 }}>Escanear QR</Text>
+          <Icon
+            name="qrcode"
+            type="fontisto"
+            size={30}
+          />
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   )
 }

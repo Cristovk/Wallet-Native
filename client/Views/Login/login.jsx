@@ -19,7 +19,7 @@ const Login = ({ navigation }) => {
       [name]: value
     })
   }
-  
+
 
 
   const login = () => {
@@ -37,7 +37,7 @@ const Login = ({ navigation }) => {
           [{ text: 'continuar' }]
         )
       })
-      // hasta que funcione el back
+    // hasta que funcione el back
 
     // Alert.alert(
     //     "Bienvenido!",

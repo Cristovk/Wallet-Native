@@ -4,7 +4,16 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   generalperfil: {
     backgroundColor: '#fff',
-    height: '100vh'
+    height: '100%'
+  },
+  generalimagen: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingTop: 20
+  },
+  generalvolver: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   contenedorimagen: {
     borderColor: '#ccc',
@@ -14,8 +23,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 'auto',
     borderRadius: 100,
-    position: 'relative'
-
+    position: 'relative',
   },
   imagenperfil: {
     width: '96%',
@@ -25,14 +33,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     borderRadius: 100,
     left: 2,
-    top: 2
+    top: 2,
   },
-  camara: {
-    backgroundColor: 'rgba(0,0,0,.7)',
+  contenedorcamara: {
+    backgroundColor: 'rgba(0,0,0,0.7)',
     width: 35,
     height: 35,
     paddingTop: 10,
-    fontSize: 1,
     borderRadius: 100,
     right: 4,
     position: 'absolute'
@@ -53,16 +60,21 @@ const styles = StyleSheet.create({
     marginTop: 15
   },
   link: {
-    color: '#fff'
+    color: '#fff',
+    textAlign: 'center'
+  },
+  generalvolver: {
+    justifyContent: 'center',
+    flexDirection: 'row'
   },
   btnvolver: {
     backgroundColor: '#02072f',
     width: 80,
-    marginHorizontal: 'auto',
     textAlign: 'center',
     padding: 2,
     marginTop: 5,
-    borderRadius: 2
+    borderRadius: 2,
+    marginRight: 10
   }
 })
 export default styles;
