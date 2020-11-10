@@ -16,7 +16,8 @@ const Movimientos = ({ navigation }) => {
       title: 'Netflix',
       icon: 'av-timer',
       amount: 645,
-      purchaseId: 1
+      purchaseId: 1,
+      type: "Entretenimiento"
     }
   ]
   const lista1 = [
@@ -24,69 +25,81 @@ const Movimientos = ({ navigation }) => {
       title: 'Netflix',
       icon: 'av-timer',
       amount: 645,
-      purchaseId: 1
+      purchaseId: 1,
+      type: "Entretenimiento"
     },
     {
       title: 'Medialunas del abuelo',
       icon: 'flight-takeoff',
       amount: 5000,
-      purchaseId: 2
+      purchaseId: 2,
+      type: "Almacen"
     }]
   const lista = [
     {
       title: 'Netflix',
       icon: 'av-timer',
       amount: 645,
-      purchaseId: 1
+      purchaseId: 1,
+      type: "Entretenimiento"
     },
     {
       title: 'Medialunas del abuelo',
       icon: 'flight-takeoff',
       amount: 5000,
-      purchaseId: 2
+      purchaseId: 2,
+      type: "Panaderia"
     },
     {
       title: 'Carga sube',
       icon: 'flight-takeoff',
       amount: 98,
-      purchaseId: 3
+      purchaseId: 3,
+      type: "Transporte publico"
     },
     {
       title: 'Super Dia%',
       icon: 'flight-takeoff',
       amount: 789,
       date: "Sun Nov 08 2020 16:49:19 GMT-0300 (hora estándar de Argentina)",
-      purchaseId: 4
+      purchaseId: 4,
+      type: "Almacen"
     },
     {
       title: 'Factura Personal',
       icon: 'flight-takeoff',
       amount: 340,
-      purchaseId: 5
+      purchaseId: 5,
+      type: "Servicios"
+      
     },
     {
       title: 'Riot Points',
       icon: 'flight-takeoff',
       amount: 560,
-      purchaseId: 6
+      purchaseId: 6,
+      type: "Videojuegos"
     },
     {
       title: 'Riot Points',
       icon: 'flight-takeoff',
       amount: 560,
-      purchaseId: 6
+      purchaseId: 6,
+      type: "Videojuegos"
     },
     {
       title: 'Riot Points',
       icon: 'flight-takeoff',
       amount: 560,
-      purchaseId: 6
+      purchaseId: 6,
+      type: "Videojuegos"
     },
     {
       title: 'Riot Points',
       icon: 'flight-takeoff',
       amount: 560,
-      purchaseId: 6
+      purchaseId: 6,
+      type: "Videojuegos"
     }
     
   ]
