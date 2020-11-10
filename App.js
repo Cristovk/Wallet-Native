@@ -7,7 +7,8 @@ import Home from './client/Screen/Home/home';
 import Transferencias from './client/Screen/transferencias';
 import Balance from './client/Screen/Balance';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import Movimientos from './client/Screen/Movimientos';
+import Movimientos from './client/Views/TransactionHistory/Movimientos';
+import DetalleDeTransaccion from "./client/Views/TransactionHistory/DetailOfTransaction"
 import Tarjetas from './client/Screen/Tarjetas';
 import Pagos from './client/Screen/Pagos/Pagos';
 import Amigos from './client/Screen/Amigos';
@@ -40,6 +41,8 @@ function MyStack() {
       {/* <Stack.creen name='footer' component={TablaInferior} options={{ title: "Footer" }} /> */}
       <Stack.Screen name="Transferencias" component={Transferencias} options={{ title: "Transferencias" }} />
       <Stack.Screen name="Balance" component={Balance} options={{ title: "Balance" }} />
+      <Drawer.Screen name="Movimientos" component={Movimientos} options={{ title: "Mis Movimientos" }} />
+      <Drawer.Screen name="Detalle" component={DetalleDeTransaccion} options={{ title: "Detalle de la transaccion" }} />
       <Stack.Screen
         name="SignUp"
         component={SignUp}
