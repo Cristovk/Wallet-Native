@@ -1,7 +1,7 @@
 import React from 'react'
 import { ListItem} from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome5'
-import { View, Text, ScrollView, Button, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import {Text} from 'react-native'
 const historial = (lista,{ navigation }) => {
     const iconList ={Panaderia:"cookie", Almacen:"shopping-basket",Videojuegos:"gamepad", Entretenimiento:"play-circle", 
                      Transporte:"bus-alt", Gasolinera:"gas-pump", Jet:"fighter-jet", Farmacia:"first-aid", Servicios:"file-invoice-dollar"}
@@ -17,8 +17,11 @@ const historial = (lista,{ navigation }) => {
           <ListItem.Subtitle>{`${item.type}`}</ListItem.Subtitle>
         </ListItem.Content>
          <Text style={{marginRight:3}}>{`$${item.amount}`}</Text>
-        <ListItem.Chevron />
-      </ListItem>
+        <ListItem.Chevron
+         name='chevron-right'
+         type='font-awesome'
+         color="black"/>
+        </ListItem>
     ))
 }
 
