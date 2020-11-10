@@ -41,6 +41,10 @@ const style = StyleSheet.create({
     alignItems: "flex-end",
     justifyContent: "center",
     position: "relative"
+  },
+  lista: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   }
 })
 

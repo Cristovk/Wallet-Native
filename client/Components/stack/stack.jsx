@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { Icon } from 'react-native-elements'
+import db from '../../../firebase'
 
 // COMPONENTES
 import Balance from '../../Screen/Balance';
@@ -18,13 +19,14 @@ import SignUp2 from '../../Views/Sign-Up/SignUp2'
 import TransactionHistory from '../../Screen/TransactionHistory/Movimientos'
 import Detalle from '../../Screen/TransactionHistory/DetailOfTransaction'
 import Recargas from '../../Screen/Recargas/Recargas';
-import { firebases } from '../../../firebase'
+import { storage } from '../../../firebase'
 
 
 
 // NAVIGATORS
 import MyTab from '../tab/tab'
 import MyDrowner from '../drawer/drawer'
+import Transferencias from '../../Screen/Transferencias/transferencias';
 
 // Creamos los navegadores
 const Stack = createStackNavigator()
@@ -62,7 +64,7 @@ export function HomeScreen() {
 
 
   useEffect(() => {
-    firebases.collection('Users').onSnapshot(querySnapshot => {
+    storage.collection('Users').onSnapshot(querySnapshot => {
 
       const users = []
 
@@ -115,6 +117,7 @@ export function HomeScreen() {
       <HomeScreenStack.Screen name='Tarjetas' component={Tarjetas} options={{ title: 'Mis Tarjetas' }} />
       <HomeScreenStack.Screen name='Movimientos' component={TransactionHistory} options={{ title: 'Mis Movimientos' }} />
       <HomeScreenStack.Screen name='Pagos' component={Pagos} options={{ title: 'Mis Servicios' }} />
+      <HomeScreenStack.Screen name='Transferencias' component={Transferencias} options={{ title: 'Transferir' }} />
       <HomeScreenStack.Screen name='Amigos' component={Amigos} options={{ title: 'Mis Contactos' }} />
       <HomeScreenStack.Screen name='Configuracion' component={Configuracion} options={{ title: 'Ajustes' }} />
       <HomeScreenStack.Screen name='Ayuda' component={Ayuda} options={{ title: 'Soporte y Atención' }} />

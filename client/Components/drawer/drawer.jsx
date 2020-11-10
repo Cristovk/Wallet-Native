@@ -14,7 +14,7 @@ const Drawer = createDrawerNavigator();
 export default function MyDrowner(props) {
   return (
     <Drawer.Navigator drawerContent={(props) => CustomDrawerContent(props)}>
-      <Drawer.Screen name='HomeScreen' component={HomeScreen} />
+      <Drawer.Screen name='HomeScreen' component={HomeScreen} options={{ headerShown: false }} />
     </Drawer.Navigator>
   )
 }

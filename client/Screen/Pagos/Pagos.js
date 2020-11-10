@@ -71,12 +71,82 @@ const Pagos = ({ navigation }) => {
           <Text>Agua</Text>
         </TouchableOpacity>
       </View>
-      <View style={style.lista}>
+      <View>
 
         <ListItem>
           <ListItem.Chevron />
           <ListItem.Content style={style.lista}>
             <ListItem.Title>Netflix</ListItem.Title>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Transferencias')}
+            >
+              <Text>Pagar</Text>
+            </TouchableOpacity>
+          </ListItem.Content>
+        </ListItem>
+      </View>
+      <View>
+
+        <ListItem>
+          <ListItem.Chevron />
+          <ListItem.Content style={style.lista}>
+            <ListItem.Title>Youtube Premium</ListItem.Title>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Transferencias')}
+            >
+              <Text>Pagar</Text>
+            </TouchableOpacity>
+          </ListItem.Content>
+        </ListItem>
+      </View>
+      <View>
+
+        <ListItem>
+          <ListItem.Chevron />
+          <ListItem.Content style={style.lista}>
+            <ListItem.Title>Spotify</ListItem.Title>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Transferencias')}
+            >
+              <Text>Pagar</Text>
+            </TouchableOpacity>
+          </ListItem.Content>
+        </ListItem>
+      </View>
+      <View>
+
+        <ListItem>
+          <ListItem.Chevron />
+          <ListItem.Content style={style.lista}>
+            <ListItem.Title>Telecentro</ListItem.Title>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Transferencias')}
+            >
+              <Text>Pagar</Text>
+            </TouchableOpacity>
+          </ListItem.Content>
+        </ListItem>
+      </View>
+      <View>
+
+        <ListItem>
+          <ListItem.Chevron />
+          <ListItem.Content style={style.lista}>
+            <ListItem.Title>Tarjeta de Crédito</ListItem.Title>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Transferencias')}
+            >
+              <Text>Pagar</Text>
+            </TouchableOpacity>
+          </ListItem.Content>
+        </ListItem>
+      </View>
+      <View>
+
+        <ListItem>
+          <ListItem.Chevron />
+          <ListItem.Content style={style.lista}>
+            <ListItem.Title>Gas</ListItem.Title>
             <TouchableOpacity
               onPress={() => navigation.navigate('Transferencias')}
             >

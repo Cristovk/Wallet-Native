@@ -10,7 +10,7 @@ const style = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     backgroundColor: "#02072F",
-    height: 250,
+    height: 60,
     alignItems: "center",
     borderBottomRightRadius: 15,
     borderBottomLeftRadius: 15
@@ -28,6 +28,23 @@ const style = StyleSheet.create({
     color: "#FC7029",
     fontWeight: "bold",
     fontSize: 20
+  },
+  lista: {
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  input: {
+    width: 110
+  },
+  botonContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  boton: {
+    marginTop: 40,
+    backgroundColor: "#FC7029",
+    padding: 15
   }
 })
 
