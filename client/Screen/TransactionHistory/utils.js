@@ -7,7 +7,9 @@ const historial = (lista,{ navigation }) => {
                      Transporte:"bus-alt", Gasolinera:"gas-pump", Jet:"fighter-jet", Farmacia:"first-aid", Servicios:"file-invoice-dollar"}
    return lista.map((item, i) => (
       <ListItem onPress={() => navigation.navigate("Detalle", {
-        purchaseId: item.purchaseId
+        title: item.title,
+        amount: item.amount,
+        icon: item.type
       })} key={i} bottomDivider>
         <Icon name={iconList[item.type]} size={30} color="black" />
         <ListItem.Content >
