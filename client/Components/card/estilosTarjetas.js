@@ -1,11 +1,10 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet } from "react-native";
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: white,
-
   },
   title: {
     fontSize: 24,
@@ -22,4 +21,4 @@ export const styles = StyleSheet.create({
     marginVertical: 15,
     borderColor: grey,
   },
-})
+});

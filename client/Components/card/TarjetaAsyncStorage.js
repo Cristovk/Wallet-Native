@@ -1,8 +1,8 @@
 import AsyncStorage from "@react-native-community/async-storage";
 
 const TARJETA_KEY = "@tarjeta:key";
-
 async function saveTarjetas(tarjetas) {
+  console.log("saveTarjetas", tarjetas);
   try {
     await AsyncStorage.setItem(TARJETA_KEY, JSON.stringify(tarjetas));
     return JSON.stringify(tarjetas);
@@ -14,9 +14,8 @@ async function saveTarjetas(tarjetas) {
 async function getTarjetas() {
   try {
     const item = await AsyncStorage.getItem(TARJETA_KEY);
+    console.log("AsyncStorage", item);
     return JSON.parse(item);
-    // if (item) {
-    // }
   } catch (error) {
     console.log("Error de sintaxis");
     return null;
