@@ -32,7 +32,7 @@ const SignUp = ({navigation}) => {
     invalidYearFormat: "",
   });
                                                                    
-  let newDate = new Date(year, month - 1, day);
+  let newDate = new Date( month - 1, day, year);
   let actualYear = new Date().getFullYear();
 
   const validateForm = () => {
