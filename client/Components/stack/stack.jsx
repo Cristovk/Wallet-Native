@@ -7,7 +7,6 @@ import db from '../../../firebase'
 // COMPONENTES
 import Balance from '../../Screen/Balance';
 import Movimientos from '../../Screen/Movimientos';
-import Tarjetas from '../../Screen/Tarjetas';
 import Pagos from '../../Screen/Pagos/Pagos';
 import Amigos from '../../Screen/Amigos';
 import Ayuda from '../../Screen/Ayuda';
@@ -16,6 +15,10 @@ import Login from '../../Views/Login/login'
 import SignUp from '../../Views/Sign-Up/Sign-Up'
 import SignUp1 from '../../Views/Sign-Up/SignUp1'
 import SignUp2 from '../../Views/Sign-Up/SignUp2'
+
+import Tarjetas from '../card/Tarjetas';
+import AddTarjeta from '../card/AddTarjeta';
+
 import TransactionHistory from '../../Screen/TransactionHistory/Movimientos'
 import Detalle from '../../Screen/TransactionHistory/DetailOfTransaction'
 import Recargas from '../../Screen/Recargas/Recargas';
@@ -40,25 +43,10 @@ export default function MyStack() {
     <Stack.Navigator>
       {/* <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> */}
       <Stack.Screen name='HomeDrawer' component={MyDrowner} options={{ headerShown: false }} />
-      <Stack.Screen
-        name="SignUp"
-        component={SignUp}
-        options={{ title: "Registro" }}
-      />
-      <Stack.Screen
-        name="SignUp1"
-        component={SignUp1}
-        options={{ title: "Registro" }}
-      />
-      <Stack.Screen
-        name="SignUp2"
-        component={SignUp2}
-        options={{ title: "Registro" }}
-      />
-      <Stack.Screen
-        name="Verify"
-        component={Verify}
-      />
+      <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
+      <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />
+      <Stack.Screen name="SignUp2" component={SignUp2} options={{ title: "Registro" }} />
+      <Stack.Screen name="Verify" component={Verify} />
     </Stack.Navigator>
   )
 }
@@ -119,7 +107,8 @@ export function HomeScreen() {
           </TouchableOpacity>
         )
       })} />
-      <HomeScreenStack.Screen name='Tarjetas' component={Tarjetas} options={{ title: 'Mis Tarjetas' }} />
+      <HomeScreenStack.Screen name='Tarjetas' component={Tarjetas} options={{ title: 'Tus Tarjetas' }} />
+      <HomeScreenStack.Screen name='AddTarjeta' component={AddTarjeta} options={{ title: 'Añadir Tarjeta' }} />
       <HomeScreenStack.Screen name='Movimientos' component={TransactionHistory} options={{ title: 'Mis Movimientos' }} />
       <HomeScreenStack.Screen name='Pagos' component={Pagos} options={{ title: 'Mis Servicios' }} />
       <HomeScreenStack.Screen name='Transferencias' component={Transferencias} options={{ title: 'Transferir' }} />
