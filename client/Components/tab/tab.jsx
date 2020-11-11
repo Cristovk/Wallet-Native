@@ -1,6 +1,7 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {Icon} from 'react-native-elements'
+import {useSelector} from 'react-redux'
 
 // COMPONENTES
 import Home from '../../Screen/Home/home';
@@ -13,6 +14,8 @@ const Tab = createBottomTabNavigator();
 // Nos renderiza una tabBar con los componentes principales (logueado)
 export default function MyTab(){
     
+  const {primary,secondary,text,bg} = useSelector(store => store.color)
+
     return(
     <Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({ // Configuración del tabBar
       tabBarIcon: ({ focused, color, size }) => {
@@ -30,7 +33,9 @@ export default function MyTab(){
     })}
     tabBarOptions={{
       activeTintColor: '#FC7029',
-      inactiveTintColor: 'gray'
+      inactiveTintColor: 'gray',
+      activeBackgroundColor: bg,
+      inactiveBackgroundColor: bg
     }}
     >
       <Tab.Screen name="Home" component={Home}/>

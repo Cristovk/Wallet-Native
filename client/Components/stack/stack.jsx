@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Image, TouchableOpacity, StyleSheet} from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { Icon} from 'react-native-elements'
+import {useSelector} from 'react-redux'
 
 // COMPONENTES
 import Balance from '../../Screen/Balance';
@@ -17,6 +18,7 @@ import SignUp1 from '../../Views/Sign-Up/SignUp1'
 import SignUp2 from '../../Views/Sign-Up/SignUp2'
 import TransactionHistory from '../../Screen/TransactionHistory/Movimientos'
 import Detalle from '../../Screen/TransactionHistory/DetailOfTransaction'
+
 // NAVIGATORS
 import MyTab from '../tab/tab'
 import MyDrowner from '../drawer/drawer'
@@ -26,11 +28,13 @@ const Stack = createStackNavigator()
 const HomeScreenStack = createStackNavigator()
 
 // Navegador Inicial para ingresar a la wallet (importado en App.js)
-export default function MyStack() {
-    return (
+export default function MyStack(props) {
+  console.log(props)  
+  
+  return (
       <Stack.Navigator>
-        {/* <Stack.Screen name='Login' component={Login} options={{headerShown:false}}/>  */}
-        <Stack.Screen name='HomeDrawer' component ={MyDrowner} options={{headerShown:false}}/>
+        <Stack.Screen name='Login' component={Login} options={{headerShown:false}}/> 
+        <Stack.Screen name='HomeDrawer' component ={MyDrowner} initialParams={props} options={{headerShown:false}}/>
         <Stack.Screen
           name="SignUp"
           component={SignUp}
@@ -51,14 +55,17 @@ export default function MyStack() {
   }
 
 // Navegador que se encarga de darle cabeceras a los componentes y renderizarlos (importado en drawer.jsx)
-export function HomeScreen(){
+export function HomeScreen(props){
+  console.log(props)
+  const darker = props.route.params
+  const {primary,secondary,text,bg} = useSelector(store => store.color)
+
     return(
       <HomeScreenStack.Navigator screenOptions={{ // Personalizamos las cabeceras en general
         headerStyle:{
-          backgroundColor:"#02072F",
-          borderColor:'none'
+          backgroundColor: primary
         },
-        headerTintColor:"#FC7029"
+        headerTintColor: secondary
       }}>
         <HomeScreenStack.Screen name='HomeTab' component={MyTab} options={({navigation})=>({ // Personalizamos las cabeceras de los atajos principales
           headerLeft: () => (
@@ -89,7 +96,7 @@ export function HomeScreen(){
         <HomeScreenStack.Screen name='Movimientos' component={TransactionHistory} options={{title:'Mis Movimientos'}}/>
         <HomeScreenStack.Screen name='Pagos' component={Pagos} options={{title:'Mis Servicios'}}/>
         <HomeScreenStack.Screen name='Amigos' component={Amigos} options={{title:'Mis Contactos'}}/>
-        <HomeScreenStack.Screen name='Configuracion' component={Configuracion} options={{title:'Ajustes'}}/>
+        <HomeScreenStack.Screen name='Configuracion' component={Configuracion} initialParams={darker} options={{title:'Ajustes'}}/>
         <HomeScreenStack.Screen name='Ayuda' component={Ayuda} options={{title:'Soporte y Atención'}}/>
         <HomeScreenStack.Screen name='Balance' component={Balance} options={{title:'Mi Balance'}}/>
         <HomeScreenStack.Screen name='Detalle' component={Detalle} options={{title:'Detalle de la transaccion'}}/>

@@ -38,7 +38,7 @@ const Login = ({ navigation }) => {
         )
       })
       // hasta que funcione el back
-
+      navigation.navigate('HomeDrawer')
     // Alert.alert(
     //     "Bienvenido!",
     //     "Serás redirigido a tu perfil.",
