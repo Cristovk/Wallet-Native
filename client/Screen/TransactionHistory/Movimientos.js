@@ -1,11 +1,12 @@
 import React, { useEffect, useState} from 'react'
-import { View,ScrollView } from 'react-native'
+import { View,ScrollView ,Dimensions} from 'react-native'
 import {ButtonGroup, Overlay, Button, Text, Icon} from 'react-native-elements'
 import style from "./Movimientos_Styles"
 import historial from "./utils"
 //import { PieChart} from 'react-native-svg-charts'
 
 const Movimientos = ({ navigation }) => {
+  const windowHeight = Dimensions.get('window').height;
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [list, setList] = useState([]);
   const buttons = ['Hoy', 'Semana', 'Mes']
@@ -168,7 +169,7 @@ const Movimientos = ({ navigation }) => {
               />
           </View>
         
-          <ScrollView style={style.lista}>{historial(list, { navigation })}</ScrollView>  
+          <ScrollView style={{maxHeight:windowHeight}}>{historial(list, { navigation })}</ScrollView>  
 
     </View>
   )

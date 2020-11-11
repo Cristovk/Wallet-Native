@@ -2,7 +2,6 @@
 import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/functions'
-import * as admin from 'firebase-admin';
 
 
 const db = firebase.initializeApp({
