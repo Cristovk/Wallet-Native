@@ -9,7 +9,7 @@ import generateStore from './client/Redux/Store/store';
 
 const store = generateStore();
 
-import Recargas from './client/Screen/Recargas/Recargas';
+
 
 
 // NAVIGATOR PRINCIPAL
@@ -24,8 +24,9 @@ export default function App() {
     <Provider store={store}>
       <ProviderPaper>
         <NavigationContainer>
-          <MyStack />
+           <MyStack />
           <StatusBar barStyle='light-content'/>
+    
         </NavigationContainer>
       </ProviderPaper>
     </Provider>

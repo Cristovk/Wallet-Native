@@ -36,14 +36,24 @@ const styles = StyleSheet.create({
         left: 2,
         top: 2,
     },
+    cambiarimagen:{
+        backgroundColor: 'rgba(0,0,0,0.1)',
+        width: 35,
+        height: 35,
+        position:'relative',
+        borderRadius: 100,
+        left:60,
+        paddingTop:10
+    },
     contenedorcamara: {
         backgroundColor: 'rgba(0,0,0,0.7)',
         width: 35,
         height: 35,
         paddingTop: 10,
         borderRadius: 100,
-        right: 4,
-        position: 'absolute'
+        left:60,
+        position: 'relative',
+      
     },
     nombreusuario: {
         textAlign: 'center',
