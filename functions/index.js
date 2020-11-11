@@ -144,11 +144,4 @@ ex.post('/api/user-try', async (req, res) =>{
 
 
 
-<<<<<<< HEAD
 exports.ex = functions.https.onRequest(ex);
-=======
-
-exports.ex = functions.https.onRequest(ex);
-
-
->>>>>>> df9b8285aa4f5a227c5ecf884e8f12fba68efefa

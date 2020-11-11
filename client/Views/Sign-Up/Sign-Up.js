@@ -31,13 +31,8 @@ const SignUp = ({ navigation }) => {
     emptyYear: "",
     invalidYearFormat: "",
   });
-<<<<<<< HEAD
 
-  let newDate = new Date(year, month - 1, day);
-=======
-                                                                   
-  let newDate = new Date( month - 1, day, year);
->>>>>>> 93b196104c0f6f0654f0dd930adeda91de30f291
+  let newDate = new Date(month - 1, day, year);
   let actualYear = new Date().getFullYear();
 
   const validateForm = () => {
