@@ -2,10 +2,16 @@ import React, {useState} from 'react';
 import { Text, View, Dimensions, Image, TextInput, Button, ScrollView } from 'react-native';
 import { styles } from "./Sing-Up-Styles";
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
-Dimensions.get('window').width
-Dimensions.get('window').height
+import {addUser, saveData } from '../../Redux/User'
+import {useDispatch} from 'react-redux'
+
+
+
+Dimensions.get('window').width;
+Dimensions.get('window').height;
                                                                        
 const SignUp = ({navigation}) => {
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
@@ -26,7 +32,7 @@ const SignUp = ({navigation}) => {
     invalidYearFormat: "",
   });
                                                                    
-  let newDate = new Date(year, month - 1, day);
+  let newDate = new Date( month - 1, day, year);
   let actualYear = new Date().getFullYear();
 
   const validateForm = () => {
@@ -89,9 +95,19 @@ const SignUp = ({navigation}) => {
     } 
     else return true;
   }
+
+  let info = {
+    name:name,
+    lastname:lastname,
+    birthday:birthday
+  }
+
   const handleOnPress = () => {
+    console.log(info)
     const valid = validateForm();
     if (valid) {
+      dispatch(addUser('email', email))
+      dispatch(saveData(info))
       setBirthday(newDate);
       navigation.navigate('SignUp1')
     }

@@ -15,7 +15,9 @@ import Login from '../../Views/Login/login'
 import SignUp from '../../Views/Sign-Up/Sign-Up'
 import SignUp1 from '../../Views/Sign-Up/SignUp1'
 import SignUp2 from '../../Views/Sign-Up/SignUp2'
-
+import TransactionHistory from '../../Screen/TransactionHistory/Movimientos'
+import Detalle from '../../Screen/TransactionHistory/DetailOfTransaction'
+import Verify from "../../Screen/verificacion/verify"
 // NAVIGATORS
 import MyTab from '../tab/tab'
 import MyDrowner from '../drawer/drawer'
@@ -44,6 +46,10 @@ export default function MyStack() {
           name="SignUp2"
           component={SignUp2}
           options={{ title: "Registro" }}
+        />
+         <Stack.Screen
+          name="Verify"
+          component={Verify}
         />
       </Stack.Navigator>
     )
@@ -85,12 +91,13 @@ export function HomeScreen(){
           )
         })}/>
         <HomeScreenStack.Screen name='Tarjetas' component={Tarjetas} options={{title:'Mis Tarjetas'}}/>
-        <HomeScreenStack.Screen name='Movimientos' component={Movimientos} options={{title:'Mis Movimientos'}}/>
+        <HomeScreenStack.Screen name='Movimientos' component={TransactionHistory} options={{title:'Mis Movimientos'}}/>
         <HomeScreenStack.Screen name='Pagos' component={Pagos} options={{title:'Mis Servicios'}}/>
         <HomeScreenStack.Screen name='Amigos' component={Amigos} options={{title:'Mis Contactos'}}/>
         <HomeScreenStack.Screen name='Configuracion' component={Configuracion} options={{title:'Ajustes'}}/>
         <HomeScreenStack.Screen name='Ayuda' component={Ayuda} options={{title:'Soporte y Atención'}}/>
         <HomeScreenStack.Screen name='Balance' component={Balance} options={{title:'Mi Balance'}}/>
+        <HomeScreenStack.Screen name='Detalle' component={Detalle} options={{title:'Detalle de la transaccion'}}/>
       </HomeScreenStack.Navigator>
     )
 }

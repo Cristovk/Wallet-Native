@@ -1,7 +1,7 @@
-import firebase from 'firebase/app'
+ import firebase from 'firebase/app'
 import 'firebase/auth'
-import 'firebase/storage'
 import 'firebase/firestore'
+import 'firebase/functions'
 
 
 const db = firebase.initializeApp({
@@ -16,7 +16,7 @@ const db = firebase.initializeApp({
 });
 
 
-export const firebases = firebase.firestore()
 export const auth = db.auth()
-export const storage = db.storage()
+export const storage = db.firestore()
+export const functions =  db.functions()
 export default db
