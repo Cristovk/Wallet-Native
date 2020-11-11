@@ -32,7 +32,7 @@ export const signupUser = (userDetails) => {
         .catch(error => {
             console.log('Something went wrong with sign up: ', error);
         }
-    },
+    };
 };
 
 

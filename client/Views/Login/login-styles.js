@@ -21,6 +21,8 @@ const styles = StyleSheet.create({
     },
     link:{
       color:'darkblue'
+    },contentInput:{
+      width:250
     }
   });
 
