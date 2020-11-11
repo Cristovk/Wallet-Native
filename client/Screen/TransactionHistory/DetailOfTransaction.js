@@ -2,12 +2,12 @@ import React from 'react'
 import { View, Text} from 'react-native'
 import { Divider ,ListItem, Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import {generateInvoice}from './utils'
 const DetalleDeTransaccion = ({ route, navigation }) => {
     const {title, amount, icon} = route.params;
     const iconList ={Panaderia:"cookie", Almacen:"shopping-basket",Videojuegos:"gamepad", Entretenimiento:"play-circle", 
                      Transporte:"bus-alt", Gasolinera:"gas-pump", Jet:"fighter-jet", Farmacia:"first-aid", 
                      Servicios:"file-invoice-dollar"}
-    
     return(
         <View>
             <View style={{backgroundColor: "#02072F", height: 150, alignItems:"center"}}>
@@ -49,8 +49,8 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
             </View>  
         <View style={{alignItems:"center"}}>
         <Button 
-         containerStyle={{borderRadius:30, width:"75%", marginTop:10}}
-          onPress={()=> alert("despues lo hago")}
+         containerStyle={{borderRadius:30, width:"75%", marginTop:"25%"}}
+          onPress={()=> generateInvoice(title, amount, icon)}
             icon={{
                 name: "receipt",
                 size: 20,

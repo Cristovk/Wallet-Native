@@ -2,7 +2,7 @@ import React, { useEffect, useState} from 'react'
 import { View,ScrollView ,Dimensions} from 'react-native'
 import {ButtonGroup, Overlay, Button, Text, Icon} from 'react-native-elements'
 import style from "./Movimientos_Styles"
-import historial from "./utils"
+import {historial} from "./utils"
 //import { PieChart} from 'react-native-svg-charts'
 
 const Movimientos = ({ navigation }) => {
