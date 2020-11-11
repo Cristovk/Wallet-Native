@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, ScrollView} from 'react-native'
 import { ListItem } from 'react-native-elements'
-import { firebases } from '../../../firebase'
+import { storage } from '../../../firebase'
 import style from './homeStyles'
 
 const Home = () => {
@@ -10,7 +10,7 @@ const Home = () => {
 
 
   useEffect(() => {
-    firebases.collection('Users').onSnapshot(querySnapshot => {
+    storage.collection('Users').onSnapshot(querySnapshot => {
 
       const users = []
 

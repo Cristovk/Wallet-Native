@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { View, Text,Alert, TouchableOpacity } from 'react-native'
+import { View, Text,/* Button, */ Alert, TouchableOpacity } from 'react-native'
 import styles from './login-styles'
-import { Input, Button } from 'react-native-elements'
+import { TextInput, Button } from 'react-native-paper'
+import { Input } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import db from "../../../firebase"
 
 const Login = ({ navigation }) => {
@@ -17,14 +19,19 @@ const Login = ({ navigation }) => {
       [name]: value
     })
   }
+  
 
 
   const login = () => {
+    //Loguea usuario
     db.auth().signInWithEmailAndPassword(text.email, text.password)
       .then(res => {
-        navigation.navigate('Home')
-        Alert.alert(JSON.stringify(res.user[0] && res.user[0].name)
-        )
+        //Valida si el mail se verificó
+        if(res.user.emailVerified){
+          navigation.navigate('HomeDrawer')
+        }else{
+          navigation.navigate('Verify')
+        }
       })
       .catch(function (error) {
 
@@ -35,7 +42,7 @@ const Login = ({ navigation }) => {
         )
       })
       // hasta que funcione el back
-      navigation.navigate('HomeDrawer')
+
     // Alert.alert(
     //     "Bienvenido!",
     //     "Serás redirigido a tu perfil.",
@@ -50,6 +57,7 @@ const Login = ({ navigation }) => {
         <Input
           textContentType='emailAddress'
           autoCompleteType='email'
+          /* style={styles.input} */
           label=' Email'
           leftIcon={{ type: 'font-awesome', name: 'envelope' }}
           placeholderTextColor='grey'
@@ -61,6 +69,7 @@ const Login = ({ navigation }) => {
         <Input
           secureTextEntry={true}
           autoCompleteType='password'
+          /* style={styles.input} */
           label='Password'
           leftIcon={{ type: 'font-awesome', name: 'lock' }}
           placeholderTextColor='grey'
