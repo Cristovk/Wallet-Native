@@ -42,9 +42,7 @@ const Perfil = (props) => {
 
 
             <View style={styles.generalvolver}>
-            <TouchableOpacity style={styles.btnvolver} onPress={() => props.navigation.goBack()}>
-                <Text style={styles.link}>Volver</Text>
-            </TouchableOpacity>
+           
             <TouchableOpacity style={styles.btnvolver} onPress={() => props.navigation.goBack()}>
                 <Text style={styles.link}>Guardar</Text>
             </TouchableOpacity>
