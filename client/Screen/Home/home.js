@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, ScrollView} from 'react-native'
 import { ListItem } from 'react-native-elements'
-import {storage} from '../../../firebase'
+import { storage } from '../../../firebase'
 import style from './homeStyles'
 
 const Home = () => {

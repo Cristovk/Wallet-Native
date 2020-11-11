@@ -20,7 +20,6 @@
     "expo-status-bar": "~1.0.2",
     "express": "^4.17.1",
     "firebase": "^8.0.1",
-    "firebase-admin": "^9.3.0",
     "firebase-functions": "^3.11.0",
     "native-base": "^2.13.14",
     "node-env-file": "^0.1.8",
@@ -38,7 +37,8 @@
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
     "redux-devtools": "^3.7.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "write-file-atomic": "^3.0.3"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

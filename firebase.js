@@ -4,7 +4,6 @@ import 'firebase/firestore'
 import 'firebase/functions'
 
 
-
 const db = firebase.initializeApp({
   apiKey: "AIzaSyBb1jsHd9pMGasi6PWTIPLPLKr0Sgat-QU",
   authDomain: "henrybankfire.firebaseapp.com",
