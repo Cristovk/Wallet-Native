@@ -2,7 +2,7 @@ const functions = require('firebase-functions');
 const express = require('express');
 const ex = express();
 const admin = require('firebase-admin');
-
+//import {auth} from '../../firebase'
 
 //Cloud Functions
   
@@ -16,6 +16,53 @@ admin.initializeApp({
   });
 
   const  DBS  = admin.firestore()
+  const auth = admin.auth()
+
+
+ex.post('/user'), (req, res)  => {
+
+  const { email , password,  name , lastName, birtday, phone, dni, cuil} = req.body;
+  console.log(req.body);
+
+  //crear usuario
+  auth.createUserWithEmailAndPassword(email, password)
+  .then(() => {
+    //Si el usuario se crea,los datos del registro se agregan
+    DBS.collection('user').doc(auth.currentUser.uid)
+    .set({
+      name: name,
+      lastName: lastName,
+      birthay: birtday,
+      phone: phone,
+      dni: dni,
+      cuil: cuil,
+      created: Date.now()
+
+    })
+        .catch(error => {
+          console.log('Algo salio mal al agregar el user a firestore', error)
+          })
+
+    return res.status(200).json();
+    
+
+  })
+  .catch(error => {
+    console.log('Algo fallo en el Registro', error)
+    return res.status(500).send(error);
+  })
+
+
+
+}
+
+
+
+
+
+
+
+
 
 
 ex.get('/hello-world', (req, res) => {
@@ -26,7 +73,7 @@ ex.get('/hello-world', (req, res) => {
 
 ex.post('/api/user-data', async (req, res) =>{
   try{
-    await  DBS.collection('user_data').doc('/' + req.body.id + '/')
+    await  DBS.collection('user_data').doc('/' + req.body.id + '/').collection(asdas).doc(adsjjsaa)
     .create({name: req.body.name});
     return res.status(204).json();
 
@@ -38,7 +85,7 @@ ex.post('/api/user-data', async (req, res) =>{
 
 ex.post('/api/user-try', async (req, res) =>{
     try{
-      await  DBS.doc('user-try/' + req.body.id + '/')
+      await  DBS.doc('user-try/' + req.body.id + '/'+ 'historico/fecha/')
       .create({
           name: req.body.name,
           age: req.body.age  
@@ -97,4 +144,11 @@ ex.post('/api/user-try', async (req, res) =>{
 
 
 
+<<<<<<< HEAD
 exports.ex = functions.https.onRequest(ex);
+=======
+
+exports.ex = functions.https.onRequest(ex);
+
+
+>>>>>>> df9b8285aa4f5a227c5ecf884e8f12fba68efefa
