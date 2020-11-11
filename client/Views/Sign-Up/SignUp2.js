@@ -30,7 +30,7 @@ const SignUp2 = ({navigation}) => {
       dispatch(addUser('password', password2));
       try {
 
-        const NewUser = await auth().createUserWithEmailAndPassword(user.email,password2 )
+        const NewUser = await auth.createUserWithEmailAndPassword(user.email,password2 )
         const docRef = storage.collection('Users').doc(NewUser.user.uid)
         await docRef.set({
           id: docRef.id,
