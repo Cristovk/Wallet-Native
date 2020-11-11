@@ -4,6 +4,11 @@ const ex = express();
 const admin = require('firebase-admin');
 
 
+//Cloud Functions
+  
+
+
+
 
 admin.initializeApp({
     credential: admin.credential.cert('./permissions.json'),
@@ -13,11 +18,11 @@ admin.initializeApp({
   const  DBS  = admin.firestore()
 
 
-
-
 ex.get('/hello-world', (req, res) => {
     return res.status(200).json({message: 'Hola caracola'})
 });
+
+//Users
 
 ex.post('/api/user-data', async (req, res) =>{
   try{
@@ -89,5 +94,7 @@ ex.post('/api/user-try', async (req, res) =>{
 
     }
 });
+
+
 
 exports.ex = functions.https.onRequest(ex);

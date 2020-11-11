@@ -1,0 +1,20 @@
+[debug] [2020-11-11T06:09:45.524Z] ----------------------------------------------------------------------
+[debug] [2020-11-11T06:09:45.528Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Agus\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2020-11-11T06:09:45.529Z] CLI Version:   8.15.1
+[debug] [2020-11-11T06:09:45.529Z] Platform:      win32
+[debug] [2020-11-11T06:09:45.529Z] Node Version:  v12.18.3
+[debug] [2020-11-11T06:09:45.534Z] Time:          Wed Nov 11 2020 03:09:45 GMT-0300 (GMT-03:00)
+[debug] [2020-11-11T06:09:45.535Z] ----------------------------------------------------------------------
+[debug] [2020-11-11T06:09:45.535Z] 
+[debug] [2020-11-11T06:09:45.551Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-11-11T06:09:45.552Z] > authorizing via signed-in user
+[debug] [2020-11-11T06:09:45.552Z] [iam] checking project henrybankfire for permissions ["firebase.projects.get"]
+[debug] [2020-11-11T06:09:45.558Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-11-11T06:09:45.559Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-11-11T06:09:45.816Z] <<< HTTP RESPONSE 200 {"expires":"Mon, 01 Jan 1990 00:00:00 GMT","date":"Wed, 11 Nov 2020 06:09:46 GMT","pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-11T06:09:45.824Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/henrybankfire:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-11-11T06:09:46.961Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 11 Nov 2020 06:09:47 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=978","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-11T06:09:46.963Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/henrybankfire  
+ 

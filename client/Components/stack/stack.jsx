@@ -17,6 +17,7 @@ import SignUp1 from '../../Views/Sign-Up/SignUp1'
 import SignUp2 from '../../Views/Sign-Up/SignUp2'
 import TransactionHistory from '../../Screen/TransactionHistory/Movimientos'
 import Detalle from '../../Screen/TransactionHistory/DetailOfTransaction'
+import Verify from "../../Screen/verificacion/verify"
 // NAVIGATORS
 import MyTab from '../tab/tab'
 import MyDrowner from '../drawer/drawer'
@@ -45,6 +46,10 @@ export default function MyStack() {
           name="SignUp2"
           component={SignUp2}
           options={{ title: "Registro" }}
+        />
+         <Stack.Screen
+          name="Verify"
+          component={Verify}
         />
       </Stack.Navigator>
     )

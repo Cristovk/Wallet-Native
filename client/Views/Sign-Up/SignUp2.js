@@ -27,8 +27,8 @@ const SignUp2 = ({navigation}) => {
     if (valid) {
       dispatch(addUser('password', password2));
       try {
-        db.auth().createUserWithEmailAndPassword(user.email,password2 )
-        const docRef = storage.collection('Users').doc()
+        const NewUser = await db.auth().createUserWithEmailAndPassword(user.email,password2 )
+        const docRef = storage.collection('Users').doc(NewUser.user.uid)
         await docRef.set({
           id: docRef.id,
           created: Date.now(),
@@ -39,7 +39,8 @@ const SignUp2 = ({navigation}) => {
           dni: userData.dni,
           cuil: userData.cuil
         })
-        Alert.alert('Cuenta creada!')
+        await NewUser.user.sendEmailVerification();
+        Alert.alert('Cuenta creada! Se envio a tu mail un link de verificación')
         navigation.navigate('Login')
       } catch (error) {
         console.log(error)
