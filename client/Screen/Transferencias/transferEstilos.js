@@ -29,12 +29,15 @@ const style = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20
   },
-  lista: {
+  listaContenedor: {
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+  },
+  lista: {
+    marginBottom: 15
   },
   input: {
-    width: 110
+    width: 150
   },
   botonContainer: {
     flexDirection: "row",

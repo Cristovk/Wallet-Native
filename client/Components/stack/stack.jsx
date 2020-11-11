@@ -21,6 +21,7 @@ import Detalle from '../../Screen/TransactionHistory/DetailOfTransaction'
 import Recargas from '../../Screen/Recargas/Recargas';
 import { storage } from '../../../firebase'
 import Verify from "../../Screen/verificacion/verify"
+import TransfConfirm from "../../Screen/Transferencias/TransfConfirmada"
 
 
 // NAVIGATORS
@@ -128,6 +129,7 @@ export function HomeScreen() {
       <HomeScreenStack.Screen name='Balance' component={Balance} options={{ title: 'Mi Balance' }} />
       <HomeScreenStack.Screen name='Detalle' component={Detalle} options={{ title: 'Detalle de la transaccion' }} />
       <HomeScreenStack.Screen name='Recargas' component={Recargas} options={{ title: 'Recargar' }} />
+      <HomeScreenStack.Screen name='TransfConfirm' component={TransfConfirm} options={{ title: 'Confirmar' }} />
     </HomeScreenStack.Navigator >
   )
 }
