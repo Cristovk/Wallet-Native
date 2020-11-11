@@ -4,7 +4,7 @@ import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { styles } from "./Sing-Up-Styles";
 import {addUser} from '../../Redux/User';
 import {useDispatch, useSelector} from 'react-redux';
-import db, { firebases } from '../../../firebase' 
+import db, { storage } from '../../../firebase' 
 
 const SignUp2 = ({navigation}) => {
   const [password1, setPassword1] = useState('');
@@ -28,7 +28,7 @@ const SignUp2 = ({navigation}) => {
       dispatch(addUser('password', password2));
       try {
         db.auth().createUserWithEmailAndPassword(user.email,password2 )
-        const docRef = firebases.collection('Users').doc()
+        const docRef = storage.collection('Users').doc()
         await docRef.set({
           id: docRef.id,
           created: Date.now(),
