@@ -81,7 +81,6 @@ export function HomeScreen(){
         })}/>
         <HomeScreenStack.Screen name='Tarjetas' component={Tarjetas} options={{title:'Tus Tarjetas'}}/>
         <HomeScreenStack.Screen name='AddTarjeta' component={AddTarjeta} options={{title:'Añadir Tarjeta'}}/>
-        <HomeScreenStack.Screen name='Movimientos' component={Movimientos} options={{title:'Mis Movimientos'}}/>
         <HomeScreenStack.Screen name='Movimientos' component={TransactionHistory} options={{title:'Mis Movimientos'}}/>
         <HomeScreenStack.Screen name='Pagos' component={Pagos} options={{title:'Mis Servicios'}}/>
         <HomeScreenStack.Screen name='Amigos' component={Amigos} options={{title:'Mis Contactos'}}/>
