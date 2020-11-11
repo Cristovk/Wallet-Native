@@ -42,9 +42,10 @@ const style = StyleSheet.create({
     alignItems: "center"
   },
   boton: {
-    marginTop: 40,
+    marginTop: 60,
     backgroundColor: "#FC7029",
-    padding: 15
+    padding: 15,
+    borderRadius: 8
   }
 })
 

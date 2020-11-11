@@ -69,21 +69,16 @@ export function HomeScreen() {
       const users = []
 
       querySnapshot.docs.forEach(doc => {
-        const { name, lastName, phone, dni, cuil } = doc.data() //Como necesito guardar esos datos, hago destructuring de la data.
+        const { name, id, birthday } = doc.data() //Como necesito guardar esos datos, hago destructuring de la data.
         users.push({ //Lo guardamos principalmente en este array nuevo que creamos.
-          id: doc.id, //Al no tener un id que nosotros hagamos, vamos a crear un id con doc.id. No es una función, es solo una propiedad.
           name,
-          lastName,
-          phone,
-          dni,
-          cuil
+          id,
+          birthday
         })
       })
       setUsers(users)
     })
   }, [])
-
-  console.log(users)
 
 
   return (
@@ -105,8 +100,7 @@ export function HomeScreen() {
               type='ionicon'
             />
           </TouchableOpacity>),
-        title: `Bienvenido `,
-        // ${users[0] && users[0].name}
+        title: `Bienvenido ${users[0] && users[0].name}`,
         headerTitleAlign: 'center',
         headerRight: () => (
           <TouchableOpacity

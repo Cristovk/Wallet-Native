@@ -7,9 +7,9 @@ import styles from './estilosFormulario';
 
 const Formulario = ({ data }) => {
 
-  const { nombre, correo, telefono, dni, nacimiento, ocupacion } = data;
+  const { name, id, phone, dni, cuil, lastName } = data;
   //State que guarda los datos del usuario editado.
-  const [datos, setDatos] = useState({ nombre, correo, telefono, dni, nacimiento, ocupacion });
+  const [datos, setDatos] = useState({ name, id, phone, dni, cuil, lastName });
 
 
   return (
@@ -17,7 +17,7 @@ const Formulario = ({ data }) => {
       <View style={styles.grupoform}>
         <Text style={styles.labelinput}>Nombre</Text>
         <TextInput
-          value={datos.nombre}
+          placeholder={name}
           style={styles.inputperfil}
           onChangeText={(data) => setDatos({ ...datos, nombre: data })}
 
@@ -27,11 +27,11 @@ const Formulario = ({ data }) => {
       </View>
 
       <View style={styles.grupoform}>
-        <Text style={styles.labelinput} >Correo</Text>
+        <Text style={styles.labelinput} >Apellido</Text>
         <TextInput
-          value={datos.correo}
+          placeholder={lastName}
           style={styles.inputperfil}
-          onChangeText={(data) => setDatos({ ...datos, correo: data })}
+          onChangeText={(data) => setDatos({ ...datos, lastName: data })}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
       </View>
@@ -39,20 +39,20 @@ const Formulario = ({ data }) => {
       <View style={styles.grupoform}>
         <Text style={styles.labelinput}>Teléfono</Text>
         <TextInput
-          value={datos.telefono}
+          placeholder={phone}
           style={styles.inputperfil}
-          onChangeText={(data) => setDatos({ ...datos, telefono: data })}
+          onChangeText={(data) => setDatos({ ...datos, phone: data })}
 
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
       </View>
 
       <View style={styles.grupoform}>
-        <Text style={styles.labelinput}>Fecha de Nacimiento</Text>
+        <Text style={styles.labelinput}>Cuil</Text>
         <TextInput
-          value={datos.nacimiento}
+          placeholder={cuil}
           style={styles.inputperfil}
-          onChangeText={(data) => setDatos({ ...datos, nacimiento: data })}
+          onChangeText={(data) => setDatos({ ...datos, cuil: data })}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
       </View>
@@ -60,7 +60,7 @@ const Formulario = ({ data }) => {
       <View style={styles.grupoform}>
         <Text style={styles.labelinput}>DNI</Text>
         <TextInput
-          value={datos.dni}
+          placeholder={dni}
           style={styles.inputperfil}
           onChangeText={(data) => setDatos({ ...datos, dni: data })}
         />
@@ -68,11 +68,11 @@ const Formulario = ({ data }) => {
       </View>
 
       <View style={styles.grupoform}>
-        <Text style={styles.labelinput}>Ocupación</Text>
+        <Text style={styles.labelinput}>Id Usuario</Text>
         <TextInput
-          value={datos.ocupacion}
+          placeholder={id}
           style={styles.inputperfil}
-          onChangeText={(data) => setDatos({ ...datos, ocupacion: data })}
+          onChangeText={(data) => setDatos({ ...datos, id: data })}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
       </View>

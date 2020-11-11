@@ -29,7 +29,7 @@ const SignUp2 = ({ navigation }) => {
       try {
         db.auth().createUserWithEmailAndPassword(user.email, password2)
         const docRef = storage.collection('Users').doc()
-        await docRef.set({
+        await docRef.add({
           id: docRef.id,
           created: Date.now(),
           name: userData.name,

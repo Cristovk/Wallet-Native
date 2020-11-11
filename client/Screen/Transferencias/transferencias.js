@@ -70,7 +70,7 @@ const Transferencias = ({ navigation }) => {
         <TouchableOpacity
           style={style.boton}
         >
-          <Text>Confirmar Transferencia</Text>
+          <Text style={{ fontWeight: "bold", fontSize: 15 }}>Confirmar Transferencia</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

@@ -1,8 +1,7 @@
- import firebase from 'firebase/app'
+import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/functions'
-import * as admin from 'firebase-admin';
 
 
 const db = firebase.initializeApp({
@@ -19,5 +18,5 @@ const db = firebase.initializeApp({
 
 export const auth = db.auth()
 export const storage = db.firestore()
-export const functions =  db.functions()
+export const functions = db.functions()
 export default db
