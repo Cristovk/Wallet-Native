@@ -23,11 +23,15 @@ const Login = ({ navigation }) => {
 
 
   const login = () => {
+    //Loguea usuario
     db.auth().signInWithEmailAndPassword(text.email, text.password)
       .then(res => {
-        navigation.navigate('HomeDrawer')
-        // Alert.alert(JSON.stringify(res.user[0] && res.user[0].name)
-        // )
+        //Valida si el mail se verificó
+        if(res.user.emailVerified){
+          navigation.navigate('HomeDrawer')
+        }else{
+          navigation.navigate('Verify')
+        }
       })
       .catch(function (error) {
 
@@ -49,7 +53,7 @@ const Login = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>$ald∞</Text>
-      <View style={styles.contentInput}>
+      <View style={{width:'90%'}}>
         <Input
           textContentType='emailAddress'
           autoCompleteType='email'
@@ -74,15 +78,16 @@ const Login = ({ navigation }) => {
           defaultValue={text.password}
         />
       </View>
-      <Button
-        style={styles.button}
-        mode='contained'
-        title='Login'
-        onPress={login}
-        color='darkblue'
-      >
-        Login
-            </Button>
+      <View style={styles.button}>
+        <Button
+          mode='contained'
+          title='Login'
+          onPress={login}
+          color='darkblue'
+        >
+          Login
+        </Button>
+      </View>
       <View style={styles.viewLinks}>
         <TouchableOpacity
           onPress={() => navigation.navigate('SignUp')}
