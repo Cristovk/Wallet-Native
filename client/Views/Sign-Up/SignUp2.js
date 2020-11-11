@@ -4,7 +4,9 @@ import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { styles } from "./Sing-Up-Styles";
 import { addUser } from '../../Redux/User';
 import { useDispatch, useSelector } from 'react-redux';
-import db, { storage } from '../../../firebase'
+
+import { auth, storage } from '../../../firebase'
+
 
 const SignUp2 = ({ navigation }) => {
   const [password1, setPassword1] = useState('');
@@ -27,9 +29,10 @@ const SignUp2 = ({ navigation }) => {
     if (valid) {
       dispatch(addUser('password', password2));
       try {
-        db.auth().createUserWithEmailAndPassword(user.email, password2)
-        const docRef = storage.collection('Users').doc()
-        await docRef.add({
+
+        const NewUser = await auth().createUserWithEmailAndPassword(user.email, password2)
+        const docRef = storage.collection('Users').doc(NewUser.user.uid)
+        await docRef.set({
           id: docRef.id,
           created: Date.now(),
           name: userData.name,
@@ -39,7 +42,8 @@ const SignUp2 = ({ navigation }) => {
           dni: userData.dni,
           cuil: userData.cuil
         })
-        Alert.alert('Cuenta creada!')
+        await NewUser.user.sendEmailVerification();
+        Alert.alert('Cuenta creada! Se envio a tu mail un link de verificación')
         navigation.navigate('Login')
       } catch (error) {
         console.log(error)

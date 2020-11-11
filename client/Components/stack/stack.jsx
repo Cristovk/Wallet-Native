@@ -20,7 +20,7 @@ import TransactionHistory from '../../Screen/TransactionHistory/Movimientos'
 import Detalle from '../../Screen/TransactionHistory/DetailOfTransaction'
 import Recargas from '../../Screen/Recargas/Recargas';
 import { storage } from '../../../firebase'
-
+import Verify from "../../Screen/verificacion/verify"
 
 
 // NAVIGATORS
@@ -37,7 +37,7 @@ const HomeScreenStack = createStackNavigator()
 export default function MyStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+      {/* <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> */}
       <Stack.Screen name='HomeDrawer' component={MyDrowner} options={{ headerShown: false }} />
       <Stack.Screen
         name="SignUp"
@@ -53,6 +53,10 @@ export default function MyStack() {
         name="SignUp2"
         component={SignUp2}
         options={{ title: "Registro" }}
+      />
+      <Stack.Screen
+        name="Verify"
+        component={Verify}
       />
     </Stack.Navigator>
   )
