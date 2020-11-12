@@ -12,9 +12,9 @@ export const styles = StyleSheet.create({
     height: 100,
     marginTop: 50,
     marginHorizontal: 'auto',
-    borderRadius: 50,
-    borderColor: darkBlue,
-    borderWidth: 1,
+    // borderRadius: 50,
+    // borderColor: darkBlue,
+    // borderWidth: 1,
     shadowColor: darkBlue,
   },
   text: {
