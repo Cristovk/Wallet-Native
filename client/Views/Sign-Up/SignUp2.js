@@ -42,7 +42,6 @@ const SignUp2 = ({ navigation }) => {
           created: Date.now(),
           name: userData.name,
           lastName: userData.lastname,
-          birthday: userData.birthday,
           phone: userData.phone,
           dni: userData.dni,
           cuil: userData.cuil,

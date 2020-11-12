@@ -15,36 +15,9 @@ const TransfConfirm = ({ navigation, route }) => {
   }
   return (
     <ScrollView>
-      {/* <View style={style.containerTotal}>
-        <View style={style.container}>
-          <View style={style.tituloContainer}>
-            <Text>Pedido Confirmado</Text>
-          </View>
-          <View>
-            <View style={style.textos}>
-              <Text>Enviado a: {route.params.cvu} </Text>
-            </View>
-            <View style={style.textos}>
-              <Text>Monto de: {route.params.monto} </Text>
-            </View>
-            <View style={style.textos}>
-              <Text>En motivo de: {route.params.motivo} </Text>
-            </View>
-            <View style={style.textos} >
-              <Text>El comprobante será enviado al mail: {route.params.email} </Text>
-            </View>
-          </View>
-        </View>
-      </View>
-      <Icon
-        name="check"
-        type="fontisto"
-        color="green"
-        size={60}
-      /> */}
       <View>
         <View style={style.tituloContainer}>
-          <Text style={style.titulo}>Pedido Confirmado</Text>
+          <Text style={style.titulo}>Transferencia Confirmada</Text>
         </View>
         <View style={style.listaContenedor}>
           <ListItem style={style.lista}>
