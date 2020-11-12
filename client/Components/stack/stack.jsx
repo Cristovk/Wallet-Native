@@ -32,6 +32,10 @@ const HomeScreenStack = createStackNavigator()
 
 // Navegador Inicial para ingresar a la wallet (importado en App.js)
 export default function MyStack() {
+
+  
+
+
     return (
       <Stack.Navigator>
         <Stack.Screen name='Login' component={Login} options={{headerShown:false}}/> 

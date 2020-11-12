@@ -2,12 +2,16 @@ const functions = require('firebase-functions');
 const express = require('express');
 const ex = express();
 const admin = require('firebase-admin');
-//import {auth} from '../../firebase'
+const cors = require('cors')
 
+
+
+ex.use(cors({
+  credentials: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  origin: "http://localhost:5000/"
+}));
 //Cloud Functions
-  
-
-
 
 
 admin.initializeApp({
@@ -16,60 +20,68 @@ admin.initializeApp({
   });
 
   const  DBS  = admin.firestore()
-  const auth = admin.auth()
+  // const admin = admin.auth()
 
-
-ex.post('/user'), (req, res)  => {
-
-  const { email , password,  name , lastName, birtday, phone, dni, cuil} = req.body;
-  console.log(req.body);
-
-  //crear usuario
-  auth.createUserWithEmailAndPassword(email, password)
-  .then(() => {
-    //Si el usuario se crea,los datos del registro se agregan
-    DBS.collection('user').doc(auth.currentUser.uid)
-    .set({
-      name: name,
-      lastName: lastName,
-      birthay: birtday,
-      phone: phone,
-      dni: dni,
-      cuil: cuil,
-      created: Date.now()
-
-    })
-        .catch(error => {
-          console.log('Algo salio mal al agregar el user a firestore', error)
-          })
-
-    return res.status(200).json();
-    
-
-  })
-  .catch(error => {
-    console.log('Algo fallo en el Registro', error)
-    return res.status(500).send(error);
-  })
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
+ //Test 
 ex.get('/hello-world', (req, res) => {
     return res.status(200).json({message: 'Hola caracola'})
 });
 
-//Users
+
+//Rutas usuarios
+// ex.post('/user'), (req, res)  => {
+
+//   const { email , password,  name , lastName, birtday, phone, dni, cuil} = req.body;
+//   console.log(req.body);
+
+//   //crear usuario
+//   auth.createUserWithEmailAndPassword(email, password)
+//   .then(() => {
+//     //Si el usuario se crea,los datos del registro se agregan
+//     DBS.collection('user').doc(auth.currentUser.uid)
+//     .set({
+//       name: name,
+//       lastName: lastName,
+//       birthay: birtday,
+//       phone: phone,
+//       dni: dni,
+//       cuil: cuil,
+//       created: Date.now()
+
+//     })
+//         .catch(error => {
+//           console.log('Algo salio mal al agregar el user a firestore', error)
+//           })
+
+//     return res.status(200).json();
+    
+
+//   })
+//   .catch(error => {
+//     console.log('Algo fallo en el Registro', error)
+//     return res.status(500).send(error);
+//   })
+// }
+ex.get('/api/user-data/:id', async(req,res) => {  
+  const uid = req.params.id
+  try{
+
+    const doc = DBS.doc('Users/'+ uid);
+    const name = await doc.get()
+        const response = name.data()
+        return res.status(200).json(response)
+
+
+  }catch{
+    console.log(error)
+    return res.status(500).send(error);
+
+  }
+})
+
+ex.put('/api/user-data', async(req, res) => {
+ 
+});
 
 ex.post('/api/user-data', async (req, res) =>{
   try{

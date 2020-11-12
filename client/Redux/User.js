@@ -1,10 +1,17 @@
+import axios from 'axios';
+import {auth} from "../../firebase";
+
 // CONSTANTS
 const REGISTER_USER = 'REGISTER_USER';
 const SAVE_USER_DATA = 'SAVE_USER_DATA';
+const GET_DATA = 'GET_DATA'
+
 
 
 // STATE
 const initialState = {
+
+  user: [],
   userAuth: {
     email: "",
     password: ""
@@ -41,11 +48,16 @@ export default function userReducer(state = initialState, action) {
           ...data
         }
       }
+    case GET_DATA:
+      return {
+        ...state,
+        user: action.payload
+      }  
     default:
       return {
         ...state
       }
-  }
+  } 
 }
 
 // ACTIONS
@@ -74,5 +86,24 @@ export const saveData = (obj) => (dispatch) => {
   }
   catch(error){
     console.log(error);
+  }
+}
+
+export const getUser = () => async(dispatch) => {
+  try {
+    const uid = auth.currentUser.uid
+      // const user = auth.currentUser;
+      console.log('-------------------->', uid)
+      const data = await axios.get(`http://localhost:5000/henrybankfire/us-central1/ex/api/user-data/`)
+      console.log("data-----------------")
+      console.log(data)
+
+    dispatch({
+      type:GET_DATA,
+      payload: data
+    })
+    
+  } catch (error) {
+    console.log(error)
   }
 }

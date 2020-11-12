@@ -1,19 +1,42 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { View, Text, Image, TouchableOpacity, ScrollView, Button } from 'react-native'
 import { Icon } from 'react-native-elements';
 import styles from './estilosPerfil';
 import Formulario from './Formulario';
+import { useSelector, useDispatch} from 'react-redux'
+import {getUser} from "../../Redux/User"
+import {auth , storage} from "../../../firebase";
+import axios from "axios"
+
 
 const Perfil = (props) => {
-
+    const dispatch = useDispatch()
+    const currentUser = useSelector(store => store.user.user);
+   
+    console.log(currentUser)
+    
     const data = {
-        nombre: 'Andrés Sánchez',
+        nombre: 'hola',
         correo: 'andres@andres.com',
         telefono: '3013184491',
         nacimiento: '23-10-1980',
         dni: '1.070.974.122',
         ocupacion: 'Estudiante'
     }
+
+    async function func(){
+            const data =  await axios.get('http://127.0.0.1:5000/henrybankfire/us-central1/ex/api/user-data'+ auth.currentUser.uid,{withCredentials:true} )
+            .catch(err => {
+                console.log(err)
+            })
+            console.log("data..........................")
+            console.log(data)
+        }
+
+    useEffect(()=>{
+        func()
+        
+    },[])
 
 
     return (
