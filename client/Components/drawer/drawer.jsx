@@ -5,8 +5,9 @@ import { Icon, ListItem } from 'react-native-elements'
 import {useSelector, useDispatch} from 'react-redux'
 import {darkMode} from '../../Redux/Estilos'
 
+
 // Navigator
-import {HomeScreen} from '../stack/stack'
+import { HomeScreen } from '../stack/stack'
 
 // Creamos el navegador
 const Drawer = createDrawerNavigator();
@@ -32,6 +33,15 @@ function CustomDrawerContent({navigation,text,bg,route,dark,dispatch}){
 
     return(
         <SafeAreaView style={{flex:1,justifyContent:'space-between'}}>
+            <View>
+                <ListItem  bottomDivider containerStyle={{backgroundColor:'transparent'}} onPress={() => navigation.navigate('HomeScreen', { screen: 'Recargas' })} >
+                <Icon name='ios-log-out' type='ionicon' color={text}/>
+                <ListItem.Content>
+                    <ListItem.Title style={{color:text}}>Recargar</ListItem.Title>
+                </ListItem.Content>
+                <ListItem.Chevron />
+                </ListItem>
+            </View>
             <View>
                 <ListItem bottomDivider containerStyle={{backgroundColor:'transparent'}}
                     onPress={()=>navigation.navigate('HomeScreen',{screen:'Tarjetas'})}>

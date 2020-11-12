@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux'
 
 // COMPONENTES
 import Home from '../../Screen/Home/home';
-import Transferencias from '../../Screen/transferencias';
+import Transferencias from '../../Screen/Transferencias/transferencias';
 import Perfil from '../../Screen/perfil/Perfil';
 
 // Creamos el navegador
@@ -20,12 +20,12 @@ export default function MyTab(){
     <Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({ // Configuración del tabBar
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
-  
-        if (route.name === 'Home' ) {
+
+        if (route.name === 'Home') {
           iconName = 'home';
         } else if (route.name === 'Transferencias') {
           iconName = 'arrow-swap';
-        } else if (route.name === 'Perfil'){
+        } else if (route.name === 'Perfil') {
           iconName = 'person'
         }
         return <Icon name={iconName} type='fontisto' size={size} color={color} />;
@@ -38,9 +38,9 @@ export default function MyTab(){
       inactiveBackgroundColor: bg
     }}
     >
-      <Tab.Screen name="Home" component={Home}/>
-      <Tab.Screen name="Transferencias" component={Transferencias}/>
-      <Tab.Screen name="Perfil" component={Perfil}/>
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Transferencias" component={Transferencias} />
+      <Tab.Screen name="Perfil" component={Perfil} />
     </Tab.Navigator>
-    )
-  }
+  )
+}
