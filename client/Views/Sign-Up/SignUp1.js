@@ -9,14 +9,14 @@ const SignUp1 = ({ navigation }) => {
   const dispatch = useDispatch();
   const [phone, setPhone] = useState('');
   const [DNI, setDNI] = useState('');
-  const [CUIL, setCUIL] = useState('');
+  // const [CUIL, setCUIL] = useState('');
   const [Err, setErr] = useState({
     invalidPhoneFormat: "",
     emptyPhone: "",
     invalidDNIFormat: "",
     emptyDNI: "",
-    invalidCUILFormat: "",
-    emptyCUIL: "",
+    // invalidCUILFormat: "",
+    // emptyCUIL: "",
   });
 
   const validateForm = () => {
@@ -25,15 +25,15 @@ const SignUp1 = ({ navigation }) => {
       emptyPhone: "",
       invalidDNIFormat: "",
       emptyDNI: "",
-      invalidCUILFormat: "",
-      emptyCUIL: "",
+      // invalidCUILFormat: "",
+      // emptyCUIL: "",
     });
     let invalidPhoneFormat = "";
     let emptyPhone = "";
     let invalidDNIFormat = "";
     let emptyDNI = "";
-    let invalidCUILFormat = "";
-    let emptyCUIL = "";
+    // let invalidCUILFormat = "";
+    // let emptyCUIL = "";
 
     if (!phone) {
       emptyPhone = 'El campo Teléfono es necesario';
@@ -47,21 +47,21 @@ const SignUp1 = ({ navigation }) => {
     else if (!/^[0-9]{8}$/.test(DNI)) {
       invalidDNIFormat = "El DNI debe tener 8 dígitos";
     }
-    if (!CUIL) {
-      emptyCUIL = 'El campo CUIL es necesario';
-    }
-    else if (!/^[0-9]{11}$/.test(CUIL)) {
-      invalidCUILFormat = " Debe tener 11 dígitos";
-    }
-    if (emptyPhone || invalidPhoneFormat || emptyDNI || invalidDNIFormat || emptyCUIL || invalidCUILFormat) {
-      setErr({ emptyPhone, invalidPhoneFormat, emptyDNI, invalidDNIFormat, emptyCUIL, invalidCUILFormat });
+    // if (!CUIL) {
+    //   emptyCUIL = 'El campo CUIL es necesario';
+    // }
+    // else if (!/^[0-9]{11}$/.test(CUIL)) {
+    //   invalidCUILFormat = " Debe tener 11 dígitos";
+    // }
+    if (emptyPhone || invalidPhoneFormat || emptyDNI || invalidDNIFormat || emptyCUIL /*|| invalidCUILFormat*/) {
+      setErr({ emptyPhone, invalidPhoneFormat, emptyDNI, invalidDNIFormat, emptyCUIL/*, invalidCUILFormat*/ });
       return false;
     }
     else return true;
   }
 
   let info = {
-    cuil:CUIL,
+    // cuil:CUIL,
     dni:DNI,
     phone:phone
   }
@@ -105,7 +105,7 @@ const SignUp1 = ({ navigation }) => {
         />
         {Err.emptyDNI ? (<Text style={styles.error}>{Err.emptyDNI}</Text>) : null}
         {Err.invalidDNIFormat ? (<Text style={styles.error}>{Err.invalidDNIFormat}</Text>) : null}
-        <Text style={styles.label}>CUIL</Text>
+        {/* <Text style={styles.label}>CUIL</Text>
         <TextInput
           style={styles.inputs}
           onChangeText={text => setCUIL(text)}
@@ -114,7 +114,7 @@ const SignUp1 = ({ navigation }) => {
           placeholderTextColor={grey}
         />
         {Err.emptyCUIL ? (<Text style={styles.error}>{Err.emptyCUIL}</Text>) : null}
-        {Err.invalidCUILFormat ? (<Text style={styles.error}>{Err.invalidCUILFormat}</Text>) : null}
+        {Err.invalidCUILFormat ? (<Text style={styles.error}>{Err.invalidCUILFormat}</Text>) : null} */}
         <View style={[styles.button, styles.box]}>
           <Button
             title='Anterior'
