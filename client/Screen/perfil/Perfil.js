@@ -54,4 +54,3 @@ const Perfil = (props) => {
 }
 
 export default Perfil;
-

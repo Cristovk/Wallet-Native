@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import { View, Text, ScrollView, StyleSheet, Modal} from 'react-native'
-import { ListItem, Avatar, Icon} from 'react-native-elements'
+import { ListItem, Avatar, Icon, ThemeProvider} from 'react-native-elements'
+import {useSelector} from 'react-redux'
 
 const list = [
   {
@@ -37,18 +38,31 @@ const list = [
 
 const Amigos = ({navigation}) => {
 
+  const {text,bg} = useSelector( store => store.color)
+
   // Función del modal para los detalles
   const [modal,setModal] = useState(false)
   const [index,setIndex] = useState('')
   const toggle = () => setModal(!modal)
+  const myTheme = {
+    ListItem: {
+      containerStyle:{
+        backgroundColor: bg
+      }
+    },
+    Icon: {
+      color: text
+    }
+  }
 
   return (
     <ScrollView>
+      <ThemeProvider theme={myTheme}>
       {list.map((l,i) =>
         <ListItem key={i} bottomDivider>
           <Avatar rounded source={{uri:l.avatar_url}}/>
           <ListItem.Content>
-            <ListItem.Title>{l.name}</ListItem.Title>
+            <ListItem.Title style={{color:text}}>{l.name}</ListItem.Title>
             <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
           </ListItem.Content>
           <Icon name='ios-information-circle' type='ionicon' onPress={()=> {setIndex(l.id);toggle()}}/>
@@ -56,8 +70,10 @@ const Amigos = ({navigation}) => {
           <Icon name='ios-send' type='ionicon' onPress={()=> navigation.navigate('Transferencias')}/>
         </ListItem> 
       )}
+      </ThemeProvider>
       {/* ----------MODAL--------- */}
       <Modal
+          
           animationType="fade"
           transparent={true}
           visible={modal}
@@ -84,7 +100,7 @@ const Amigos = ({navigation}) => {
                 <Text>Telefono: {list[index-1].telefono}</Text>
               </View>
               <ListItem topDivider >
-                <Icon onPress={toggle} name='eraser' type='fontisto'/>
+                <Icon onPress={toggle} name='arrow-left' type='fontisto'/>
                 <Icon onPress={toggle} name='trash' type='fontisto'/>
               </ListItem>       
             </View>

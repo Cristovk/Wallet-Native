@@ -23,11 +23,15 @@ const Login = ({ navigation }) => {
 
 
   const login = () => {
+    //Loguea usuario
     db.auth().signInWithEmailAndPassword(text.email, text.password)
       .then(res => {
-        navigation.navigate('HomeDrawer')
-        // Alert.alert(JSON.stringify(res.user[0] && res.user[0].name)
-        // )
+        //Valida si el mail se verificó
+        if(res.user.emailVerified){
+          navigation.navigate('HomeDrawer')
+        }else{
+          navigation.navigate('Verify')
+        }
       })
       .catch(function (error) {
 

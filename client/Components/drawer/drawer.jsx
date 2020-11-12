@@ -1,8 +1,9 @@
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { View, TouchableOpacity, SafeAreaView} from 'react-native';
+import { View, TouchableOpacity, SafeAreaView, Switch} from 'react-native';
 import { Icon, ListItem } from 'react-native-elements'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+import {darkMode} from '../../Redux/Estilos'
 
 // Navigator
 import {HomeScreen} from '../stack/stack'
@@ -11,21 +12,24 @@ import {HomeScreen} from '../stack/stack'
 const Drawer = createDrawerNavigator();
 
 // Navegador para listar los componentes de HomeScreen
-export default function MyDrowner(props){
-    console.log(props)
-    const darker = props.route.params
-    const {primary,secondary,text,bg} = useSelector(store => store.color)
+export default function MyDrowner({navigation,route}){
+   
+    const dispatch = useDispatch()
+    const {primary,secondary,text,bg,dark} = useSelector(store => store.color)
 
     return(
-      <Drawer.Navigator drawerContent={(props)=> CustomDrawerContent({...props,text,bg})} drawerStyle={{backgroundColor:bg}}>
-        <Drawer.Screen name='HomeScreen' component={HomeScreen} initialParams={darker} options={{headerShown:false}}/>
+      <Drawer.Navigator drawerContent={({navigation})=> CustomDrawerContent({navigation,route,text,bg,dispatch,dark})} drawerStyle={{backgroundColor:bg}}>
+        <Drawer.Screen name='HomeScreen' component={HomeScreen} /* initialParams={darker} */ options={{headerShown:false}}/>
       </Drawer.Navigator>
     )
 }
 
 // Esta función nos permite configurar el drawer según lo que queremos mostrar (requerido en la línea 15)
-function CustomDrawerContent({navigation,text,bg}){
-    console.log(text)
+function CustomDrawerContent({navigation,text,bg,route,dark,dispatch}){
+    
+    const setApp = route.params.darker
+    console.log(setApp)
+
     return(
         <SafeAreaView style={{flex:1,justifyContent:'space-between'}}>
             <View>
@@ -70,14 +74,6 @@ function CustomDrawerContent({navigation,text,bg}){
                     <ListItem.Chevron/>
                 </ListItem>
                 <ListItem bottomDivider containerStyle={{backgroundColor:'transparent'}} 
-                    onPress={()=>navigation.navigate('HomeScreen',{screen:'Configuracion'})}>
-                    <Icon name='player-settings' type='fontisto' color={text}/>
-                    <ListItem.Content>
-                        <ListItem.Title style={{color:text}}>Configuración</ListItem.Title>
-                    </ListItem.Content>
-                    <ListItem.Chevron/>
-                </ListItem>
-                <ListItem bottomDivider containerStyle={{backgroundColor:'transparent'}} 
                     onPress={()=>navigation.navigate('HomeScreen',{screen:'Ayuda'})}>
                     <Icon name='info' type='fontisto' color={text}/>
                     <ListItem.Content>
@@ -87,6 +83,13 @@ function CustomDrawerContent({navigation,text,bg}){
                 </ListItem>
             </View>
             <View>
+                <ListItem bottomDivider containerStyle={{backgroundColor:'transparent'}}>
+                    <Icon name='player-settings' type='fontisto' color={text}/>
+                    <ListItem.Content>
+                        <ListItem.Title style={{color:text}}>Configuración</ListItem.Title>
+                    </ListItem.Content>
+                    <Switch value={dark} onValueChange={() => {setApp(!dark);dispatch(darkMode(dark))}}/>
+                </ListItem>
                 <ListItem topDivider containerStyle={{backgroundColor:'transparent'}} 
                     onPress={()=>navigation.navigate('Login')}>
                     <Icon name='ios-log-out' type='ionicon' color={text}/>

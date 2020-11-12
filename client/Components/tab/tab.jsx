@@ -21,7 +21,7 @@ export default function MyTab(){
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
   
-        if (route.name === 'Home') {
+        if (route.name === 'Home' ) {
           iconName = 'home';
         } else if (route.name === 'Transferencias') {
           iconName = 'arrow-swap';
