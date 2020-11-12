@@ -40,11 +40,15 @@ const style = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-end",
     justifyContent: "center",
-    position: "relative"
+    position: "relative",
+    marginTop: 20
   },
   lista: {
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  listaContenedor: {
+    marginBottom: 15
   }
 })
 

@@ -71,9 +71,9 @@ const Pagos = ({ navigation }) => {
           <Text>Agua</Text>
         </TouchableOpacity>
       </View>
-      <View>
+      <View style={{ marginTop: 30 }}>
 
-        <ListItem>
+        <ListItem style={style.listaContenedor}>
           <ListItem.Chevron />
           <ListItem.Content style={style.lista}>
             <ListItem.Title>Netflix</ListItem.Title>
@@ -84,10 +84,8 @@ const Pagos = ({ navigation }) => {
             </TouchableOpacity>
           </ListItem.Content>
         </ListItem>
-      </View>
-      <View>
 
-        <ListItem>
+        <ListItem style={style.listaContenedor}>
           <ListItem.Chevron />
           <ListItem.Content style={style.lista}>
             <ListItem.Title>Youtube Premium</ListItem.Title>
@@ -98,10 +96,8 @@ const Pagos = ({ navigation }) => {
             </TouchableOpacity>
           </ListItem.Content>
         </ListItem>
-      </View>
-      <View>
 
-        <ListItem>
+        <ListItem style={style.listaContenedor}>
           <ListItem.Chevron />
           <ListItem.Content style={style.lista}>
             <ListItem.Title>Spotify</ListItem.Title>
@@ -112,10 +108,8 @@ const Pagos = ({ navigation }) => {
             </TouchableOpacity>
           </ListItem.Content>
         </ListItem>
-      </View>
-      <View>
 
-        <ListItem>
+        <ListItem style={style.listaContenedor}>
           <ListItem.Chevron />
           <ListItem.Content style={style.lista}>
             <ListItem.Title>Telecentro</ListItem.Title>
@@ -126,10 +120,9 @@ const Pagos = ({ navigation }) => {
             </TouchableOpacity>
           </ListItem.Content>
         </ListItem>
-      </View>
-      <View>
 
-        <ListItem>
+
+        <ListItem style={style.listaContenedor}>
           <ListItem.Chevron />
           <ListItem.Content style={style.lista}>
             <ListItem.Title>Tarjeta de Crédito</ListItem.Title>
@@ -140,10 +133,8 @@ const Pagos = ({ navigation }) => {
             </TouchableOpacity>
           </ListItem.Content>
         </ListItem>
-      </View>
-      <View>
 
-        <ListItem>
+        <ListItem style={style.listaContenedor}>
           <ListItem.Chevron />
           <ListItem.Content style={style.lista}>
             <ListItem.Title>Gas</ListItem.Title>
