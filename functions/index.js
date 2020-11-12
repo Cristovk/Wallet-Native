@@ -144,7 +144,4 @@ ex.get('/api/user-try', async (req, res) => {
 
 
 
-
 exports.ex = functions.https.onRequest(ex);
-
-
