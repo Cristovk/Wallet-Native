@@ -89,6 +89,7 @@ const Transferencias = ({ navigation }) => {
       </View>
       <View style={style.botonContainer}>
         <TouchableOpacity
+          disabled={state === false || !dato.cvu || !dato.monto || !dato.motivo || !dato.email}
           style={style.boton}
           onPress={() => navigation.navigate("TransfConfirm", {
             state: state,
