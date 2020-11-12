@@ -8,8 +8,9 @@ You can run the App in three ways:
 - Your Web Browser _(```expo start```)_
 - An Android simulator like Android Studio or Visor _(```expo start```)_
 ---
-### Extra Configuration [ only if you want to run the App in the Web browser _(*_Not recommended_*)_ ]
+### Extra Configuration [ only if you want to run the App on the Web browser _(*_Not recommended_*)_ ]
 Go to the following route in node_modules and edit the FlipCard.js file with this changes:
+>```node_modules\react-native-flip-card\lib\FlipCard.js```
 1. Paste on the top this code:
 ```javascript
 import * as ReactNative from 'react-native-web';
