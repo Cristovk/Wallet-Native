@@ -59,7 +59,6 @@ const Login = ({ navigation }) => {
         <Input
           textContentType='emailAddress'
           autoCompleteType='email'
-          /* style={styles.input} */
           label=' Email'
           leftIcon={{ type: 'font-awesome', name: 'envelope' }}
           placeholderTextColor='grey'
@@ -71,7 +70,6 @@ const Login = ({ navigation }) => {
         <Input
           secureTextEntry={true}
           autoCompleteType='password'
-          /* style={styles.input} */
           label='Password'
           leftIcon={{ type: 'font-awesome', name: 'lock' }}
           placeholderTextColor='grey'
