@@ -1,15 +1,13 @@
 import React from 'react';
-import {StatusBar} from 'react-native';
+import { StatusBar } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider as ProviderPaper } from 'react-native-paper';
 import 'react-native-gesture-handler';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import generateStore from './client/Redux/Store/store';
 
 const store = generateStore();
-
-import Recargas from './client/Screen/Recargas/Recargas';
 
 
 // NAVIGATOR PRINCIPAL
@@ -25,11 +23,11 @@ export default function App() {
       <ProviderPaper>
         <NavigationContainer>
           <MyStack />
-          <StatusBar barStyle='light-content'/>
+          <StatusBar barStyle='light-content' />
         </NavigationContainer>
       </ProviderPaper>
     </Provider>
-  
+
 
   );
 }
