@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { View, Text,/* Button, */ Alert, TouchableOpacity } from 'react-native'
+import { View, Text,/* Button, */ Alert, TouchableOpacity, Image } from 'react-native'
 import styles from './login-styles'
 import { TextInput, Button } from 'react-native-paper'
 import { Input } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import db from "../../../firebase"
+
 
 const Login = ({ navigation }) => {
 
@@ -15,7 +16,7 @@ const Login = ({ navigation }) => {
 
   const handleChange = (name, value) => {
     setText({
-      ...text,
+      ...text, 
       [name]: value
     })
   }
@@ -52,7 +53,8 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>$ald∞</Text>
+      {/* <Text style={styles.text}>$ald∞</Text> */}
+      <Image source={require("../../src/logo.png")} />
       <View style={{width:'90%'}}>
         <Input
           textContentType='emailAddress'
