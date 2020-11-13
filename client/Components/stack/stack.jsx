@@ -3,13 +3,13 @@ import { Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { Icon } from 'react-native-elements'
 import db from '../../../firebase'
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
 
 // COMPONENTES
 import Balance from '../../Screen/Balance';
 import Movimientos from '../../Screen/Movimientos';
 import Pagos from '../../Screen/Pagos/Pagos';
-import Amigos from '../../Screen/Amigos';
+import Amigos from '../../Screen/Contactos/Amigos';
 import Ayuda from '../../Screen/Ayuda';
 import Configuracion from '../../Screen/Configuracion';
 import Login from '../../Views/Login/login'
@@ -32,6 +32,10 @@ import TransfConfirm from "../../Screen/Transferencias/TransfConfirmada"
 import MyTab from '../tab/tab'
 import MyDrowner from '../drawer/drawer'
 import Transferencias from '../../Screen/Transferencias/transferencias';
+import PagoServicios from '../../Screen/Pagos/PagoServicios';
+import PagoConfirm from '../../Screen/Pagos/PagoConfirm';
+import TransfAmigo from '../../Screen/Contactos/TransfAmigos';
+import TransfAmigoConfirm from '../../Screen/Contactos/TransAmConf';
 
 // Creamos los navegadores
 const Stack = createStackNavigator()
@@ -42,7 +46,7 @@ const HomeScreenStack = createStackNavigator()
 export default function MyStack(props) {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+      {/* <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> */}
       <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />
@@ -55,7 +59,7 @@ export default function MyStack(props) {
 // Navegador que se encarga de darle cabeceras a los componentes y renderizarlos (importado en drawer.jsx)
 export function HomeScreen() {
   const [users, setUsers] = useState([])
-  const {primary,secondary,text,bg} = useSelector(store => store.color)
+  const { primary, secondary, text, bg } = useSelector(store => store.color)
 
   useEffect(() => {
     storage.collection('Users').onSnapshot(querySnapshot => {
@@ -77,7 +81,7 @@ export function HomeScreen() {
 
   return (
     <HomeScreenStack.Navigator screenOptions={{ // Personalizamos las cabeceras en general
-      headerStyle:{
+      headerStyle: {
         backgroundColor: primary
       },
       headerTintColor: secondary
@@ -119,6 +123,10 @@ export function HomeScreen() {
       <HomeScreenStack.Screen name='Detalle' component={Detalle} options={{ title: 'Detalle de la transaccion' }} />
       <HomeScreenStack.Screen name='Recargas' component={Recargas} options={{ title: 'Recargar' }} />
       <HomeScreenStack.Screen name='TransfConfirm' component={TransfConfirm} options={{ title: 'Confirmar' }} />
+      <HomeScreenStack.Screen name='PagoServicios' component={PagoServicios} options={{ title: 'Confirmar Pago' }} />
+      <HomeScreenStack.Screen name='PagoConfirm' component={PagoConfirm} options={{ title: 'Pago Confirmado' }} />
+      <HomeScreenStack.Screen name='TransfAmigo' component={TransfAmigo} options={{ title: 'Transferir a Contacto' }} />
+      <HomeScreenStack.Screen name='TransfAmigoConfirm' component={TransfAmigoConfirm} options={{ title: 'Transferencia Confrimada' }} />
     </HomeScreenStack.Navigator >
   )
 }
