@@ -3,6 +3,7 @@ import { Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { Icon } from 'react-native-elements'
 import db from '../../../firebase'
+import {useSelector} from 'react-redux'
 
 // COMPONENTES
 import Balance from '../../Screen/Balance';
@@ -38,11 +39,12 @@ const HomeScreenStack = createStackNavigator()
 
 
 // Navegador Inicial para ingresar a la wallet (importado en App.js)
-export default function MyStack() {
+export default function MyStack(props) {
   return (
     <Stack.Navigator>
-       <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> 
-      <Stack.Screen name='HomeDrawer' component={MyDrowner} options={{ headerShown: false }} />
+
+      <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+      <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp2" component={SignUp2} options={{ title: "Registro" }} />
@@ -54,7 +56,7 @@ export default function MyStack() {
 // Navegador que se encarga de darle cabeceras a los componentes y renderizarlos (importado en drawer.jsx)
 export function HomeScreen() {
   const [users, setUsers] = useState([])
-
+  const {primary,secondary,text,bg} = useSelector(store => store.color)
 
   useEffect(() => {
     storage.collection('Users').onSnapshot(querySnapshot => {
@@ -80,11 +82,10 @@ export function HomeScreen() {
 
   return (
     <HomeScreenStack.Navigator screenOptions={{ // Personalizamos las cabeceras en general
-      headerStyle: {
-        backgroundColor: "#02072F",
-        borderColor: 'none'
+      headerStyle:{
+        backgroundColor: primary
       },
-      headerTintColor: "#FC7029"
+      headerTintColor: secondary
     }}>
       <HomeScreenStack.Screen name='HomeTab' component={MyTab} options={({ navigation }) => ({ // Personalizamos las cabeceras de los atajos principales
         headerLeft: () => (
