@@ -18,7 +18,7 @@ const initialState = {
     dni: '',
     cuil: '',
   }
-} 
+}
 
 // REDUCER
 export default function userReducer(state = initialState, action) {
@@ -27,7 +27,7 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         userAuth: {
-          ...state.userAuth, 
+          ...state.userAuth,
           [action.payload.name]: action.payload.value
         }
       }
@@ -36,7 +36,7 @@ export default function userReducer(state = initialState, action) {
       let data = action.payload
       return {
         ...state,
-        userData:{
+        userData: {
           ...state.userData,
           ...data
         }
@@ -49,30 +49,30 @@ export default function userReducer(state = initialState, action) {
 }
 
 // ACTIONS
-export const addUser = ( name, value) => (dispatch) => {
+export const addUser = (name, value) => (dispatch) => {
   try {
     dispatch({
       type: REGISTER_USER,
       payload: {
-        name:name,
-        value:value
+        name: name,
+        value: value
       }
     })
   }
-  catch(error){
+  catch (error) {
     console.log(error);
   }
 }
 
 export const saveData = (obj) => (dispatch) => {
-  
-  try { 
+
+  try {
     dispatch({
       type: SAVE_USER_DATA,
       payload: obj
     })
   }
-  catch(error){
+  catch (error) {
     console.log(error);
   }
 }

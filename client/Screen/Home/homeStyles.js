@@ -28,6 +28,12 @@ const style = StyleSheet.create({
   subGastos: {
     height: 60,
     marginBottom: 30
+  },
+  listaContenedor: {
+    marginBottom: 15
+  },
+  lista: {
+    marginBottom: 10
   }
 })
 

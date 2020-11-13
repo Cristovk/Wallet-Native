@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { View, Text,/* Button, */ Alert, TouchableOpacity } from 'react-native'
+import { View, Text,/* Button, */ Alert, TouchableOpacity, Image } from 'react-native'
 import styles from './login-styles'
 import { TextInput, Button } from 'react-native-paper'
 import { Input } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import db from "../../../firebase"
+
 
 const Login = ({ navigation }) => {
 
@@ -15,11 +16,11 @@ const Login = ({ navigation }) => {
 
   const handleChange = (name, value) => {
     setText({
-      ...text,
+      ...text, 
       [name]: value
     })
   }
-  
+
 
 
   const login = () => {
@@ -41,7 +42,7 @@ const Login = ({ navigation }) => {
           [{ text: 'continuar' }]
         )
       })
-      // hasta que funcione el back
+    // hasta que funcione el back
 
     // Alert.alert(
     //     "Bienvenido!",
@@ -52,12 +53,12 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>$ald∞</Text>
+      {/* <Text style={styles.text}>$ald∞</Text> */}
+      <Image source={require("../../src/logo.png")} />
       <View style={{width:'90%'}}>
         <Input
           textContentType='emailAddress'
           autoCompleteType='email'
-          /* style={styles.input} */
           label=' Email'
           leftIcon={{ type: 'font-awesome', name: 'envelope' }}
           placeholderTextColor='grey'
@@ -69,7 +70,6 @@ const Login = ({ navigation }) => {
         <Input
           secureTextEntry={true}
           autoCompleteType='password'
-          /* style={styles.input} */
           label='Password'
           leftIcon={{ type: 'font-awesome', name: 'lock' }}
           placeholderTextColor='grey'
