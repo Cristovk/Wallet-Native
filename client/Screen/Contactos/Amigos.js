@@ -1,7 +1,7 @@
-import React,{useState} from 'react'
-import { View, Text, ScrollView, StyleSheet, Modal, Alert} from 'react-native'
-import { ListItem, Avatar, Icon, ThemeProvider} from 'react-native-elements'
-import {useSelector} from 'react-redux'
+import React, { useState } from 'react'
+import { View, Text, ScrollView, StyleSheet, Modal, Alert } from 'react-native'
+import { ListItem, Avatar, Icon, ThemeProvider } from 'react-native-elements'
+import { useSelector } from 'react-redux'
 
 const list = [
   {
@@ -38,7 +38,7 @@ const list = [
 
 const Amigos = ({ navigation }) => {
 
-  const {text,bg} = useSelector( store => store.color)
+  const { text, bg } = useSelector(store => store.color)
 
   // Función del modal para los detalles
   const [modal, setModal] = useState(false)
@@ -46,7 +46,7 @@ const Amigos = ({ navigation }) => {
   const toggle = () => setModal(!modal)
   const myTheme = {
     ListItem: {
-      containerStyle:{
+      containerStyle: {
         backgroundColor: bg
       }
     },
@@ -58,18 +58,31 @@ const Amigos = ({ navigation }) => {
   return (
     <ScrollView>
       <ThemeProvider theme={myTheme}>
-      {list.map((l,i) =>
-        <ListItem key={i} bottomDivider>
-          <Avatar rounded source={{ uri: l.avatar_url }} />
-          <ListItem.Content>
-            <ListItem.Title style={{color:text}}>{l.name}</ListItem.Title>
-            <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
-          </ListItem.Content>
-          <Icon name='ios-information-circle' type='ionicon' onPress={() => { setIndex(l.id); toggle() }} />
-          <Icon name='ios-hand' type='ionicon' onPress={() => navigation.navigate('Transferencias')} />
-          <Icon name='ios-send' type='ionicon' onPress={() => navigation.navigate('Transferencias')} />
-        </ListItem>
-      )}
+        {list.map((l, i) =>
+          <ListItem key={i} bottomDivider>
+            <Avatar rounded source={{ uri: l.avatar_url }} />
+            <ListItem.Content>
+              <ListItem.Title style={{ color: text }}>{l.name}</ListItem.Title>
+              <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
+            </ListItem.Content>
+            <Icon name='ios-information-circle' type='ionicon' onPress={() => { setIndex(l.id); toggle() }} />
+            <Icon name='ios-hand' type='ionicon' onPress={() => navigation.navigate('TransfAmigo', {
+              name: l.name,
+              banco: l.subtitle,
+              alias: l.alias,
+              cvu: l.cvu,
+              telefono: l.telefono
+            }
+            )} />
+            <Icon name='ios-send' type='ionicon' onPress={() => navigation.navigate('TransfAmigo', {
+              name: l.name,
+              banco: l.subtitle,
+              alias: l.alias,
+              cvu: l.cvu,
+              telefono: l.telefono
+            })} />
+          </ListItem>
+        )}
       </ThemeProvider>
       {/* ----------MODAL--------- */}
       <Modal
@@ -99,9 +112,9 @@ const Amigos = ({ navigation }) => {
                 <Text>Telefono: {list[index - 1].telefono}</Text>
               </View>
               <ListItem topDivider >
-                <Icon onPress={toggle} name='arrow-left' type='fontisto'/>
-                <Icon onPress={toggle} name='trash' type='fontisto'/>
-              </ListItem>       
+                <Icon onPress={toggle} name='arrow-left' type='fontisto' />
+                <Icon onPress={toggle} name='trash' type='fontisto' />
+              </ListItem>
             </View>
           </View>}
       </Modal>
