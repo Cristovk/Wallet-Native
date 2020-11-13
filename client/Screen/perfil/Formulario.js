@@ -47,7 +47,7 @@ const Formulario = ({ data }) => {
         <Text style={styles.padrelapiz}><Lapiz /></Text>
       </View>
 
-      <View style={styles.grupoform}>
+      {/* <View style={styles.grupoform}>
         <Text style={styles.labelinput}>Cuil</Text>
         <TextInput
           placeholder={cuil}
@@ -55,7 +55,7 @@ const Formulario = ({ data }) => {
           onChangeText={(data) => setDatos({ ...datos, cuil: data })}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
-      </View>
+      </View> */}
 
       <View style={styles.grupoform}>
         <Text style={styles.labelinput}>DNI</Text>

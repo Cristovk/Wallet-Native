@@ -23,7 +23,7 @@ import AddTarjeta from '../card/AddTarjeta';
 import TransactionHistory from '../../Screen/TransactionHistory/Movimientos'
 import Detalle from '../../Screen/TransactionHistory/DetailOfTransaction'
 import Recargas from '../../Screen/Recargas/Recargas';
-import { storage } from '../../../firebase'
+import { storage, auth } from '../../../firebase'
 import Verify from "../../Screen/verificacion/verify"
 import TransfConfirm from "../../Screen/Transferencias/TransfConfirmada"
 
@@ -46,7 +46,8 @@ const HomeScreenStack = createStackNavigator()
 export default function MyStack(props) {
   return (
     <Stack.Navigator>
-      {/* <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> */}
+
+      <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
       <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />
@@ -68,13 +69,17 @@ export function HomeScreen() {
 
       querySnapshot.docs.forEach(doc => {
         const { name, id, birthday } = doc.data() //Como necesito guardar esos datos, hago destructuring de la data.
-        users.push({ //Lo guardamos principalmente en este array nuevo que creamos.
-          name,
-          id,
-          birthday
-        })
+        if (id === auth.currentUser.uid) {
+          users.push({ //Lo guardamos principalmente en este array nuevo que creamos.
+            name,
+            id,
+            birthday
+          })
+        }
+
       })
       setUsers(users)
+
     })
   }, [])
 
