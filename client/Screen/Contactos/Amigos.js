@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import { View, Text, ScrollView, StyleSheet, Modal, Alert } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, Text, ScrollView, StyleSheet, Modal, Alert, Linking } from 'react-native'
 import { ListItem, Avatar, Icon, ThemeProvider } from 'react-native-elements'
 import { useSelector } from 'react-redux'
+import * as Contacts from 'expo-contacts'
 
 const list = [
   {
@@ -39,7 +40,6 @@ const list = [
 const Amigos = ({ navigation }) => {
 
   const { text, bg } = useSelector(store => store.color)
-
   // Función del modal para los detalles
   const [modal, setModal] = useState(false)
   const [index, setIndex] = useState('')
@@ -55,6 +55,33 @@ const Amigos = ({ navigation }) => {
     }
   }
 
+  const [contacts,setContacts] = useState([])
+
+  useEffect(()=>{
+    (async () => {
+      const { status } = await Contacts.requestPermissionsAsync();
+      if (status === 'granted') {
+        const { data } = await Contacts.getContactsAsync({fields:[Contacts.Fields.Name,Contacts.Fields.PhoneNumbers]});
+        const format = data.map((c,index) => ({
+          id: index,
+          name: c.name,
+          telefono: c.phoneNumbers[0].digits,
+          avatar_url: '--',
+          subtitle: 'QuiqueBank',
+          alias: 'Don_Quijote',
+          cbu: '--',
+          cvu: '--'
+        }))
+        setContacts(format)
+      }
+    })()
+  },[])
+
+  const requestMoney = async(phone) => {
+    await Linking.openURL('sms:+5493517733375?body=otro')
+    /* await Linking.openURL(`https://wa.me/+5493517733375?text=dame plata`) */
+  }
+
   return (
     <ScrollView>
       <ThemeProvider theme={myTheme}>
@@ -66,14 +93,7 @@ const Amigos = ({ navigation }) => {
               <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
             </ListItem.Content>
             <Icon name='ios-information-circle' type='ionicon' onPress={() => { setIndex(l.id); toggle() }} />
-            <Icon name='ios-hand' type='ionicon' onPress={() => navigation.navigate('TransfAmigo', {
-              name: l.name,
-              banco: l.subtitle,
-              alias: l.alias,
-              cvu: l.cvu,
-              telefono: l.telefono
-            }
-            )} />
+            {l.telefono !== '--' && <Icon name='ios-hand' type='ionicon' onPress={()=>requestMoney(l.telefono)} />}
             <Icon name='ios-send' type='ionicon' onPress={() => navigation.navigate('TransfAmigo', {
               name: l.name,
               banco: l.subtitle,
@@ -83,6 +103,7 @@ const Amigos = ({ navigation }) => {
             })} />
           </ListItem>
         )}
+        <Text>{JSON.stringify(contacts[0])}</Text>
       </ThemeProvider>
       {/* ----------MODAL--------- */}
       <Modal
