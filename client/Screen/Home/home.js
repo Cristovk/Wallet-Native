@@ -7,7 +7,6 @@ import style from './homeStyles'
 const Home = ({ navigation }) => {
 
   // const {title, amount, icon} = route.params;
-  const [state, setState] = useState()
 
   const lista = [
     {

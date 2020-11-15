@@ -3,13 +3,16 @@ import { Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { Icon } from 'react-native-elements'
 import db from '../../../firebase'
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
+import { connect } from 'react-redux'
+
+
 
 // COMPONENTES
 import Balance from '../../Screen/Balance';
 import Movimientos from '../../Screen/Movimientos';
 import Pagos from '../../Screen/Pagos/Pagos';
-import Amigos from '../../Screen/Amigos';
+import Amigos from '../../Screen/Contactos/Amigos';
 import Ayuda from '../../Screen/Ayuda';
 import Configuracion from '../../Screen/Configuracion';
 import Login from '../../Views/Login/login'
@@ -23,7 +26,7 @@ import AddTarjeta from '../card/AddTarjeta';
 import TransactionHistory from '../../Screen/TransactionHistory/Movimientos'
 import Detalle from '../../Screen/TransactionHistory/DetailOfTransaction'
 import Recargas from '../../Screen/Recargas/Recargas';
-import { storage,auth } from '../../../firebase'
+import { storage, auth } from '../../../firebase'
 import Verify from "../../Screen/verificacion/verify"
 import TransfConfirm from "../../Screen/Transferencias/TransfConfirmada"
 
@@ -32,6 +35,11 @@ import TransfConfirm from "../../Screen/Transferencias/TransfConfirmada"
 import MyTab from '../tab/tab'
 import MyDrowner from '../drawer/drawer'
 import Transferencias from '../../Screen/Transferencias/transferencias';
+import PagoServicios from '../../Screen/Pagos/PagoServicios';
+import PagoConfirm from '../../Screen/Pagos/PagoConfirm';
+import TransfAmigo from '../../Screen/Contactos/TransfAmigos';
+import TransfAmigoConfirm from '../../Screen/Contactos/TransAmConf';
+import { userLog } from '../../Redux/User';
 
 // Creamos los navegadores
 const Stack = createStackNavigator()
@@ -54,35 +62,19 @@ export default function MyStack(props) {
 }
 
 // Navegador que se encarga de darle cabeceras a los componentes y renderizarlos (importado en drawer.jsx)
-export function HomeScreen() {
+export function HomeScreen({ userLog, user }) {
   const [users, setUsers] = useState([])
-  const {primary,secondary,text,bg} = useSelector(store => store.color)
+  const { primary, secondary, text, bg } = useSelector(store => store.color)
 
   useEffect(() => {
-    storage.collection('Users').onSnapshot(querySnapshot => {
-
-      const users = []
-
-      querySnapshot.docs.forEach(doc => {
-        const { name, id, birthday } = doc.data() //Como necesito guardar esos datos, hago destructuring de la data.
-        if(id===auth.currentUser.uid){
-          users.push({ //Lo guardamos principalmente en este array nuevo que creamos.
-            name,
-            id,
-            birthday
-          })
-        }
-       
-      })
-      setUsers(users)
-    
-    })
+    userLog()
   }, [])
 
+  console.log(user)
 
   return (
     <HomeScreenStack.Navigator screenOptions={{ // Personalizamos las cabeceras en general
-      headerStyle:{
+      headerStyle: {
         backgroundColor: primary
       },
       headerTintColor: secondary
@@ -98,7 +90,7 @@ export function HomeScreen() {
               type='ionicon'
             />
           </TouchableOpacity>),
-        title: `Bienvenido ${users[0] && users[0].name}`,
+        title: `Bienvenido ${user && user.name}`,
         headerTitleAlign: 'center',
         headerRight: () => (
           <TouchableOpacity
@@ -124,9 +116,31 @@ export function HomeScreen() {
       <HomeScreenStack.Screen name='Detalle' component={Detalle} options={{ title: 'Detalle de la transaccion' }} />
       <HomeScreenStack.Screen name='Recargas' component={Recargas} options={{ title: 'Recargar' }} />
       <HomeScreenStack.Screen name='TransfConfirm' component={TransfConfirm} options={{ title: 'Confirmar' }} />
+      <HomeScreenStack.Screen name='PagoServicios' component={PagoServicios} options={{ title: 'Confirmar Pago' }} />
+      <HomeScreenStack.Screen name='PagoConfirm' component={PagoConfirm} options={{ title: 'Pago Confirmado' }} />
+      <HomeScreenStack.Screen name='TransfAmigo' component={TransfAmigo} options={{ title: 'Transferir a Contacto' }} />
+      <HomeScreenStack.Screen name='TransfAmigoConfirm' component={TransfAmigoConfirm} options={{ title: 'Transferencia Confrimada' }} />
     </HomeScreenStack.Navigator >
   )
 }
+
+const mapStateToProps = state => {
+  return {
+    user: state.user.user
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    userLog: id => dispatch(userLog(id))
+  }
+}
+
+export const homeScreen = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomeScreen)
+
 
 const style = StyleSheet.create({
   boton: {
