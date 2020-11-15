@@ -35,8 +35,6 @@ const Transferencias = ({ navigation }) => {
           h4Style={{ color: "white", paddingEnd: 100 }}
         >Transferir</Text>
       </View>
-      <View>
-      </View>
       <View style={{ marginTop: 90 }}>
         <ListItem style={style.lista}>
           <ListItem.Chevron />

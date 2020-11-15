@@ -19,7 +19,7 @@ const Formulario = ({ data }) => {
         <TextInput
           placeholder={name}
           style={styles.inputperfil}
-          onChangeText={(data) => setDatos({ ...datos, nombre: data })}
+          onChangeText={(data) => setDatos({ ...datos, name: data })}
 
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
