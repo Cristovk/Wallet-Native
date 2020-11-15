@@ -6,6 +6,7 @@ import { styles, estilos } from "./estilosTarjetas";
 import { saveTarjetas } from "../../Redux/CardActions";
 import { CreditCardInput } from "react-native-credit-card-input";
 import { useDispatch } from "react-redux";
+import { orange } from "../../Global-Styles/colors";
 
 /* =============================== STATES ==================================== */
 const AddCard = (props) => {
@@ -44,7 +45,7 @@ const AddCard = (props) => {
       //   ? setState({ ...state, cards: [...state.cards, state.data] })
       //   : setState({ ...state, cards: [state.data] });
       // console.log("state.cards", state.cards);
-      dispatch(saveTarjetas(state.data));
+      saveTarjetas(state.data);
       toggleOverlay();
     } else {
       Alert.alert(JSON.stringify("Debe llenar todos los campos"));
@@ -87,7 +88,7 @@ const AddCard = (props) => {
           <Button
             onPress={() => asociarTarjeta()}
             title="Asociar Tarjeta"
-            buttonStyle={styles.button}
+            buttonStyle={[styles.button, { backgroundColor: orange }]}
           />
         </View>
         <View>

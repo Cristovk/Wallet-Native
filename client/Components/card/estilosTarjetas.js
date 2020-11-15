@@ -57,4 +57,12 @@ export const estilos = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
   },
+  delete: {
+    backgroundColor: darkBlue,
+    color: darkBlue,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 5,
+    fontWeight: "bold",
+  },
 });
