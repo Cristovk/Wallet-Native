@@ -1,9 +1,9 @@
 
-.env
-.env.local
-node_modules/**/*
-.expo/*
-npm-debug.*
+*.env
+*.env.local
+*node_modules/**/*
+*.expo/
+*npm-debug.
 *.jks
 *.p8
 *.p12
@@ -13,10 +13,11 @@ npm-debug.*
 *.env.local
 *.env.production
 *.orig.*
-web-build/
-firebase.js
+*web-build/
+*firebase.js
+*permissions.json
 
 # macOS
-.DS_Store
+*.DS_Store
 
-package-lock.json
+*package-lock.json
