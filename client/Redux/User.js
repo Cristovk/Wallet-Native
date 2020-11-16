@@ -1,10 +1,11 @@
 // CONSTANTS
 const REGISTER_USER = 'REGISTER_USER';
 const SAVE_USER_DATA = 'SAVE_USER_DATA';
-
+const SAVE_USER= 'SAVE_USER'
 
 // STATE
 const initialState = {
+  user: [],
   userAuth: {
     email: "",
     password: ""
@@ -41,6 +42,11 @@ export default function userReducer(state = initialState, action) {
           ...data
         }
       }
+    case SAVE_USER: 
+      return {
+        ...state,
+        user: action.payload
+      }
     default:
       return {
         ...state
@@ -74,5 +80,17 @@ export const saveData = (obj) => (dispatch) => {
   }
   catch (error) {
     console.log(error);
+  }
+}
+
+export const saveUser = (data) => (dispatch) => {
+
+  try {
+    dispatch({
+      type: SAVE_USER,
+      payload: data
+    })
+  } catch (error) {
+    console.log(error)
   }
 }

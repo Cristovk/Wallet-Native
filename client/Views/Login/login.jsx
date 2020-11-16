@@ -5,9 +5,13 @@ import { TextInput, Button } from 'react-native-paper'
 import { Input } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import db from "../../../firebase"
+import {saveUser} from '../../Redux/User'
+import {useDispatch, useSelector} from 'react-redux'
 
 
 const Login = ({ navigation }) => {
+
+  const dispatch = useDispatch()
 
   const [text, setText] = useState({
     email: "",
@@ -29,6 +33,7 @@ const Login = ({ navigation }) => {
       .then(res => {
         //Valida si el mail se verificó
         if(res.user.emailVerified){
+          dispatch(saveUser(res.user))
           navigation.navigate('HomeDrawer')
         }else{
           navigation.navigate('Verify')

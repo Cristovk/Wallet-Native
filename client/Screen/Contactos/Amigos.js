@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, ScrollView, StyleSheet, Modal, Alert, Linking } from 'react-native'
 import { ListItem, Avatar, Icon, ThemeProvider } from 'react-native-elements'
-import { useSelector } from 'react-redux'
 import * as Contacts from 'expo-contacts'
+import {storage, auth} from '../../../firebase'
+import {useSelector} from 'react-redux'
 
 const list = [
   {
@@ -38,6 +39,7 @@ const list = [
 ]
 
 const Amigos = ({ navigation }) => {
+  const user = useSelector((store) => store.user.user)
 
   const { text, bg } = useSelector(store => store.color)
   // Función del modal para los detalles
@@ -57,25 +59,46 @@ const Amigos = ({ navigation }) => {
 
   const [contacts,setContacts] = useState([])
 
+  const getContacts = async () => {
+    const { status } = await Contacts.requestPermissionsAsync();
+    if (status === 'granted') {
+      const { data } = await Contacts.getContactsAsync({fields:[Contacts.Fields.Name,Contacts.Fields.PhoneNumbers]});
+      // console.log(data[70])
+      const format = data.map((c,index) => ({
+        id: index,
+        name: c.name,
+        telefono: c.phoneNumbers[0].number,
+        avatar_url: '--',
+        subtitle: 'QuiqueBank',
+        alias: 'Don_Quijote',
+        cbu: '--',
+        cvu: '--'
+      }))
+      console.log(format, '-------------------> format')
+      const contactos = format.filter(async(c) => {
+        console.log(c, '---------->c')
+        let datos = storage.collection('Users').where('phone','==',`${c.telefono}`)
+        let getRes = await datos.get()
+        let data = await getRes.docs[0].data()
+        return data.phone === c.telefono 
+      })
+      console.log('------------>',contactos)
+      setContacts(contactos)
+    }
+  }
+  
+
+  const favoriteContact = () => {
+   return storage.collection('Users').doc(user.uid).collection('Contacts').doc("hola").set({name: "Soy el object"})
+  }
+
   useEffect(()=>{
-    (async () => {
-      const { status } = await Contacts.requestPermissionsAsync();
-      if (status === 'granted') {
-        const { data } = await Contacts.getContactsAsync({fields:[Contacts.Fields.Name,Contacts.Fields.PhoneNumbers]});
-        const format = data.map((c,index) => ({
-          id: index,
-          name: c.name,
-          telefono: c.phoneNumbers[0].digits,
-          avatar_url: '--',
-          subtitle: 'QuiqueBank',
-          alias: 'Don_Quijote',
-          cbu: '--',
-          cvu: '--'
-        }))
-        setContacts(format)
-      }
-    })()
+    getContacts()
+    // getUser()
+    favoriteContact()
   },[])
+  
+
 
   const requestMoney = async(phone) => {
     await Linking.openURL('sms:+5493517733375?body=otro')
@@ -85,7 +108,7 @@ const Amigos = ({ navigation }) => {
   return (
     <ScrollView>
       <ThemeProvider theme={myTheme}>
-        {list.map((l, i) =>
+        {contacts.map((l, i) =>
           <ListItem key={i} bottomDivider>
             <Avatar rounded source={{ uri: l.avatar_url }} />
             <ListItem.Content>
@@ -119,18 +142,18 @@ const Amigos = ({ navigation }) => {
             <View style={styles.modalView}>
               <View>
                 <ListItem bottomDivider style={{ width: 200 }}>
-                  <Avatar size='medium' rounded source={{ uri: list[index - 1].avatar_url }} />
+                  <Avatar size='medium' rounded source={{ uri: contacts[index - 1].avatar_url }} />
                   <ListItem.Content>
-                    <ListItem.Title>{list[index - 1].name}</ListItem.Title>
-                    <ListItem.Subtitle>{list[index - 1].subtitle}</ListItem.Subtitle>
+                    <ListItem.Title>{contacts[index - 1].name}</ListItem.Title>
+                    <ListItem.Subtitle>{contacts[index - 1].subtitle}</ListItem.Subtitle>
                   </ListItem.Content>
                 </ListItem>
               </View>
               <View style={{ paddingTop: 10, paddingBottom: 10 }}>
-                <Text>Alias: {list[index - 1].alias}</Text>
-                <Text>CBU: {list[index - 1].cbu}</Text>
-                <Text>CVU: {list[index - 1].cvu}</Text>
-                <Text>Telefono: {list[index - 1].telefono}</Text>
+                <Text>Alias: {contacts[index - 1].alias}</Text>
+                <Text>CBU: {contacts[index - 1].cbu}</Text>
+                <Text>CVU: {contacts[index - 1].cvu}</Text>
+                <Text>Telefono: {contacts[index - 1].telefono}</Text>
               </View>
               <ListItem topDivider >
                 <Icon onPress={toggle} name='arrow-left' type='fontisto' />
