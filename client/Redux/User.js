@@ -4,6 +4,7 @@ import { storage, auth } from '../../firebase'
 const REGISTER_USER = 'REGISTER_USER';
 const SAVE_USER_DATA = 'SAVE_USER_DATA';
 const LOGEADO = "LOGEADO"
+const MODIFICA_USUARIO = "MODIFICA_USUARIO"
 
 
 // STATE
@@ -45,6 +46,11 @@ export default function userReducer(state = initialState, action) {
         }
       }
     case LOGEADO:
+      return {
+        ...state,
+        user: action.payload
+      }
+    case MODIFICA_USUARIO:
       return {
         ...state,
         user: action.payload
@@ -98,13 +104,49 @@ export const userLog = () => async (dispatch) => {
         payload: resp.data()
       })
     })
+}
 
+export const updateUser = ({ name, phone, lastName, dni, cuil }) => async (dispatch) => {
 
+  const id = await auth.currentUser.uid
+  const consulta = storage.collection('Users').doc(id)
+  await consulta.set({
+    name: name,
+    lastName: lastName,
+    phone: phone,
+    dni: dni,
+    cuil: cuil
+  })
+    .then(resp => {
+      dispatch({
+        type: MODIFICA_USUARIO,
+        payload: {
+          name: name,
+          lastName: lastName,
+          phone: phone,
+          dni: dni,
+          cuil: cuil
+        }
+      })
+    })
 
 }
 
+export const ResetPass = (email) => {
+  auth.sendPasswordResetEmail(email)
+}
 
+export const ModificarEmail = (email) => {
+  auth.currentUser.updateEmail(email)
+    .then(() => {
+      auth.currentUser.sendEmailVerification()
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
 
-
-
+export const ModificarPassword = (password) => {
+  auth.currentUser.updatePassword(password)
+}
 

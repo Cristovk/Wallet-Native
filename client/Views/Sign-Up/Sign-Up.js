@@ -42,8 +42,6 @@ const SignUp = ({ navigation }) => {
   let newDate = new Date(year, month - 1, day);
   let actualYear = new Date().getFullYear();
 
-  console.log("NEWDATE", newDate);
-  console.log("BIRTHDAY", birthday);
 
   const validateForm = () => {
     setErr({
@@ -129,7 +127,6 @@ const SignUp = ({ navigation }) => {
   };
 
   const handleOnPress = () => {
-    console.log(info);
     const valid = validateForm();
     if (valid) {
       setBirthday(newDate);
