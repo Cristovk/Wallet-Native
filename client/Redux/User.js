@@ -1,4 +1,4 @@
-import { storage, auth } from '../../firebase'
+import { storage, auth } from "../../firebase";
 
 // CONSTANTS
 const REGISTER_USER = 'REGISTER_USER';
@@ -11,18 +11,20 @@ const MODIFICA_USUARIO = "MODIFICA_USUARIO"
 const initialState = {
   userAuth: {
     email: "",
-    password: ""
+    password: "",
   },
   userData: {
     id: "",
-    name: '',
-    lastname: '',
-    phone: '',
-    dni: '',
-    cuil: '',
+    name: "",
+    lastname: "",
+    birthday: "",
+    email: "",
+    phone: "",
+    dni: "",
+    cuil: "",
   },
-  user: []
-}
+  user: [],
+};
 
 // REDUCER
 export default function userReducer(state = initialState, action) {
@@ -32,19 +34,18 @@ export default function userReducer(state = initialState, action) {
         ...state,
         userAuth: {
           ...state.userAuth,
-          [action.payload.name]: action.payload.value
-        }
-      }
+          [action.payload.name]: action.payload.value,
+        },
+      };
     case SAVE_USER_DATA:
-
-      let data = action.payload
+      let data = action.payload;
       return {
         ...state,
         userData: {
           ...state.userData,
-          ...data
-        }
-      }
+          ...data,
+        },
+      };
     case LOGEADO:
       return {
         ...state,
@@ -57,8 +58,8 @@ export default function userReducer(state = initialState, action) {
       }
     default:
       return {
-        ...state
-      }
+        ...state,
+      };
   }
 }
 
@@ -69,29 +70,24 @@ export const addUser = (name, value) => (dispatch) => {
       type: REGISTER_USER,
       payload: {
         name: name,
-        value: value
-      }
-    })
-  }
-  catch (error) {
+        value: value,
+      },
+    });
+  } catch (error) {
     console.log(error);
   }
-}
+};
 
 export const saveData = (obj) => (dispatch) => {
-
   try {
     dispatch({
       type: SAVE_USER_DATA,
-      payload: obj
-    })
-  }
-  catch (error) {
+      payload: obj,
+    });
+  } catch (error) {
     console.log(error);
   }
-}
-
-
+};
 
 export const userLog = () => async (dispatch) => {
 
