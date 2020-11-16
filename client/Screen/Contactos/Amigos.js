@@ -77,27 +77,41 @@ const Amigos = ({ navigation }) => {
         fields: [Contacts.Fields.Name, Contacts.Fields.PhoneNumbers],
       });
       // console.log("dataaaaaaaaaaaaaaaaaaaa",data);
+      // FORMATEAR LOS CONTACTOS
       const format = data.map((c, index) => ({
         id: index,
         name: c.name,
-        telefono: "-",
+        telefono: (Array.isArray(c.phoneNumbers) ? c.phoneNumbers[0].number : "--"),
         avatar_url: "--",
         subtitle: "QuiqueBank",
         alias: "Don_Quijote",
         cbu: "--",
         cvu: "--",
-      })); /* console.log(format, "-------------------> format");
+      })); 
+      /* console.log(format, "-------------------> format"); */
+      // FILTRAR LOS CONTACTOS
       const contactos = format.filter(async (c) => {
-        console.log(c, "---------->c");
-        let datos = storage
-          .collection("Users")
-          .where("phone", "==", `${c.telefono}`);
-        let getRes = await datos.get();
-        let data = await getRes.docs[0].data();
-        return data.phone === c.telefono;
+        console.log("-----------------------------------------------------------------------------")
+        
+           console.log(c, "---------->c");
+        // let datos = storage
+        //   .collection("Users")
+        //   .where("phone", "==", `${c.telefono}`);
+        // let getRes = await datos.get()
+        // .then(snapshot => {
+        //   snapshot.forEach(doc => {
+        //     console.log(doc.id, '=>', doc.data());
+        //   });
+        // })
+        // .catch(err => {
+        //   console.log('Error getting documents', err);
+        // });
+        // // return data.phone === c.telefono;
+        
       });
-      console.log("------------>", contactos); */
-      /* console.log("formaaaaaaaaaaaat", format) */ setContacts(format);
+      console.log("------------>", contactos);
+      //GUARDAR LOS CONTACTOS
+      /* console.log("formaaaaaaaaaaaat", format) */ setContacts(contactos);
     }
   };
 
