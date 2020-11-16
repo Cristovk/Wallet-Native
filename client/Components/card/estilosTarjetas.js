@@ -66,6 +66,7 @@ export const estilos = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
   },
+
   delete: {
     backgroundColor: darkBlue,
     color: darkBlue,

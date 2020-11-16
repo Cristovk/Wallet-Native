@@ -9,7 +9,6 @@ import { orange } from "../../Global-Styles/colors";
 
 /* ========================= STATES ============================ */
 const AddCard = (props) => {
-  // console.log("props", props);
   const [state, setState] = useState({
     data: {},
     validCard: false,
@@ -19,7 +18,7 @@ const AddCard = (props) => {
   /* ======================= FUNCTIONS ========================== */
 
   const onChange = (formData) => {
-    console.log(JSON.stringify(formData, null, " "));
+    // console.log(JSON.stringify(formData, null, " "));
     setState({
       ...state,
       data: formData.values,
@@ -31,7 +30,6 @@ const AddCard = (props) => {
   };
   const continuar = () => {
     toggleOverlay();
-    props.navigation.navigate("Tarjetas", { data: state.data });
   };
   const addAgain = () => {
     toggleOverlay();
@@ -39,10 +37,6 @@ const AddCard = (props) => {
   };
   const asociarTarjeta = () => {
     if (state.validCard) {
-      // state.cards.length > 0
-      //   ? setState({ ...state, cards: [...state.cards, state.data] })
-      //   : setState({ ...state, cards: [state.data] });
-      // console.log("state.cards", state.cards);
       saveTarjetas(state.data);
       props.route.params.renderState();
       toggleOverlay();
