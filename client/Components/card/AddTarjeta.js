@@ -1,24 +1,22 @@
-/* =============================== IMPORTATIONS ============================== */
+/* ====================== IMPORTATIONS ========================= */
 import React, { useState } from "react";
-import { View, ScrollView, StyleSheet, Alert, Text, Modal } from "react-native";
+import { View, ScrollView, Alert, Text, Modal } from "react-native";
 import { Button, Icon } from "react-native-elements";
 import { styles, estilos } from "./estilosTarjetas";
 import { saveTarjetas } from "../../Redux/CardActions";
 import { CreditCardInput } from "react-native-credit-card-input";
-import { useDispatch } from "react-redux";
 import { orange } from "../../Global-Styles/colors";
 
-/* =============================== STATES ==================================== */
+/* ========================= STATES ============================ */
 const AddCard = (props) => {
+  // console.log("props", props);
   const [state, setState] = useState({
     data: {},
     validCard: false,
     cards: [],
   });
   const [visible, setVisible] = useState(false);
-
-  const dispatch = useDispatch();
-  /* =============================== FUNCTIONS ================================= */
+  /* ======================= FUNCTIONS ========================== */
 
   const onChange = (formData) => {
     console.log(JSON.stringify(formData, null, " "));
@@ -33,7 +31,7 @@ const AddCard = (props) => {
   };
   const continuar = () => {
     toggleOverlay();
-    props.navigation.navigate("Tarjetas");
+    props.navigation.navigate("Tarjetas", { data: state.data });
   };
   const addAgain = () => {
     toggleOverlay();
@@ -46,12 +44,13 @@ const AddCard = (props) => {
       //   : setState({ ...state, cards: [state.data] });
       // console.log("state.cards", state.cards);
       saveTarjetas(state.data);
+      props.route.params.renderState();
       toggleOverlay();
     } else {
       Alert.alert(JSON.stringify("Debe llenar todos los campos"));
     }
   };
-  /* =============================== RENDERING ================================ */
+  /* ====================== RENDERING ========================== */
   return (
     <ScrollView>
       <View style={styles.container}>

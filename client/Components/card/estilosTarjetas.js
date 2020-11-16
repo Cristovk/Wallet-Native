@@ -22,12 +22,14 @@ export const styles = StyleSheet.create({
     color: white,
     marginHorizontal: 35,
     backgroundColor: orange,
+    paddingHorizontal: 15,
   },
   darkBlueButton: {
     borderRadius: 10,
     color: white,
     marginHorizontal: 35,
     backgroundColor: darkBlue,
+    paddingHorizontal: 15,
   },
   separator: {
     borderTopWidth: 1,
@@ -38,6 +40,13 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     marginVertical: 15,
+  },
+  rowButtons: {
+    flexDirection: "row",
+    paddingVertical: 15,
+    justifyContent: "space-evenly",
+    borderTopColor: darkBlue,
+    borderTopWidth: 1,
   },
 });
 export const estilos = StyleSheet.create({

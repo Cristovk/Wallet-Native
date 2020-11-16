@@ -53,10 +53,24 @@ export const getCards = async () => {
     let card = await tarjeta.data();
     card.id = tarjeta.id;
     lista.push(card);
-    console.log("LAcard", card);
-    console.log(tarjeta.id, "=>", tarjeta.data());
+    // console.log("LAcard", card);
+    // console.log(tarjeta.id, "=>", tarjeta.data());
   }
   return lista;
 };
 
-async function deleteTarjetas() {}
+export const deleteCard = async (id) => {
+  try {
+    const userId = await auth.currentUser.uid;
+    // let deletedCard = await
+    storage
+      .collection("Users")
+      .doc(userId)
+      .collection("creditCards")
+      .doc(id)
+      .delete();
+    console.log("CardTodeleteID", id);
+  } catch (error) {
+    throw Error(`Type: ${error}`);
+  }
+};
