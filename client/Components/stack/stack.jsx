@@ -40,7 +40,9 @@ import PagoConfirm from '../../Screen/Pagos/PagoConfirm';
 import TransfAmigo from '../../Screen/Contactos/TransfAmigos';
 import TransfAmigoConfirm from '../../Screen/Contactos/TransAmConf';
 import { userLog } from '../../Redux/User';
-
+import ResetPaswword from '../../Screen/ResetPassword/resetPass';
+import ModificaEmail from '../../Screen/Modificar-Email-Pass/ModificaEmail';
+import ModificaPassword from '../../Screen/Modificar-Email-Pass/ModificarPassword';
 // Creamos los navegadores
 const Stack = createStackNavigator()
 const HomeScreenStack = createStackNavigator()
@@ -57,6 +59,8 @@ export default function MyStack(props) {
       <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp2" component={SignUp2} options={{ title: "Registro" }} />
       <Stack.Screen name="Verify" component={Verify} />
+      <Stack.Screen name="ResetPaswword" component={ResetPaswword} options={{ headerShown: false }} />
+
     </Stack.Navigator>
   )
 }
@@ -120,6 +124,9 @@ export function HomeScreen({ userLog, user }) {
       <HomeScreenStack.Screen name='PagoConfirm' component={PagoConfirm} options={{ title: 'Pago Confirmado' }} />
       <HomeScreenStack.Screen name='TransfAmigo' component={TransfAmigo} options={{ title: 'Transferir a Contacto' }} />
       <HomeScreenStack.Screen name='TransfAmigoConfirm' component={TransfAmigoConfirm} options={{ title: 'Transferencia Confrimada' }} />
+      <HomeScreenStack.Screen name='ModificaEmail' component={ModificaEmail} options={{ title: 'Modificar Email' }} />
+      <HomeScreenStack.Screen name='ModificaPassword' component={ModificaPassword} options={{ title: 'Modificar Password' }} />
+
     </HomeScreenStack.Navigator >
   )
 }

@@ -16,7 +16,7 @@ const Login = ({ navigation }) => {
 
   const handleChange = (name, value) => {
     setText({
-      ...text, 
+      ...text,
       [name]: value
     })
   }
@@ -28,9 +28,9 @@ const Login = ({ navigation }) => {
     db.auth().signInWithEmailAndPassword(text.email, text.password)
       .then(res => {
         //Valida si el mail se verificó
-        if(res.user.emailVerified){
+        if (res.user.emailVerified) {
           navigation.navigate('HomeDrawer')
-        }else{
+        } else {
           navigation.navigate('Verify')
         }
       })
@@ -55,7 +55,7 @@ const Login = ({ navigation }) => {
     <View style={styles.container}>
       {/* <Text style={styles.text}>$ald∞</Text> */}
       <Image source={require("../../src/logo.png")} />
-      <View style={{width:'90%'}}>
+      <View style={{ width: '90%' }}>
         <Input
           textContentType='emailAddress'
           autoCompleteType='email'
@@ -90,9 +90,9 @@ const Login = ({ navigation }) => {
       </View>
       <View style={styles.viewLinks}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('SignUp')}
+          onPress={() => navigation.navigate('ResetPaswword')}
         >
-          <Text style={styles.link}>Recuperar password</Text>
+          <Text style={styles.link}>Olvidé mi contraseña</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => navigation.navigate('SignUp')}

@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native'
+import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
@@ -6,21 +6,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-evenly',
   },
-  text:{
-    fontSize:70,
-    fontWeight:'600',
-    color:'#fc7029'
+  text: {
+    fontSize: 70,
+    fontWeight: '600',
+    color: '#fc7029'
   },
-  button:{
-    width:150
+  button: {
+    width: 150
   },
-  viewLinks:{
-    flexDirection:'row',
+  viewLinks: {
+    flexDirection: 'row',
     justifyContent: 'space-between',
     width: 330
   },
-  link:{
-    color:'darkblue'
+  link: {
+    color: 'darkblue'
+  },
+  texto: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: 'darkblue'
   }
 });
 
