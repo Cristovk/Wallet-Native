@@ -5,9 +5,9 @@ import {
   Dimensions,
   Image,
   TextInput,
-  Button,
   ScrollView,
 } from "react-native";
+import { Button } from "react-native-elements";
 import { styles } from "./Sing-Up-Styles";
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { addUser, saveData } from "../../Redux/User";
@@ -25,7 +25,7 @@ const SignUp = ({ navigation }) => {
   const [day, setDay] = useState();
   const [month, setMonth] = useState();
   const [year, setYear] = useState();
-  const [birthday, setBirthday] = useState();
+  // const [birthday, setBirthday] = useState();
   const [Err, setErr] = useState({
     emptyName: "",
     emptyLastname: "",
@@ -39,11 +39,11 @@ const SignUp = ({ navigation }) => {
     invalidYearFormat: "",
   });
 
-  let newDate = new Date(year, month - 1, day);
+  let newDate = new Date(year, month - 1, day + 1);
   let actualYear = new Date().getFullYear();
 
-  console.log("NEWDATE", newDate);
-  console.log("BIRTHDAY", birthday);
+  // console.log("NEWDATE", newDate);
+  // console.log("BIRTHDAY", birthday);
 
   const validateForm = () => {
     setErr({
@@ -91,8 +91,9 @@ const SignUp = ({ navigation }) => {
     } else if (!year) {
       emptyYear = "El campo Año es necesario";
     } else if (year < actualYear - 100 || year > actualYear || isNaN(year)) {
-      invalidYearFormat = `Elija un año entre ${actualYear - 100
-        } y ${actualYear}`;
+      invalidYearFormat = `Elija un año entre ${
+        actualYear - 100
+      } y ${actualYear}`;
     }
     if (
       emptyName ||
@@ -121,18 +122,18 @@ const SignUp = ({ navigation }) => {
       return false;
     } else return true;
   };
+  // setBirthday(newDate);
 
   let info = {
     name: name,
     lastname: lastname,
-    birthday: birthday,
+    birthday: newDate,
   };
 
   const handleOnPress = () => {
-    console.log(info);
+    // console.log("info", info);
     const valid = validateForm();
     if (valid) {
-      setBirthday(newDate);
       dispatch(addUser("email", email));
       dispatch(saveData(info));
       navigation.navigate("SignUp1");
@@ -147,23 +148,23 @@ const SignUp = ({ navigation }) => {
           source={require("../../../assets/icon.png")}
         />
       </View>
-      <Text style={styles.label}>Nombre</Text>
+      <Text style={styles.label}>Nombre/s</Text>
       <TextInput
         style={[styles.inputs]}
         onChangeText={(text) => setName(text)}
         value={name}
         placeholder="John"
-        placeholderTextColor={grey}
+        placeholderTextColor={darkBlue}
         textContentType="name"
       />
       {Err.emptyName ? <Text style={styles.error}>{Err.emptyName}</Text> : null}
-      <Text style={styles.label}>Apellidos</Text>
+      <Text style={styles.label}>Apellido/s</Text>
       <TextInput
         style={[styles.inputs]}
         onChangeText={(text) => setLastname(text)}
         value={lastname}
         placeholder="Doe"
-        placeholderTextColor={grey}
+        placeholderTextColor={darkBlue}
         textContentType="familyName"
       />
       {Err.emptyLastname ? (
@@ -175,7 +176,7 @@ const SignUp = ({ navigation }) => {
         onChangeText={(text) => setEmail(text)}
         value={email}
         placeholder="johndoe@emailserver.com"
-        placeholderTextColor={grey}
+        placeholderTextColor={darkBlue}
         textContentType="emailAddress"
       />
       {Err.emptyEmail ? (
@@ -224,14 +225,16 @@ const SignUp = ({ navigation }) => {
       {Err.invalidYearFormat ? (
         <Text style={styles.error}>{Err.invalidYearFormat}</Text>
       ) : null}
-      <View style={[styles.button, styles.box]}>
+      <View>
         <Button
+          buttonStyle={styles.orangeButton}
           title="Anterior"
           color={orange}
           onPress={() => navigation.navigate("Login")}
         />
         <View style={styles.separator}></View>
         <Button
+          buttonStyle={styles.darkBlueButton}
           title="Siguiente"
           color={darkBlue}
           onPress={() => handleOnPress()}
