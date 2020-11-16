@@ -1,13 +1,13 @@
-/* =============================== IMPORTATIONS ============================== */
+/* ====================== IMPORTATIONS ========================= */
 import React, { useState } from "react";
-import { View, ScrollView, StyleSheet, Alert, Text, Modal } from "react-native";
+import { View, ScrollView, Alert, Text, Modal } from "react-native";
 import { Button, Icon } from "react-native-elements";
 import { styles, estilos } from "./estilosTarjetas";
 import { saveTarjetas } from "../../Redux/CardActions";
 import { CreditCardInput } from "react-native-credit-card-input";
-import { useDispatch } from "react-redux";
+import { orange } from "../../Global-Styles/colors";
 
-/* =============================== STATES ==================================== */
+/* ========================= STATES ============================ */
 const AddCard = (props) => {
   const [state, setState] = useState({
     data: {},
@@ -15,12 +15,10 @@ const AddCard = (props) => {
     cards: [],
   });
   const [visible, setVisible] = useState(false);
-
-  const dispatch = useDispatch();
-  /* =============================== FUNCTIONS ================================= */
+  /* ======================= FUNCTIONS ========================== */
 
   const onChange = (formData) => {
-    console.log(JSON.stringify(formData, null, " "));
+    // console.log(JSON.stringify(formData, null, " "));
     setState({
       ...state,
       data: formData.values,
@@ -32,7 +30,6 @@ const AddCard = (props) => {
   };
   const continuar = () => {
     toggleOverlay();
-    props.navigation.navigate("Tarjetas");
   };
   const addAgain = () => {
     toggleOverlay();
@@ -40,17 +37,14 @@ const AddCard = (props) => {
   };
   const asociarTarjeta = () => {
     if (state.validCard) {
-      // state.cards.length > 0
-      //   ? setState({ ...state, cards: [...state.cards, state.data] })
-      //   : setState({ ...state, cards: [state.data] });
-      // console.log("state.cards", state.cards);
-      dispatch(saveTarjetas(state.data));
+      saveTarjetas(state.data);
+      props.route.params.renderState();
       toggleOverlay();
     } else {
       Alert.alert(JSON.stringify("Debe llenar todos los campos"));
     }
   };
-  /* =============================== RENDERING ================================ */
+  /* ====================== RENDERING ========================== */
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -87,7 +81,7 @@ const AddCard = (props) => {
           <Button
             onPress={() => asociarTarjeta()}
             title="Asociar Tarjeta"
-            buttonStyle={styles.button}
+            buttonStyle={[styles.button, { backgroundColor: orange }]}
           />
         </View>
         <View>
