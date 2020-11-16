@@ -35,13 +35,18 @@ const SignUp2 = ({ navigation }) => {
     if (valid) {
       dispatch(addUser("password", password2));
       try {
-        const NewUser = await auth.createUserWithEmailAndPassword(user.email, password2)
-        const docRef = storage.collection('Users').doc(NewUser.user.uid)
+        const NewUser = await auth.createUserWithEmailAndPassword(
+          user.email,
+          password2
+        );
+        const docRef = storage.collection("Users").doc(NewUser.user.uid);
         await docRef.set({
           id: docRef.id,
           created: Date.now(),
           name: userData.name,
           lastName: userData.lastname,
+          birthday: userData.birthday,
+          email: user.email,
           phone: userData.phone,
           dni: userData.dni,
           cuil: userData.cuil,
@@ -52,7 +57,7 @@ const SignUp2 = ({ navigation }) => {
         );
         navigation.navigate("Login");
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     }
   };
