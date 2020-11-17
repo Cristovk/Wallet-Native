@@ -15,9 +15,6 @@ const monthInMiliseconds = 2592000000;
 const weekDifference = today - weekInMiliseconds;
 const monthDifference = today - monthInMiliseconds;
 
-console.log("today X", today);
-console.log("una semana antes", weekDifference);
-console.log("un mes antes", monthDifference);
 /* =========================== STATE =========================== */
 const initialState = {
   allMovements: [],
@@ -87,7 +84,6 @@ export const getAllMovements = () => {
         payload: movements,
       });
     } catch (error) {
-      console.log(error);
       return error;
     }
   };

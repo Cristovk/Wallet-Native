@@ -1,17 +1,19 @@
-import React from 'react'
-import { View, Text, ScrollView, Button, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import style from './estilosConfir'
-import { Icon, ListItem } from 'react-native-elements'
-
+import React from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  Button,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import style from "./estilosConfir";
+import { Icon, ListItem } from "react-native-elements";
 
 const TransfConfirm = ({ navigation, route }) => {
-
-  console.log(route.params, "soy el dato")
-
   if (route.params.state === false) {
-    return (
-      <View>Necesitas tildar Transferencias para confirmar</View>
-    )
+    return <View>Necesitas tildar Transferencias para confirmar</View>;
   }
   return (
     <ScrollView>
@@ -44,21 +46,17 @@ const TransfConfirm = ({ navigation, route }) => {
           <ListItem style={style.lista}>
             <ListItem.Chevron />
             <ListItem.Content>
-              <ListItem.Title>El comprobante será enviado al mail: </ListItem.Title>
+              <ListItem.Title>
+                El comprobante será enviado al mail:{" "}
+              </ListItem.Title>
               <ListItem.Subtitle>{route.params.email}</ListItem.Subtitle>
             </ListItem.Content>
           </ListItem>
         </View>
-        <Icon
-          name="check"
-          type="fontisto"
-          color="green"
-          size={60}
-        />
-
+        <Icon name="check" type="fontisto" color="green" size={60} />
       </View>
     </ScrollView>
-  )
-}
+  );
+};
 
-export default TransfConfirm
+export default TransfConfirm;

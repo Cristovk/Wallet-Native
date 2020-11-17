@@ -15,8 +15,6 @@ const auth = admin.auth();
 ex.post("/api/cards", async (req, res) => {
   try {
     const { number, expiry, cvc, name, type } = req.body;
-    console.log("BODY", number, expiry, cvc, name, type);
-
     let card = await db.doc(`/Users/${"348FpTmPKmUFGMbwfeTe5nVlM3G3"}`);
     const response = card.data();
     return res.json(response);
