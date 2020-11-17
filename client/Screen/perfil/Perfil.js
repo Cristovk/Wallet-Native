@@ -70,16 +70,10 @@ const Perfil = (props) => {
 
         <Text style={styles.nombreusuario} >{data.name + ' ' + data.lastName}</Text>
         <Text style={styles.titulodatos}>Datos Personales</Text>
-        <Formulario data={data} />
+        <Formulario data={data} navigation={props.navigation} />
 
 
 
-        <View style={styles.generalvolver}>
-
-          <TouchableOpacity style={styles.btnvolver} onPress={() => props.navigation.goBack()}>
-            <Text style={styles.link}>Guardar</Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </ScrollView>
 

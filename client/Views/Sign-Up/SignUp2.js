@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   TextInput,
   Text,
@@ -25,6 +25,8 @@ const SignUp2 = ({ navigation }) => {
     notNumberPasswordErr: "",
     codeErr: "",
   });
+
+  const [pin, setPin] = useState("")
 
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user.userAuth);
@@ -90,6 +92,9 @@ const SignUp2 = ({ navigation }) => {
     } else if (password1.search(/[0-9]/) == -1) {
       notNumberPasswordErr = "Debe tener al menos un número";
     }
+    if (code != pin) {
+      codeErr = "Pin Incorrecto, intente nuevamente"
+    }
     if (
       matchPasswordErr ||
       shortPasswordErr ||
@@ -105,6 +110,13 @@ const SignUp2 = ({ navigation }) => {
       return false;
     } else return true;
   }
+
+  useEffect(() => {
+    const min = 1000
+    const max = 10000
+    setPin(Math.floor(Math.random() * (max - min + 1)) + min)
+
+  }, [])
 
   return (
     <ScrollView>
@@ -145,14 +157,20 @@ const SignUp2 = ({ navigation }) => {
           <Text style={styles.error}>{Err.matchPasswordErr}</Text>
         ) : null}
         <Text style={styles.label}>Código de seguridad</Text>
+        <View style={styles.pin}>
+          <Text style={styles.pinTexto}>{pin}</Text>
+        </View>
         <TextInput
           style={[styles.inputs]}
           onChangeText={(text) => setCode(text)}
           value={code}
-          placeholder="Js3jk56"
+          placeholder="Ingrese el pin"
           placeholderTextColor={grey}
           textContentType="oneTimeCode"
         />
+        {Err.codeErr ? (
+          <Text style={styles.error}>{Err.codeErr}</Text>
+        ) : null}
         <View style={[styles.button, styles.box]}>
           <Button
             title="Anterior"
