@@ -29,7 +29,6 @@ export default function MyDrowner({ navigation, route }) {
 function CustomDrawerContent({ navigation, text, bg, route, dark, dispatch }) {
 
   const setApp = route.params.darker
-  console.log(setApp)
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>

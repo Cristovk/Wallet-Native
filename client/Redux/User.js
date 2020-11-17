@@ -128,12 +128,12 @@ export const updateUser = ({ name, phone, lastName, dni, cuil }) => async (dispa
 
 }
 
-export const ResetPass = (email) => {
-  auth.sendPasswordResetEmail(email)
+export const ResetPass = async (email) => {
+  await auth.sendPasswordResetEmail(email)
 }
 
-export const ModificarEmail = (email) => {
-  auth.currentUser.updateEmail(email)
+export const ModificarEmail = async (email) => {
+  await auth.currentUser.updateEmail(email)
     .then(() => {
       auth.currentUser.sendEmailVerification()
     })
@@ -142,7 +142,13 @@ export const ModificarEmail = (email) => {
     })
 }
 
-export const ModificarPassword = (password) => {
-  auth.currentUser.updatePassword(password)
+export const ModificarPassword = async (password) => {
+  await auth.currentUser.updatePassword(password)
+}
+
+export const deleteUsuario = async (id) => {
+  const consulta = storage.collection('Users').doc(id);
+  await consulta.delete()
+  auth.currentUser.delete()
 }
 

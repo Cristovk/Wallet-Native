@@ -105,6 +105,9 @@ const Formulario = ({ data, updateUser, navigation }) => {
         <TouchableOpacity style={styles2.btnvolver} onPress={() => navigation.navigate('ModificaPassword')}>
           <Text style={styles2.link}>Modificar Password</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles2.btnvolver} onPress={() => navigation.navigate('DeleteUser')}>
+          <Text style={styles2.link}>Eliminar Cuenta</Text>
+        </TouchableOpacity>
       </View>
 
     </View>
