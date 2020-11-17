@@ -15,7 +15,7 @@ npm-debug.*
 *.orig.*
 web-build/
 firebase.js
-
+permissions.json
 # macOS
 .DS_Store
 

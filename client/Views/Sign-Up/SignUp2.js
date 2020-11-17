@@ -40,6 +40,8 @@ const SignUp2 = ({ navigation }) => {
           password2
         );
         const docRef = storage.collection("Users").doc(NewUser.user.uid);
+        const walletRef = storage.collection('User').doc(NewUser.user.uid).collection('Wallet').doc(New.user.uid.dni);
+        // .collection('transactions').doc();
         await docRef.set({
           id: docRef.id,
           created: Date.now(),
@@ -51,6 +53,12 @@ const SignUp2 = ({ navigation }) => {
           dni: userData.dni,
           cuil: userData.cuil,
         });
+        // //creacion de la Billetera
+        // await walletRef.set({
+        //   CVU: userData.dni,
+        //   balance: 0, 
+        // });
+
         await NewUser.user.sendEmailVerification();
         Alert.alert(
           "Cuenta creada! Se envio a tu mail un link de verificación"
