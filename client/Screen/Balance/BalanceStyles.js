@@ -22,30 +22,10 @@ const style = StyleSheet.create({
         marginBottom: 10
       },
       grafico:{
-         height: 350,
+         height: 300,
          flexDirection: "column",
           
       },
-      // selector:{
-      //     height: 48,
-      //     width: "100%",
-      //     flexDirection: "row",
-      //     alignItems: "flex-end",
-      //     justifyContent: "space-around",
-      //     backgroundColor: "#02072F",
-      // },
-      // boton: {
-      //     backgroundColor: "#ba3f00",
-      //     padding: 15,
-      //     height: "100%",
-      //     width: "33%"
-      //   },
-      //   botonPress:{
-      //       backgroundColor: "#FC7029",
-      //     padding: 15,
-      //   height: "100%",
-      //   width: "33%"
-      // },
       contenedor:{
           flexDirection: "row",
           justifyContent: "space-around"
