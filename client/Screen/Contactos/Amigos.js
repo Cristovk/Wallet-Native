@@ -79,7 +79,7 @@ const Amigos = ({ navigation }) => {
               banco: l.subtitle,
               alias: l.alias,
               cvu: l.cvu,
-              telefono: l.telefono
+              telefono: l.telefono 
             })} />
           </ListItem>
         )}
