@@ -8,7 +8,8 @@ import { connect } from 'react-redux'
 
 
 // COMPONENTES
-import Balance from '../../Screen/Balance';
+import Balance from '../../Screen/Balance/Balance.js';
+import Movimientos from '../../Screen/Movimientos';
 import Pagos from '../../Screen/Pagos/Pagos';
 import Amigos from '../../Screen/Contactos/Amigos';
 import Ayuda from '../../Screen/Ayuda';
@@ -52,7 +53,7 @@ export default function MyStack(props) {
   return (
     <Stack.Navigator>
 
-      <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+      {/* <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> */}
       <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />
