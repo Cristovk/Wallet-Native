@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { Icon } from 'react-native-elements'
-import db from '../../../firebase'
 import { useSelector } from 'react-redux'
 import { connect } from 'react-redux'
 
@@ -10,7 +9,6 @@ import { connect } from 'react-redux'
 
 // COMPONENTES
 import Balance from '../../Screen/Balance';
-import Movimientos from '../../Screen/Movimientos';
 import Pagos from '../../Screen/Pagos/Pagos';
 import Amigos from '../../Screen/Contactos/Amigos';
 import Ayuda from '../../Screen/Ayuda';
@@ -26,7 +24,6 @@ import AddTarjeta from '../card/AddTarjeta';
 import TransactionHistory from '../../Screen/TransactionHistory/Movimientos'
 import Detalle from '../../Screen/TransactionHistory/DetailOfTransaction'
 import Recargas from '../../Screen/Recargas/Recargas';
-import { storage, auth } from '../../../firebase'
 import Verify from "../../Screen/verificacion/verify"
 import TransfConfirm from "../../Screen/Transferencias/TransfConfirmada"
 
