@@ -58,8 +58,8 @@ const Home = ({ navigation }) => {
     <ScrollView >
 
       <View style={style.balance}>
-        <Text style={style.tituloBalance}>Balance General</Text>
-        <Text style={style.saldoBalance}>$35.000</Text>
+        <Text style={style.tituloBalance} onPress={() => navigation.navigate('Balance')}>Balance General</Text>
+        <Text style={style.saldoBalance} onPress={() => navigation.navigate('Balance')}>$35.000</Text>
       </View>
       <ListItem
         onPress={() => navigation.navigate('Detalle', {
