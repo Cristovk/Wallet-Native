@@ -11,30 +11,31 @@ import {
 import { ListItem, Avatar, Icon, ThemeProvider } from "react-native-elements";
 import * as Contacts from "expo-contacts";
 import { storage, auth } from "../../../firebase";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {addContact} from '../../Redux/User'
 
 const list = [
   {
     id: 1,
-    name: "Amy Farha",
+    name: "Juan ",
     avatar_url:
       "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-    subtitle: "Banco Galicia",
+    subtitle: "QuiqueBank",
     alias: "Tardes_que_son_Tardes",
     cbu: 156489872354 / 8,
     cvu: "--",
-    telefono: "--",
+    telefono: "+5493518118962",
   },
   {
     id: 2,
-    name: "Chris Jackson",
+    name: "Karlo",
     avatar_url:
       "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
     subtitle: "QuiqueBank",
     alias: "Don_Quijote",
     cbu: "--",
     cvu: "--",
-    telefono: 3794258963,
+    telefono: "+5493624882134",
   },
   {
     id: 3,
@@ -44,13 +45,14 @@ const list = [
     alias: "El_reino_animal",
     cbu: 156489485354 / 6,
     cvu: "--",
-    telefono: "--",
+    telefono: "22222222222",
   },
 ];
 
 const Amigos = ({ navigation }) => {
   const user = useSelector((store) => store.user.user);
-
+  const contactsRedux = useSelector((store) => store.user.contacts)
+  const dispatch = useDispatch()
   const { text, bg } = useSelector((store) => store.color);
   // Función del modal para los detalles
   const [modal, setModal] = useState(false);
@@ -71,48 +73,63 @@ const Amigos = ({ navigation }) => {
 
   const getContacts = async () => {
     const { status } = await Contacts.requestPermissionsAsync();
-    console.log(status);
     if (status === "granted") {
       const { data } = await Contacts.getContactsAsync({
         fields: [Contacts.Fields.Name, Contacts.Fields.PhoneNumbers],
       });
-      // console.log("dataaaaaaaaaaaaaaaaaaaa",data);
-      // FORMATEAR LOS CONTACTOS
       const format = data.map((c, index) => ({
         id: index,
         name: c.name,
-        telefono: (Array.isArray(c.phoneNumbers) ? c.phoneNumbers[0].number : "--"),
+        telefono: (Array.isArray(c.phoneNumbers) ? c.phoneNumbers[0].number.replace(/[\ -]+/g,'') : "--"),
         avatar_url: "--",
         subtitle: "QuiqueBank",
         alias: "Don_Quijote",
         cbu: "--",
         cvu: "--",
       })); 
-      /* console.log(format, "-------------------> format"); */
+      
       // FILTRAR LOS CONTACTOS
-      const contactos = format.filter(async (c) => {
-        console.log("-----------------------------------------------------------------------------")
-        
-           console.log(c, "---------->c");
-        // let datos = storage
-        //   .collection("Users")
-        //   .where("phone", "==", `${c.telefono}`);
-        // let getRes = await datos.get()
-        // .then(snapshot => {
-        //   snapshot.forEach(doc => {
-        //     console.log(doc.id, '=>', doc.data());
-        //   });
-        // })
-        // .catch(err => {
-        //   console.log('Error getting documents', err);
-        // });
-        // // return data.phone === c.telefono;
-        
-      });
-      console.log("------------>", contactos);
-      //GUARDAR LOS CONTACTOS
-      /* console.log("formaaaaaaaaaaaat", format) */ setContacts(contactos);
-    }
+      var arreglo = []
+      const arrContacts = format.map((c) => { 
+         let document = {}
+        // console.log('contactos.........',c)
+        //   const users = await storage.collection("Users").where("phone", "==", `${c.telefono}`).get()
+        //   console.log("llego hasta aca en el try")
+        //   const arr = await users.data()
+        //   console.log("llego hasta aca")
+        //  arrContacts.push(arr)
+        //   console.log('arr ------------------>', arr)
+        console.log("numero de tel-------------------", c.telefono)
+          let users = storage.collection('Users');
+            let query = users.where('phone', '==', `${c.telefono}`).get()
+              .then(snapshot => {
+                if (snapshot.empty) {
+                  console.log('No matching documents.');
+                  return;
+                }
+                snapshot.forEach( doc => {
+                
+                  document = doc.data()
+                  
+                  dispatch(addContact(document))
+                  
+                });
+              })
+              .catch(err => {
+                console.log('Error getting documents', err);
+              }); 
+        /* users.forEach( doc => {
+          console.log("Entra")
+          console.log('docccccccccccccc-----------------> ', doc)
+          arrContacts.push(doc.data())}) */
+          //lo esta consologeando...
+          console.log('documentoooo...',document)
+          return document                  
+        });
+        setContacts(arrContacts)
+      }
+      console.log("array.............", arreglo)
+      console.log("este es el array................", arrContacts)
   };
 
   /* const favoriteContact = () => {
@@ -123,10 +140,9 @@ const Amigos = ({ navigation }) => {
       .doc("hola")
       .set({ name: "Soy el object" });
   }; */
-
   useEffect(() => {
-    getContacts();
-    // getUser()
+    !contacts[0] && getContacts();
+    console.log('contact redux ----------------<', contactsRedux)
     /* favoriteContact(); */
   }, []);
 
@@ -134,14 +150,11 @@ const Amigos = ({ navigation }) => {
     await Linking.openURL("sms:+5493517733375?body=otro");
     /* await Linking.openURL(`https://wa.me/+5493517733375?text=dame plata`) */
   };
-
-  console.log(contacts);
-
   return (
     <ScrollView>
       <ThemeProvider theme={myTheme}>
-        {contacts[0] &&
-          contacts.map((l, i) => (
+        {contactsRedux[0] &&
+          contactsRedux.map((l, i) => (
             <ListItem key={i} bottomDivider>
               <Avatar rounded source={{ uri: l.avatar_url }} />
               <ListItem.Content>
