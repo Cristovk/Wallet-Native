@@ -1,72 +1,100 @@
-import React, { useEffect, useState } from 'react'
-import { View, Text, ScrollView } from 'react-native'
-import { ListItem } from 'react-native-elements'
-import { storage } from '../../../firebase'
-import style from './homeStyles'
+import React, { useEffect, useState } from "react";
+import { View, Text, ScrollView } from "react-native";
+import { ListItem, Button } from "react-native-elements";
+import style from "./homeStyles";
+// import {
+//   getDayMovements,
+//   getAllMovements,
+//   test,
+//   getWeekMovement,
+//   getMonthMovements,
+// } from "../../Redux/movements";
+// import { useDispatch, useSelector } from "react-redux";
 
 const Home = ({ navigation }) => {
-
   // const {title, amount, icon} = route.params;
 
   const lista = [
     {
-      title: 'Carga sube',
+      title: "Carga sube",
       amount: 98,
       purchaseId: 3,
-      type: "Transporte"
+      type: "Transporte",
     },
     {
-      title: 'Super Dia%',
+      title: "Super Dia%",
       amount: 789,
       date: "Sun Nov 08 2020 16:49:19 GMT-0300 (hora estándar de Argentina)",
       purchaseId: 4,
-      type: "Almacen"
+      type: "Almacen",
     },
     {
-      title: 'Factura Personal',
+      title: "Factura Personal",
       amount: 340,
       purchaseId: 5,
-      type: "Servicios"
-
+      type: "Servicios",
     },
     {
-      title: 'Riot Points',
+      title: "Riot Points",
       amount: 560,
       purchaseId: 6,
-      type: "Videojuegos"
+      type: "Videojuegos",
     },
     {
-      title: 'Shell',
+      title: "Shell",
       amount: 7800,
       purchaseId: 6,
-      type: "Gasolinera"
+      type: "Gasolinera",
     },
     {
-      title: 'Netflix',
+      title: "Netflix",
       amount: 645,
       purchaseId: 1,
-      type: "Entretenimiento"
+      type: "Entretenimiento",
     },
     {
-      title: 'Medialunas del abuelo',
+      title: "Medialunas del abuelo",
       amount: 5000,
       purchaseId: 2,
-      type: "Panaderia"
-    }]
+      type: "Panaderia",
+    },
+  ];
+
+  // const allMovements = useSelector(
+  //   (store) => store.movementsReducer.allMovements
+  // );
+  // const dispatch = useDispatch();
+  // const handleOnPress = () => {
+  //   dispatch(getAllMovements());
+  //   dispatch(getDayMovements(allMovements));
+  //   dispatch(getWeekMovement(allMovements));
+  //   dispatch(getMonthMovements(allMovements));
+  // };
+  // const handleOnTest = () => {
+  //   test();
+  //   // console.log("allmovements", allMovements);
+  // };
 
   return (
-    <ScrollView >
-
+    <ScrollView>
+      {/* <Button title="GET" onPress={() => handleOnPress()} /> */}
       <View style={style.balance}>
         <Text style={style.tituloBalance} onPress={() => navigation.navigate('Balance')}>Balance General</Text>
         <Text style={style.saldoBalance} onPress={() => navigation.navigate('Balance')}>$35.000</Text>
       </View>
+      {/* <Button
+        title="test"
+        onPress={() => handleOnTest()}
+        buttonStyle={{ backgroundColor: "green", marginTop: 10 }}
+      /> */}
       <ListItem
-        onPress={() => navigation.navigate('Detalle', {
-          title: lista[0].title,
-          amount: lista[0].amount,
-          icon: lista[0].type
-        })}
+        onPress={() =>
+          navigation.navigate("Detalle", {
+            title: lista[0].title,
+            amount: lista[0].amount,
+            icon: lista[0].type,
+          })
+        }
         style={style.listaContenedor}
       >
         <ListItem.Chevron />
@@ -76,11 +104,13 @@ const Home = ({ navigation }) => {
         </ListItem.Content>
       </ListItem>
       <ListItem
-        onPress={() => navigation.navigate('Detalle', {
-          title: lista[1].title,
-          amount: lista[1].amount,
-          icon: lista[1].type
-        })}
+        onPress={() =>
+          navigation.navigate("Detalle", {
+            title: lista[1].title,
+            amount: lista[1].amount,
+            icon: lista[1].type,
+          })
+        }
         style={style.listaContenedor}
       >
         <ListItem.Chevron />
@@ -90,11 +120,13 @@ const Home = ({ navigation }) => {
         </ListItem.Content>
       </ListItem>
       <ListItem
-        onPress={() => navigation.navigate('Detalle', {
-          title: lista[2].title,
-          amount: lista[2].amount,
-          icon: lista[2].type
-        })}
+        onPress={() =>
+          navigation.navigate("Detalle", {
+            title: lista[2].title,
+            amount: lista[2].amount,
+            icon: lista[2].type,
+          })
+        }
         style={style.listaContenedor}
       >
         <ListItem.Chevron />
@@ -104,11 +136,13 @@ const Home = ({ navigation }) => {
         </ListItem.Content>
       </ListItem>
       <ListItem
-        onPress={() => navigation.navigate('Detalle', {
-          title: lista[3].title,
-          amount: lista[3].amount,
-          icon: lista[3].type
-        })}
+        onPress={() =>
+          navigation.navigate("Detalle", {
+            title: lista[3].title,
+            amount: lista[3].amount,
+            icon: lista[3].type,
+          })
+        }
         style={style.listaContenedor}
       >
         <ListItem.Chevron />
@@ -118,11 +152,9 @@ const Home = ({ navigation }) => {
         </ListItem.Content>
       </ListItem>
 
-      <View>
-      </View>
+      <View></View>
     </ScrollView>
-  )
-}
+  );
+};
 
-
-export default Home
+export default Home;

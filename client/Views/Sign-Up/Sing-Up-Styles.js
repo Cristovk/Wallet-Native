@@ -88,4 +88,19 @@ export const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     height: 60,
   },
+  pin: {
+    borderWidth: 1,
+    borderColor: grey,
+    marginStart: 35,
+    marginTop: 25,
+    width: 200,
+    height: 40,
+    borderRadius: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  pinTexto: {
+    fontSize: 32
+  }
 });
