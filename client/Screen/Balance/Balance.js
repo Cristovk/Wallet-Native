@@ -6,42 +6,42 @@ import {LineChart} from 'react-native-chart-kit'
 
 const Balance = ({ navigation }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [data,setData] = useState({ labels: ['Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov'],
-  datasets: [{
-    data: [ 900, 1000, 1500, 250, 799, 850 ]
-  }]})
+  const [data,setData] = useState({ labels: ['Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov'],  //la data es lo que se va a mostrat en el grafico
+                                    datasets: [{
+                                      data: [ 900, 1000, 1500, 250, 799, 850 ]
+                                    }]})
  const buttons = ["Año","Mes","Semana"]
 
  //que hacer cuando se apreta cada boton
  useEffect(()=>{
-  if(selectedIndex==0){
+  if(selectedIndex==0){ //cuando se apreta año
     setData({
       labels: ['Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov'],
       datasets: [{
         data: [ 900, 1000, 1500, 250, 799, 850 ]
       }]
     })
-    console.log("apreto Año")}
-  if(selectedIndex==1){
+   }
+  if(selectedIndex==1){  //cuando se apreta mes
     setData({
       labels: ["1-7","8-14","15-21","21-28"],
       datasets: [{
         data: [ 300, 900, 500, 250, 799, 850 ]
       }]
     })
-    console.log("apreto Mes")}
-  if(selectedIndex==2){
+   }
+  if(selectedIndex==2){ //cuando se apreta semana
     setData({
       labels: ["Lun","Mar","Mie","Jue","Vie","Sab","Dom"],
       datasets: [{
         data: [ 800,800,800,500,500,1000,1000 ]
       }]
     })
-    console.log("apreto Semana")}
+    }
 },[selectedIndex])
 
 
-const chartConfig={
+const chartConfig={//configuracion para el grafico
   backgroundGradientFrom:"#D0D0D0",
   backgroundGradientTo:"#D0D0D0",
   color: (opacity = 1) => `rgba(252, 112, 41, ${opacity})`,
