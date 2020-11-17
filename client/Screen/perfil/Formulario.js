@@ -31,9 +31,8 @@ const Formulario = ({ data, updateUser, navigation }) => {
       <View style={styles.grupoform}>
         <Text style={styles.labelinput}>Nombre</Text>
         <TextInput
-          placeholder={name}
+          value={name}
           style={styles.inputperfil}
-          onChangeText={(data) => setDatos({ ...datos, name: data })}
 
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
@@ -43,9 +42,8 @@ const Formulario = ({ data, updateUser, navigation }) => {
       <View style={styles.grupoform}>
         <Text style={styles.labelinput} >Apellido</Text>
         <TextInput
-          placeholder={lastName}
+          value={lastName}
           style={styles.inputperfil}
-          onChangeText={(data) => setDatos({ ...datos, lastName: data })}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
       </View>
@@ -74,9 +72,8 @@ const Formulario = ({ data, updateUser, navigation }) => {
       <View style={styles.grupoform}>
         <Text style={styles.labelinput}>DNI</Text>
         <TextInput
-          placeholder={dni}
+          value={dni}
           style={styles.inputperfil}
-          onChangeText={(data) => setDatos({ ...datos, dni: data })}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
       </View>
@@ -107,6 +104,9 @@ const Formulario = ({ data, updateUser, navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity style={styles2.btnvolver} onPress={() => navigation.navigate('ModificaPassword')}>
           <Text style={styles2.link}>Modificar Password</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles2.btnvolver} onPress={() => navigation.navigate('DeleteUser')}>
+          <Text style={styles2.link}>Eliminar Cuenta</Text>
         </TouchableOpacity>
       </View>
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text,/* Button, */ Alert, TouchableOpacity, Image } from 'react-native'
-import styles from '../../Views/Login/login-styles'
+import styles from './resetEstilos'
 import { TextInput, Button } from 'react-native-paper'
 import { Input } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -38,14 +38,17 @@ const ResetPaswword = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {/* <Text style={styles.text}>$ald∞</Text> */}
+
+
       <Image source={require("../../src/logo.png")} />
-      <View>
+      <View style={styles.textoContainer}>
         <Text style={styles.texto}>
-          Ingrese su Email donde enviaremos un correo para poder continuar con el reset de su Password
+          Ingrese su Email donde enviaremos un correo para poder continuar con el reset de su Password.
         </Text>
       </View>
       <View style={{ width: '90%' }}>
         <Input
+          style={styles.inputs}
           textContentType='emailAddress'
           autoCompleteType='email'
           label=' Email'
