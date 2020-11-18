@@ -52,7 +52,6 @@ const HomeScreenStack = createStackNavigator()
 export default function MyStack(props) {
   return (
     <Stack.Navigator>
-
       <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> 
       <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
@@ -60,7 +59,6 @@ export default function MyStack(props) {
       <Stack.Screen name="SignUp2" component={SignUp2} options={{ title: "Registro" }} />
       <Stack.Screen name="Verify" component={Verify} />
       <Stack.Screen name="ResetPaswword" component={ResetPaswword} options={{ title: "Resetear Password" }} />
-
     </Stack.Navigator>
   )
 }
