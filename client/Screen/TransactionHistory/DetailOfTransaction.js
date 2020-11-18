@@ -4,7 +4,16 @@ import { Divider, ListItem, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { generateInvoice } from "./utils";
 const DetalleDeTransaccion = ({ route, navigation }) => {
-  const { fecha, monto, icon, hacia, motivo, estado } = route.params;
+  const {
+    fecha,
+    monto,
+    icon,
+    motivo,
+    estado,
+    tipo,
+    hacia,
+    desde,
+  } = route.params;
   const iconList = {
     Panaderia: "cookie",
     Almacen: "shopping-basket",
@@ -16,9 +25,26 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     Farmacia: "first-aid",
     Servicios: "file-invoice-dollar",
   };
-  console.log(fecha, monto, icon, hacia, motivo, estado);
-  let date = new Date(fecha).toLocaleDateString();
-  let time = new Date(fecha).toLocaleTimeString();
+  console.log(
+    "fecha",
+    fecha,
+    "monto",
+    monto,
+    "icon",
+    icon,
+    "motivo",
+    motivo,
+    "estado",
+    estado,
+    "tipo",
+    tipo,
+    "hacia",
+    hacia,
+    "desde",
+    desde
+  );
+  const date = new Date(fecha).toLocaleDateString();
+  const time = new Date(fecha).toLocaleTimeString();
   return (
     <View>
       <View
@@ -32,7 +58,9 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <Icon name={iconList[icon]} size={50} color="white" />
         </View>
         <View style={{ marginTop: 20 }}>
-          <Text style={{ color: "white", fontSize: 20 }}>{`${hacia}`}</Text>
+          <Text style={{ color: "white", fontSize: 20 }}>
+            {desde ? `${desde} te envió` : `Le enviaste a ${hacia}`}
+          </Text>
         </View>
         <View style={{ marginTop: 5 }}>
           <Text style={{ color: "white", fontSize: 20 }}>{`$${monto}`}</Text>
@@ -43,13 +71,13 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <ListItem.Content>
             <ListItem.Title>{"Operacion"}</ListItem.Title>
           </ListItem.Content>
-          <Text>{"Compra"}</Text>
+          <Text>{tipo}</Text>
         </ListItem>
         <ListItem>
           <ListItem.Content>
             <ListItem.Title>{"Estado"}</ListItem.Title>
           </ListItem.Content>
-          <Text>{"Completada"}</Text>
+          <Text>{estado}</Text>
         </ListItem>
         <ListItem>
           <ListItem.Content>

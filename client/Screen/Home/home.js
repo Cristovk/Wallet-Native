@@ -3,10 +3,15 @@ import { View, Text, ScrollView } from "react-native";
 import { ListItem, Button } from "react-native-elements";
 import style from "./homeStyles";
 import { useDispatch, useSelector } from "react-redux";
-import { test, getAllMovements, getSaldo } from "../../Redux/movements";
+import {
+  test,
+  getAllMovements,
+  getSaldo,
+  getDayMovements,
+} from "../../Redux/movements";
+import { useBackButton } from "@react-navigation/native";
 const Home = ({ navigation }) => {
   // const {title, amount, icon} = route.params;
-  const dispatch = useDispatch();
 
   const lista = [
     {
@@ -54,13 +59,11 @@ const Home = ({ navigation }) => {
     },
   ];
 
-  const allMovements = useSelector(
-    (store) => store.movementsReducer.allMovements
-  );
-  const saldo = useSelector((store) => store.movementsReducer.saldo);
+  const dispatch = useDispatch();
+  const movements = useSelector((store) => store.movementsReducer);
   useEffect(() => {
-    dispatch(getAllMovements());
     dispatch(getSaldo());
+    dispatch(getAllMovements());
   }, []);
 
   function formatNumber(num) {
@@ -85,7 +88,7 @@ const Home = ({ navigation }) => {
           style={style.saldoBalance}
           onPress={() => navigation.navigate("Balance")}
         >
-          {`$ ${formatNumber(saldo)}`}
+          {`$ ${formatNumber(movements.saldo)}`}
         </Text>
       </View>
       {/* <Button

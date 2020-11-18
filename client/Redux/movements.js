@@ -62,7 +62,7 @@ export default function movementsReducer(state = initialState, action) {
   }
 }
 /* =========================== ACTIONS ============================ */
-export const getSaldo = (cvu) => {
+export const getSaldo = () => {
   return async function (dispatch) {
     try {
       let saldo;
