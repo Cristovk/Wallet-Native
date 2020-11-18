@@ -9,7 +9,6 @@ import { connect } from 'react-redux'
 
 // COMPONENTES
 import Balance from '../../Screen/Balance/Balance.js';
-// import Movimientos from '../../Screen/Movimientos';
 import Pagos from '../../Screen/Pagos/Pagos';
 import Amigos from '../../Screen/Contactos/Amigos';
 import Ayuda from '../../Screen/Configuracion/Configuracion';
@@ -53,15 +52,13 @@ const HomeScreenStack = createStackNavigator()
 export default function MyStack(props) {
   return (
     <Stack.Navigator>
-
-       <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> 
+      <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> 
       <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp2" component={SignUp2} options={{ title: "Registro" }} />
       <Stack.Screen name="Verify" component={Verify} />
       <Stack.Screen name="ResetPaswword" component={ResetPaswword} options={{ title: "Resetear Password" }} />
-
     </Stack.Navigator>
   )
 }
