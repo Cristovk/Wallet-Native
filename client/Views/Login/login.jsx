@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text,/* Button, */ Alert, TouchableOpacity, Image } from 'react-native'
+import { View, Text,/* Button, */ Alert, TouchableOpacity, Image} from 'react-native'
 import styles from './login-styles'
 import { TextInput, Button } from 'react-native-paper'
 import { Input } from 'react-native-elements'
@@ -12,7 +12,9 @@ const Login = ({ navigation }) => {
   const [text, setText] = useState({
     email: "",
     password: ""
-  })
+  });
+  const [hide,setHide]=useState(true);
+  const nameIcon= hide ? 'eye-slash':'eye';
 
   const handleChange = (name, value) => {
     setText({
@@ -21,6 +23,7 @@ const Login = ({ navigation }) => {
     })
   }
 
+  
 
 
   const login = () => {
@@ -66,9 +69,9 @@ const Login = ({ navigation }) => {
           onChangeText={(value) => handleChange('email', value)}
           defaultValue={text.email}
         />
-
+        <View style={styles.contEye}>
         <Input
-          secureTextEntry={true}
+          secureTextEntry={hide}
           autoCompleteType='password'
           label='Password'
           leftIcon={{ type: 'font-awesome', name: 'lock' }}
@@ -77,6 +80,18 @@ const Login = ({ navigation }) => {
           onChangeText={(value) => handleChange('password', value)}
           defaultValue={text.password}
         />
+        <View style={styles.eye}>
+            <Icon
+                size={16}
+                name={nameIcon}
+                type="font-awesome"
+                color="#02072f"
+                onPress={()=>setHide(!hide)}
+               
+              />
+          </View>
+
+        </View>
       </View>
       <View style={styles.button}>
         <Button
