@@ -9,18 +9,19 @@ const GET_WEEK_MOV = "GET_WEEK_MOV";
 const GET_MONTH_MOV = "GET_MONTH_MOV";
 const GET_ALL_MOV = "GET_ALL_MOV";
 const SAVE_NEW_MOV = "SAVE_NEW_MOV";
+const GET_SALDO = "GET_SALDO";
 const today = new Date(Date.now());
 const weekInMiliseconds = 604800000;
 const monthInMiliseconds = 2592000000;
 const weekDifference = today - weekInMiliseconds;
 const monthDifference = today - monthInMiliseconds;
-
 /* =========================== STATE =========================== */
 const initialState = {
   allMovements: [],
   dayMovements: [],
   weekMovements: [],
   monthMovements: [],
+  saldo: "",
 };
 /* ========================== REDUCERS ========================== */
 export default function movementsReducer(state = initialState, action) {
@@ -29,6 +30,12 @@ export default function movementsReducer(state = initialState, action) {
       return {
         ...state,
         allMovements: [...state.allMovements, ...action.payload],
+      };
+    case GET_SALDO:
+      let saldo = action.payload;
+      return {
+        ...state,
+        ...saldo,
       };
     case GET_ALL_MOV:
       return {
@@ -55,6 +62,29 @@ export default function movementsReducer(state = initialState, action) {
   }
 }
 /* =========================== ACTIONS ============================ */
+export const getSaldo = (cvu) => {
+  return async function (dispatch) {
+    try {
+      let saldo;
+      const userId = await auth.currentUser.uid;
+      const ref = await storage
+        .collection("Users")
+        .doc(userId)
+        .collection("Wallet")
+        .get();
+      for (const mov of ref.docs) {
+        saldo = await mov.data();
+        console.log("Saldo", saldo);
+      }
+      dispatch({
+        type: GET_SALDO,
+        payload: saldo,
+      });
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+};
 export const getAllMovements = () => {
   return async function (dispatch) {
     try {
@@ -76,9 +106,11 @@ export const getAllMovements = () => {
         .doc(CVU)
         .collection("Movimientos")
         .get();
-      query.forEach((doc) => {
-        movements.push(doc.data());
-      });
+      for (const mov of query.docs) {
+        let movement = await mov.data();
+        movement.id = mov.id;
+        movements.push(movement);
+      }
       dispatch({
         type: GET_ALL_MOV,
         payload: movements,

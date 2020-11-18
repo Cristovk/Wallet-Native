@@ -4,7 +4,7 @@ import { Divider, ListItem, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { generateInvoice } from "./utils";
 const DetalleDeTransaccion = ({ route, navigation }) => {
-  const { title, amount, icon } = route.params;
+  const { fecha, monto, icon, hacia, motivo, estado } = route.params;
   const iconList = {
     Panaderia: "cookie",
     Almacen: "shopping-basket",
@@ -16,6 +16,9 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     Farmacia: "first-aid",
     Servicios: "file-invoice-dollar",
   };
+  console.log(fecha, monto, icon, hacia, motivo, estado);
+  let date = new Date(fecha).toLocaleDateString();
+  let time = new Date(fecha).toLocaleTimeString();
   return (
     <View>
       <View
@@ -29,10 +32,10 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <Icon name={iconList[icon]} size={50} color="white" />
         </View>
         <View style={{ marginTop: 20 }}>
-          <Text style={{ color: "white", fontSize: 20 }}>{`${title}`}</Text>
+          <Text style={{ color: "white", fontSize: 20 }}>{`${hacia}`}</Text>
         </View>
         <View style={{ marginTop: 5 }}>
-          <Text style={{ color: "white", fontSize: 20 }}>{`$${amount}`}</Text>
+          <Text style={{ color: "white", fontSize: 20 }}>{`$${monto}`}</Text>
         </View>
       </View>
       <View>
@@ -52,13 +55,13 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <ListItem.Content>
             <ListItem.Title>{"Fecha"}</ListItem.Title>
           </ListItem.Content>
-          <Text>{"10/11/2020"}</Text>
+          <Text>{date}</Text>
         </ListItem>
         <ListItem>
           <ListItem.Content>
             <ListItem.Title>{"Hora"}</ListItem.Title>
           </ListItem.Content>
-          <Text>{"15:45 Hs"}</Text>
+          <Text>{time}</Text>
         </ListItem>
       </View>
       <View style={{ alignItems: "center" }}>
