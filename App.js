@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, LogBox} from 'react-native';
 import { NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import { Provider as ProviderPaper } from 'react-native-paper';
 import 'react-native-gesture-handler';
@@ -7,7 +7,7 @@ import {Provider} from 'react-redux';
 import generateStore from './client/Redux/Store/store'
 
 // NAVIGATOR PRINCIPAL
-import MyStack from './client/Components/stack/stack';
+import {MyStack} from './client/Components/stack/stack';
 
 const store = generateStore();
 
@@ -25,6 +25,9 @@ export default function App() {
       background: darker ? '#02072F' : 'lightgray'
     }
   }
+
+  LogBox.ignoreAllLogs()
+
   return (
     /* para agregar mas pantallas */
     <Provider store={store}>

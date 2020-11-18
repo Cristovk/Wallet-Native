@@ -12,48 +12,17 @@ import { ListItem, Avatar, Icon, ThemeProvider } from "react-native-elements";
 import * as Contacts from "expo-contacts";
 import { storage, auth } from "../../../firebase";
 import { useSelector, useDispatch } from "react-redux";
-import {addContact} from '../../Redux/User'
-
-const list = [
-  {
-    id: 1,
-    name: "Juan ",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-    subtitle: "QuiqueBank",
-    alias: "Tardes_que_son_Tardes",
-    cbu: 156489872354 / 8,
-    cvu: "--",
-    telefono: "+5493518118962",
-  },
-  {
-    id: 2,
-    name: "Karlo",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-    subtitle: "QuiqueBank",
-    alias: "Don_Quijote",
-    cbu: "--",
-    cvu: "--",
-    telefono: "+5493624882134",
-  },
-  {
-    id: 3,
-    name: "Vicky Amadea",
-    avatar_url: "https://randomuser.me/api/portraits/women/44.jpg",
-    subtitle: "Banco Brubank",
-    alias: "El_reino_animal",
-    cbu: 156489485354 / 6,
-    cvu: "--",
-    telefono: "22222222222",
-  },
-];
+import { addContact, getContacts } from '../../Redux/Contacts'
 
 const Amigos = ({ navigation }) => {
-  const user = useSelector((store) => store.user.user);
-  const contactsRedux = useSelector((store) => store.user.contacts)
+  // const onlyContacts = [...new Set(contactsRedux)] 
+  const user = useSelector((store) => store.user);
+  const contactos = useSelector((store) => store.contacts)
+  const [contacts, setContacts] = useState(contactos);
+
   const dispatch = useDispatch()
   const { text, bg } = useSelector((store) => store.color);
+
   // Función del modal para los detalles
   const [modal, setModal] = useState(false);
   const [index, setIndex] = useState("");
@@ -69,92 +38,30 @@ const Amigos = ({ navigation }) => {
     },
   };
 
-  const [contacts, setContacts] = useState([]);
 
-  const getContacts = async () => {
-    const { status } = await Contacts.requestPermissionsAsync();
-    if (status === "granted") {
-      const { data } = await Contacts.getContactsAsync({
-        fields: [Contacts.Fields.Name, Contacts.Fields.PhoneNumbers],
-      });
-      const format = data.map((c, index) => ({
-        id: index,
-        name: c.name,
-        telefono: (Array.isArray(c.phoneNumbers) ? c.phoneNumbers[0].number.replace(/[\ -]+/g,'') : "--"),
-        avatar_url: "--",
-        subtitle: "QuiqueBank",
-        alias: "Don_Quijote",
-        cbu: "--",
-        cvu: "--",
-      })); 
-      
-      // FILTRAR LOS CONTACTOS
-      var arreglo = []
-      const arrContacts = format.map((c) => { 
-         let document = {}
-        // console.log('contactos.........',c)
-        //   const users = await storage.collection("Users").where("phone", "==", `${c.telefono}`).get()
-        //   console.log("llego hasta aca en el try")
-        //   const arr = await users.data()
-        //   console.log("llego hasta aca")
-        //  arrContacts.push(arr)
-        //   console.log('arr ------------------>', arr)
-        console.log("numero de tel-------------------", c.telefono)
-          let users = storage.collection('Users');
-            let query = users.where('phone', '==', `${c.telefono}`).get()
-              .then(snapshot => {
-                if (snapshot.empty) {
-                  console.log('No matching documents.');
-                  return;
-                }
-                snapshot.forEach( doc => {
-                
-                  document = doc.data()
-                  
-                  dispatch(addContact(document))
-                  
-                });
-              })
-              .catch(err => {
-                console.log('Error getting documents', err);
-              }); 
-        /* users.forEach( doc => {
-          console.log("Entra")
-          console.log('docccccccccccccc-----------------> ', doc)
-          arrContacts.push(doc.data())}) */
-          //lo esta consologeando...
-          console.log('documentoooo...',document)
-          return document                  
-        });
-        setContacts(arrContacts)
-      }
-      console.log("array.............", arreglo)
-      console.log("este es el array................", arrContacts)
-  };
 
-  /* const favoriteContact = () => {
-    return storage
-      .collection("Users")
-      .doc(user.uid)
-      .collection("Contacts")
-      .doc("hola")
-      .set({ name: "Soy el object" });
-  }; */
+  // const contactsRedux = async () => {
+  //   let id = auth.currentUser.uid
+  //   await dispatch(addContact(id))
+  //   await dispatch(getContacts(id)) 
+  // };
+
   useEffect(() => {
-    !contacts[0] && getContacts();
-    console.log('contact redux ----------------<', contactsRedux)
-    /* favoriteContact(); */
+    // !contacts[0] && contactsRedux();
+    console.log("esto es contactos-------------------------", contactos)
+    console.log("contacts-------------", contacts)
   }, []);
 
   const requestMoney = async (phone) => {
-    await Linking.openURL("sms:+5493517733375?body=otro");
-    /* await Linking.openURL(`https://wa.me/+5493517733375?text=dame plata`) */
+    // await Linking.openURL("sms:+5493517733375?body=otro");
+    await Linking.openURL(`https://wa.me/${phone}?text=dame plata`)
   };
   return (
     <ScrollView>
       <ThemeProvider theme={myTheme}>
-        {contactsRedux[0] &&
-          contactsRedux.map((l, i) => (
+
+        {contactos[0] &&
+          contactos.map((l, i) => (
             <ListItem key={i} bottomDivider>
               <Avatar rounded source={{ uri: l.avatar_url }} />
               <ListItem.Content>
@@ -211,21 +118,21 @@ const Amigos = ({ navigation }) => {
                   <Avatar
                     size="medium"
                     rounded
-                    source={{ uri: contacts[index].avatar_url }}
+                    source={{ uri: /* contactos[index].avatar_url || */ '' }}
                   />
                   <ListItem.Content>
-                    <ListItem.Title>{contacts[index].name}</ListItem.Title>
+                    <ListItem.Title>{contactos[index].name}</ListItem.Title>
                     <ListItem.Subtitle>
-                      {contacts[index].subtitle}
+                      {contactos[index].subtitle}
                     </ListItem.Subtitle>
                   </ListItem.Content>
                 </ListItem>
               </View>
               <View style={{ paddingTop: 10, paddingBottom: 10 }}>
-                <Text>Alias: {contacts[index].alias}</Text>
-                <Text>CBU: {contacts[index].cbu}</Text>
-                <Text>CVU: {contacts[index].cvu}</Text>
-                <Text>Telefono: {contacts[index].telefono}</Text>
+                <Text>Alias: {contactos[index].alias}</Text>
+                <Text>CBU: {contactos[index].cbu}</Text>
+                <Text>CVU: {contactos[index].cvu}</Text>
+                <Text>Telefono: {contactos[index].telefono}</Text>
               </View>
               <ListItem topDivider>
                 <Icon onPress={toggle} name="arrow-left" type="fontisto" />

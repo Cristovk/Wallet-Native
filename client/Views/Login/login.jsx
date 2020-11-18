@@ -11,7 +11,8 @@ import { TextInput, Button } from "react-native-paper";
 import { Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import db from "../../../firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {getContacts, addContact} from "../../Redux/Contacts"
 import { userLog } from "../../Redux/User";
 
 const Login = ({ navigation }) => {
@@ -36,7 +37,7 @@ const Login = ({ navigation }) => {
         //Valida si el mail se verificó
         if (res.user.emailVerified) {
           disptach(userLog());
-          navigation.navigate("HomeDrawer");
+          navigation.navigate("HomeDrawer",{status:true})
         } else {
           navigation.navigate("Verify");
         }

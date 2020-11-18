@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, ScrollView, Button, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, ScrollView, Button, Image, StyleSheet, TouchableOpacity, LogBox } from 'react-native'
 import style from './transferEstilos'
 import { Icon, Text, ListItem } from 'react-native-elements'
 import { TextInput } from 'react-native-gesture-handler'
@@ -15,7 +15,7 @@ const Transferencias = ({ navigation }) => {
   })
 
   console.log(dato)
-
+  LogBox.ignoreAllLogs()
   return (
     <ScrollView>
       <View style={style.barraSuperior}>

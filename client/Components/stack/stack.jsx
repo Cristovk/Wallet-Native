@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Image, TouchableOpacity, StyleSheet, LogBox } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { Icon } from 'react-native-elements'
 import db from '../../../firebase'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { connect } from 'react-redux'
-
-
+import {addContact, deleteAll} from '../../Redux/Contacts'
 
 // COMPONENTES
 import Balance from '../../Screen/Balance';
@@ -32,8 +31,8 @@ import TransfConfirm from "../../Screen/Transferencias/TransfConfirmada"
 
 
 // NAVIGATORS
-import MyTab from '../tab/tab'
-import MyDrowner from '../drawer/drawer'
+import {MyTab} from '../tab/tab'
+import {MyDrowner} from '../drawer/drawer'
 import Transferencias from '../../Screen/Transferencias/transferencias';
 import PagoServicios from '../../Screen/Pagos/PagoServicios';
 import PagoConfirm from '../../Screen/Pagos/PagoConfirm';
@@ -47,7 +46,9 @@ const HomeScreenStack = createStackNavigator()
 
 
 // Navegador Inicial para ingresar a la wallet (importado en App.js)
-export default function MyStack(props) {
+export function MyStack(props) {
+  
+  LogBox.ignoreAllLogs()
   return (
     <Stack.Navigator>
 
@@ -62,13 +63,22 @@ export default function MyStack(props) {
 }
 
 // Navegador que se encarga de darle cabeceras a los componentes y renderizarlos (importado en drawer.jsx)
-export function HomeScreen({ userLog, user }) {
+function HomeScreen({ userLog, user, status }) {
   const [users, setUsers] = useState([])
   const { primary, secondary, text, bg } = useSelector(store => store.color)
-
+  const dispatch = useDispatch()
   useEffect(() => {
     userLog()
   }, [])
+
+  const handleRefresh = () => {
+    dispatch(deleteAll())
+   console.log('eleminados')
+    dispatch(addContact(db.auth().currentUser.uid))
+    console.log('agregados')
+  }
+
+  LogBox.ignoreAllLogs()
 
   console.log(user)
 
@@ -79,7 +89,7 @@ export function HomeScreen({ userLog, user }) {
       },
       headerTintColor: secondary
     }}>
-      <HomeScreenStack.Screen name='HomeTab' component={MyTab} options={({ navigation }) => ({ // Personalizamos las cabeceras de los atajos principales
+      <HomeScreenStack.Screen name='HomeTab' initialParams={status} component={MyTab} options={({ navigation }) => ({ // Personalizamos las cabeceras de los atajos principales
         headerLeft: () => (
           <TouchableOpacity
             style={style.boton}
@@ -109,7 +119,12 @@ export function HomeScreen({ userLog, user }) {
       <HomeScreenStack.Screen name='Movimientos' component={TransactionHistory} options={{ title: 'Mis Movimientos' }} />
       <HomeScreenStack.Screen name='Pagos' component={Pagos} options={{ title: 'Mis Servicios' }} />
       <HomeScreenStack.Screen name='Transferencias' component={Transferencias} options={{ title: 'Transferir' }} />
-      <HomeScreenStack.Screen name='Amigos' component={Amigos} options={{ title: 'Mis Contactos' }} />
+      <HomeScreenStack.Screen name='Amigos' component={Amigos} options={{ 
+        title: 'Mis Contactos',
+        headerRight: () => (
+          <Icon onPress={handleRefresh} name='spinner-refresh' type='fontisto' color={secondary} style={{marginRight:13}}/>
+        )
+      }} />
       <HomeScreenStack.Screen name='Configuracion' component={Configuracion} options={{ title: 'Ajustes' }} />
       <HomeScreenStack.Screen name='Ayuda' component={Ayuda} options={{ title: 'Soporte y Atención' }} />
       <HomeScreenStack.Screen name='Balance' component={Balance} options={{ title: 'Mi Balance' }} />

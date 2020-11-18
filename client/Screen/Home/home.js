@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView, LogBox } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import { storage } from '../../../firebase'
 import style from './homeStyles'
@@ -7,7 +7,7 @@ import style from './homeStyles'
 const Home = ({ navigation }) => {
 
   // const {title, amount, icon} = route.params;
-
+  
   const lista = [
     {
       title: 'Carga sube',
@@ -53,6 +53,8 @@ const Home = ({ navigation }) => {
       purchaseId: 2,
       type: "Panaderia"
     }]
+    
+    LogBox.ignoreAllLogs()
 
   return (
     <ScrollView >

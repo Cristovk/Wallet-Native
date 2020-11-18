@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Image, TouchableOpacity, ScrollView, Button } from 'react-native'
+import { View, Text, Image, TouchableOpacity, ScrollView, Button, LogBox } from 'react-native'
 import { Icon } from 'react-native-elements';
 import styles from './estilosPerfil';
 import Formulario from './Formulario';
@@ -45,7 +45,8 @@ const Perfil = (props) => {
     props.userLog()
   }, [])
 
-
+  LogBox.ignoreAllLogs()
+  
   return (
     <ScrollView>
       <View style={styles.generalperfil}>

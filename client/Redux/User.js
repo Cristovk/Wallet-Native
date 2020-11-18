@@ -4,7 +4,6 @@ import { storage, auth } from "../../firebase";
 const REGISTER_USER = "REGISTER_USER";
 const SAVE_USER_DATA = "SAVE_USER_DATA";
 const LOGEADO = "LOGEADO";
-const ADD_CONTACT = "ADD_CONTACT"
 
 // STATE
 const initialState = {
@@ -49,12 +48,6 @@ export default function userReducer(state = initialState, action) {
         ...state,
         user: action.payload,
       };
-
-    case ADD_CONTACT:
-      return{
-        ...state,
-        contacts:[...state.contacts ,action.payload]
-      }
     default:
       return {
         ...state,
@@ -102,9 +95,3 @@ export const userLog = () => async (dispatch) => {
     });
 };
 
-export const addContact = (data) => (dispatch) => {
-    dispatch({
-      type: ADD_CONTACT,
-      payload: data,
-    })
-}
