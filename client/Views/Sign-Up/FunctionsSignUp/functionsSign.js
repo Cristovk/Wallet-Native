@@ -1,18 +1,15 @@
-import dayjs from 'dayjs';
-import { auth, storage } from '../../../../firebase'
-
-
+import dayjs from "dayjs";
+import { auth, storage } from "../../../../firebase";
 
 export const signupUser = (userDetails) => {
-
-  const { firstName, lastName, birthday, email, password } = userDetails
+  const { firstName, lastName, birthday, email, password } = userDetails;
   return () => {
-
-    auth.createUserWithEmailAndPassword(email, password)
+    auth
+      .createUserWithEmailAndPassword(email, password)
       .then(() => {
-
-
-        storage.collection('users').doc(auth.currentUser.uid)
+        storage
+          .collection("users")
+          .doc(auth.currentUser.uid)
           .set({
             firstName: firstName,
             lastName: lastName,
@@ -22,30 +19,18 @@ export const signupUser = (userDetails) => {
             year: year,
             // birthday: birthday
           })
-
-          .catch(error => {
-            console.log('Something went wrong with added user to firestore: ', error);
-          })
+          .catch((error) => {
+            console.log(
+              "Something went wrong with added user to firestore: ",
+              error
+            );
+          });
       })
-
-      .catch(error => {
-        console.log('Something went wrong with sign up: ', error);
-      })
+      .catch((error) => {
+        console.log("Something went wrong with sign up: ", error);
+      });
   };
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions

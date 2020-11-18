@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { Icon } from 'react-native-elements'
-import db from '../../../firebase'
 import { useSelector } from 'react-redux'
 import { connect } from 'react-redux'
 
 
 
 // COMPONENTES
-import Balance from '../../Screen/Balance';
+import Balance from '../../Screen/Balance/Balance.js';
 import Movimientos from '../../Screen/Movimientos';
 import Pagos from '../../Screen/Pagos/Pagos';
 import Amigos from '../../Screen/Contactos/Amigos';
@@ -26,7 +25,6 @@ import AddTarjeta from '../card/AddTarjeta';
 import TransactionHistory from '../../Screen/TransactionHistory/Movimientos'
 import Detalle from '../../Screen/TransactionHistory/DetailOfTransaction'
 import Recargas from '../../Screen/Recargas/Recargas';
-import { storage, auth } from '../../../firebase'
 import Verify from "../../Screen/verificacion/verify"
 import TransfConfirm from "../../Screen/Transferencias/TransfConfirmada"
 
@@ -55,7 +53,7 @@ export default function MyStack(props) {
   return (
     <Stack.Navigator>
 
-      <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+      {/* <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> */}
       <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />

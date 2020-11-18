@@ -84,6 +84,50 @@ admin.initializeApp({
     const montos = []
     snapshot.forEach((doc) => {
       lista.push(doc.data())
+  credential: admin.credential.cert("./permissions.json"),
+  databaseURL: "https://henrybankfire.firebaseio.com",
+});
+
+const DBS = admin.firestore();
+const auth = admin.auth();
+
+ex.post("/user", (req, res) => {
+  const {
+    email,
+    password,
+    name,
+    lastName,
+    birtday,
+    phone,
+    dni,
+    cuil,
+  } = req.body;
+
+  //crear usuario
+  auth
+    .createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      //Si el usuario se crea,los datos del registro se agregan
+      DBS.collection("user")
+        .doc(auth.currentUser.uid)
+        .set({
+          name: name,
+          lastName: lastName,
+          birthay: birtday,
+          phone: phone,
+          dni: dni,
+          cuil: cuil,
+          created: Date.now(),
+        })
+        .catch((error) => {
+          console.log("Algo salio mal al agregar el user a firestore", error);
+        });
+
+      return res.status(200).json();
+    })
+    .catch((error) => {
+      console.log("Algo fallo en el Registro", error);
+      return res.status(500).send(error);
     });
     snapshot.forEach((doc) => {
       montos.push(doc.data().monto)
