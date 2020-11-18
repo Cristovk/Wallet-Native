@@ -21,6 +21,15 @@ const styles = StyleSheet.create({
   },
   link: {
     color: 'darkblue'
+  },
+  contEye:{
+
+    flexDirection:'row'
+  },
+  eye:{
+    position:'relative',
+    top:46,
+    right:26
   }
 });
 

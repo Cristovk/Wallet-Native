@@ -11,7 +11,8 @@ import { connect } from 'react-redux'
 import Balance from '../../Screen/Balance/Balance.js';
 import Pagos from '../../Screen/Pagos/Pagos';
 import Amigos from '../../Screen/Contactos/Amigos';
-import Ayuda from '../../Screen/Ayuda';
+import Ayuda from '../../Screen/Configuracion/Configuracion';
+// import Ayuda from '../../Screen/Ayuda';
 import Configuracion from '../../Screen/Configuracion';
 import Login from '../../Views/Login/login'
 import SignUp from '../../Views/Sign-Up/Sign-Up'
@@ -52,7 +53,7 @@ export default function MyStack(props) {
   return (
     <Stack.Navigator>
 
-      <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+      <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> 
       <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />
