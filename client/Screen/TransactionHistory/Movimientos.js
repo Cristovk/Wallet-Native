@@ -1,180 +1,195 @@
-import React, { useEffect, useState} from 'react'
-import { View,ScrollView ,Dimensions} from 'react-native'
-import {ButtonGroup, Overlay, Button, Text, Icon} from 'react-native-elements'
-import style from "./Movimientos_Styles"
-import {historial} from "./utils"
-//import { PieChart} from 'react-native-svg-charts'
+import React, { useEffect, useState } from "react";
+import { View, ScrollView, Dimensions } from "react-native";
+import { ButtonGroup } from "react-native-elements";
+import style from "./Movimientos_Styles";
+import { historial } from "./utils";
+import {
+  getDayMovements,
+  getWeekMovement,
+  getMonthMovements,
+} from "../../Redux/movements";
+import { useDispatch, useSelector } from "react-redux";
 
 const Movimientos = ({ navigation }) => {
-  const windowHeight = Dimensions.get('window').height;
+  const windowHeight = Dimensions.get("window").height;
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [list, setList] = useState([]);
-  const buttons = ['Hoy', 'Semana', 'Mes']
+  const buttons = ["Hoy", "Semana", "Mes"];
+
   const lista2 = [
     {
-      title: 'Netflix',
+      title: "Netflix",
       amount: 645,
       purchaseId: 1,
-      type: "Entretenimiento"
-    }
-  ]
+      type: "Entretenimiento",
+    },
+  ];
   const lista1 = [
     {
-      title: 'Netflix',
+      title: "Netflix",
       amount: 645,
       purchaseId: 1,
-      type: "Entretenimiento"
+      type: "Entretenimiento",
     },
     {
-      title: 'Medialunas del abuelo',
+      title: "Medialunas del abuelo",
       amount: 5000,
       purchaseId: 2,
-      type: "Panaderia"
+      type: "Panaderia",
     },
     {
-      title: 'Supermarine Spitfire',
+      title: "Supermarine Spitfire",
       amount: 100000000,
       purchaseId: 3,
-      type: "Jet"
+      type: "Jet",
     },
     {
-      title: 'Curitas',
+      title: "Curitas",
       amount: 150,
       purchaseId: 4,
-      type: "Farmacia"
-    }]
+      type: "Farmacia",
+    },
+  ];
   const lista = [
     {
-      title: 'Netflix',
+      title: "Netflix",
       amount: 645,
       purchaseId: 1,
-      type: "Entretenimiento"
+      type: "Entretenimiento",
     },
     {
-      title: 'Medialunas del abuelo',
+      title: "Medialunas del abuelo",
       amount: 5000,
       purchaseId: 2,
-      type: "Panaderia"
+      type: "Panaderia",
     },
     {
-      title: 'Supermarine Spitfire',
+      title: "Supermarine Spitfire",
       amount: 100000000,
       purchaseId: 3,
-      type: "Jet"
+      type: "Jet",
     },
     {
-      title: 'Curitas',
+      title: "Curitas",
       amount: 150,
       purchaseId: 4,
-      type: "Farmacia"
+      type: "Farmacia",
     },
     {
-      title: 'Netflix',
+      title: "Netflix",
       amount: 645,
       purchaseId: 1,
-      type: "Entretenimiento"
+      type: "Entretenimiento",
     },
     {
-      title: 'Medialunas del abuelo',
+      title: "Medialunas del abuelo",
       amount: 5000,
       purchaseId: 2,
-      type: "Panaderia"
+      type: "Panaderia",
     },
     {
-      title: 'Carga sube',
+      title: "Carga sube",
       amount: 98,
       purchaseId: 3,
-      type: "Transporte"
+      type: "Transporte",
     },
     {
-      title: 'Super Dia%',
+      title: "Super Dia%",
       amount: 789,
       date: "Sun Nov 08 2020 16:49:19 GMT-0300 (hora estándar de Argentina)",
       purchaseId: 4,
-      type: "Almacen"
+      type: "Almacen",
     },
     {
-      title: 'Factura Personal',
+      title: "Factura Personal",
       amount: 340,
       purchaseId: 5,
-      type: "Servicios"
-      
+      type: "Servicios",
     },
     {
-      title: 'Riot Points',
+      title: "Riot Points",
       amount: 560,
       purchaseId: 6,
-      type: "Videojuegos"
+      type: "Videojuegos",
     },
     {
-      title: 'Riot Points',
+      title: "Riot Points",
       amount: 560,
       purchaseId: 6,
-      type: "Videojuegos"
+      type: "Videojuegos",
     },
     {
-      title: 'Shell',
+      title: "Shell",
       amount: 7800,
       purchaseId: 6,
-      type: "Gasolinera"
+      type: "Gasolinera",
     },
     {
-      title: 'Riot Points',
+      title: "Riot Points",
       amount: 560,
       purchaseId: 6,
-      type: "Videojuegos"
+      type: "Videojuegos",
     },
     {
-      title: 'Netflix',
+      title: "Netflix",
       amount: 645,
       purchaseId: 1,
-      type: "Entretenimiento"
+      type: "Entretenimiento",
     },
     {
-      title: 'Medialunas del abuelo',
+      title: "Medialunas del abuelo",
       amount: 5000,
       purchaseId: 2,
-      type: "Panaderia"
+      type: "Panaderia",
     },
     {
-      title: 'Netflix',
+      title: "Netflix",
       amount: 645,
       purchaseId: 1,
-      type: "Entretenimiento"
+      type: "Entretenimiento",
     },
     {
-      title: 'Medialunas del abuelo',
+      title: "Medialunas del abuelo",
       amount: 5000,
       purchaseId: 2,
-      type: "Panaderia"
+      type: "Panaderia",
+    },
+  ];
+  const movements = useSelector((store) => store.movementsReducer);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getDayMovements(movements.allMovements));
+    dispatch(getWeekMovement(movements.allMovements));
+    dispatch(getMonthMovements(movements.allMovements));
+  }, []);
+
+  useEffect(() => {
+    if (selectedIndex == 0) {
+      setList(movements.dayMovements);
+    } else if (selectedIndex == 1) {
+      setList(movements.weekMovements);
+    } else if (selectedIndex == 2) {
+      setList(movements.monthMovements);
     }
-    
-  ]
-  useEffect(()=>{
-    setList(lista)
-    if(selectedIndex==0){ setList(lista2)}
-    if(selectedIndex==1){setList(lista1)}
-    if(selectedIndex==2){setList(lista)}
-  },[selectedIndex])
-  
+  }, [selectedIndex]);
+
   return (
-   
+    <View>
       <View>
-          <View >
-              <ButtonGroup
-                  onPress={setSelectedIndex}
-                  selectedIndex={selectedIndex}
-                  buttons={buttons}
-                  containerStyle={{height: 50}}
-              />
-          </View>
-        
-          <ScrollView style={{maxHeight:windowHeight}}>{historial(list, { navigation })}</ScrollView>  
+        <ButtonGroup
+          onPress={setSelectedIndex}
+          selectedIndex={selectedIndex}
+          buttons={buttons}
+          containerStyle={{ height: 50 }}
+        />
+      </View>
 
+      <ScrollView style={{ maxHeight: windowHeight }}>
+        {historial(list, { navigation })}
+      </ScrollView>
     </View>
-  )
-}
+  );
+};
 
-
-
-export default Movimientos
+export default Movimientos;

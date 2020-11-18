@@ -2,17 +2,11 @@ import React, { useEffect, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { ListItem, Button } from "react-native-elements";
 import style from "./homeStyles";
-// import {
-//   getDayMovements,
-//   getAllMovements,
-//   test,
-//   getWeekMovement,
-//   getMonthMovements,
-// } from "../../Redux/movements";
-// import { useDispatch, useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { test, getAllMovements, getSaldo } from "../../Redux/movements";
 const Home = ({ navigation }) => {
   // const {title, amount, icon} = route.params;
+  const dispatch = useDispatch();
 
   const lista = [
     {
@@ -60,27 +54,39 @@ const Home = ({ navigation }) => {
     },
   ];
 
-  // const allMovements = useSelector(
-  //   (store) => store.movementsReducer.allMovements
-  // );
-  // const dispatch = useDispatch();
-  // const handleOnPress = () => {
-  //   dispatch(getAllMovements());
-  //   dispatch(getDayMovements(allMovements));
-  //   dispatch(getWeekMovement(allMovements));
-  //   dispatch(getMonthMovements(allMovements));
-  // };
+  const allMovements = useSelector(
+    (store) => store.movementsReducer.allMovements
+  );
+  const saldo = useSelector((store) => store.movementsReducer.saldo);
+  useEffect(() => {
+    dispatch(getAllMovements());
+    dispatch(getSaldo());
+  }, []);
+
+  function formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  }
   // const handleOnTest = () => {
   //   test();
-  //   // console.log("allmovements", allMovements);
+  //   console.log("allmovements", allMovements);
   // };
 
   return (
     <ScrollView>
       {/* <Button title="GET" onPress={() => handleOnPress()} /> */}
       <View style={style.balance}>
-        <Text style={style.tituloBalance} onPress={() => navigation.navigate('Balance')}>Balance General</Text>
-        <Text style={style.saldoBalance} onPress={() => navigation.navigate('Balance')}>$35.000</Text>
+        <Text
+          style={style.tituloBalance}
+          onPress={() => navigation.navigate("Balance")}
+        >
+          Balance General
+        </Text>
+        <Text
+          style={style.saldoBalance}
+          onPress={() => navigation.navigate("Balance")}
+        >
+          {`$ ${formatNumber(saldo)}`}
+        </Text>
       </View>
       {/* <Button
         title="test"
