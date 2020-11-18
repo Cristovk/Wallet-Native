@@ -64,7 +64,9 @@ const SignUp2 = ({ navigation }) => {
           .doc(userData.dni);
         await walletRef.set({
           CVU: userData.dni,
-          balance: 0,
+          amount: 0,
+          income: 0,
+          assets: 0,
         });
         //se le agrega modelo de transactiones inicial
 
