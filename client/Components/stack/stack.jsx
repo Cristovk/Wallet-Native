@@ -16,7 +16,7 @@ import Pagos from '../../Screen/Pagos/Pagos';
 import Amigos from '../../Screen/Contactos/Amigos';
 import Ayuda from '../../Screen/Ayuda'
 // import Ayuda from '../../Screen/Ayuda';
-import Configuracion from '../../Screen/Configuracion';
+import Configuracion from '../../Screen/Configuracion/Configuracion';
 import Login from '../../Views/Login/login'
 import SignUp from '../../Views/Sign-Up/Sign-Up'
 import SignUp1 from '../../Views/Sign-Up/SignUp1'
