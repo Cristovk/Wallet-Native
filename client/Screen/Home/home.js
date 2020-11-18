@@ -7,7 +7,7 @@ import style from './homeStyles'
 const Home = ({ navigation }) => {
 
   // const {title, amount, icon} = route.params;
-  
+
   const lista = [
     {
       title: 'Carga sube',
@@ -53,8 +53,8 @@ const Home = ({ navigation }) => {
       purchaseId: 2,
       type: "Panaderia"
     }]
-    
-    LogBox.ignoreAllLogs()
+
+  LogBox.ignoreLogs
 
   return (
     <ScrollView >

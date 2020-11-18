@@ -26,7 +26,11 @@ const Amigos = ({ navigation }) => {
   // Función del modal para los detalles
   const [modal, setModal] = useState(false);
   const [index, setIndex] = useState("");
-  const toggle = () => setModal(!modal);
+  const toggle = () => {
+    setModal(!modal);
+    if (index)
+      setIndex("")
+  }
   const myTheme = {
     ListItem: {
       containerStyle: {
@@ -47,15 +51,14 @@ const Amigos = ({ navigation }) => {
   // };
 
   useEffect(() => {
-    // !contacts[0] && contactsRedux();
-    console.log("esto es contactos-------------------------", contactos)
-    console.log("contacts-------------", contacts)
+    console.log("contactos--------------", contactos)
   }, []);
 
   const requestMoney = async (phone) => {
     // await Linking.openURL("sms:+5493517733375?body=otro");
     await Linking.openURL(`https://wa.me/${phone}?text=dame plata`)
   };
+
   return (
     <ScrollView>
       <ThemeProvider theme={myTheme}>
@@ -74,7 +77,7 @@ const Amigos = ({ navigation }) => {
                 name="ios-information-circle"
                 type="ionicon"
                 onPress={() => {
-                  setIndex(l.id);
+                  setIndex(i);
                   toggle();
                 }}
               />
@@ -121,7 +124,7 @@ const Amigos = ({ navigation }) => {
                     source={{ uri: /* contactos[index].avatar_url || */ '' }}
                   />
                   <ListItem.Content>
-                    <ListItem.Title>{contactos[index].name}</ListItem.Title>
+                    <ListItem.Title>{contactos[index].lastname ? contactos[index].name + " " + contactos[index].lastname : contactos[index].name}</ListItem.Title>
                     <ListItem.Subtitle>
                       {contactos[index].subtitle}
                     </ListItem.Subtitle>
@@ -129,10 +132,10 @@ const Amigos = ({ navigation }) => {
                 </ListItem>
               </View>
               <View style={{ paddingTop: 10, paddingBottom: 10 }}>
-                <Text>Alias: {contactos[index].alias}</Text>
+                {/* <Text>Alias: {contactos[index].alias}</Text>
                 <Text>CBU: {contactos[index].cbu}</Text>
-                <Text>CVU: {contactos[index].cvu}</Text>
-                <Text>Telefono: {contactos[index].telefono}</Text>
+                <Text>CVU: {contactos[index].cvu}</Text> */}
+                <Text>Telefono: {contactos[index].phone}</Text>
               </View>
               <ListItem topDivider>
                 <Icon onPress={toggle} name="arrow-left" type="fontisto" />

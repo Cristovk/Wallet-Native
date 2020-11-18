@@ -122,7 +122,7 @@ function HomeScreen({ userLog, user, status }) {
       <HomeScreenStack.Screen name='Amigos' component={Amigos} options={{ 
         title: 'Mis Contactos',
         headerRight: () => (
-          <Icon onPress={handleRefresh} name='spinner-refresh' type='fontisto' color={secondary} style={{marginRight:13}}/>
+          <Icon onPress={handleRefresh} name='spinner-refresh' type='fontisto' color={secondary} style={{marginRight:30}}/>
         )
       }} />
       <HomeScreenStack.Screen name='Configuracion' component={Configuracion} options={{ title: 'Ajustes' }} />
