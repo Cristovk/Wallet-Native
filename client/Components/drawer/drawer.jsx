@@ -5,7 +5,7 @@ import { Icon, ListItem } from 'react-native-elements'
 import { useSelector, useDispatch } from 'react-redux'
 import { darkMode } from '../../Redux/Estilos'
 import {auth} from "../../../firebase"
-import {getContacts, addContact} from "../../Redux/Contacts"
+import {getContacts, addContact, deleteAll} from "../../Redux/Contacts"
 
 // Navigator
 import { homeScreen } from '../stack/stack'
@@ -23,8 +23,6 @@ export function MyDrowner({ navigation, route }) {
     if(status){
       let id = auth.currentUser.uid
       dispatch(addContact(id))
-      /* dispatch(getContacts(id)) */
-      console.log('entrooo........drawer',id)
     }
   },[])
 
@@ -39,7 +37,10 @@ export function MyDrowner({ navigation, route }) {
 function CustomDrawerContent({ navigation, text, bg, route, dark, dispatch }) {
 
   const setApp = route.params.darker
-  console.log(setApp)
+  const handleLogOut = () => {
+    dispatch(deleteAll())
+    navigation.navigate('Login')
+  }
   LogBox.ignoreAllLogs()
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>
@@ -111,7 +112,7 @@ function CustomDrawerContent({ navigation, text, bg, route, dark, dispatch }) {
           <Switch value={dark} onValueChange={() => { setApp(!dark); dispatch(darkMode(dark)) }} />
         </ListItem>
         <ListItem topDivider containerStyle={{ backgroundColor: 'transparent' }}
-          onPress={() => navigation.navigate('Login')}>
+          onPress={handleLogOut}>
           <Icon name='ios-log-out' type='ionicon' color={text} />
           <ListItem.Content>
             <ListItem.Title style={{ color: text }}>Cerrar sesión</ListItem.Title>

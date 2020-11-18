@@ -91,8 +91,6 @@ export const saveData = (obj) => (dispatch) => {
 
 export const userLog = () => async (dispatch) => {
   const id = await auth.currentUser.uid;
-
-  const id = await auth.currentUser.uid;
   const consulta = storage.collection('Users').doc(id) //Con esto consulto en la base de datos para que me traiga el documento segun el id que le estoy pasando
   const doc = await consulta.get() // como la respuesta debe ser asincrona, ponemos el await y le damos el metodo get, para que nos traiga esos datos.
     .then(resp => {
@@ -103,29 +101,37 @@ export const userLog = () => async (dispatch) => {
     })
 }
 
-export const updateUser = ({ name, phone, lastName, dni, cuil }) => async (dispatch) => {
-
-  const id = await auth.currentUser.uid
-  const consulta = storage.collection('Users').doc(id)
-  await consulta.set({
-    name: name,
-    lastName: lastName,
-    phone: phone,
-    dni: dni,
-    cuil: cuil
-  })
-    .then(resp => {
-      dispatch({
-        type: MODIFICA_USUARIO,
-        payload: {
-          name: name,
-          lastName: lastName,
-          phone: phone,
-          dni: dni,
-          cuil: cuil
-        }
-      })
-    })
+export const updateUser = (data) => (dispatch) => {
+  /* dispatch({
+    type:MODIFICA_USUARIO,
+    payload: data
+  }) */
+  // const id = auth.currentUser.uid
+  // console.log("props---------------------", props)
+  // console.log("imagen.....................",imagen)
+  // const consulta = storage.collection('Users').doc(id)
+  // consulta.set({
+  //   name: name,
+  //   lastName: lastName,
+  //   phone: phone,
+  //   dni: dni,
+  //   cuil: cuil,
+  //   imagen: imagen
+  // })
+    // .then(resp => {
+      
+    //   dispatch({
+    //     type: MODIFICA_USUARIO,
+    //     payload: {
+    //       name: name,
+    //       lastName: lastName,
+    //       phone: phone,
+    //       dni: dni,
+    //       cuil: cuil,
+    //       imagen: imagen,
+    //     }
+    //   })
+    // })
 
 }
 

@@ -7,12 +7,11 @@ import { storage, auth } from '../../../firebase';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { userLog } from '../../Redux/User';
-import { connect } from 'react-redux'
-
+import { connect } from 'react-redux' 
 
 const Perfil = (props) => {
   const [imagen, setImagen] = useState(
-    "https://sistemas.com/termino/wp-content/uploads/Usuario-Icono.jpg"
+    
   );
   const [data, setData] = useState({
     name: props.user.name,
@@ -21,6 +20,7 @@ const Perfil = (props) => {
     dni: props.user.dni,
     cuil: props.user.cuil,
     id: props.user.id,
+    imagen: props.user.imagen || "https://sistemas.com/termino/wp-content/uploads/Usuario-Icono.jpg"
   });
 
   const changeImage = async () => {
@@ -32,10 +32,14 @@ const Perfil = (props) => {
       alert("no has dado permisos");
     } else {
       const resultado = await ImagePicker.launchImageLibraryAsync({
+        base64:true,
         allowsEditing: true,
         aspect: [4, 3],
       });
-      setImagen(resultado.uri);
+      setData({
+        ...data,
+        imagen:`data:image/jpg;base64,${resultado.base64}`
+      });
     }
   };
   useEffect(() => {
@@ -50,7 +54,7 @@ const Perfil = (props) => {
         <View style={styles.generalimagen}>
           <View style={styles.contenedorimagen}>
             {/* <Image style={styles.imagenperfil} source={{ uri: 'https://sistemas.com/termino/wp-content/uploads/Usuario-Icono.jpg' }} /> */}
-            <Image style={styles.imagenperfil} source={{ uri: imagen }} />
+            <Image style={styles.imagenperfil} source={{ uri: data.imagen }} />
 
             <View style={styles.contenedorcamara}>
               <Icon
@@ -58,7 +62,7 @@ const Perfil = (props) => {
                 name="camera"
                 type="font-awesome"
                 color="white"
-                onPress={changeImage}
+                onPress={()=>changeImage()}
               />
             </View>
           </View>

@@ -1,29 +1,38 @@
 
 import React, { useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import Lapiz from './Lapiz';
 import styles from './estilosFormulario';
 import styles2 from './estilosPerfil';
 import { updateUser } from '../../Redux/User';
 import { connect } from 'react-redux'
-import { auth } from '../../../firebase';
+import { auth, storage } from '../../../firebase';
 
 
 
 const Formulario = ({ data, updateUser, navigation }) => {
 
-  const { name, id, phone, dni, cuil, lastName } = data;
-  //State que guarda los datos del usuario editado.
-  const [datos, setDatos] = useState({ name, id, phone, dni, cuil, lastName });
+  console.log("Data de formulario---------------------------",data)
 
+  const { name, id, phone, dni, cuil, lastName, imagen } = data;
+  console.log("antes de la funcion----------",imagen)
+  //State que guarda los datos del usuario editado.
+  const [datos, setDatos] = useState({ name, phone, dni, cuil, lastName, imagen });
+  console.log('......datossss',datos)
   function handleSubmit() {
-    updateUser({
+    console.log("en la funcion..................", imagen)
+    /* updateUser({
       name: datos.name,
       phone: datos.phone,
       dni: datos.dni,
       lastName: datos.lastName,
-      cuil: datos.cuil
-    })
+      cuil: datos.cuil,
+      imagen: imagen
+    }) */
+    
+    storage.collection('Users').doc(auth.currentUser.uid).set({...datos,imagen})
+    .then( res => Alert.alert('Datos actualizados!'))
+    .catch(err => console.log(err))
   }
 
   return (

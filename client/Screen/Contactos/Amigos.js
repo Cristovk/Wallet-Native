@@ -42,8 +42,6 @@ const Amigos = ({ navigation }) => {
     },
   };
 
-
-
   // const contactsRedux = async () => {
   //   let id = auth.currentUser.uid
   //   await dispatch(addContact(id))
@@ -56,7 +54,7 @@ const Amigos = ({ navigation }) => {
 
   const requestMoney = async (phone) => {
     // await Linking.openURL("sms:+5493517733375?body=otro");
-    await Linking.openURL(`https://wa.me/${phone}?text=dame plata`)
+    await Linking.openURL(`https://wa.me/${phone}?text=Hola, necesitooooooo plataaaa! `)
   };
 
   return (
@@ -66,18 +64,18 @@ const Amigos = ({ navigation }) => {
         {contactos[0] &&
           contactos.map((l, i) => (
             <ListItem key={i} bottomDivider>
-              <Avatar rounded source={{ uri: l.avatar_url }} />
+              <Avatar rounded source={{ uri: l.imagen }} />
               <ListItem.Content>
                 <ListItem.Title style={{ color: text }}>
                   {l.name}
                 </ListItem.Title>
-                <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
+                <ListItem.Subtitle>QuiqueBank</ListItem.Subtitle>
               </ListItem.Content>
               <Icon
                 name="ios-information-circle"
                 type="ionicon"
                 onPress={() => {
-                  setIndex(i);
+                  setIndex(l);
                   toggle();
                 }}
               />
@@ -85,7 +83,7 @@ const Amigos = ({ navigation }) => {
                 <Icon
                   name="ios-hand"
                   type="ionicon"
-                  onPress={() => requestMoney(l.telefono)}
+                  onPress={() => requestMoney(l.phone)}
                 />
               )}
               <Icon
@@ -121,12 +119,12 @@ const Amigos = ({ navigation }) => {
                   <Avatar
                     size="medium"
                     rounded
-                    source={{ uri: /* contactos[index].avatar_url || */ '' }}
+                    source={{ uri:index.imagen }}
                   />
                   <ListItem.Content>
-                    <ListItem.Title>{contactos[index].lastname ? contactos[index].name + " " + contactos[index].lastname : contactos[index].name}</ListItem.Title>
+                    <ListItem.Title>{index.lastname ? index.name + " " + index.lastname : index.name}</ListItem.Title>
                     <ListItem.Subtitle>
-                      {contactos[index].subtitle}
+                      QuiqueBank
                     </ListItem.Subtitle>
                   </ListItem.Content>
                 </ListItem>
@@ -135,11 +133,11 @@ const Amigos = ({ navigation }) => {
                 {/* <Text>Alias: {contactos[index].alias}</Text>
                 <Text>CBU: {contactos[index].cbu}</Text>
                 <Text>CVU: {contactos[index].cvu}</Text> */}
-                <Text>Telefono: {contactos[index].phone}</Text>
+                <Text>Telefono: {index.phone}</Text>
               </View>
               <ListItem topDivider>
                 <Icon onPress={toggle} name="arrow-left" type="fontisto" />
-                <Icon onPress={toggle} name="trash" type="fontisto" />
+                {/* <Icon onPress={toggle} name="trash" type="fontisto" /> */}
               </ListItem>
             </View>
           </View>
