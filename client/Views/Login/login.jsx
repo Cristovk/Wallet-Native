@@ -56,7 +56,7 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.text}>$ald∞</Text> */}
+       <Text style={styles.text}>$ald∞</Text> 
       <Image source={require("../../src/logo.png")} />
       <View style={{ width: '90%' }}>
         <Input

@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 
 // COMPONENTES
 import Balance from '../../Screen/Balance/Balance.js';
-// import Movimientos from '../../Screen/Movimientos';
+//import Movimientos from '../../Screen/Movimientos';
 import Pagos from '../../Screen/Pagos/Pagos';
 import Amigos from '../../Screen/Contactos/Amigos';
 import Ayuda from '../../Screen/Configuracion/Configuracion';

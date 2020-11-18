@@ -91,7 +91,7 @@ export const saveData = (obj) => (dispatch) => {
 
 export const userLog = () => async (dispatch) => {
 
-  const id = await auth.currentUser.uid
+  const id = await auth.currentUser.uid;
   const consulta = storage.collection('Users').doc(id) //Con esto consulto en la base de datos para que me traiga el documento segun el id que le estoy pasando
   const doc = await consulta.get() // como la respuesta debe ser asincrona, ponemos el await y le damos el metodo get, para que nos traiga esos datos.
     .then(resp => {
