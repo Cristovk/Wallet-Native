@@ -66,7 +66,6 @@ export const deleteCard = async (id) => {
       .collection("creditCards")
       .doc(id)
       .delete();
-    console.log("CardTodeleteID", id);
   } catch (error) {
     throw Error(`Type: ${error}`);
   }

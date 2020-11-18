@@ -1,13 +1,17 @@
-import React from 'react'
-import { View, Text, ScrollView, Button, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import style from '../Transferencias/estilosConfir'
-import { Icon, ListItem } from 'react-native-elements'
-
+import React from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  Button,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import style from "../Transferencias/estilosConfir";
+import { Icon, ListItem } from "react-native-elements";
 
 const PagoConfirm = ({ navigation, route }) => {
-
-  console.log(route.params, "soy el dato")
-
   return (
     <ScrollView>
       <View>
@@ -44,16 +48,10 @@ const PagoConfirm = ({ navigation, route }) => {
             </ListItem.Content>
           </ListItem>
         </View>
-        <Icon
-          name="check"
-          type="fontisto"
-          color="green"
-          size={60}
-        />
-
+        <Icon name="check" type="fontisto" color="green" size={60} />
       </View>
     </ScrollView>
-  )
-}
+  );
+};
 
-export default PagoConfirm
+export default PagoConfirm;

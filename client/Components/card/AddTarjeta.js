@@ -18,7 +18,6 @@ const AddCard = (props) => {
   /* ======================= FUNCTIONS ========================== */
 
   const onChange = (formData) => {
-    // console.log(JSON.stringify(formData, null, " "));
     setState({
       ...state,
       data: formData.values,
@@ -30,6 +29,7 @@ const AddCard = (props) => {
   };
   const continuar = () => {
     toggleOverlay();
+    props.navigation.navigate("Tarjetas");
   };
   const addAgain = () => {
     toggleOverlay();

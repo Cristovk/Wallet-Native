@@ -14,13 +14,11 @@ const store = generateStore();
 //con este stack, guardamos todas las pantallas que vamos a mostrar. Con stack.navigation las guardamos y cada stack.screen va a ser una pantalla
 //Se muestran en orden. La que primero esta, es la que va a aparecer.
 export default function App() {
-  const [darker,setDarker] = useState(false)
-  useEffect(() => {
-    console.log(darker)
-  },[darker])
+  const [darker, setDarker] = useState(false);
+  useEffect(() => {}, [darker]);
   const MyTheme = {
     ...DefaultTheme,
-    colors:{
+    colors: {
       ...DefaultTheme.colors,
       background: darker ? '#02072F' : 'lightgray'
     }
@@ -33,8 +31,8 @@ export default function App() {
     <Provider store={store}>
       <ProviderPaper>
         <NavigationContainer theme={MyTheme}>
-          <MyStack darker={setDarker}/>
-          <StatusBar barStyle='light-content'/>
+          <MyStack darker={setDarker} />
+          <StatusBar barStyle="light-content" />
         </NavigationContainer>
       </ProviderPaper>
     </Provider>

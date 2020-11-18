@@ -22,7 +22,6 @@ const Tarjetas = (props) => {
   const [deletedModal, setDeletedModal] = useState(false);
   const [id, setId] = useState("");
   const [state, setState] = useState({ render: 0 });
-  console.log("state", state);
   let response = [];
   /* ============================ FUNTIONS ============================ */
   const onDelete = () => {

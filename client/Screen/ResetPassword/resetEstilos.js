@@ -1,10 +1,12 @@
 import { StyleSheet } from 'react-native'
+import { white, grey } from '../../Global-Styles/colors';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-evenly',
+    backgroundColor: white
   },
   text: {
     fontSize: 70,
@@ -22,14 +24,25 @@ const styles = StyleSheet.create({
   link: {
     color: 'darkblue'
   },
-  contEye:{
-
-    flexDirection:'row'
+  texto: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: 'darkblue',
   },
-  eye:{
-    position:'relative',
-    top:46,
-    right:26
+  inputs: {
+    height: 40,
+    borderColor: grey,
+    borderWidth: 1,
+    borderStyle: "solid",
+    marginHorizontal: 35,
+    borderWidth: 1,
+    paddingLeft: 15,
+    borderRadius: 10,
+  },
+  textoContainer: {
+    maxHeight: 20,
+    margin: 0,
+    width: 250
   }
 });
 
