@@ -54,7 +54,7 @@ const Home = ({ navigation }) => {
       type: "Panaderia"
     }]
 
-  LogBox.ignoreLogs
+  LogBox.ignoreAllLogs()
 
   return (
     <ScrollView >
