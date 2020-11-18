@@ -8,11 +8,14 @@ import { connect } from 'react-redux'
 import {addContact, deleteAll} from '../../Redux/Contacts'
 
 // COMPONENTES
-import Balance from '../../Screen/Balance';
-import Movimientos from '../../Screen/Movimientos';
+import Balance from '../../Screen/Balance/Balance.js';
+
+//import Movimientos from '../../Screen/Movimientos';
+
 import Pagos from '../../Screen/Pagos/Pagos';
 import Amigos from '../../Screen/Contactos/Amigos';
-import Ayuda from '../../Screen/Ayuda';
+import Ayuda from '../../Screen/Configuracion/Configuracion';
+// import Ayuda from '../../Screen/Ayuda';
 import Configuracion from '../../Screen/Configuracion';
 import Login from '../../Views/Login/login'
 import SignUp from '../../Views/Sign-Up/Sign-Up'
@@ -25,7 +28,6 @@ import AddTarjeta from '../card/AddTarjeta';
 import TransactionHistory from '../../Screen/TransactionHistory/Movimientos'
 import Detalle from '../../Screen/TransactionHistory/DetailOfTransaction'
 import Recargas from '../../Screen/Recargas/Recargas';
-import { storage, auth } from '../../../firebase'
 import Verify from "../../Screen/verificacion/verify"
 import TransfConfirm from "../../Screen/Transferencias/TransfConfirmada"
 
@@ -39,7 +41,11 @@ import PagoConfirm from '../../Screen/Pagos/PagoConfirm';
 import TransfAmigo from '../../Screen/Contactos/TransfAmigos';
 import TransfAmigoConfirm from '../../Screen/Contactos/TransAmConf';
 import { userLog } from '../../Redux/User';
-
+import ResetPaswword from '../../Screen/ResetPassword/resetPass';
+import ModificaEmail from '../../Screen/Modificar-Email-Pass/ModificaEmail';
+import ModificaPassword from '../../Screen/Modificar-Email-Pass/ModificarPassword';
+import DeleteUser from '../../Screen/Modificar-Email-Pass/DeleteUser';
+import ConfirmDelete from '../../Screen/Modificar-Email-Pass/ConfirmDelete';
 // Creamos los navegadores
 const Stack = createStackNavigator()
 const HomeScreenStack = createStackNavigator()
@@ -51,13 +57,13 @@ export function MyStack(props) {
   LogBox.ignoreAllLogs()
   return (
     <Stack.Navigator>
-
-      <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+      <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> 
       <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp2" component={SignUp2} options={{ title: "Registro" }} />
       <Stack.Screen name="Verify" component={Verify} />
+      <Stack.Screen name="ResetPaswword" component={ResetPaswword} options={{ title: "Resetear Password" }} />
     </Stack.Navigator>
   )
 }
@@ -135,6 +141,11 @@ function HomeScreen({ userLog, user, status }) {
       <HomeScreenStack.Screen name='PagoConfirm' component={PagoConfirm} options={{ title: 'Pago Confirmado' }} />
       <HomeScreenStack.Screen name='TransfAmigo' component={TransfAmigo} options={{ title: 'Transferir a Contacto' }} />
       <HomeScreenStack.Screen name='TransfAmigoConfirm' component={TransfAmigoConfirm} options={{ title: 'Transferencia Confrimada' }} />
+      <HomeScreenStack.Screen name='ModificaEmail' component={ModificaEmail} options={{ title: 'Modificar Email' }} />
+      <HomeScreenStack.Screen name='ModificaPassword' component={ModificaPassword} options={{ title: 'Modificar Password' }} />
+      <HomeScreenStack.Screen name='DeleteUser' component={DeleteUser} options={{ title: 'Borrar Usuario' }} />
+      <HomeScreenStack.Screen name='ConfirmDelete' component={ConfirmDelete} options={{ title: 'Borrar Usuario' }} />
+
     </HomeScreenStack.Navigator >
   )
 }

@@ -25,7 +25,6 @@ ex.post("/user", (req, res) => {
     dni,
     cuil,
   } = req.body;
-  console.log(req.body);
 
   //crear usuario
   auth

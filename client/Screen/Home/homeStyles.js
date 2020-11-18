@@ -1,40 +1,39 @@
-import { StyleSheet } from 'react-native'
-
+import { StyleSheet } from "react-native";
 
 const style = StyleSheet.create({
   balance: {
     backgroundColor: "#02072F",
     height: 200,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   saldoBalance: {
     color: "white",
     fontWeight: "bold",
     fontSize: 40,
     marginBottom: 50,
-    textDecorationLine: "underline"
+    // textDecorationLine: "underline"
   },
   tituloBalance: {
     color: "white",
     fontWeight: "bold",
     fontSize: 20,
     paddingBottom: 30,
-    marginBottom: 10
+    marginBottom: 10,
   },
   gastos: {
-    height: 350
+    height: 350,
   },
   subGastos: {
     height: 60,
-    marginBottom: 30
+    marginBottom: 30,
   },
   listaContenedor: {
-    marginBottom: 15
+    marginBottom: 15,
   },
   lista: {
-    marginBottom: 10
-  }
-})
+    marginBottom: 10,
+  },
+});
 
 export default style;

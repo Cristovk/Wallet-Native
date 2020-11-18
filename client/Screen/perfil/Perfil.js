@@ -11,36 +11,33 @@ import { connect } from 'react-redux'
 
 
 const Perfil = (props) => {
-
-  const [imagen, setImagen] = useState('https://sistemas.com/termino/wp-content/uploads/Usuario-Icono.jpg')
+  const [imagen, setImagen] = useState(
+    "https://sistemas.com/termino/wp-content/uploads/Usuario-Icono.jpg"
+  );
   const [data, setData] = useState({
     name: props.user.name,
     lastName: props.user.lastName,
     phone: props.user.phone,
     dni: props.user.dni,
     cuil: props.user.cuil,
-    id: props.user.id
-  })
+    id: props.user.id,
+  });
 
   const changeImage = async () => {
     const permisos = await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
     const resultado = permisos.permissions.cameraRoll.status;
 
-    if (resultado === 'denied') {
-      alert('no has dado permisos')
+    if (resultado === "denied") {
+      alert("no has dado permisos");
     } else {
       const resultado = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: true,
-        aspect: [4, 3]
-      })
-
-      setImagen(resultado.uri)
+        aspect: [4, 3],
+      });
+      setImagen(resultado.uri);
     }
-
-  }
-  console.log()
-
+  };
   useEffect(() => {
     props.userLog()
   }, [])
@@ -58,49 +55,35 @@ const Perfil = (props) => {
             <View style={styles.contenedorcamara}>
               <Icon
                 size={16}
-                name='camera'
-                type='font-awesome'
-                color='white'
+                name="camera"
+                type="font-awesome"
+                color="white"
                 onPress={changeImage}
               />
-
             </View>
-
           </View>
         </View>
 
-        <Text style={styles.nombreusuario} >{data.name + ' ' + data.lastName}</Text>
+        <Text style={styles.nombreusuario}>
+          {data.name + " " + data.lastName}
+        </Text>
         <Text style={styles.titulodatos}>Datos Personales</Text>
-        <Formulario data={data} />
-
-
-
-        <View style={styles.generalvolver}>
-
-          <TouchableOpacity style={styles.btnvolver} onPress={() => props.navigation.goBack()}>
-            <Text style={styles.link}>Guardar</Text>
-          </TouchableOpacity>
-        </View>
+        <Formulario data={data} navigation={props.navigation} />
       </View>
     </ScrollView>
-
   );
-}
+};
 
-
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    user: state.user.user
-  }
-}
+    user: state.user.user,
+  };
+};
 
 function mapDispatchToProps(dispatch) {
   return {
-    userLog: id => dispatch(userLog(id))
-  }
+    userLog: (id) => dispatch(userLog(id)),
+  };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Perfil)
+export default connect(mapStateToProps, mapDispatchToProps)(Perfil);

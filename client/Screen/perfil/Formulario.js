@@ -1,25 +1,38 @@
 
 import React, { useState } from 'react'
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import Lapiz from './Lapiz';
 import styles from './estilosFormulario';
+import styles2 from './estilosPerfil';
+import { updateUser } from '../../Redux/User';
+import { connect } from 'react-redux'
+import { auth } from '../../../firebase';
 
 
-const Formulario = ({ data }) => {
+
+const Formulario = ({ data, updateUser, navigation }) => {
 
   const { name, id, phone, dni, cuil, lastName } = data;
   //State que guarda los datos del usuario editado.
   const [datos, setDatos] = useState({ name, id, phone, dni, cuil, lastName });
 
+  function handleSubmit() {
+    updateUser({
+      name: datos.name,
+      phone: datos.phone,
+      dni: datos.dni,
+      lastName: datos.lastName,
+      cuil: datos.cuil
+    })
+  }
 
   return (
     <View>
       <View style={styles.grupoform}>
         <Text style={styles.labelinput}>Nombre</Text>
         <TextInput
-          placeholder={name}
+          value={name}
           style={styles.inputperfil}
-          onChangeText={(data) => setDatos({ ...datos, name: data })}
 
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
@@ -29,9 +42,8 @@ const Formulario = ({ data }) => {
       <View style={styles.grupoform}>
         <Text style={styles.labelinput} >Apellido</Text>
         <TextInput
-          placeholder={lastName}
+          value={lastName}
           style={styles.inputperfil}
-          onChangeText={(data) => setDatos({ ...datos, lastName: data })}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
       </View>
@@ -60,25 +72,61 @@ const Formulario = ({ data }) => {
       <View style={styles.grupoform}>
         <Text style={styles.labelinput}>DNI</Text>
         <TextInput
-          placeholder={dni}
+          value={dni}
           style={styles.inputperfil}
-          onChangeText={(data) => setDatos({ ...datos, dni: data })}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
       </View>
 
       <View style={styles.grupoform}>
-        <Text style={styles.labelinput}>Id Usuario</Text>
+        <Text style={styles.labelinput}>CUIL</Text>
         <TextInput
-          placeholder={id}
+          placeholder={cuil}
           style={styles.inputperfil}
-          onChangeText={(data) => setDatos({ ...datos, id: data })}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
+      </View>
+      <View style={styles.grupoform}>
+        <Text style={styles.labelinput}>EMAIL</Text>
+        <TextInput
+          placeholder={auth.currentUser.email}
+          style={styles.inputperfil}
+        />
+        <Text style={styles.padrelapiz}><Lapiz /></Text>
+      </View>
+      <View style={styles2.generalvolver}>
+
+        <TouchableOpacity style={styles2.btnvolver} onPress={() => handleSubmit()}>
+          <Text style={styles2.link}>Guardar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles2.btnvolver} onPress={() => navigation.navigate('ModificaEmail')}>
+          <Text style={styles2.link}>Modificar Email</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles2.btnvolver} onPress={() => navigation.navigate('ModificaPassword')}>
+          <Text style={styles2.link}>Modificar Password</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles2.btnvolver} onPress={() => navigation.navigate('DeleteUser')}>
+          <Text style={styles2.link}>Eliminar Cuenta</Text>
+        </TouchableOpacity>
       </View>
 
     </View>
   );
 }
 
-export default Formulario;
+const mapStateToProps = state => {
+  return {
+    user: state.user.user
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    updateUser: ({ name, id, lastName, phone, cuil, dni }) => dispatch(updateUser({ name, id, lastName, phone, cuil, dni }))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Formulario)

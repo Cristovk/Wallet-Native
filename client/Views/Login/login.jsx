@@ -19,8 +19,10 @@ const Login = ({ navigation }) => {
   const disptach = useDispatch();
   const [text, setText] = useState({
     email: "",
-    password: "",
+    password: ""
   });
+  const [hide,setHide]=useState(true);
+  const nameIcon= hide ? 'eye-slash':'eye';
 
   const handleChange = (name, value) => {
     setText({
@@ -58,9 +60,9 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.text}>$ald∞</Text> */}
+       <Text style={styles.text}>$ald∞</Text> 
       <Image source={require("../../src/logo.png")} />
-      <View style={{ width: "90%" }}>
+      <View style={{ width: '90%' }}>
         <Input
           textContentType="emailAddress"
           autoCompleteType="email"
@@ -71,17 +73,29 @@ const Login = ({ navigation }) => {
           onChangeText={(value) => handleChange("email", value)}
           defaultValue={text.email}
         />
-
+        <View style={styles.contEye}>
         <Input
-          secureTextEntry={true}
-          autoCompleteType="password"
-          label="Password"
-          leftIcon={{ type: "font-awesome", name: "lock" }}
-          placeholderTextColor="grey"
-          placeholder=" Password"
-          onChangeText={(value) => handleChange("password", value)}
+          secureTextEntry={hide}
+          autoCompleteType='password'
+          label='Password'
+          leftIcon={{ type: 'font-awesome', name: 'lock' }}
+          placeholderTextColor='grey'
+          placeholder=' Password'
+          onChangeText={(value) => handleChange('password', value)}
           defaultValue={text.password}
         />
+        <View style={styles.eye}>
+            <Icon
+                size={16}
+                name={nameIcon}
+                type="font-awesome"
+                color="#02072f"
+                onPress={()=>setHide(!hide)}
+               
+              />
+          </View>
+
+        </View>
       </View>
       <View style={styles.button}>
         <Button mode="contained" title="Login" onPress={login} color="darkblue">
@@ -89,8 +103,10 @@ const Login = ({ navigation }) => {
         </Button>
       </View>
       <View style={styles.viewLinks}>
-        <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-          <Text style={styles.link}>Recuperar password</Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('ResetPaswword')}
+        >
+          <Text style={styles.link}>Olvidé mi contraseña</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
           <Text style={styles.link}>Crear cuenta</Text>

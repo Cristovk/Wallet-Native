@@ -1,5 +1,5 @@
-import React from "react"
-import { StyleSheet } from 'react-native'
+import React from "react";
+import { StyleSheet } from "react-native";
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 
 export const styles = StyleSheet.create({
@@ -11,16 +11,13 @@ export const styles = StyleSheet.create({
     width: 100,
     height: 100,
     marginTop: 50,
-    marginHorizontal: 'auto',
-    // borderRadius: 50,
-    // borderColor: darkBlue,
-    // borderWidth: 1,
+    marginHorizontal: "auto",
     shadowColor: darkBlue,
   },
   text: {
     fontSize: 26,
     color: orange,
-    textAlign: 'center'
+    textAlign: "center",
   },
   inputs: {
     height: 40,
@@ -33,9 +30,23 @@ export const styles = StyleSheet.create({
     paddingLeft: 15,
     borderRadius: 10,
   },
+  orangeButton: {
+    borderRadius: 10,
+    color: white,
+    marginHorizontal: 35,
+    backgroundColor: orange,
+    paddingHorizontal: 15,
+  },
+  darkBlueButton: {
+    borderRadius: 10,
+    color: white,
+    marginHorizontal: 35,
+    backgroundColor: darkBlue,
+    paddingHorizontal: 15,
+  },
   centered: {
-    justifyContent: 'center',
-    flexDirection: 'row'
+    justifyContent: "center",
+    flexDirection: "row",
   },
   button: {
     color: orange,
@@ -48,13 +59,13 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignSelf: "center",
-    fontSize: 20
+    fontSize: 18,
   },
   label: {
     marginHorizontal: 40,
     marginTop: 5,
     marginBottom: -10,
-    fontSize: 20
+    fontSize: 20,
   },
   separator: {
     borderTopWidth: 1,
@@ -67,14 +78,29 @@ export const styles = StyleSheet.create({
     borderColor: grey,
   },
   error: {
-    color: 'red',
+    color: "red",
     marginHorizontal: 40,
-    marginTop: -15
+    marginTop: -15,
   },
   cumple: {
     marginHorizontal: 35,
     flexDirection: "row",
     justifyContent: "space-evenly",
     height: 60,
+  },
+  pin: {
+    borderWidth: 1,
+    borderColor: grey,
+    marginStart: 35,
+    marginTop: 25,
+    width: 200,
+    height: 40,
+    borderRadius: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  pinTexto: {
+    fontSize: 32
   }
-})
+});

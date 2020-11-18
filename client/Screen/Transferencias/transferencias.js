@@ -6,7 +6,7 @@ import { TextInput } from 'react-native-gesture-handler'
 
 
 const Transferencias = ({ navigation }) => {
-  const [state, setState] = useState(false)
+  const [state, setState] = useState(false);
   const [dato, setDato] = useState({
     cvu: "",
     monto: "",
@@ -20,48 +20,56 @@ const Transferencias = ({ navigation }) => {
     <ScrollView>
       <View style={style.barraSuperior}>
         <View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Home")}
-          >
-            <Icon
-              name="arrow-swap"
-              type="fontisto"
-              size={30}
-              color="white"
-            />
+          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+            <Icon name="arrow-swap" type="fontisto" size={30} color="white" />
           </TouchableOpacity>
         </View>
-        <Text h4
-          h4Style={{ color: "white", paddingEnd: 100 }}
-        >Transferir</Text>
+        <Text h4 h4Style={{ color: "white", paddingEnd: 100 }}>
+          Transferir
+        </Text>
       </View>
       <View style={{ marginTop: 90 }}>
         <ListItem style={style.lista}>
           <ListItem.Chevron />
           <ListItem.Content style={style.listaContenedor}>
             <ListItem.Title>Transferir</ListItem.Title>
-            <ListItem.CheckBox checked={state} onPress={() => setState(!state)} />
+            <ListItem.CheckBox
+              checked={state}
+              onPress={() => setState(!state)}
+            />
           </ListItem.Content>
         </ListItem>
         <ListItem style={style.lista}>
           <ListItem.Chevron />
           <ListItem.Content style={style.listaContenedor}>
             <ListItem.Title>CVU o Cuenta</ListItem.Title>
-            <TextInput placeholder="cvu/cuenta" style={style.input} onChangeText={(data) => setDato({ ...dato, cvu: data })} />
+            <TextInput
+              placeholder="cvu/cuenta"
+              style={style.input}
+              onChangeText={(data) => setDato({ ...dato, cvu: data })}
+            />
           </ListItem.Content>
         </ListItem>
         <ListItem style={style.lista}>
           <ListItem.Chevron />
           <ListItem.Content style={style.listaContenedor}>
             <ListItem.Title>Monto</ListItem.Title>
-            <TextInput placeholder="Ingrese Monto" style={style.input} onChangeText={(data) => setDato({ ...dato, monto: data })} />
+            <TextInput
+              placeholder="Ingrese Monto"
+              style={style.input}
+              onChangeText={(data) => setDato({ ...dato, monto: data })}
+            />
           </ListItem.Content>
         </ListItem>
         <ListItem style={style.lista}>
           <ListItem.Chevron />
           <ListItem.Content style={style.listaContenedor}>
             <ListItem.Title>Motivo</ListItem.Title>
-            <TextInput placeholder="Ingrese Motivo" style={style.input} onChangeText={(data) => setDato({ ...dato, motivo: data })} />
+            <TextInput
+              placeholder="Ingrese Motivo"
+              style={style.input}
+              onChangeText={(data) => setDato({ ...dato, motivo: data })}
+            />
           </ListItem.Content>
         </ListItem>
         <ListItem style={style.lista}>
@@ -73,12 +81,12 @@ const Transferencias = ({ navigation }) => {
               textContentType='emailAddress'
               onChangeText={(data) => setDato({ ...dato, email: data })} /> */}
             <TextInput
-              textContentType='emailAddress'
-              autoCompleteType='email'
+              textContentType="emailAddress"
+              autoCompleteType="email"
               /* style={styles.input} */
-              leftIcon={{ type: 'font-awesome', name: 'envelope' }}
-              placeholderTextColor='grey'
-              placeholder='Ingrese Email'
+              leftIcon={{ type: "font-awesome", name: "envelope" }}
+              placeholderTextColor="grey"
+              placeholder="Ingrese Email"
               onChangeText={(value) => setDato({ ...dato, email: value })}
               defaultValue={dato.email}
             />
@@ -87,23 +95,31 @@ const Transferencias = ({ navigation }) => {
       </View>
       <View style={style.botonContainer}>
         <TouchableOpacity
-          disabled={state === false || !dato.cvu || !dato.monto || !dato.motivo || !dato.email}
+          disabled={
+            state === false ||
+            !dato.cvu ||
+            !dato.monto ||
+            !dato.motivo ||
+            !dato.email
+          }
           style={style.boton}
-          onPress={() => navigation.navigate("TransfConfirm", {
-            state: state,
-            cvu: dato.cvu,
-            monto: dato.monto,
-            motivo: dato.motivo,
-            email: dato.email
-          })}
+          onPress={() =>
+            navigation.navigate("TransfConfirm", {
+              state: state,
+              cvu: dato.cvu,
+              monto: dato.monto,
+              motivo: dato.motivo,
+              email: dato.email,
+            })
+          }
         >
-          <Text style={{ fontWeight: "bold", fontSize: 15 }}
-
-          >Confirmar Transferencia</Text>
+          <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+            Confirmar Transferencia
+          </Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
-  )
-}
+  );
+};
 
 export default Transferencias;

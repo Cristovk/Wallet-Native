@@ -4,12 +4,14 @@ import userReducer from "../User";
 import colorReducer from "../Estilos";
 import cardsReducer from "../CardActions";
 import contactsReducer from "../Contacts";
+import movementsReducer from "../movements";
 
 const rootReducer = combineReducers({
   user: userReducer,
   color: colorReducer,
   cardsReducer: cardsReducer,
-  contacts: contactsReducer
+  contacts: contactsReducer,
+  movementsReducer: movementsReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
