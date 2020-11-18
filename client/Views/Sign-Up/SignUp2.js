@@ -42,6 +42,7 @@ const SignUp2 = ({ navigation }) => {
           password2
         );
         const docRef = storage.collection("Users").doc(NewUser.user.uid);
+    
         await docRef.set({
           id: docRef.id,
           created: Date.now(),
@@ -53,6 +54,19 @@ const SignUp2 = ({ navigation }) => {
           dni: userData.dni,
           cuil: userData.cuil,
         });
+        //se crea Wallet
+        const walletRef = storage.collection('Users').doc(NewUser.user.uid).collection('Wallet').doc(userData.dni);
+        await walletRef.set({
+          CVU: userData.dni,
+          balance: 0, 
+        });
+        //se le agrega modelo de transactiones inicial  
+
+        const TransRef = storage.collection('Users').doc(NewUser.user.uid).collection('Wallet').doc(userData.dni)
+        .collection('Movimientos').doc();
+
+        await TransRef.set({});
+
         await NewUser.user.sendEmailVerification();
         Alert.alert(
           "Cuenta creada! Se envio a tu mail un link de verificación"
