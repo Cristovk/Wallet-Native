@@ -27,8 +27,10 @@ export const historial = (lista, { navigation }) => {
           navigation.navigate("Detalle", {
             fecha: item.fecha,
             monto: item.monto,
-            icon: item.type,
+            icon: item.icon,
             hacia: item.hacia,
+            desde: item.desde,
+            estado: item.estado,
             tipo: item.tipo,
             motivo: item.motivo,
           })
@@ -36,12 +38,12 @@ export const historial = (lista, { navigation }) => {
         key={i}
         bottomDivider
       >
-        <Icon name={iconList[item.type]} size={30} color="black" />
+        <Icon name={iconList[item.icon]} size={30} color="black" />
         <ListItem.Content>
           <ListItem.Title>{item.tipo}</ListItem.Title>
           <ListItem.Subtitle>{`${item.motivo}`}</ListItem.Subtitle>
         </ListItem.Content>
-        <Text style={{ marginRight: 3 }}>{`$${item.monto}`}</Text>
+        <Text style={{ marginRight: 3 }}>{`$ ${item.monto}`}</Text>
         <ListItem.Chevron
           name="chevron-right"
           type="font-awesome"

@@ -91,8 +91,9 @@ const SignUp = ({ navigation }) => {
     } else if (!year) {
       emptyYear = "El campo Año es necesario";
     } else if (year < actualYear - 100 || year > actualYear || isNaN(year)) {
-      invalidYearFormat = `Elija un año entre ${actualYear - 100
-        } y ${actualYear}`;
+      invalidYearFormat = `Elija un año entre ${
+        actualYear - 100
+      } y ${actualYear}`;
     }
     if (
       emptyName ||
