@@ -2,6 +2,7 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {Icon} from 'react-native-elements'
 import {useSelector} from 'react-redux'
+import {LogBox} from 'react-native'
 
 // COMPONENTES
 import Home from '../../Screen/Home/home';
@@ -12,10 +13,10 @@ import Perfil from '../../Screen/perfil/Perfil';
 const Tab = createBottomTabNavigator();
 
 // Nos renderiza una tabBar con los componentes principales (logueado)
-export default function MyTab(){
+export function MyTab(){
     
   const {primary,secondary,text,bg} = useSelector(store => store.color)
-
+  LogBox.ignoreAllLogs()
     return(
     <Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({ // Configuración del tabBar
       tabBarIcon: ({ focused, color, size }) => {

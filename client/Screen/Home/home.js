@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView , LogBox} from "react-native";
 import { ListItem, Button } from "react-native-elements";
 import style from "./homeStyles";
+import { storage } from '../../../firebase'
 import { useDispatch, useSelector } from "react-redux";
 import { test, getAllMovements, getSaldo } from "../../Redux/movements";
 const Home = ({ navigation }) => {
@@ -70,6 +71,8 @@ const Home = ({ navigation }) => {
   //   test();
   //   console.log("allmovements", allMovements);
   // };
+
+  LogBox.ignoreAllLogs()
 
   return (
     <ScrollView>
