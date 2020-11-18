@@ -1,31 +1,51 @@
 import React,{useState} from 'react'
-import { View, Text, ScrollView, Button, Switch } from 'react-native'
-import styles from './ConfiguracionEstilos';
+import { View, Text, ScrollView, Switch } from 'react-native'
+import styles from './EstilosConfiguracion';
 import { Icon } from 'react-native-elements';
 import Clave from './Clave/Clave';
 import Correo from './Correo/Correo';
+import Usuario from './Usuario/Usuario';
+import { useDispatch, useSelector } from 'react-redux'
+import {darkMode} from '../../Redux/Estilos';
 
-const Configuracion = ({ navigation }) => {
+
+const Configuracion = ({ navigation,route }) => {
+
+  console.log(route)
+  const setApp = route.params.params.darker
+  const dispatch = useDispatch()
+  const dark = useSelector(store => store.color.dark)
 
     const [passwordchange,setPasswordChange]=useState(false);
     const [emailchange,setEmailChange]=useState(false);
+    const [deleteuser,setDeleteUser]=useState(false);
+    const [main,setMain]=useState(true);
 
+    const mostrar=()=>{
+      setDeleteUser(true);
+      setMain(false);
+    }
 
   return (
     <ScrollView style={styles.general}>
+      
+      {main && 
       <View >
-        <Text style={styles.titulogeneral}>Configuracion</Text>
+        <View style={styles.contDark}>
+          <Text style={styles.textoDark}>DarkMode</Text>
+          <Switch value={dark} onValueChange={() => { setApp(!dark); dispatch(darkMode(dark)) }} />
+        </View>
+
         <View style={styles.general}>
             <Text style={styles.titulo}>Tu contraseña</Text>
-
             <View style={styles.contclave}>
                <Text style={styles.textoclave}>Cambia tu contraseña</Text>
                <Icon
                 size={16}
                 name='chevron-right'
                 type='font-awesome'
-                color='#02072F'
-                onPress={()=>setPasswordChange(true)}
+                color='#fc7029'
+                onPress={()=>{setPasswordChange(true);setMain(false)}}
               />
             </View>
 
@@ -36,8 +56,8 @@ const Configuracion = ({ navigation }) => {
                 size={16}
                 name='chevron-right'
                 type='font-awesome'
-                color='02072F'
-                onPress={()=>setEmailChange(true)}
+                color='#fc7029'
+                onPress={()=>{setEmailChange(true);setMain(false)}}
               />
             </View> 
 
@@ -55,22 +75,24 @@ const Configuracion = ({ navigation }) => {
 
             <Text style={styles.titulo}>Cuenta</Text>
             <View style={styles.contclave}>
-               <Text style={styles.textoclave}>Eliminar cuenta</Text>
+               <Text style={styles.textoclave} >Eliminar cuenta</Text>
                <View style={styles.basura}>
                <Icon
                 size={16}
                 name='trash'
                 type='font-awesome'
                 color='#fff'
+                onPress={mostrar}
               />
               </View>
 
             </View> 
 
         </View>
-      </View>
-     {passwordchange && <Clave cambiar={setPasswordChange} navigation={navigation}/>} 
-     {emailchange && <Correo cambiar={setEmailChange} navigation={navigation}/>} 
+      </View>}
+     {passwordchange && <Clave main={setMain} cambiar={setPasswordChange} navigation={navigation}/>} 
+     {emailchange && <Correo main={setMain} cambiar={setEmailChange} navigation={navigation}/>}
+     {deleteuser && <Usuario main={setMain} cambiar={setDeleteUser} navigation={navigation}/>}  
     </ScrollView>
   )
 }

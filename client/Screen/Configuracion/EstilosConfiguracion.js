@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 
 const style = StyleSheet.create({
     general:{
-        backgroundColor: "#02072F",
+        // backgroundColor: "#02072F",
         height:'100%',
         
     },
@@ -36,10 +36,20 @@ const style = StyleSheet.create({
     basura:{
       width:30,
       height:30,
-      backgroundColor: "#02072F",
-    //   backgroundColor:'rgba(0,0,0,.7)',
+      backgroundColor: "#fc7029",
       borderRadius:100,
       paddingTop:7
+    },
+    contDark:{
+        flexDirection:'row',
+        justifyContent:'flex-end',
+        backgroundColor: '#02072f',
+        padding:5,
+        alignItems:'center'
+    },
+    textoDark:{
+        color:'#fff',
+        marginRight:4
     }
 
 })

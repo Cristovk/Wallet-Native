@@ -28,7 +28,7 @@ export default function MyDrowner({ navigation, route }) {
 // Esta función nos permite configurar el drawer según lo que queremos mostrar (requerido en la línea 15)
 function CustomDrawerContent({ navigation, text, bg, route, dark, dispatch }) {
 
-  const setApp = route.params.darker
+
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>
@@ -92,12 +92,12 @@ function CustomDrawerContent({ navigation, text, bg, route, dark, dispatch }) {
         </ListItem>
       </View>
       <View>
-        <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }}>
+        <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }} onPress={() => navigation.navigate('Configuracion', route)}>
           <Icon name='player-settings' type='fontisto' color={text} />
           <ListItem.Content>
             <ListItem.Title style={{ color: text }}>Configuración</ListItem.Title>
           </ListItem.Content>
-          <Switch value={dark} onValueChange={() => { setApp(!dark); dispatch(darkMode(dark)) }} />
+
         </ListItem>
         <ListItem topDivider containerStyle={{ backgroundColor: 'transparent' }}
           onPress={() => navigation.navigate('Login')}>

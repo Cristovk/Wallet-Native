@@ -4,7 +4,7 @@ import styles from "./EstilosClave";
 import { Icon } from "react-native-elements";
 import {ModificarPassword} from '../../../Redux/User';
 
-const Clave = ({ cambiar,navigation }) => {
+const Clave = ({ cambiar,navigation,main }) => {
 
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
@@ -68,7 +68,7 @@ const Clave = ({ cambiar,navigation }) => {
           name="arrow-circle-left"
           type="font-awesome"
           color="#fff"
-          onPress={() => cambiar(false)}
+          onPress={() =>{ cambiar(false),main(true)}}
         />
         <Text style={styles.subtitulo}>Cambia tu contraseña</Text>
       </View>
@@ -80,6 +80,7 @@ const Clave = ({ cambiar,navigation }) => {
           secureTextEntry={true}
           onChangeText={(data) => setPassword1(data)}
           maxLength={15}
+          placeholderTextColor='#fff'
         />
         {Err.shortPasswordErr ? (
           <Text style={styles.error}>{Err.shortPasswordErr}</Text>
@@ -94,6 +95,7 @@ const Clave = ({ cambiar,navigation }) => {
           secureTextEntry={true}
           onChangeText={(data) => setPassword2(data)}
           maxLength={15}
+          placeholderTextColor='#fff'
         />
 
          {Err.matchPasswordErr ? (
