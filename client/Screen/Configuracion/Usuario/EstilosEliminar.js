@@ -34,7 +34,7 @@ const style = StyleSheet.create({
         marginTop:130
     },
     titEli:{
-        fontWeight:600,
+        fontWeight:"600",
         margin:10,
         color:'#fff'
     },
