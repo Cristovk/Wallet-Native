@@ -12,23 +12,15 @@ import { auth, storage } from '../../../firebase';
 
 const Formulario = ({ data, updateUser, navigation }) => {
 
-  console.log("Data de formulario---------------------------",data)
+  // console.log("Data de formulario---------------------------",data)
 
   const { name, id, phone, dni, cuil, lastName, imagen } = data;
-  console.log("antes de la funcion----------",imagen)
+  // console.log("antes de la funcion----------",imagen)
   //State que guarda los datos del usuario editado.
   const [datos, setDatos] = useState({ name, phone, dni, cuil, lastName, imagen });
-  console.log('......datossss',datos)
+  // console.log('......datossss',datos)
   function handleSubmit() {
-    console.log("en la funcion..................", imagen)
-    /* updateUser({
-      name: datos.name,
-      phone: datos.phone,
-      dni: datos.dni,
-      lastName: datos.lastName,
-      cuil: datos.cuil,
-      imagen: imagen
-    }) */
+
     
     storage.collection('Users').doc(auth.currentUser.uid).set({...datos,imagen})
     .then( res => Alert.alert('Datos actualizados!'))

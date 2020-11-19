@@ -3,8 +3,9 @@ import { storage, auth } from "../../firebase";
 // CONSTANTS
 const REGISTER_USER = 'REGISTER_USER';
 const SAVE_USER_DATA = 'SAVE_USER_DATA';
-const LOGEADO = "LOGEADO"
-const MODIFICA_USUARIO = "MODIFICA_USUARIO"
+const LOGEADO = "LOGEADO";
+const MODIFICA_USUARIO = "MODIFICA_USUARIO";
+const CHANGE_LOGIN_METHOD = "CHANGE_LOGIN_METHOD";
 
 
 // STATE
@@ -24,6 +25,10 @@ const initialState = {
     cuil: "",
   },
   user: [],
+  security: {
+    fingerPrint: false,
+    methods: [],
+  },
 };
 
 // REDUCER
@@ -56,6 +61,16 @@ export default function userReducer(state = initialState, action) {
         ...state,
         user: action.payload
       }
+    case CHANGE_LOGIN_METHOD:
+      return {
+        ...state,
+        security : {
+          ...state.security,
+          fingerPrint: action.payload
+        }
+      } 
+
+    
     default:
       return {
         ...state,
@@ -157,5 +172,12 @@ export const deleteUsuario = async (id) => {
   const consulta = storage.collection('Users').doc(id);
   await consulta.delete()
   auth.currentUser.delete()
+}
+
+export const changeLoginMethod = (bool) => (dispatch) => {
+  dispatch({
+    type: CHANGE_LOGIN_METHOD,
+    payload: bool
+  })
 }
 

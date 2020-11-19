@@ -90,7 +90,7 @@ export const getContacts = (id) => async (dispatch) => {
         console.log("llega hasta aca----------------------")
         let array = []
         colleccion.forEach(doc => array = [...array, doct.data()])
-        console.log('consologeandoooooo arrayyyy......', array)
+        // console.log('consologeandoooooo arrayyyy......', array)
 
         dispatch({
             type: GET_CONTACT,
