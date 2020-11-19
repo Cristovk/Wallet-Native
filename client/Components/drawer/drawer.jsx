@@ -18,7 +18,6 @@ export function MyDrowner({ navigation, route }) {
   const {status} = route.params
   const dispatch = useDispatch()
   const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
-  LogBox.ignoreAllLogs()
   useEffect(()=>{
     if(status){
       let id = auth.currentUser.uid

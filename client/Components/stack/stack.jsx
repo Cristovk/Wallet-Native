@@ -80,8 +80,6 @@ function HomeScreen({ userLog, user, status }) {
     dispatch(addContact(db.auth().currentUser.uid))
   }
 
-  LogBox.ignoreAllLogs()
-
   return (
     <HomeScreenStack.Navigator screenOptions={{ // Personalizamos las cabeceras en general
       headerStyle: {
