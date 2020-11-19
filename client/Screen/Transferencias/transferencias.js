@@ -34,6 +34,7 @@ const Transferencias = ({ navigation }) => {
     setUser(email);
   })();
 
+
   const validateForm = () => {
     setErr({
       invalidPhoneFormat: "",
@@ -73,8 +74,6 @@ const Transferencias = ({ navigation }) => {
       console.log("Error: ", error);
     }
   };
-  console.log(dato);
-  LogBox.ignoreAllLogs();
   return (
     <ScrollView>
       <View style={style.barraSuperior}>
