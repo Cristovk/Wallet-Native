@@ -4,7 +4,7 @@ import styles from "./EstilosClave";
 import { Icon } from "react-native-elements";
 import {ModificarPassword} from '../../../Redux/User';
 
-const Clave = ({ cambiar,navigation,main }) => {
+const Clave = ({ cambiar,navigation }) => {
 
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
@@ -68,7 +68,7 @@ const Clave = ({ cambiar,navigation,main }) => {
           name="arrow-circle-left"
           type="font-awesome"
           color="#fff"
-          onPress={() =>{ cambiar(false),main(true)}}
+          onPress={() => cambiar(false)}
         />
         <Text style={styles.subtitulo}>Cambia tu contraseña</Text>
       </View>
@@ -80,7 +80,7 @@ const Clave = ({ cambiar,navigation,main }) => {
           secureTextEntry={true}
           onChangeText={(data) => setPassword1(data)}
           maxLength={15}
-          placeholderTextColor='#fff'
+          placeholderTextColor='grey'
         />
         {Err.shortPasswordErr ? (
           <Text style={styles.error}>{Err.shortPasswordErr}</Text>
@@ -95,7 +95,7 @@ const Clave = ({ cambiar,navigation,main }) => {
           secureTextEntry={true}
           onChangeText={(data) => setPassword2(data)}
           maxLength={15}
-          placeholderTextColor='#fff'
+          placeholderTextColor='grey'
         />
 
          {Err.matchPasswordErr ? (
@@ -104,7 +104,7 @@ const Clave = ({ cambiar,navigation,main }) => {
       </View>
 
       <TouchableOpacity style={styles.btnGuardar}>
-        <Text style={styles.btn} onPress={() => handleSubmit()}>Guardar</Text>
+       <Text style={styles.btn} onPress={() => handleSubmit()}>Guardar</Text> 
       </TouchableOpacity>
     </View>
   );
