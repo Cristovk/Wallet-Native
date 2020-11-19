@@ -67,7 +67,7 @@ const Balance = ({ navigation }) => {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor:bg}}>
       <View style={style.balance}>
         <Text style={style.tituloBalance}>Balance General</Text>
         <Text style={style.saldoBalance}>{`$ ${formatNumber(saldo)}`}</Text>
