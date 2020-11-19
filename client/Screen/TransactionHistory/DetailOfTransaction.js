@@ -5,8 +5,8 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { generateInvoice } from "./utils";
 const DetalleDeTransaccion = ({ route, navigation }) => {
   const { fecha, monto, tipo, hacia, motivo, estado, operacion, empresa, desde} = route.params;
-  const Operacion =  operacion[0].toUpperCase() + operacion.substring(1)
-  const Tipo =  tipo[0].toUpperCase() + tipo.substring(1)
+  /* const Operacion =  operacion[0].toUpperCase() + operacion.substring(1)
+  const Tipo =  tipo[0].toUpperCase() + tipo.substring(1) */
   const iconList = {
     panaderia: "cookie",
     almacen: "shopping-basket",
@@ -49,7 +49,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <ListItem.Content>
             <ListItem.Title>{"Operacion"}</ListItem.Title>
           </ListItem.Content>
-          <Text>{Operacion}</Text>
+          <Text>{operacion}</Text>
         </ListItem>
         <ListItem>
           <ListItem.Content>
@@ -111,7 +111,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <ListItem.Content>
             <ListItem.Title>{tipo === "recarga"?"Empresa" : "Categoria"}</ListItem.Title>
           </ListItem.Content>
-          <Text>{tipo === "recarga"? empresa : Tipo}</Text>
+          <Text>{tipo === "recarga"? empresa : tipo}</Text>
         </ListItem>
           <ListItem>
             <ListItem.Content>

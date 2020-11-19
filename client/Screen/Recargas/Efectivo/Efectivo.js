@@ -3,11 +3,11 @@ import { View, Text, Image } from 'react-native'
 import styles from './estilosEfectivo';
 
 
-const Perfil = () => {
+const Efectivo = ({color}) => {
    
     return (
          <View >
-             <Text style={styles.titulotransferencia}>Desde cualquier centro de recarga</Text>
+             <Text style={{...styles.titulotransferencia,color:color.text}}>Desde cualquier centro de recarga</Text>
              <Text style={styles.parrafo}>Acercate a una de estas sucursales y pediles que busquen Quiqueapp en su sistema. Deciles tu DNI, pagá y listo. Es gratis y se acredita en el momento.</Text>
              <View style={styles.contenedorimagenes}>
              <Image style={styles.imagenpunto} source={{uri:'https://i.pinimg.com/600x315/8a/96/20/8a96208f733d02d457070e3bc632023a.jpg'}}/>
@@ -22,4 +22,4 @@ const Perfil = () => {
     );
 }
 
-export default Perfil;
+export default Efectivo;
