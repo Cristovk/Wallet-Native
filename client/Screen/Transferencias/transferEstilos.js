@@ -62,6 +62,18 @@ const style = StyleSheet.create({
     paddingVertical: 5,
     fontSize: 22,
   },
+  contError:{
+    flexDirection:'row',
+    justifyContent:'center'
+  },
+  error:{
+    backgroundColor:'red',
+    color:'#fff',
+    width:'95%',
+    padding:2,
+    borderRadius:2,
+    textAlign:'center'
+  }
 });
 
 export default style;

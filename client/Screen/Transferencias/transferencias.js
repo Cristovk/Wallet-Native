@@ -1,38 +1,92 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   View,
   ScrollView,
   TouchableOpacity,
   LogBox,
-  Alert,
+  Alert
 } from "react-native";
 import style from "./transferEstilos";
 import { Icon, Text, ListItem } from "react-native-elements";
 import { TextInput } from "react-native-gesture-handler";
 import * as SMS from "expo-sms";
 import { styles } from "../../Views/Sign-Up/Sing-Up-Styles";
-import { auth } from "../../../firebase";
+import { auth,storage } from "../../../firebase";
+import {transferir} from '../../Redux/movements';
+import { useDispatch, useSelector } from "react-redux";
+import {getSaldo} from "../../Redux/movements";
+
 
 const Transferencias = ({ navigation }) => {
+
+  const dispatch = useDispatch();
+  const movements = useSelector((store) => store.movementsReducer);
+  useEffect(() => {
+    dispatch(getSaldo());
+   
+  }, []);
   const [state, setState] = useState(false);
   const [smsNotification, setSmsNotification] = useState(false);
   const [phone, setPhone] = useState("");
   const [user, setUser] = useState("");
   const [dato, setDato] = useState({
-    cvu: "",
-    monto: "",
+    receivercvu: "",
+    amount: "",
     motivo: "",
-    email: "",
+  
   });
   const [Err, setErr] = useState({
     invalidPhoneFormat: "",
     emptyPhone: "",
   });
+  const [incomplete,setIncomplete]=useState(false);
+  const [errorcvu,setErrorCvu]=useState(false);
+  const[errormoney,setErrorMoney]=useState(false);
 
   (async function () {
     const email = await auth.currentUser.email;
     setUser(email);
   })();
+
+  const comprobarCvu = async()=>{
+    const query = await storage
+     .collection("Directions")
+     .doc("Cvu")
+     .collection("listaDeCvu")
+     .doc((dato.receivercvu).toString())
+     .get();
+     let resultado = query.data();
+     console.log('dato',dato.receivercvu)
+     console.log('Resultado',resultado)
+     
+     return resultado ? resultado.userId :null;
+     
+  }
+  const handleSubmit = async()=>{
+    
+    const rcvu= await comprobarCvu();
+    const {receivercvu,amount,motivo}=dato;
+    if(!receivercvu || !amount || !motivo){
+       return setIncomplete(true);
+    }
+    setIncomplete(false);
+    if(!rcvu){
+      return setErrorCvu(true);
+    }
+      setErrorCvu(false);
+      if(parseInt(amount)>parseInt(movements.saldo)){
+       return setErrorMoney(true);
+      }
+      setErrorMoney(false);
+
+      const id = await auth.currentUser.uid;
+      const data = {receivercvu,amount,motivo,senderId:id}
+      transferir(data);
+      Alert.alert('Transacción exitosa');
+
+  }
+
+  
 
 
   const validateForm = () => {
@@ -63,7 +117,7 @@ const Transferencias = ({ navigation }) => {
         const { result } = await SMS.sendSMSAsync(
           [`${phone}`],
           `${user.replace(/@.*$/, "")} le ha enviado $ ${
-            dato.monto
+            dato.amount
           } a traves de QuiqueBank`
         );
         console.log("Result", result);
@@ -104,7 +158,7 @@ const Transferencias = ({ navigation }) => {
             <TextInput
               placeholder="cvu/cuenta"
               style={style.input}
-              onChangeText={(data) => setDato({ ...dato, cvu: data })}
+              onChangeText={(data) => setDato({ ...dato, receivercvu: data })}
             />
           </ListItem.Content>
         </ListItem>
@@ -114,8 +168,9 @@ const Transferencias = ({ navigation }) => {
             <ListItem.Title>Monto</ListItem.Title>
             <TextInput
               placeholder="Ingrese Monto"
+              keyboardType='numeric'
               style={style.input}
-              onChangeText={(data) => setDato({ ...dato, monto: data })}
+              onChangeText={(data) => setDato({ ...dato, amount: data })}
             />
           </ListItem.Content>
         </ListItem>
@@ -130,26 +185,7 @@ const Transferencias = ({ navigation }) => {
             />
           </ListItem.Content>
         </ListItem>
-        <ListItem style={style.lista}>
-          <ListItem.Chevron />
-          <ListItem.Content style={style.listaContenedor}>
-            <ListItem.Title>Email</ListItem.Title>
-            {/* <Input placeholder="Ingrese Email"
-                style={style.input}
-                textContentType='emailAddress'
-                onChangeText={(data) => setDato({ ...dato, email: data })} /> */}
-            <TextInput
-              textContentType="emailAddress"
-              autoCompleteType="email"
-              /* style={styles.input} */
-              leftIcon={{ type: "font-awesome", name: "envelope" }}
-              placeholderTextColor="grey"
-              placeholder="Ingrese Email"
-              onChangeText={(value) => setDato({ ...dato, email: value })}
-              defaultValue={dato.email}
-            />
-          </ListItem.Content>
-        </ListItem>
+       
         <ListItem style={style.lista}>
           <ListItem.Chevron />
           <ListItem.Content style={style.listaContenedor}>
@@ -183,31 +219,42 @@ const Transferencias = ({ navigation }) => {
           </View>
         ) : null}
       </View>
+     {incomplete&& <View style={style.contError}><Text style={style.error}>Todos los campos son obligatorios</Text></View>}
+    {errorcvu && <View style={style.contError}><Text style={style.error}>El número de cuenta al que deseas enviar no existe</Text></View>}
+    {errormoney && <View style={style.contError}><Text style={style.error}>No tienes suficiente saldo paa completar la transacción</Text></View>}
+      
       <View style={[style.botonContainer, { marginBottom: 15 }]}>
-        <TouchableOpacity
+        <TouchableOpacity 
           disabled={
             state === false ||
-            !dato.cvu ||
-            !dato.monto ||
-            !dato.motivo ||
-            !dato.email
+            !dato.receivercvu ||
+            !dato.amount ||
+            !dato.motivo 
+      
           }
           style={style.boton}
           onPress={() => {
+
+            handleSubmit()
+            
             const valid = validateForm();
             if (valid) {
               state && smsNotification ? sendSMS() : null;
               navigation.navigate("TransfConfirm", {
                 state: state,
                 sms: smsNotification,
-                cvu: dato.cvu,
-                monto: dato.monto,
+                cvu: dato.receivercvu,
+                monto: dato.amount,
                 motivo: dato.motivo,
-                email: dato.email,
               });
             }
-          }}
+           
+             
+          }
+          
+        }
         >
+
           <Text style={{ fontWeight: "bold", fontSize: 15 }}>
             Confirmar Transferencia
           </Text>
