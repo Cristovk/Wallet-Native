@@ -235,7 +235,8 @@ const Transferencias = ({ navigation }) => {
           style={style.boton}
           onPress={() => {
 
-            handleSubmit()
+            handleSubmit();
+            
             
             const valid = validateForm();
             if (valid) {
@@ -249,13 +250,12 @@ const Transferencias = ({ navigation }) => {
               });
             }
            
-             
           }
           
         }
         >
 
-          <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+          <Text style={{ fontWeight: "bold", fontSize: 15 }} >
             Confirmar Transferencia
           </Text>
         </TouchableOpacity>
