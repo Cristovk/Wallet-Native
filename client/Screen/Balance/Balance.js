@@ -6,6 +6,7 @@ import { LineChart } from "react-native-chart-kit";
 import { useDispatch, useSelector } from "react-redux";
 
 const Balance = ({ navigation }) => {
+  const {primary,secondary,text,dark,bg} = useSelector(store => store.color)
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [data, setData] = useState({
     labels: ["Jun", "Jul", "Ago", "Sep", "Oct", "Nov"], //la data es lo que se va a mostrat en el grafico
@@ -56,17 +57,17 @@ const Balance = ({ navigation }) => {
 
   const chartConfig = {
     //configuracion para el grafico
-    backgroundGradientFrom: "#D0D0D0",
-    backgroundGradientTo: "#D0D0D0",
+    backgroundGradientFrom: bg,
+    backgroundGradientTo: bg,
     color: (opacity = 1) => `rgba(252, 112, 41, ${opacity})`,
-    labelColor: (opacity = 1) => `rgba(3, 3, 3, ${opacity})`,
+    labelColor: (opacity = 1) => text,
   };
   const saldo = useSelector((store) => store.movementsReducer.saldo);
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor:bg}}>
       <View style={style.balance}>
         <Text style={style.tituloBalance}>Balance General</Text>
         <Text style={style.saldoBalance}>{`$ ${formatNumber(saldo)}`}</Text>
@@ -95,12 +96,12 @@ const Balance = ({ navigation }) => {
         ></LineChart>
       </View>
       <View style={style.contenedor}>
-        <View style={style.ingresoCont}>
-          <Text style={style.letraButton}>Ingresos</Text>
+        <View style={{...style.ingresoCont,borderColor:dark ? secondary : primary}}>
+          <Text style={{...style.letraButton,color:dark ? secondary : primary}}>Ingresos</Text>
           <Text style={style.ingreso}>+ $5000</Text>
         </View>
-        <View style={style.ingresoCont}>
-          <Text style={style.letraButton}>Gastos</Text>
+        <View style={{...style.ingresoCont,borderColor:dark ? secondary : primary}}>
+          <Text style={{...style.letraButton,color:dark ? secondary : primary}}>Gastos</Text>
           <Text style={style.gasto}>- $3000</Text>
         </View>
       </View>

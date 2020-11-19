@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  contenedorimagen: {
-    borderColor: '#ccc',
+  contenedorimagen: {/* 
+    borderColor: '#0272F', */
     borderWidth: 1,
     width: 100,
     height: 100,
@@ -50,9 +50,9 @@ const styles = StyleSheet.create({
     margin: 10,
     fontWeight: '600',
     color: '#02072f',
+    fontWeight:'bold'
   },
   titulodatos: {
-    color: 'red',
     paddingLeft: 10,
     fontWeight: '600',
     color: '#02072f',
