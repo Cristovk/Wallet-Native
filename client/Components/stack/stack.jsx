@@ -32,7 +32,7 @@ import TransfConfirm from "../../Screen/Transferencias/TransfConfirmada"
 // NAVIGATORS
 import {MyTab} from '../tab/tab'
 import {MyDrowner} from '../drawer/drawer'
-import Transferencias from '../../Screen/Transferencias/transferencias';
+import Transferencias from '../../Screen/Transferencias/transferir';
 import PagoServicios from '../../Screen/Pagos/PagoServicios';
 import PagoConfirm from '../../Screen/Pagos/PagoConfirm';
 import TransfAmigo from '../../Screen/Contactos/TransfAmigos';
@@ -52,7 +52,7 @@ const HomeScreenStack = createStackNavigator()
 // Navegador Inicial para ingresar a la wallet (importado en App.js)
 export function MyStack(props) {
   
-  /* LogBox.ignoreAllLogs() */
+  LogBox.ignoreAllLogs()
   return (
     <Stack.Navigator>
       <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> 
@@ -80,7 +80,7 @@ function HomeScreen({ userLog, user, status }) {
     dispatch(addContact(db.auth().currentUser.uid))
   }
 
-  /* LogBox.ignoreAllLogs() */
+  LogBox.ignoreAllLogs()
 
   return (
     <HomeScreenStack.Navigator screenOptions={{ // Personalizamos las cabeceras en general

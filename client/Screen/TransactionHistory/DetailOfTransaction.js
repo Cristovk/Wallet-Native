@@ -4,9 +4,19 @@ import { Divider, ListItem, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { generateInvoice } from "./utils";
 const DetalleDeTransaccion = ({ route, navigation }) => {
-  const { fecha, monto, tipo, hacia, motivo, estado, operacion, empresa, desde} = route.params;
-  const Operacion =  operacion[0].toUpperCase() + operacion.substring(1)
-  const Tipo =  tipo[0].toUpperCase() + tipo.substring(1)
+  const {
+    fecha,
+    monto,
+    tipo,
+    hacia,
+    motivo,
+    estado,
+    operacion,
+    empresa,
+    desde,
+  } = route.params;
+  // const Operacion =  operacion[0].toUpperCase() + operacion.substring(1)
+  // const Tipo =  tipo[0].toUpperCase() + tipo.substring(1)
   const iconList = {
     panaderia: "cookie",
     almacen: "shopping-basket",
@@ -19,10 +29,13 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     servicios: "file-invoice-dollar",
     Tsaliente: "arrow-circle-up",
     Tentrante: "arrow-circle-down",
-    recarga:  "wallet"
+    recarga: "wallet",
   };
   let date = new Date(fecha).toLocaleDateString();
-  let time = new Date(fecha).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+  let time = new Date(fecha).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
   return tipo === "Tsaliente" || tipo === "Tentrante" ? (
     <View>
       <View
@@ -41,7 +54,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           </Text>
         </View>
         <View style={{ marginTop: 5 }}>
-          <Text style={{ color: "white", fontSize: 20 }}>{`$${monto}`}</Text>
+          <Text style={{ color: "white", fontSize: 20 }}>{`$ ${monto}`}</Text>
         </View>
       </View>
       <View>
@@ -49,7 +62,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <ListItem.Content>
             <ListItem.Title>{"Operacion"}</ListItem.Title>
           </ListItem.Content>
-          <Text>{Operacion}</Text>
+          <Text>{operacion}</Text>
         </ListItem>
         <ListItem>
           <ListItem.Content>
@@ -83,69 +96,70 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
         />
       </View>
     </View>
-    ): 
-    (
-      <View>
-        <View
-          style={{
-            backgroundColor: "#02072F",
-            height: 150,
-            alignItems: "center",
-          }}
-        >
-          <View>
-            <Icon name={iconList[tipo]} size={50} color="white" />
-          </View>
-          <View style={{ marginTop: 15 }}>
-            <Text style={{ color: "white", fontSize: 20 }}>{`$${monto}`}</Text>
-          </View>
-        </View>
+  ) : (
+    <View>
+      <View
+        style={{
+          backgroundColor: "#02072F",
+          height: 150,
+          alignItems: "center",
+        }}
+      >
         <View>
-          <ListItem>
-            <ListItem.Content>
-              <ListItem.Title>{"Operacion"}</ListItem.Title>
-            </ListItem.Content>
-            <Text>{operacion}</Text>
-          </ListItem>
-          <ListItem>
-          <ListItem.Content>
-            <ListItem.Title>{tipo === "recarga"?"Empresa" : "Categoria"}</ListItem.Title>
-          </ListItem.Content>
-          <Text>{tipo === "recarga"? empresa : Tipo}</Text>
-        </ListItem>
-          <ListItem>
-            <ListItem.Content>
-              <ListItem.Title>{"Estado"}</ListItem.Title>
-            </ListItem.Content>
-            <Text>{estado}</Text>
-          </ListItem>
-          <ListItem>
-            <ListItem.Content>
-              <ListItem.Title>{"Fecha"}</ListItem.Title>
-            </ListItem.Content>
-            <Text>{date}</Text>
-          </ListItem>
-          <ListItem>
-            <ListItem.Content>
-              <ListItem.Title>{"Hora"}</ListItem.Title>
-            </ListItem.Content>
-            <Text>{time}</Text>
-          </ListItem>
+          <Icon name={iconList[tipo]} size={50} color="white" />
         </View>
-        <View style={{ alignItems: "center" }}>
-          <Button
-            containerStyle={{ borderRadius: 30, width: "75%", marginTop: "25%" }}
-            onPress={() => generateInvoice(title, amount, icon)}
-            icon={{
-              name: "receipt",
-              size: 20,
-              color: "white",
-            }}
-            title="Generar recibo"
-          />
+        <View style={{ marginTop: 15 }}>
+          <Text style={{ color: "white", fontSize: 20 }}>{`$${monto}`}</Text>
         </View>
       </View>
-    )
+      <View>
+        <ListItem>
+          <ListItem.Content>
+            <ListItem.Title>{"Operacion"}</ListItem.Title>
+          </ListItem.Content>
+          <Text>{operacion}</Text>
+        </ListItem>
+        <ListItem>
+          <ListItem.Content>
+            <ListItem.Title>
+              {tipo === "recarga" ? "Empresa" : "Categoria"}
+            </ListItem.Title>
+          </ListItem.Content>
+          <Text>{tipo === "recarga" ? empresa : tipo}</Text>
+        </ListItem>
+        <ListItem>
+          <ListItem.Content>
+            <ListItem.Title>{"Estado"}</ListItem.Title>
+          </ListItem.Content>
+          <Text>{estado}</Text>
+        </ListItem>
+        <ListItem>
+          <ListItem.Content>
+            <ListItem.Title>{"Fecha"}</ListItem.Title>
+          </ListItem.Content>
+          <Text>{date}</Text>
+        </ListItem>
+        <ListItem>
+          <ListItem.Content>
+            <ListItem.Title>{"Hora"}</ListItem.Title>
+          </ListItem.Content>
+          <Text>{time}</Text>
+        </ListItem>
+      </View>
+      <View style={{ alignItems: "center" }}>
+        <Button
+          containerStyle={{ borderRadius: 30, width: "75%", marginTop: "25%" }}
+          onPress={() => generateInvoice(title, amount, icon)}
+          icon={{
+            name: "receipt",
+            size: 20,
+            color: "white",
+          }}
+          title="Generar recibo"
+        />
+      </View>
+    </View>
+  );
 };
 
 export default DetalleDeTransaccion;

@@ -33,7 +33,7 @@ const Transferencias = ({ navigation }) => {
     const email = await auth.currentUser.email;
     setUser(email);
   })();
-
+  LogBox.ignoreAllLogs();
 
   const validateForm = () => {
     setErr({

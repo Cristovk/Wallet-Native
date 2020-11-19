@@ -6,7 +6,7 @@ import {LogBox} from 'react-native'
 
 // COMPONENTES
 import Home from '../../Screen/Home/home';
-import Transferencias from '../../Screen/Transferencias/transferencias';
+import Transferencias from '../../Screen/Transferencias/transferir';
 import Perfil from '../../Screen/perfil/Perfil';
 
 // Creamos el navegador
@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator();
 export function MyTab(){
     
   const {primary,secondary,text,bg} = useSelector(store => store.color)
-  /* LogBox.ignoreAllLogs() */
+  LogBox.ignoreAllLogs()
     return(
     <Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({ // Configuración del tabBar
       tabBarIcon: ({ focused, color, size }) => {

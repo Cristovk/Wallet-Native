@@ -172,9 +172,9 @@ export const getMonthMovements = (allMovements) => (dispatch) => {
 export const test = async () => {
   const userId = await auth.currentUser.uid;
   Axios.post("https://us-central1-henrybankfire.cloudfunctions.net/sendMoney", {
-    amount: 1000,
+    amount: 100000,
     senderId: userId,
-    receivercvu: "95699757",
+    receivercvu: "41130203",
     motivo: "probando el navegador",
   })
     .then((x) => console.log("succes", x.data))

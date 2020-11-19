@@ -18,7 +18,7 @@ export function MyDrowner({ navigation, route }) {
   const {status} = route.params
   const dispatch = useDispatch()
   const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
-  /* LogBox.ignoreAllLogs() */
+  LogBox.ignoreAllLogs()
   useEffect(()=>{
     if(status){
       let id = auth.currentUser.uid
@@ -41,7 +41,7 @@ function CustomDrawerContent({ navigation, text, bg, route, dark, dispatch }) {
     dispatch(deleteAll())
     navigation.navigate('Login')
   }
-  /* LogBox.ignoreAllLogs() */
+  LogBox.ignoreAllLogs()
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>
