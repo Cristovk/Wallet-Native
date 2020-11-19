@@ -174,8 +174,8 @@ export const test = async () => {
   Axios.post("https://us-central1-henrybankfire.cloudfunctions.net/sendMoney", {
     amount: 1000,
     senderId: userId,
-    receivercvu: "95699757",
-    motivo: "probando el navegador",
+    receivercvu: "23768945",
+    motivo: "demo para diego",
   })
     .then((x) => console.log("succes", x.data))
     .catch((err) => console.log("error", err));

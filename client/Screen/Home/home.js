@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView , LogBox} from "react-native";
+import { View, Text, ScrollView, LogBox } from "react-native";
 import { ListItem, Button } from "react-native-elements";
 import style from "./homeStyles";
-import { storage } from '../../../firebase'
 import { useDispatch, useSelector } from "react-redux";
 import {
   test,
@@ -10,7 +9,7 @@ import {
   getSaldo,
   getDayMovements,
 } from "../../Redux/movements";
-import { useBackButton } from "@react-navigation/native";
+import { useBackButton, useFocusEffect } from "@react-navigation/native";
 const Home = ({ navigation }) => {
   // const {title, amount, icon} = route.params;
 
@@ -67,19 +66,20 @@ const Home = ({ navigation }) => {
     dispatch(getAllMovements());
   }, []);
 
+  useFocusEffect();
+
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
-  // const handleOnTest = () => {
-  //   test();
-  //   console.log("allmovements", allMovements);
-  // };
+  const handleOnTest = () => {
+    test();
+  };
 
-  LogBox.ignoreAllLogs()
+  LogBox.ignoreAllLogs();
 
   return (
     <ScrollView>
-      {/* <Button title="GET" onPress={() => handleOnPress()} /> */}
+      <Button title="GET" onPress={() => handleOnPress()} />
       <View style={style.balance}>
         <Text
           style={style.tituloBalance}
@@ -94,11 +94,11 @@ const Home = ({ navigation }) => {
           {`$ ${formatNumber(movements.saldo)}`}
         </Text>
       </View>
-      {/* <Button
+      <Button
         title="test"
         onPress={() => handleOnTest()}
         buttonStyle={{ backgroundColor: "green", marginTop: 10 }}
-      /> */}
+      />
       <ListItem
         onPress={() =>
           navigation.navigate("Detalle", {
