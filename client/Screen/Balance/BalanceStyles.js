@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 const style = StyleSheet.create({
   balance: {
     backgroundColor: "#02072F",
-    height: 150,
     justifyContent: "center",
     alignItems: "center",
   },

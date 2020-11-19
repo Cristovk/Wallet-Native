@@ -180,3 +180,12 @@ export const test = async () => {
     .then((x) => console.log("succes", x.data))
     .catch((err) => console.log("error", err));
 };
+
+export const transferir = async (data) => {
+
+ return Axios.post("https://us-central1-henrybankfire.cloudfunctions.net/sendMoney",data)
+    .then((x) =>   x.data)
+    .catch((err) =>  console.log(err));
+
+};
+

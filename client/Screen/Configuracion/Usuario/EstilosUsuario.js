@@ -6,15 +6,18 @@ const style = StyleSheet.create({
         backgroundColor: "#fff",
         height:'140%',
         width:'100%',
-        top:'0',
-        left:'0',
+        top:0,
+        left:0,
         position:'absolute'
     },titulo:{
-        backgroundColor: "#fc7029",
+        backgroundColor:'#02072f',
         flexDirection:'row',
         padding:5,
         alignItems:'center',
-        marginBottom:10
+        marginBottom:10,
+        borderColor:'#fff',
+        borderTopWidth:1
+        
     },
     subtitulo:{
         color:'#fff',
@@ -22,7 +25,7 @@ const style = StyleSheet.create({
     },
     itemDatos:{
         padding:5,
-        borderBottomColor:'#fff',
+        borderBottomColor:'#ccc',
         borderBottomWidth:1
     },
     subItem:{
@@ -35,11 +38,11 @@ const style = StyleSheet.create({
         fontSize:18,
         marginBottom:5,
         paddingLeft:10,
-        color:'#fff',
+        color:'#02072f',
     },
     dato:{
         marginLeft:6,
-        color:'#fff',
+        color:'#02072f',
     },
 
     btnBorrar:{
@@ -51,7 +54,7 @@ const style = StyleSheet.create({
     textoBtn:{
         color:'#fff',
         textAlign:'center',
-        backgroundColor: "#fc7029",
+        backgroundColor:'#02072f',
         width:120,
         padding:4,
         borderRadius:3

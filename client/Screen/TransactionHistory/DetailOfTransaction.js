@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { Divider, ListItem, Button } from "react-native-elements";
+import { ListItem, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { generateInvoice } from "./utils";
 const DetalleDeTransaccion = ({ route, navigation }) => {
@@ -117,7 +117,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <ListItem.Content>
             <ListItem.Title>{"Operacion"}</ListItem.Title>
           </ListItem.Content>
-          <Text>{operacion}</Text>
+          <Text>{tipo === "recarga" ? empresa : tipo}</Text>
         </ListItem>
         <ListItem>
           <ListItem.Content>

@@ -10,11 +10,12 @@ const style = StyleSheet.create({
          
       
     },titulo:{
-        backgroundColor: "#fc7029",
+        backgroundColor:'#02072f',
         flexDirection:'row',
         padding:5,
         alignItems:'center',
-        marginBottom:10
+        marginBottom:10,
+       
     },
     subtitulo:{
         color:'#fff',
