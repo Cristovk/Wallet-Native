@@ -25,6 +25,7 @@
     "expo-permissions": "^9.3.0",
     "expo-print": "~9.1.0",
     "expo-sharing": "~8.4.1",
+    "expo-sms": "~8.3.1",
     "expo-status-bar": "~1.0.2",
     "express": "^4.17.1",
     "firebase": "^8.0.1",
@@ -46,15 +47,14 @@
     "react-native-redash": "^15.11.1",
     "react-native-safe-area-context": "3.1.4",
     "react-native-screens": "~2.10.1",
+    "react-native-svg": "12.1.0",
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "~0.13.12",
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
     "redux-devtools": "^3.7.0",
     "redux-thunk": "^2.3.0",
-    "write-file-atomic": "^3.0.3",
-    "react-native-svg": "12.1.0",
-    "expo-sms": "~8.3.1"
+    "write-file-atomic": "^3.0.3"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

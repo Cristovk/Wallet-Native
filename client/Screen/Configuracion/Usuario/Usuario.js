@@ -5,7 +5,7 @@ import { Icon } from 'react-native-elements';
 import Eliminar from './Eliminar';
 
 
-const Configuracion = ({ navigation,cambiar,main }) => {
+const Configuracion = ({ navigation,cambiar }) => {
 
    const [remove,setRemove]=useState(false);
 
@@ -19,7 +19,7 @@ const Configuracion = ({ navigation,cambiar,main }) => {
           name="arrow-circle-left"
           type="font-awesome"
           color="#fff"
-          onPress={()=>{cambiar(false);main(true)}}
+          onPress={()=>cambiar(false)}
         />
         <Text style={styles.subtitulo}>Eliminar usuario</Text>
         </View>
@@ -31,7 +31,7 @@ const Configuracion = ({ navigation,cambiar,main }) => {
              size={16}
              name="user"
              type="font-awesome"
-              color="#fff"
+              color="#02072f"
            />
              <Text style={styles.dato}>Andrés</Text>
             </View>
@@ -44,7 +44,7 @@ const Configuracion = ({ navigation,cambiar,main }) => {
              size={16}
              name="user"
              type="font-awesome"
-              color="#fff"
+              color="#02072f"
            />
              <Text style={styles.dato}>Sánchez</Text>
             </View>
@@ -57,7 +57,7 @@ const Configuracion = ({ navigation,cambiar,main }) => {
              size={16}
              name="address-card"
              type="font-awesome"
-              color="#fff"
+              color="#02072f"
            />
              <Text style={styles.dato}>1070974943</Text>
             </View>
@@ -70,7 +70,7 @@ const Configuracion = ({ navigation,cambiar,main }) => {
              size={16}
              name="id-card"
              type="font-awesome"
-              color="#fff"
+              color="#02072f"
            />
              <Text style={styles.dato}>1233</Text>
             </View>
@@ -83,7 +83,7 @@ const Configuracion = ({ navigation,cambiar,main }) => {
              size={16}
              name="phone"
              type="font-awesome"
-              color="#fff"
+              color="#02072f"
            />
              <Text style={styles.dato}>+54 3013184491</Text>
             </View>
@@ -96,7 +96,7 @@ const Configuracion = ({ navigation,cambiar,main }) => {
              size={16}
              name="envelope"
              type="font-awesome"
-              color="#fff"
+              color="#02072f"
            />
              <Text style={styles.dato}>camand10sa@gmail.com</Text>
             </View>
