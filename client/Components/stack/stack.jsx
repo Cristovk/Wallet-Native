@@ -32,7 +32,7 @@ import TransfConfirm from "../../Screen/Transferencias/TransfConfirmada"
 // NAVIGATORS
 import {MyTab} from '../tab/tab'
 import {MyDrowner} from '../drawer/drawer'
-import Transferencias from '../../Screen/Transferencias/transferencias';
+import Transferencias from '../../Screen/Transferencias/transferir';
 import PagoServicios from '../../Screen/Pagos/PagoServicios';
 import PagoConfirm from '../../Screen/Pagos/PagoConfirm';
 import TransfAmigo from '../../Screen/Contactos/TransfAmigos';
@@ -55,7 +55,7 @@ export function MyStack(props) {
   LogBox.ignoreAllLogs()
   return (
     <Stack.Navigator>
-      <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> 
+      <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />   
       <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />
@@ -79,8 +79,6 @@ function HomeScreen({ userLog, user, status }) {
     dispatch(deleteAll())
     dispatch(addContact(db.auth().currentUser.uid))
   }
-
-  LogBox.ignoreAllLogs()
 
   return (
     <HomeScreenStack.Navigator screenOptions={{ // Personalizamos las cabeceras en general

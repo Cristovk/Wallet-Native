@@ -6,7 +6,7 @@ import {LogBox} from 'react-native'
 
 // COMPONENTES
 import Home from '../../Screen/Home/home';
-import Transferencias from '../../Screen/Transferencias/transferencias';
+import Transferencias from '../../Screen/Transferencias/transferir';
 import Perfil from '../../Screen/perfil/Perfil';
 
 // Creamos el navegador

@@ -3,10 +3,9 @@ import { StyleSheet } from 'react-native'
 
 const style = StyleSheet.create({
     generalClave:{
-         backgroundColor: "#fff",
+         backgroundColor: "red",
         position:'absolute',
         width:'100%',
-        height:'100%',
         top:0,
         left:0,
     },
@@ -15,15 +14,13 @@ const style = StyleSheet.create({
         padding:5,
         alignItems:'center',
         backgroundColor:'#02072f',
-        borderColor:'#fff',
-        borderTopWidth:1,
     },
     subtitulo:{
         color:'#fff',
         marginLeft:15
     },
     contraseñas:{
- 
+        // backgroundColor:'#fff',
         justifyContent:'center',
         marginTop:20,
         alignItems:'center',
@@ -31,11 +28,11 @@ const style = StyleSheet.create({
     },
     input:{
         width:'90%',
-        borderBottomColor:'#ccc',
+        borderBottomColor:'#fff',
         borderBottomWidth:1,
         padding:5,
         marginBottom:8,
-        color:'grey'
+        color:'#fff'
     },
     btnGuardar:{
         flexDirection:'row',
@@ -43,7 +40,7 @@ const style = StyleSheet.create({
         color:'#fff'
     },
     btn:{
-        backgroundColor:'#02072f',
+        backgroundColor: "#fc7029",
         padding:3,
         marginTop:20,
         width:90,
@@ -53,13 +50,13 @@ const style = StyleSheet.create({
         color:'#fff'
     },
     error:{
-        width:'90%',
         backgroundColor:'red',
+        width:'90%',
         color:'#fff',
         padding:2,
         borderRadius:2
-    }
-
-})
+    },
+    
+});
 
 export default style;

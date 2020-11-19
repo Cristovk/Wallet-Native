@@ -1,18 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import { View, Text, Image, TouchableOpacity, ScrollView, Button, LogBox } from 'react-native'
-import { Icon } from 'react-native-elements';
-import styles from './estilosPerfil';
-import Formulario from './Formulario';
-import { storage, auth } from '../../../firebase';
-import * as Permissions from 'expo-permissions';
-import * as ImagePicker from 'expo-image-picker';
-import { userLog } from '../../Redux/User';
-import { connect } from 'react-redux' 
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  Button,
+  LogBox,
+} from "react-native";
+import { Icon } from "react-native-elements";
+import styles from "./estilosPerfil";
+import Formulario from "./Formulario";
+import { storage, auth } from "../../../firebase";
+import * as Permissions from "expo-permissions";
+import * as ImagePicker from "expo-image-picker";
+import { userLog } from "../../Redux/User";
+import { connect, useSelector } from "react-redux";
 
 const Perfil = (props) => {
-  const [imagen, setImagen] = useState(
-    
-  );
+  const { bg, text } = useSelector((store) => store.color);
   const [data, setData] = useState({
     name: props.user.name,
     lastName: props.user.lastName,
@@ -20,7 +26,9 @@ const Perfil = (props) => {
     dni: props.user.dni,
     cuil: props.user.cuil,
     id: props.user.id,
-    imagen: props.user.imagen || "https://sistemas.com/termino/wp-content/uploads/Usuario-Icono.jpg"
+    imagen:
+      props.user.imagen ||
+      "https://sistemas.com/termino/wp-content/uploads/Usuario-Icono.jpg",
   });
 
   const changeImage = async () => {
@@ -32,27 +40,27 @@ const Perfil = (props) => {
       alert("no has dado permisos");
     } else {
       const resultado = await ImagePicker.launchImageLibraryAsync({
-        base64:true,
+        base64: true,
         allowsEditing: true,
         aspect: [4, 3],
       });
       setData({
         ...data,
-        imagen:`data:image/jpg;base64,${resultado.base64}`
+        imagen: `data:image/jpg;base64,${resultado.base64}`,
       });
     }
   };
   useEffect(() => {
-    props.userLog()
-  }, [])
+    props.userLog();
+  }, []);
 
-  LogBox.ignoreAllLogs()
-  
+  LogBox.ignoreAllLogs();
+
   return (
     <ScrollView>
-      <View style={styles.generalperfil}>
+      <View style={{ backgroundColor: bg, height: "100%" }}>
         <View style={styles.generalimagen}>
-          <View style={styles.contenedorimagen}>
+          <View style={{ ...styles.contenedorimagen, borderColor: text }}>
             {/* <Image style={styles.imagenperfil} source={{ uri: 'https://sistemas.com/termino/wp-content/uploads/Usuario-Icono.jpg' }} /> */}
             <Image style={styles.imagenperfil} source={{ uri: data.imagen }} />
 
@@ -62,16 +70,18 @@ const Perfil = (props) => {
                 name="camera"
                 type="font-awesome"
                 color="white"
-                onPress={()=>changeImage()}
+                onPress={() => changeImage()}
               />
             </View>
           </View>
         </View>
 
-        <Text style={styles.nombreusuario}>
+        <Text style={{ ...styles.nombreusuario, color: text }}>
           {data.name + " " + data.lastName}
         </Text>
-        <Text style={styles.titulodatos}>Datos Personales</Text>
+        <Text style={{ ...styles.titulodatos, color: text }}>
+          Datos Personales
+        </Text>
         <Formulario data={data} navigation={props.navigation} />
       </View>
     </ScrollView>

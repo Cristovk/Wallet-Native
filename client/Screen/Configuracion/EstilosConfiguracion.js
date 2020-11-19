@@ -2,8 +2,51 @@ import { StyleSheet } from 'react-native'
 
 
 const style = StyleSheet.create({
+
+    itemAjustes:{
+        backgroundColor:'#fff',
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'center',
+        padding:11,
+        borderColor:'rgb(243, 243, 243)',
+        borderWidth:1
+    },
+    subitemAjustes:{
+        flexDirection:'row',
+    },
+    contIcono:{
+        flexDirection:'row',
+        alignItems:'center',
+        backgroundColor:'#02072f',
+        width:30,
+        height:30,
+        alignSelf:'center',
+        justifyContent:'center',
+        borderRadius:100,
+       
+    },
+    textoSubitem:{
+        marginLeft:10
+    },
+    nombreSubitem:{
+      fontWeight:'600',
+      fontSize:17
+    },
+    flecha:{
+        paddingLeft:1,
+        paddingTop:2,
+        width:22,
+        height:22,
+
+    },
+    microfono:{
+       paddingRight:40
+    },
+    
     general:{
-        // backgroundColor: "#02072F",
+     
+        backgroundColor:'#fff',
         height:'100%',
         
     },

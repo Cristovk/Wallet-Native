@@ -74,7 +74,7 @@ export const getSaldo = () => {
         .get();
       for (const mov of ref.docs) {
         saldo = await mov.data();
-        console.log("Saldo", saldo);
+        /* console.log("Saldo", saldo); */
       }
       dispatch({
         type: GET_SALDO,
@@ -172,11 +172,20 @@ export const getMonthMovements = (allMovements) => (dispatch) => {
 export const test = async () => {
   const userId = await auth.currentUser.uid;
   Axios.post("https://us-central1-henrybankfire.cloudfunctions.net/sendMoney", {
-    amount: 1000,
+    amount: 100000,
     senderId: userId,
     receivercvu: "23768945",
     motivo: "demo para diego",
   })
     .then((x) => console.log("succes", x.data))
     .catch((err) => console.log("error", err));
+};
+
+export const transferir = async (data) => {
+  return Axios.post(
+    "https://us-central1-henrybankfire.cloudfunctions.net/sendMoney",
+    data
+  )
+    .then((x) => x.data)
+    .catch((err) => console.log(err));
 };

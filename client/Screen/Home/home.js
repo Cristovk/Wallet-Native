@@ -11,8 +11,6 @@ import {
 } from "../../Redux/movements";
 import { useBackButton, useFocusEffect } from "@react-navigation/native";
 const Home = ({ navigation }) => {
-  // const {title, amount, icon} = route.params;
-
   const lista = [
     {
       title: "Carga sube",

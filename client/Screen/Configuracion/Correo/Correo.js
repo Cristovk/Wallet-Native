@@ -6,7 +6,7 @@ import { auth } from "../../../../firebase";
 import {ModificarEmail} from '../../../Redux/User';
 
 
-const Correo = ({cambiar,navigation,main}) => {
+const Correo = ({cambiar,navigation}) => {
 
     const [email,setEmail]=useState('');
     const [error,setError]=useState(false);
@@ -38,7 +38,7 @@ const Correo = ({cambiar,navigation,main}) => {
                 name='arrow-circle-left'
                 type='font-awesome'
                 color='#fff'
-                onPress={() =>{ cambiar(false),main(true)}}
+                onPress={() =>cambiar(false)}
               />
             <Text style={styles.subtitulo}>Cambia tu correo</Text>
             </View>
@@ -48,13 +48,13 @@ const Correo = ({cambiar,navigation,main}) => {
            placeholder='Correo' 
            style={styles.input}  
            value={auth.currentUser.email}
-           placeholderTextColor='#fff'
+           placeholderTextColor='grey'
           />
            <TextInput 
            placeholder='Nuevo correo'  
            style={styles.input} 
            onChangeText={(data) => setEmail(data)}
-           placeholderTextColor='#fff'
+           placeholderTextColor='grey'
            />
            {error &&  <Text style={styles.error}>El correo ingresado no es valido</Text>}
            {empty &&  <Text style={styles.error}>Debes ingresar un correo para continuar</Text>}
