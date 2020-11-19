@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { auth, storage } from "../../../firebase";
 
 const SignUp2 = ({ navigation }) => {
+  
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [code, setCode] = useState("");
@@ -42,7 +43,11 @@ const SignUp2 = ({ navigation }) => {
           password2
         );
         const docRef = storage.collection("Users").doc(NewUser.user.uid);
-    
+        const generatePin = () => {
+          const number =  new Date().getTime()
+          return number.toString()
+        }
+        const pinRecarga = generatePin()
         await docRef.set({
           id: docRef.id,
           created: Date.now(),
@@ -53,15 +58,22 @@ const SignUp2 = ({ navigation }) => {
           phone: userData.phone,
           dni: userData.dni,
           cuil: userData.cuil,
+          pin: pinRecarga,
+          cvu: userData.dni
         });
         //se crea Wallet
+        
         const walletRef = storage.collection('Users').doc(NewUser.user.uid).collection('Wallet').doc(userData.dni);
+        const cvu = storage.collection('Directions').doc('Cvu').collection('listaDeCvu').doc(userData.dni);
+        const carga = storage.collection('Directions').doc('Pin').collection('listaDePin').doc(pinRecarga);
+        await cvu.set({
+          userId: NewUser.user.uid
+        })
+        await carga.set({
+          userId: NewUser.user.uid
+        })
         await walletRef.set({
-          CVU: userData.dni,
-          amount: 0,
-          income: 0,
-          assets: 0,
-
+          saldo: 0
         });
         //se le agrega modelo de transactiones inicial  
 

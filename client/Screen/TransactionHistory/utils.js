@@ -10,36 +10,43 @@ import { View } from "react-native";
 /*Esta funcion genera la lista de transacciones (ListItem), re que ni servia con la db*/
 export const historial = (lista, { navigation }) => {
   const iconList = {
-    Panaderia: "cookie",
-    Almacen: "shopping-basket",
-    Videojuegos: "gamepad",
-    Entretenimiento: "play-circle",
-    Transporte: "bus-alt",
-    Gasolinera: "gas-pump",
-    Jet: "fighter-jet",
-    Farmacia: "first-aid",
-    Servicios: "file-invoice-dollar",
+    panaderia: "cookie",
+    almacen: "shopping-basket",
+    videojuegos: "gamepad",
+    entretenimiento: "play-circle",
+    transporte: "bus-alt",
+    gasolinera: "gas-pump",
+    jet: "fighter-jet",
+    farmacia: "first-aid",
+    servicios: "file-invoice-dollar",
+    Tsaliente: "arrow-circle-up",
+    Tentrante: "arrow-circle-down",
+    recarga:  "wallet"
   };
-  return lista.length ? (
+  
+  return  (
     lista.map((item, i) => (
       <ListItem
         onPress={() =>
           navigation.navigate("Detalle", {
             fecha: item.fecha,
             monto: item.monto,
-            icon: item.type,
             hacia: item.hacia,
             tipo: item.tipo,
             motivo: item.motivo,
+            operacion: item.operacion,
+            estado: item.estado,
+            empresa: item.empresa,
+            desde: item.desde
           })
         }
         key={i}
         bottomDivider
       >
-        <Icon name={iconList[item.type]} size={30} color="black" />
+        <Icon name={iconList[item.tipo]} size={30} color="black" />
         <ListItem.Content>
-          <ListItem.Title>{item.tipo}</ListItem.Title>
-          <ListItem.Subtitle>{`${item.motivo}`}</ListItem.Subtitle>
+          <ListItem.Title>{item.empresa ? item.empresa: "Quiquebank"}</ListItem.Title>
+          <ListItem.Subtitle>{`${item.tipo === "Tsaliente" || item.tipo ==="Tentrante" ? "transferencia": item.tipo}`}</ListItem.Subtitle>
         </ListItem.Content>
         <Text style={{ marginRight: 3 }}>{`$${item.monto}`}</Text>
         <ListItem.Chevron
@@ -49,30 +56,7 @@ export const historial = (lista, { navigation }) => {
         />
       </ListItem>
     ))
-  ) : (
-    <View
-      style={{
-        backgroundColor: "white",
-        marginHorizontal: "10%",
-        paddingHorizontal: 20,
-        borderRadius: 10,
-        alignContent: "center",
-        marginTop: 100,
-      }}
-    >
-      <Text
-        style={{
-          textAlign: "center",
-          textAlignVertical: "auto",
-          fontSize: 24,
-        }}
-      >
-        {
-          "Ups!\nAun no tenes movimientos!\n¿Que esperas?\nAnda a comprar!\nTenemos promociones para vos!!"
-        }
-      </Text>
-    </View>
-  );
+  )
 };
 
 /*Esta funcion parsea el html*/
