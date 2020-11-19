@@ -36,7 +36,9 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <Icon name={iconList[tipo]} size={50} color="white" />
         </View>
         <View style={{ marginTop: 20 }}>
-          <Text style={{ color: "white", fontSize: 20 }}>{desde ? desde :hacia}</Text>
+          <Text style={{ color: "white", fontSize: 20 }}>
+            {desde ? `${desde} te envió` : `Le enviaste a ${hacia}`}
+          </Text>
         </View>
         <View style={{ marginTop: 5 }}>
           <Text style={{ color: "white", fontSize: 20 }}>{`$${monto}`}</Text>

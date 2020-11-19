@@ -8,6 +8,7 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { styles } from "./Sing-Up-Styles";
 import { addUser } from "../../Redux/User";
@@ -20,6 +21,8 @@ const SignUp2 = ({ navigation }) => {
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [code, setCode] = useState("");
+  const [pin, setPin] = useState("");
+  const [hide, setHide] = useState(true);
   const [Err, setErr] = useState({
     matchPasswordErr: "",
     shortPasswordErr: "",
@@ -27,11 +30,10 @@ const SignUp2 = ({ navigation }) => {
     codeErr: "",
   });
 
-  const [pin, setPin] = useState("")
-
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user.userAuth);
   const userData = useSelector((store) => store.user.userData);
+  const nameIcon = hide ? "eye-slash" : "eye";
 
   const handleOnPress = async () => {
     const valid = validateForm();
@@ -75,10 +77,15 @@ const SignUp2 = ({ navigation }) => {
         await walletRef.set({
           saldo: 0
         });
-        //se le agrega modelo de transactiones inicial  
+        //se le agrega modelo de transactiones inicial
 
-        const TransRef = storage.collection('Users').doc(NewUser.user.uid).collection('Wallet').doc(userData.dni)
-        .collection('Movimientos').doc();
+        const TransRef = storage
+          .collection("Users")
+          .doc(NewUser.user.uid)
+          .collection("Wallet")
+          .doc(userData.dni)
+          .collection("Movimientos")
+          .doc();
 
         await TransRef.set({});
 
@@ -114,7 +121,7 @@ const SignUp2 = ({ navigation }) => {
       notNumberPasswordErr = "Debe tener al menos un número";
     }
     if (code != pin) {
-      codeErr = "Pin Incorrecto, intente nuevamente"
+      codeErr = "Pin Incorrecto, intente nuevamente";
     }
     if (
       matchPasswordErr ||
@@ -133,11 +140,10 @@ const SignUp2 = ({ navigation }) => {
   }
 
   useEffect(() => {
-    const min = 1000
-    const max = 10000
-    setPin(Math.floor(Math.random() * (max - min + 1)) + min)
-
-  }, [])
+    const min = 1000;
+    const max = 10000;
+    setPin(Math.floor(Math.random() * (max - min + 1)) + min);
+  }, []);
 
   return (
     <ScrollView>
@@ -156,7 +162,7 @@ const SignUp2 = ({ navigation }) => {
           placeholder="********"
           placeholderTextColor={grey}
           textContentType="password"
-          secureTextEntry={true}
+          secureTextEntry={hide}
         />
         {Err.shortPasswordErr ? (
           <Text style={styles.error}>{Err.shortPasswordErr}</Text>
@@ -164,7 +170,25 @@ const SignUp2 = ({ navigation }) => {
         {Err.notNumberPasswordErr ? (
           <Text style={styles.error}>{Err.notNumberPasswordErr}</Text>
         ) : null}
-        <Text style={styles.label}>Repite la contraseña</Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.label}>Repite la contraseña</Text>
+          <View
+            style={{
+              position: "absolute",
+              top: "220%",
+              left: "83%",
+              zIndex: 1,
+            }}
+          >
+            <Icon
+              size={16}
+              name={nameIcon}
+              type="font-awesome"
+              color="#02072f"
+              onPress={() => setHide(!hide)}
+            />
+          </View>
+        </View>
         <TextInput
           style={[styles.inputs]}
           onChangeText={(text) => setPassword2(text)}
@@ -172,7 +196,7 @@ const SignUp2 = ({ navigation }) => {
           placeholder="********"
           placeholderTextColor={grey}
           textContentType="password"
-          secureTextEntry={true}
+          secureTextEntry={hide}
         />
         {Err.matchPasswordErr ? (
           <Text style={styles.error}>{Err.matchPasswordErr}</Text>
@@ -189,9 +213,7 @@ const SignUp2 = ({ navigation }) => {
           placeholderTextColor={grey}
           textContentType="oneTimeCode"
         />
-        {Err.codeErr ? (
-          <Text style={styles.error}>{Err.codeErr}</Text>
-        ) : null}
+        {Err.codeErr ? <Text style={styles.error}>{Err.codeErr}</Text> : null}
         <View style={[styles.button, styles.box]}>
           <Button
             title="Anterior"
@@ -210,16 +232,4 @@ const SignUp2 = ({ navigation }) => {
   );
 };
 
-// const mapStateToProps = (state) => {
-//   return {
-//     email: state.userReducer.userAuth.email
-//   }
-// }
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     addUser: (email, password) => dispatch(addUser(email, password))
-//   }
-// }
-
-export default /*connect(mapStateToProps, mapDispatchToProps)*/ SignUp2;
+export default SignUp2;

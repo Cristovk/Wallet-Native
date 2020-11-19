@@ -2,11 +2,15 @@ import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import userReducer from "../User";
 import colorReducer from "../Estilos";
+import cardsReducer from "../CardActions";
+import contactsReducer from "../Contacts";
 import movementsReducer from "../movements";
 
 const rootReducer = combineReducers({
   user: userReducer,
   color: colorReducer,
+  cardsReducer: cardsReducer,
+  contacts: contactsReducer,
   movementsReducer: movementsReducer,
 });
 

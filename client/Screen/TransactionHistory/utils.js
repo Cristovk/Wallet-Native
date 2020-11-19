@@ -32,6 +32,8 @@ export const historial = (lista, { navigation }) => {
             fecha: item.fecha,
             monto: item.monto,
             hacia: item.hacia,
+            desde: item.desde,
+            estado: item.estado,
             tipo: item.tipo,
             motivo: item.motivo,
             operacion: item.operacion,
@@ -48,7 +50,7 @@ export const historial = (lista, { navigation }) => {
           <ListItem.Title>{item.empresa ? item.empresa: "Quiquebank"}</ListItem.Title>
           <ListItem.Subtitle>{`${item.tipo === "Tsaliente" || item.tipo ==="Tentrante" ? "transferencia": item.tipo}`}</ListItem.Subtitle>
         </ListItem.Content>
-        <Text style={{ marginRight: 3 }}>{`$${item.monto}`}</Text>
+        <Text style={{ marginRight: 3 }}>{`$ ${item.monto}`}</Text>
         <ListItem.Chevron
           name="chevron-right"
           type="font-awesome"

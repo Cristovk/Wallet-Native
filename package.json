@@ -19,6 +19,7 @@
     "dayjs": "^1.9.5",
     "dotenv": "^8.2.0",
     "expo": "^39.0.4",
+    "expo-contacts": "^8.5.0",
     "expo-image-picker": "^9.1.1",
     "expo-media-library": "~9.2.1",
     "expo-permissions": "^9.3.0",

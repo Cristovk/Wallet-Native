@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, ScrollView, Dimensions, Text } from "react-native";
 import { ButtonGroup } from "react-native-elements";
-import style from "./Movimientos_Styles";
 import { historial } from "./utils";
 import {
   getDayMovements,
@@ -27,9 +26,11 @@ const Movimientos = ({ navigation }) => {
   useEffect(() => {
     if (selectedIndex == 0) {
       setList(movements.dayMovements);
-    } else if (selectedIndex == 1) {
+    }
+    if (selectedIndex == 1) {
       setList(movements.weekMovements);
-    } else if (selectedIndex == 2) {
+    }
+    if (selectedIndex == 2) {
       setList(movements.monthMovements);
     }
   }, [selectedIndex]);
