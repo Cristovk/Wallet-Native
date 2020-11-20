@@ -49,7 +49,7 @@ const Amigos = ({ navigation }) => {
   // };
 
   useEffect(() => {
-    console.log("contactos--------------", contactos)
+    // console.log("contactos--------------", contactos)
   }, []);
 
   const requestMoney = async (phone) => {
