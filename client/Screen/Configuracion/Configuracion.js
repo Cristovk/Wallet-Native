@@ -43,6 +43,7 @@ const Configuracion = ({ navigation, route }) => {
     }
   }
 
+ 
   return (
     <ScrollView style={styles.general}>
 
@@ -66,6 +67,7 @@ const Configuracion = ({ navigation, route }) => {
                 onPress={() => { setPasswordChange(true); setMain(false) }}
               />
             </View>
+          </View>
 
             <Text style={styles.titulo}>Tu Correo</Text>
             <View style={styles.contclave}>
@@ -107,12 +109,12 @@ const Configuracion = ({ navigation, route }) => {
             </View>
 
           </View>
-        </View>}
+                }
       {passwordchange && <Clave main={setMain} cambiar={setPasswordChange} navigation={navigation} />}
       {emailchange && <Correo main={setMain} cambiar={setEmailChange} navigation={navigation} />}
       {deleteuser && <Usuario main={setMain} cambiar={setDeleteUser} navigation={navigation} />}
     </ScrollView>
-  )
-}
+  );
+};
 
 export default Configuracion;
