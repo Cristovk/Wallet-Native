@@ -34,6 +34,7 @@ const Perfil = (props) => {
         base64:true,
         allowsEditing: true,
         aspect: [4, 3],
+        quality: 0.5,
       });
       setData({
         ...data,
