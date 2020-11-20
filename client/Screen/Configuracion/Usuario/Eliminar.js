@@ -2,15 +2,16 @@ import React,{useState,useEffect} from 'react'
 import { View, Text, ScrollView, TouchableOpacity,TextInput,Alert } from 'react-native'
 import styles from './EstilosEliminar';
 import { Icon } from 'react-native-elements';
-import { auth, storage } from "../../../../firebase";
+import { auth } from "../../../../firebase";
 import { userLog, deleteUsuario } from '../../../Redux/User';
 import { connect } from 'react-redux'
 
-const Eliminar = ({ navigation,cambiar,userLog,user }) => {
+const Eliminar = ({ navigation,cambiar,userLog,user,oscuro }) => {
 
   
   const [dni, setDni] = useState("");
   const [error,setError]=useState(false);
+  const colorPlaceholder=oscuro ? '#fff':'grey';
 
   useEffect(() => {
     userLog(auth.currentUser.uid)
@@ -48,12 +49,13 @@ const Eliminar = ({ navigation,cambiar,userLog,user }) => {
         <Text style={styles.subtitulo}>Eliminar usuario</Text>
         </View>
         <View style={styles.contCuadro}>
-        <View style={styles.cuadro}>
-            <Text style={styles.titEli}>Para eliminar el usuario ingresa el DNI</Text>
+        <View style={oscuro ? styles.cuadroDark:styles.cuadro}>
+            <Text style={oscuro ? styles.titEliDark:styles.titEli}>Para eliminar el usuario ingresa el DNI</Text>
             <TextInput 
             placeholder='Ingresa el DNI' 
-            style={styles.input}
+            style={oscuro ? styles.inputDark: styles.input}
             onChangeText={(data) => setDni(data)}
+            placeholderTextColor={colorPlaceholder}
 
             />
            {error&& 
@@ -63,7 +65,7 @@ const Eliminar = ({ navigation,cambiar,userLog,user }) => {
             
             
              <TouchableOpacity style={styles.btnBorrar} >
-                <Text onPress={()=>deleteUser()} style={styles.textoBtn}>Eliminar cuenta</Text>
+                <Text onPress={()=>deleteUser()} style={oscuro ? styles.textoBtnDark :styles.textoBtn}>Eliminar cuenta</Text>
             </TouchableOpacity> 
         </View>
 
@@ -84,7 +86,7 @@ function mapDispatchToProps(dispatch) {
     userLog: id => dispatch(userLog(id))
   }
 }
-// export default Configuracion;
+
 
 export default connect(
   mapStateToProps,
