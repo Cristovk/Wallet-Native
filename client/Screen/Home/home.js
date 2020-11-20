@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView , LogBox} from "react-native";
+import { View, Text, ScrollView, LogBox, BackHandler } from "react-native";
 import { ListItem, Button } from "react-native-elements";
 import style from "./homeStyles";
 import { storage } from '../../../firebase'
@@ -65,11 +65,20 @@ const Home = ({ navigation }) => {
   useEffect(() => {
     dispatch(getSaldo());
     dispatch(getAllMovements());
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+    };
   }, []);
 
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
+
+  const handleBackButtonClick = () => {
+    BackHandler.exitApp()
+  }
+
   // const handleOnTest = () => {
   //   test();
   //   console.log("allmovements", allMovements);

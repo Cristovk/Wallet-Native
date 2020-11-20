@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { View, TouchableOpacity, SafeAreaView, Switch, LogBox} from 'react-native';
+import { View, TouchableOpacity, SafeAreaView, Switch, LogBox } from 'react-native';
 import { Icon, ListItem } from 'react-native-elements'
 import { useSelector, useDispatch } from 'react-redux'
 import { darkMode } from '../../Redux/Estilos'
-import {auth} from "../../../firebase"
-import {getContacts, addContact, deleteAll} from "../../Redux/Contacts"
+import { auth } from "../../../firebase"
+import { getContacts, addContact, deleteAll } from "../../Redux/Contacts"
 
 // Navigator
 import { homeScreen } from '../stack/stack'
@@ -15,20 +15,20 @@ const Drawer = createDrawerNavigator();
 
 // Navegador para listar los componentes de HomeScreen
 export function MyDrowner({ navigation, route }) {
-  const {status} = route.params
+  const { status } = route.params
   const dispatch = useDispatch()
   const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
   /* LogBox.ignoreAllLogs() */
-  useEffect(()=>{
-    if(status){
+  useEffect(() => {
+    if (status) {
       let id = auth.currentUser.uid
       dispatch(addContact(id))
     }
-  },[])
+  }, [])
 
   return (
-    <Drawer.Navigator drawerContent={({ navigation }) => CustomDrawerContent({ navigation, route, primary, secondary,text, bg, dispatch, dark })} drawerStyle={{ backgroundColor: bg }}>
-      <Drawer.Screen name='HomeScreen' component={homeScreen} initialParams={{status:status}} options={{ headerShown: false }} />
+    <Drawer.Navigator drawerContent={({ navigation }) => CustomDrawerContent({ navigation, route, primary, secondary, text, bg, dispatch, dark })} drawerStyle={{ backgroundColor: bg }}>
+      <Drawer.Screen name='HomeScreen' component={homeScreen} initialParams={{ status: status }} options={{ headerShown: false }} />
     </Drawer.Navigator>
   )
 }
@@ -39,6 +39,13 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
   const setApp = route.params.darker
   const handleLogOut = () => {
     dispatch(deleteAll())
+    auth.signOut()
+      .then(resp => {
+        console.log("Cerró")
+      })
+      .catch(err => {
+        console.log(err);
+      })
     navigation.navigate('Login')
   }
   /* LogBox.ignoreAllLogs() */

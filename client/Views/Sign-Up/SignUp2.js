@@ -15,19 +15,22 @@ import { addUser } from "../../Redux/User";
 import { useDispatch, useSelector } from "react-redux";
 
 import { auth, storage } from "../../../firebase";
+import Clave from "../../Screen/Configuracion/Clave/Clave";
 
 const SignUp2 = ({ navigation }) => {
-  
+
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [code, setCode] = useState("");
   const [pin, setPin] = useState("");
+  const [clave, setClave] = useState("")
   const [hide, setHide] = useState(true);
   const [Err, setErr] = useState({
     matchPasswordErr: "",
     shortPasswordErr: "",
     notNumberPasswordErr: "",
     codeErr: "",
+    claveErr: ""
   });
 
   const dispatch = useDispatch();
@@ -46,7 +49,7 @@ const SignUp2 = ({ navigation }) => {
         );
         const docRef = storage.collection("Users").doc(NewUser.user.uid);
         const generatePin = () => {
-          const number =  new Date().getTime()
+          const number = new Date().getTime()
           return number.toString()
         }
         const pinRecarga = generatePin()
@@ -61,10 +64,12 @@ const SignUp2 = ({ navigation }) => {
           dni: userData.dni,
           cuil: userData.cuil,
           pin: pinRecarga,
-          cvu: userData.dni
+          cvu: userData.dni,
+          clave: clave,
+
         });
         //se crea Wallet
-        
+
         const walletRef = storage.collection('Users').doc(NewUser.user.uid).collection('Wallet').doc(userData.dni);
         const cvu = storage.collection('Directions').doc('Cvu').collection('listaDeCvu').doc(userData.dni);
         const carga = storage.collection('Directions').doc('Pin').collection('listaDePin').doc(pinRecarga);
@@ -106,11 +111,13 @@ const SignUp2 = ({ navigation }) => {
       shortPasswordErr: "",
       notNumberPasswordErr: "",
       codeErr: "",
+      claveErr: ""
     });
     let matchPasswordErr = "";
     let shortPasswordErr = "";
     let notNumberPasswordErr = "";
     let codeErr = "";
+    let claveErr = ""
 
     if (password1 !== password2) {
       matchPasswordErr = "Las contraseñas no coinciden";
@@ -123,17 +130,22 @@ const SignUp2 = ({ navigation }) => {
     if (code != pin) {
       codeErr = "Pin Incorrecto, intente nuevamente";
     }
+    if (clave.length > 4) {
+      claveErr = "La clave tiene mas de 4 digitos o contiene letras"
+    }
     if (
       matchPasswordErr ||
       shortPasswordErr ||
       codeErr ||
-      notNumberPasswordErr
+      notNumberPasswordErr ||
+      claveErr
     ) {
       setErr({
         matchPasswordErr,
         shortPasswordErr,
         codeErr,
         notNumberPasswordErr,
+        claveErr
       });
       return false;
     } else return true;
@@ -144,6 +156,7 @@ const SignUp2 = ({ navigation }) => {
     const max = 10000;
     setPin(Math.floor(Math.random() * (max - min + 1)) + min);
   }, []);
+
 
   return (
     <ScrollView>
@@ -201,7 +214,7 @@ const SignUp2 = ({ navigation }) => {
         {Err.matchPasswordErr ? (
           <Text style={styles.error}>{Err.matchPasswordErr}</Text>
         ) : null}
-        <Text style={styles.label}>Código de seguridad</Text>
+        <Text style={styles.label}>Código de verificación</Text>
         <View style={styles.pin}>
           <Text style={styles.pinTexto}>{pin}</Text>
         </View>
@@ -209,11 +222,23 @@ const SignUp2 = ({ navigation }) => {
           style={[styles.inputs]}
           onChangeText={(text) => setCode(text)}
           value={code}
-          placeholder="Ingrese el pin"
+          placeholder="Ingrese el codigo"
           placeholderTextColor={grey}
           textContentType="oneTimeCode"
         />
         {Err.codeErr ? <Text style={styles.error}>{Err.codeErr}</Text> : null}
+        <View>
+          <Text style={styles.label}>Clave de Aplicación</Text>
+          <TextInput
+            style={[styles.inputs]}
+            onChangeText={(text) => setClave(text)}
+            value={clave}
+            placeholder="Ingrese Clave"
+            placeholderTextColor={grey}
+            textContentType="oneTimeCode"
+          />
+        </View>
+        {Err.claveErr ? <Text style={styles.error}>{Err.claveErr}</Text> : null}
         <View style={[styles.button, styles.box]}>
           <Button
             title="Anterior"
