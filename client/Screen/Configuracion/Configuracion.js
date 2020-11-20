@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, ScrollView, Switch } from "react-native";
 import styles from "./EstilosConfiguracion";
 import { Icon } from "react-native-elements";
@@ -16,24 +16,42 @@ const Configuracion = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const dark = useSelector((store) => store.color.dark);
 
-  const [huella, setHuella] = useState(false)
+  const [huella, setHuella] = useState()
   const [passwordchange, setPasswordChange] = useState(false);
   const [emailchange, setEmailChange] = useState(false);
   const [deleteuser, setDeleteUser] = useState(false);
   const iconColor = dark ? '#02072f' : '#fff';
 
+  const user = useSelector(store => store.user.user)
+
   const usarHuella = async () => {
     if (huella) {
-      const usoHuella = await AsyncStorage.setItem("Huella", false)
+      const clave = JSON.stringify(user.clave)
+      const usoHuella = await AsyncStorage.setItem("Metodo", clave)
     }
-    else if (!huella) {
-      const usoHuella = await AsyncStorage.setItem("Huella", true)
+    if (!huella) {
+      const usoHuella = await AsyncStorage.setItem("Metodo", "huella")
     }
-    const usuario = await AsyncStorage.getItem("Huella")
+    const usuario = await AsyncStorage.getItem("Metodo")
     console.log(usuario);
   }
 
+  const getHuella = () => {
+    AsyncStorage.getItem("Metodo")
+      .then(resp => {
+        if (resp === "huella") {
+          setHuella(true)
+        }
+      }).catch(err => {
+        console.log(err);
+      })
+  }
 
+  useEffect(() => {
+    getHuella()
+  }, [])
+
+  console.log(huella);
 
   return (
     <ScrollView style={dark ? styles.generalOscuro : styles.general}>

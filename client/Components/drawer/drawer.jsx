@@ -34,9 +34,12 @@ export function MyDrowner({ navigation, route }) {
 
   const save = async () => {
     if (user && user.clave) {
-      const usuario = user.clave
-      await AsyncStorage.setItem('Pin', usuario);
-      const clave = await AsyncStorage.getItem('Pin');
+      const asyncStor = await AsyncStorage.getItem('Metodo')
+      if (!asyncStor) {
+        const usuario = JSON.stringify(user.clave)
+        await AsyncStorage.setItem('Metodo', usuario);
+        const clave = await AsyncStorage.getItem('Metodo');
+      }
     }
   }
   save();
@@ -50,18 +53,17 @@ export function MyDrowner({ navigation, route }) {
 // Esta función nos permite configurar el drawer según lo que queremos mostrar (requerido en la línea 15)
 function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, dark, dispatch }) {
 
-
-  const remove = async () => {
-    await AsyncStorage.removeItem('Pin')
-    await AsyncStorage.removeItem('Huella')
+  const cerrar = async () => {
+    await AsyncStorage.removeItem('Metodo')
   }
+
 
   const setApp = route.params.darker
   const handleLogOut = () => {
     dispatch(deleteAll())
-    remove()
     auth.signOut()
       .then(resp => {
+        cerrar()
         console.log("Cerró")
       })
       .catch(err => {

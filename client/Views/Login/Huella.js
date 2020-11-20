@@ -25,15 +25,19 @@ const Huella = ({ navigation }) => {
     }
   }
 
-  useEffect(() => {
-    AuthWithFinger
-  })
 
 
   return (
     <ScrollView>
-      <View>Huella</View>
-      <Button onPress={() => navigation.navigate('HomeDrawer')} title="Go back home" />
+      <View>
+        <TouchableOpacity
+          onPress={AuthWithFinger}
+        >
+          <Text>Huella</Text>
+        </TouchableOpacity>
+        <Button onPress={() => navigation.navigate('HomeDrawer')} title="Go back home" />
+
+      </View>
     </ScrollView>
   )
 }

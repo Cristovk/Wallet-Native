@@ -21,8 +21,8 @@ const Pin = ({ navigation }) => {
 
 
   const ingresar = async () => {
-    let user = await AsyncStorage.getItem("Pin")
-    if (user == clave) {
+    let pin = await AsyncStorage.getItem("Metodo")
+    if (pin == JSON.stringify(clave)) {
       navigation.navigate('HomeDrawer')
     } else {
       Alert.alert('Pin incorrecto, Intente nuevamente')

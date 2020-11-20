@@ -61,39 +61,42 @@ export function MyStack(props) {
   const [huella, setHuella] = useState(false)
 
   const storageAsync = async () => {
-    const clave = await AsyncStorage.getItem('Pin') ? JSON.parse(await AsyncStorage.getItem('Pin')) : null;
+    const clave = await AsyncStorage.getItem('Metodo')
     if (clave !== null) {
       setUsuario(true)
+      if (clave === "huella") {
+        setHuella(true)
+      }
     }
     else {
       setUsuario(false)
     }
   }
 
-  const UsarHuella = async () => {
-    const clave = await AsyncStorage.getItem('Huella') ? JSON.parse(await AsyncStorage.getItem('Huella')) : null;
-    console.log("claveee", clave);
-    if (clave === false) {
-      setHuella(false)
-    }
-    else if (clave === true) {
-      setHuella(true)
-    }
-  }
+  // const UsarHuella = async () => {
+  //   const clave = await AsyncStorage.getItem('Huella') ? JSON.parse(await AsyncStorage.getItem('Huella')) : null;
+  //   console.log("claveee", clave);
+  //   if (clave === false) {
+  //     setHuella(false)
+  //   }
+  //   else if (clave === true) {
+  //     setHuella(true)
+  //   }
+  // }
 
-  console.log("huellaaaaa", huella);
 
   useEffect(() => {
     storageAsync();
-    UsarHuella();
+    // UsarHuella();
   }, [])
+  console.log("huellaaaaa", huella);
 
 
   // LogBox.ignoreAllLogs()
   return (
     <Stack.Navigator>
 
-      {!usuario ? <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> : usuario && huella === true ? <Stack.Screen name="Huella" component={Huella} options={{ headerShown: false }} /> : <Stack.Screen name="Pin" component={Pin} options={{ headerShown: false }} />}
+      {!usuario ? <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> : huella ? <Stack.Screen name="Huella" component={Huella} options={{ headerShown: false }} /> : <Stack.Screen name="Pin" component={Pin} options={{ headerShown: false }} />}
       <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />
