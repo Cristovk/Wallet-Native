@@ -32,26 +32,26 @@ const Transfers = ({ navigation }) => {
   // LogBox.ignoreAllLogs();
   /* ====================== RENDERING ========================== */
   return (
-    <ScrollView>
+    <View style={{ backgroundColor: "white" }}>
+      <Button
+        title="Nueva Transferencia"
+        buttonStyle={[
+          style.darkBlueButton,
+          {
+            marginTop: 10,
+            padding: 15,
+            borderRadius: 8,
+            zIndex: 1,
+          },
+        ]}
+        onPress={() => {
+          navigation.navigate("Transferir");
+        }}
+      />
       <FlatList
         keyExtractor={(transfer) => transfer.id}
+        style={{ marginVertical: 15 }}
         data={transfers}
-        ListFooterComponent={
-          <Button
-            title="Nueva Transferencia"
-            buttonStyle={[
-              style.darkBlueButton,
-              {
-                marginTop: 10,
-                padding: 15,
-                borderRadius: 8,
-              },
-            ]}
-            onPress={() => {
-              navigation.navigate("Transferir");
-            }}
-          />
-        }
         renderItem={({ item }) => {
           return (
             <View
@@ -80,7 +80,7 @@ const Transfers = ({ navigation }) => {
                 }
               >
                 <Icon name={iconList[item.tipo]} size={30} color="black" />
-                <ListItem.Content style={style.transfer}>
+                <ListItem.Content /* style={style.transfer} */>
                   <ListItem.Title>
                     {item.tipo == "Tsaliente" ? item.receiver : item.sender}
                   </ListItem.Title>
@@ -102,8 +102,8 @@ const Transfers = ({ navigation }) => {
             </View>
           );
         }}
-      />
-    </ScrollView>
+      ></FlatList>
+    </View>
   );
 };
 

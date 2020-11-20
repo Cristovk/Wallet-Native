@@ -34,7 +34,12 @@ const style = StyleSheet.create({
     justifyContent: "space-between",
   },
   lista: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 15,
+    paddingHorizontal: 20,
+    marginHorizontal: 20,
+    borderRadius: 10,
   },
   input: {
     width: 150,
