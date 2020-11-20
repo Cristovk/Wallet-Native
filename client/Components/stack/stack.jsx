@@ -55,7 +55,8 @@ export function MyStack(props) {
   // LogBox.ignoreAllLogs()
   return (
     <Stack.Navigator>
-      <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />   
+     
+       <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />    
       <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />
