@@ -86,7 +86,6 @@ const Login = ({ navigation }) => {
 
   const traerDatos = async () => {
     let clave = await AsyncStorage.getItem('Pin');
-    console.log(clave)
   }
 
   traerDatos()
@@ -97,24 +96,24 @@ const Login = ({ navigation }) => {
 
   // cerrar()
 
-  const AuthWithFinger = async () => {
-    const res = await LocalAuthentication.hasHardwareAsync()
-    if (!res) return Alert.alert("Su dispositivo no soporta los metodos de login")
+  // const AuthWithFinger = async () => {
+  //   const res = await LocalAuthentication.hasHardwareAsync()
+  //   if (!res) return Alert.alert("Su dispositivo no soporta los metodos de login")
 
-    const autorization = await LocalAuthentication.supportedAuthenticationTypesAsync({})
-    if (!autorization) return Alert.alert('No autorizado')
+  //   const autorization = await LocalAuthentication.supportedAuthenticationTypesAsync({})
+  //   if (!autorization) return Alert.alert('No autorizado')
 
-    const huella = await LocalAuthentication.isEnrolledAsync()
-    if (!huella) return Alert.alert('No tiene autorizacion')
-    const login = await LocalAuthentication.authenticateAsync('Ponga su huella')
-    if (login.success) {
-      console.log(login)
-      // Alert.alert('Usuario encontrado')
-      navigation.navigate("HomeDrawer")
-    } else {
-      Alert.alert('Hubo un error')
-    }
-  }
+  //   const huella = await LocalAuthentication.isEnrolledAsync()
+  //   if (!huella) return Alert.alert('No tiene autorizacion')
+  //   const login = await LocalAuthentication.authenticateAsync('Ponga su huella')
+  //   if (login.success) {
+  //     console.log(login)
+  //     // Alert.alert('Usuario encontrado')
+  //     navigation.navigate("HomeDrawer")
+  //   } else {
+  //     Alert.alert('Hubo un error')
+  //   }
+  // }
 
 
 
@@ -158,11 +157,11 @@ const Login = ({ navigation }) => {
 
         </View>
       </View>
-      <View style={styles.button}>
+      {/* <View style={styles.button}>
         <Button mode="contained" title="finger" onPress={AuthWithFinger} color="darkblue">
           Huella
         </Button>
-      </View>
+      </View> */}
       <View style={styles.button}>
         <Button mode="contained" title="Login" onPress={login} color="darkblue">
           Login

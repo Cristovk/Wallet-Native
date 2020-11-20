@@ -1,8 +1,10 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import React, { useState } from 'react'
 import { View, Text, ScrollView, Button, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import { Input } from 'react-native-elements'
 import { TextInput } from 'react-native-paper'
 import { useSelector, useDispatch } from 'react-redux'
+import style from './PinStyle'
 
 
 const Pin = ({ navigation }) => {
@@ -10,9 +12,17 @@ const Pin = ({ navigation }) => {
   const [clave, setClave] = useState("")
 
 
+  // const cerrar = async () => {
+  //   await AsyncStorage.removeItem("Huella")
+  //   await AsyncStorage.removeItem("Pin")
+
+  // }
+  // cerrar()
+
+
   const ingresar = async () => {
     let user = await AsyncStorage.getItem("Pin")
-    if (user == JSON.stringify(clave)) {
+    if (user == clave) {
       navigation.navigate('HomeDrawer')
     } else {
       Alert.alert('Pin incorrecto, Intente nuevamente')
@@ -21,20 +31,28 @@ const Pin = ({ navigation }) => {
   }
 
   return (
-    <ScrollView>
-      <View >
-        <Text>Ingrese clave de aplicación para continuar</Text>
-        <TextInput
+
+    <View style={style.container} >
+      <View style={style.containerTwo} >
+        <View style={style.title}>
+          <Text style={style.texto}>Ingrese clave de aplicación para continuar</Text>
+        </View>
+        <Input
           placeholder="Ingrese Clave"
           onChangeText={(text) => setClave(text)}
+          autoCompleteType='password'
+          secureTextEntry={true}
         />
-        <TouchableOpacity
-          onPress={() => ingresar()}
-        >
-          <Text>Ingresar</Text>
-        </TouchableOpacity>
+        <View style={style.botonContainer}>
+          <TouchableOpacity
+            onPress={() => ingresar()}
+            style={style.boton}
+          >
+            <Text style={style.textBoton}>Ingresar</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </ScrollView>
+    </View>
   )
 }
 

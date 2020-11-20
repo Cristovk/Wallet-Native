@@ -47,6 +47,7 @@ import ModificaPassword from '../../Screen/Modificar-Email-Pass/ModificarPasswor
 import DeleteUser from '../../Screen/Modificar-Email-Pass/DeleteUser';
 import ConfirmDelete from '../../Screen/Modificar-Email-Pass/ConfirmDelete';
 import Pin from '../../Views/Login/pin';
+import Huella from '../../Views/Login/Huella';
 
 // Creamos los navegadores
 const Stack = createStackNavigator()
@@ -57,10 +58,11 @@ const HomeScreenStack = createStackNavigator()
 export function MyStack(props) {
 
   const [usuario, setUsuario] = useState(false)
+  const [huella, setHuella] = useState(false)
 
   const storageAsync = async () => {
-    const clave = await AsyncStorage.getItem('Pin');
-    if (clave != false) {
+    const clave = await AsyncStorage.getItem('Pin') ? JSON.parse(await AsyncStorage.getItem('Pin')) : null;
+    if (clave !== null) {
       setUsuario(true)
     }
     else {
@@ -68,10 +70,22 @@ export function MyStack(props) {
     }
   }
 
-  console.log(usuario, "USUARIO RARO");
+  const UsarHuella = async () => {
+    const clave = await AsyncStorage.getItem('Huella') ? JSON.parse(await AsyncStorage.getItem('Huella')) : null;
+    console.log("claveee", clave);
+    if (clave === false) {
+      setHuella(false)
+    }
+    else if (clave === true) {
+      setHuella(true)
+    }
+  }
+
+  console.log("huellaaaaa", huella);
 
   useEffect(() => {
-    storageAsync()
+    storageAsync();
+    UsarHuella();
   }, [])
 
 
@@ -79,7 +93,7 @@ export function MyStack(props) {
   return (
     <Stack.Navigator>
 
-      {!usuario ? <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> : <Stack.Screen name="Pin" component={Pin} options={{ headerShown: false }} />}
+      {!usuario ? <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> : usuario && huella === true ? <Stack.Screen name="Huella" component={Huella} options={{ headerShown: false }} /> : <Stack.Screen name="Pin" component={Pin} options={{ headerShown: false }} />}
       <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />

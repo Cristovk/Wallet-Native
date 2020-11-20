@@ -66,7 +66,6 @@ const Home = ({ navigation }) => {
   useEffect(() => {
     dispatch(getSaldo());
     dispatch(getAllMovements());
-    save();
     BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
@@ -82,18 +81,6 @@ const Home = ({ navigation }) => {
     BackHandler.exitApp()
   }
 
-  const user = useSelector(store => store.user.user)
-
-  console.log(JSON.stringify(user.clave), "usuario");
-
-  const save = async () => {
-    if (user) {
-      const usuario = JSON.stringify(user.clave)
-      await AsyncStorage.setItem('Pin', usuario);
-      const clave = await AsyncStorage.getItem('Pin');
-      console.log(clave, "CLAVEE");
-    }
-  }
 
 
   // const handleOnTest = () => {

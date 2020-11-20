@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { darkMode } from '../../Redux/Estilos'
 import { auth } from "../../../firebase"
 import { getContacts, addContact, deleteAll } from "../../Redux/Contacts"
+import AsyncStorage from '@react-native-community/async-storage'
 
 // Navigator
 import { homeScreen } from '../stack/stack'
@@ -21,11 +22,24 @@ export function MyDrowner({ navigation, route }) {
   /* LogBox.ignoreAllLogs() */
   useEffect(() => {
     if (status) {
+
       let id = auth.currentUser.uid
       dispatch(addContact(id))
-    }
+    };
   }, [])
 
+  const user = useSelector(store => store.user.user)
+
+  console.log(JSON.stringify(user.clave), "usuario");
+
+  const save = async () => {
+    if (user && user.clave) {
+      const usuario = user.clave
+      await AsyncStorage.setItem('Pin', usuario);
+      const clave = await AsyncStorage.getItem('Pin');
+    }
+  }
+  save();
   return (
     <Drawer.Navigator drawerContent={({ navigation }) => CustomDrawerContent({ navigation, route, primary, secondary, text, bg, dispatch, dark })} drawerStyle={{ backgroundColor: bg }}>
       <Drawer.Screen name='HomeScreen' component={homeScreen} initialParams={{ status: status }} options={{ headerShown: false }} />
@@ -36,9 +50,16 @@ export function MyDrowner({ navigation, route }) {
 // Esta función nos permite configurar el drawer según lo que queremos mostrar (requerido en la línea 15)
 function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, dark, dispatch }) {
 
+
+  const remove = async () => {
+    await AsyncStorage.removeItem('Pin')
+    await AsyncStorage.removeItem('Huella')
+  }
+
   const setApp = route.params.darker
   const handleLogOut = () => {
     dispatch(deleteAll())
+    remove()
     auth.signOut()
       .then(resp => {
         console.log("Cerró")
