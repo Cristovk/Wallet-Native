@@ -6,13 +6,14 @@ import {
   ScrollView,
   Alert,
   Modal,
+  FlatList,
   TouchableOpacity,
 } from "react-native";
 import { ListItem, Icon, Button } from "react-native-elements";
 import { estilos, styles } from "./estilosTarjetas";
 import { getCards, deleteCard } from "../../Redux/CardActions";
 import { CardView } from "react-native-credit-card-input";
-import { FlatList } from "react-native-gesture-handler";
+// import {  } from "react-native-gesture-handler";
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 
 /* =============================== STATES ============================== */
