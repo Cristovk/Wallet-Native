@@ -74,7 +74,7 @@ export const getSaldo = () => {
         .get();
       for (const mov of ref.docs) {
         saldo = await mov.data();
-        console.log("Saldo", saldo);
+        /* console.log("Saldo", saldo); */
       }
       dispatch({
         type: GET_SALDO,

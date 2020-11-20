@@ -52,7 +52,7 @@ const HomeScreenStack = createStackNavigator()
 // Navegador Inicial para ingresar a la wallet (importado en App.js)
 export function MyStack(props) {
   
-  LogBox.ignoreAllLogs()
+  /* LogBox.ignoreAllLogs() */
   return (
     <Stack.Navigator>
       <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> 
@@ -80,9 +80,7 @@ function HomeScreen({ userLog, user, status }) {
     dispatch(addContact(db.auth().currentUser.uid))
   }
 
-  LogBox.ignoreAllLogs()
-
-  console.log(user)
+  /* LogBox.ignoreAllLogs() */
 
   return (
     <HomeScreenStack.Navigator screenOptions={{ // Personalizamos las cabeceras en general

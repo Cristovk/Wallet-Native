@@ -1,10 +1,9 @@
-import { StyleSheet } from 'react-native'
-
+import { StyleSheet } from "react-native";
 
 const style = StyleSheet.create({
   container: {
     height: "100%",
-    flex: 1
+    flex: 1,
   },
   barraSuperior: {
     flexDirection: "row",
@@ -13,7 +12,7 @@ const style = StyleSheet.create({
     height: 60,
     alignItems: "center",
     borderBottomRightRadius: 15,
-    borderBottomLeftRadius: 15
+    borderBottomLeftRadius: 15,
   },
   icono: {
     backgroundColor: "#FC7029",
@@ -27,29 +26,42 @@ const style = StyleSheet.create({
   saludo: {
     color: "#FC7029",
     fontWeight: "bold",
-    fontSize: 20
+    fontSize: 20,
   },
   listaContenedor: {
     flexDirection: "row",
     justifyContent: "space-between",
   },
   lista: {
-    marginBottom: 15
+    marginBottom: 15,
   },
   input: {
-    width: 150
+    width: 150,
   },
   botonContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   boton: {
-    marginTop: 60,
+    marginTop: 10,
     backgroundColor: "#FC7029",
     padding: 15,
-    borderRadius: 8
-  }
-})
+    borderRadius: 8,
+  },
+  error: {
+    color: "red",
+    marginHorizontal: 40,
+    marginTop: 45,
+  },
+  phone: {
+    backgroundColor: "lightgrey",
+    borderRadius: 10,
+    paddingLeft: 15,
+    paddingRight: 150,
+    paddingVertical: 5,
+    fontSize: 22,
+  },
+});
 
 export default style;

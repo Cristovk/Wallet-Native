@@ -10,17 +10,14 @@ import { auth, storage } from '../../../firebase';
 
 
 
-const Formulario = ({ data, updateUser, navigation }) => {
+const Formulario = ({ data, updateUser, navigation, color }) => {
 
-  // console.log("Data de formulario---------------------------",data)
-
-  const { name, id, phone, dni, cuil, lastName, imagen } = data;
-  // console.log("antes de la funcion----------",imagen)
+  const {text,primary,secondary,dark} = color
+  const { name, phone, dni, cuil, lastName, imagen } = data;
   //State que guarda los datos del usuario editado.
   const [datos, setDatos] = useState({ name, phone, dni, cuil, lastName, imagen });
-  // console.log('......datossss',datos)
+  
   function handleSubmit() {
-
     
     storage.collection('Users').doc(auth.currentUser.uid).set({...datos,imagen})
     .then( res => Alert.alert('Datos actualizados!'))
@@ -30,10 +27,11 @@ const Formulario = ({ data, updateUser, navigation }) => {
   return (
     <View>
       <View style={styles.grupoform}>
-        <Text style={styles.labelinput}>Nombre</Text>
+        <Text style={{...styles.labelinput, color:dark ? secondary: primary}}>Nombre</Text>
         <TextInput
           placeholder={name}
-          style={styles.inputperfil}
+          placeholderTextColor={dark && 'gray'}
+          style={{...styles.inputperfil,color:text}}
           onChangeText={(data) => setDatos({ ...datos, name: data })}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
@@ -41,20 +39,22 @@ const Formulario = ({ data, updateUser, navigation }) => {
       </View>
 
       <View style={styles.grupoform}>
-        <Text style={styles.labelinput} >Apellido</Text>
+        <Text style={{...styles.labelinput, color:dark ? secondary: primary}} >Apellido</Text>
         <TextInput
           placeholder={lastName}
-          style={styles.inputperfil}
+          placeholderTextColor={dark && 'gray'}
+          style={{...styles.inputperfil,color:text}}
           onChangeText={(data) => setDatos({ ...datos, lastName: data })}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
       </View>
 
       <View style={styles.grupoform}>
-        <Text style={styles.labelinput}>Teléfono</Text>
+        <Text style={{...styles.labelinput, color:dark ? secondary: primary}}>Teléfono</Text>
         <TextInput
           placeholder={phone}
-          style={styles.inputperfil}
+          placeholderTextColor={dark && 'gray'}
+          style={{...styles.inputperfil,color:text}}
           onChangeText={(data) => setDatos({ ...datos, phone: data })}
 
         />
@@ -62,46 +62,48 @@ const Formulario = ({ data, updateUser, navigation }) => {
       </View>
 
       {/* <View style={styles.grupoform}>
-        <Text style={styles.labelinput}>Cuil</Text>
+        <Text style={{...styles.labelinput, color:dark ? secondary: primary}}>Cuil</Text>
         <TextInput
           placeholder={cuil}
-          style={styles.inputperfil}
+          style={{...styles.inputperfil,color:text}}
           onChangeText={(data) => setDatos({ ...datos, cuil: data })}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
       </View> */}
 
       <View style={styles.grupoform}>
-        <Text style={styles.labelinput}>DNI</Text>
+        <Text style={{...styles.labelinput, color:dark ? secondary: primary}}>DNI</Text>
         <TextInput
           value={dni}
-          style={styles.inputperfil}
+          style={{...styles.inputperfil,color:text}}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
       </View>
 
       <View style={styles.grupoform}>
-        <Text style={styles.labelinput}>CUIL</Text>
+        <Text style={{...styles.labelinput, color:dark ? secondary: primary}}>CUIL</Text>
         <TextInput
           placeholder={cuil}
-          style={styles.inputperfil}
+          placeholderTextColor={dark && 'gray'}
+          style={{...styles.inputperfil,color:text}}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
       </View>
       <View style={styles.grupoform}>
-        <Text style={styles.labelinput}>EMAIL</Text>
+        <Text style={{...styles.labelinput, color:dark ? secondary: primary}}>EMAIL</Text>
         <TextInput
           placeholder={auth.currentUser.email}
-          style={styles.inputperfil}
+          placeholderTextColor={dark && 'gray'}
+          style={{...styles.inputperfil,color:text}}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
       </View>
       <View style={styles2.generalvolver}>
 
-        <TouchableOpacity style={styles2.btnvolver} onPress={() => handleSubmit()}>
+        <TouchableOpacity style={{...styles2.btnvolver,backgroundColor:dark ? secondary:primary}} onPress={() => handleSubmit()}>
           <Text style={styles2.link}>Guardar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles2.btnvolver} onPress={() => navigation.navigate('ModificaEmail')}>
+        {/* <TouchableOpacity style={styles2.btnvolver} onPress={() => navigation.navigate('ModificaEmail')}>
           <Text style={styles2.link}>Modificar Email</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles2.btnvolver} onPress={() => navigation.navigate('ModificaPassword')}>
@@ -109,7 +111,7 @@ const Formulario = ({ data, updateUser, navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity style={styles2.btnvolver} onPress={() => navigation.navigate('DeleteUser')}>
           <Text style={styles2.link}>Eliminar Cuenta</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
     </View>
@@ -118,7 +120,8 @@ const Formulario = ({ data, updateUser, navigation }) => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user.user
+    user: state.user.user,
+    color: state.color
   }
 }
 

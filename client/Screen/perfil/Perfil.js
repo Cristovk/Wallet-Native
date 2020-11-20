@@ -7,12 +7,11 @@ import { storage, auth } from '../../../firebase';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { userLog } from '../../Redux/User';
-import { connect } from 'react-redux' 
+import { connect, useSelector} from 'react-redux'
 
 const Perfil = (props) => {
-  const [imagen, setImagen] = useState(
-    
-  );
+  
+  const {bg,text} = useSelector(store => store.color)
   const [data, setData] = useState({
     name: props.user.name,
     lastName: props.user.lastName,
@@ -47,13 +46,13 @@ const Perfil = (props) => {
     props.userLog()
   }, [])
 
-  LogBox.ignoreAllLogs()
+  /* LogBox.ignoreAllLogs() */
   
   return (
     <ScrollView>
-      <View style={styles.generalperfil}>
+      <View style={{backgroundColor:bg,height:'100%'}}>
         <View style={styles.generalimagen}>
-          <View style={styles.contenedorimagen}>
+          <View style={{...styles.contenedorimagen,borderColor:text}}>
             {/* <Image style={styles.imagenperfil} source={{ uri: 'https://sistemas.com/termino/wp-content/uploads/Usuario-Icono.jpg' }} /> */}
             <Image style={styles.imagenperfil} source={{ uri: data.imagen }} />
 
@@ -69,10 +68,10 @@ const Perfil = (props) => {
           </View>
         </View>
 
-        <Text style={styles.nombreusuario}>
+        <Text style={{...styles.nombreusuario,color:text}}>
           {data.name + " " + data.lastName}
         </Text>
-        <Text style={styles.titulodatos}>Datos Personales</Text>
+        <Text style={{...styles.titulodatos, color:text}}>Datos Personales</Text>
         <Formulario data={data} navigation={props.navigation} />
       </View>
     </ScrollView>

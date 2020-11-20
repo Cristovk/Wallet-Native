@@ -69,7 +69,7 @@ const Amigos = ({ navigation }) => {
                 <ListItem.Title style={{ color: text }}>
                   {l.name}
                 </ListItem.Title>
-                <ListItem.Subtitle>QuiqueBank</ListItem.Subtitle>
+                <ListItem.Subtitle style={{color:'grey'}}>QuiqueBank</ListItem.Subtitle>
               </ListItem.Content>
               <Icon
                 name="ios-information-circle"

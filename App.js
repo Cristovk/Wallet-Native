@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {StatusBar, LogBox} from 'react-native';
+import {StatusBar} from 'react-native';
 import { NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import { Provider as ProviderPaper } from 'react-native-paper';
 import 'react-native-gesture-handler';
@@ -24,7 +24,7 @@ export default function App() {
     }
   }
 
-  LogBox.ignoreAllLogs()
+  /* LogBox.ignoreAllLogs() */
 
   return (
     /* para agregar mas pantallas */
