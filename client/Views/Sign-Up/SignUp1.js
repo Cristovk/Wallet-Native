@@ -102,12 +102,6 @@ const SignUp1 = ({ navigation }) => {
           placeholderTextColor={grey}
           textContentType="telephoneNumber"
         />
-        {Err.emptyPhone ? (
-          <Text style={styles.error}>{Err.emptyPhone}</Text>
-        ) : null}
-        {Err.invalidPhoneFormat ? (
-          <Text style={styles.error}>{Err.invalidPhoneFormat}</Text>
-        ) : null}
         <Text style={styles.label}>DNI</Text>
         <TextInput
           style={[styles.inputs]}
