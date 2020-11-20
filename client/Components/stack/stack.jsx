@@ -52,7 +52,7 @@ const HomeScreenStack = createStackNavigator()
 // Navegador Inicial para ingresar a la wallet (importado en App.js)
 export function MyStack(props) {
   
-  LogBox.ignoreAllLogs()
+  // LogBox.ignoreAllLogs()
   return (
     <Stack.Navigator>
      

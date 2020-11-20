@@ -75,7 +75,7 @@ const Home = ({ navigation }) => {
     // console.log("allmovements", allMovements);
   };
 
-  LogBox.ignoreAllLogs();
+  // LogBox.ignoreAllLogs();
 
   return (
     <ScrollView>

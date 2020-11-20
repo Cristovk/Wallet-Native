@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator();
 export function MyTab(){
     
   const {primary,secondary,text,bg} = useSelector(store => store.color)
-  LogBox.ignoreAllLogs()
+  // LogBox.ignoreAllLogs()
     return(
     <Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({ // Configuración del tabBar
       tabBarIcon: ({ focused, color, size }) => {

@@ -55,9 +55,7 @@
     "redux-devtools": "^3.7.0",
     "redux-thunk": "^2.3.0",
     "write-file-atomic": "^3.0.3",
-    "react-native-svg": "12.1.0",
-    "expo-local-authentication": "~9.3.0",
-    "expo-sms": "~8.3.1"
+    "expo-local-authentication": "~9.3.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
