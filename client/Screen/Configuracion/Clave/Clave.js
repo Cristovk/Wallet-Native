@@ -4,7 +4,7 @@ import styles from "./EstilosClave";
 import { Icon } from "react-native-elements";
 import {ModificarPassword} from '../../../Redux/User';
 
-const Clave = ({ cambiar,navigation }) => {
+const Clave = ({ cambiar,navigation,oscuro }) => {
 
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
@@ -14,6 +14,7 @@ const Clave = ({ cambiar,navigation }) => {
     notNumberPasswordErr: "",
     codeErr: "",
   });
+  const colorPlaceholer = oscuro ? '#fff':'grey';
 
   function validateForm() {
     setErr({
@@ -61,7 +62,7 @@ const Clave = ({ cambiar,navigation }) => {
   }
 
   return (
-    <View style={styles.generalClave}>
+    <View style={oscuro ? styles.generalClaveDark :styles.generalClave}>
       <View style={styles.titulo}>
         <Icon
           size={16}
@@ -80,7 +81,7 @@ const Clave = ({ cambiar,navigation }) => {
           secureTextEntry={true}
           onChangeText={(data) => setPassword1(data)}
           maxLength={15}
-          placeholderTextColor='grey'
+          placeholderTextColor={oscuro ? '#fff':'grey'}
         />
         {Err.shortPasswordErr ? (
           <Text style={styles.error}>{Err.shortPasswordErr}</Text>
@@ -95,7 +96,7 @@ const Clave = ({ cambiar,navigation }) => {
           secureTextEntry={true}
           onChangeText={(data) => setPassword2(data)}
           maxLength={15}
-          placeholderTextColor='grey'
+          placeholderTextColor={colorPlaceholer}
         />
 
          {Err.matchPasswordErr ? (
@@ -104,7 +105,7 @@ const Clave = ({ cambiar,navigation }) => {
       </View>
 
       <TouchableOpacity style={styles.btnGuardar}>
-       <Text style={styles.btn} onPress={() => handleSubmit()}>Guardar</Text> 
+       <Text style={oscuro ? styles.btnDark:styles.btn} onPress={() => handleSubmit()}>Guardar</Text> 
       </TouchableOpacity>
     </View>
   );

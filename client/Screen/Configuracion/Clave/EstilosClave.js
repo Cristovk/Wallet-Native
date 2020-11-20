@@ -6,7 +6,7 @@ const style = StyleSheet.create({
          backgroundColor: "#fff",
         position:'absolute',
         width:'100%',
-        height:'200%',
+        height:'100%',
         top:0,
         left:0,
     },
@@ -60,7 +60,26 @@ const style = StyleSheet.create({
         padding:2,
         borderRadius:2
     },
+    //Dark styles
+    btnDark:{
+        backgroundColor:'#fff',
+        padding:3,
+        marginTop:20,
+        width:90,
+        borderRadius:3,
+        color: "#02072f",
+        textAlign:'center',
+    },
+    generalClaveDark:{
+        backgroundColor: "#02072f",
+       position:'absolute',
+       width:'100%',
+       height:'100%',
+       top:0,
+       left:0,
+   },
     
 });
+
 
 export default style;
