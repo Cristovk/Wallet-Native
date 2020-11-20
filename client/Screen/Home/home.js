@@ -9,8 +9,11 @@ import {
   getSaldo,
   getDayMovements,
 } from "../../Redux/movements";
-import { useBackButton, useFocusEffect } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
+
 const Home = ({ navigation }) => {
+  const isFocused = useIsFocused();
+
   const lista = [
     {
       title: "Carga sube",
@@ -62,22 +65,17 @@ const Home = ({ navigation }) => {
   useEffect(() => {
     dispatch(getSaldo());
     dispatch(getAllMovements());
-  }, []);
-
-  useFocusEffect();
+    dispatch(getDayMovements(movements.allMovements));
+  }, [isFocused]);
 
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
-  const handleOnTest = () => {
-    test();
-  };
 
-  LogBox.ignoreAllLogs();
+  // LogBox.ignoreAllLogs();
 
   return (
     <ScrollView>
-      <Button title="GET" onPress={() => handleOnPress()} />
       <View style={style.balance}>
         <Text
           style={style.tituloBalance}
@@ -92,11 +90,6 @@ const Home = ({ navigation }) => {
           {`$ ${formatNumber(movements.saldo)}`}
         </Text>
       </View>
-      <Button
-        title="test"
-        onPress={() => handleOnTest()}
-        buttonStyle={{ backgroundColor: "green", marginTop: 10 }}
-      />
       <ListItem
         onPress={() =>
           navigation.navigate("Detalle", {
