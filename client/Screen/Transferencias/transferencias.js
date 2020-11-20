@@ -63,13 +63,14 @@ const Transferencias = ({ navigation }) => {
      
   }
   const handleSubmit = async()=>{
+  
     
-    const rcvu= await comprobarCvu();
     const {receivercvu,amount,motivo}=dato;
     if(!receivercvu || !amount || !motivo){
        return setIncomplete(true);
     }
     setIncomplete(false);
+    const rcvu= await comprobarCvu();
     if(!rcvu){
       return setErrorCvu(true);
     }
@@ -225,13 +226,7 @@ const Transferencias = ({ navigation }) => {
       
       <View style={[style.botonContainer, { marginBottom: 15 }]}>
         <TouchableOpacity 
-          disabled={
-            state === false ||
-            !dato.receivercvu ||
-            !dato.amount ||
-            !dato.motivo 
-      
-          }
+        
           style={style.boton}
           onPress={() => {
 

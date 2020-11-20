@@ -4,12 +4,13 @@ import { StyleSheet } from 'react-native'
 const style = StyleSheet.create({
     general:{
         backgroundColor: "#fff",
-        height:'140%',
+        position:'absolute',
         width:'100%',
+        height:'100%',
         top:0,
-        left:0,
-        position:'absolute'
-    },titulo:{
+        left:0, 
+    },
+    titulo:{
         backgroundColor:'#02072f',
         flexDirection:'row',
         padding:5,
@@ -58,9 +59,42 @@ const style = StyleSheet.create({
         width:120,
         padding:4,
         borderRadius:3
-    }
-   
+    },//DarkStyles
+    generalDark:{
+        backgroundColor: "#02072f",
+        position:'absolute',
+        width:'100%',
+        height:'100%',
+        top:0,
+        left:0, 
+    },
+    tituloItemDark:{
+        fontSize:18,
+        marginBottom:5,
+        paddingLeft:10,
+        color:'#fff',
+    },
+    datoDark:{
+        marginLeft:6,
+        color:'#fff',
+    },
+    itemDatosDark:{
+        padding:5,
+        borderBottomColor:'#fff',
+        borderBottomWidth:1
+    },
+    textoBtnDark:{
+        color:'#02072f',
+        textAlign:'center',
+        backgroundColor:'#fff',
+        width:120,
+        padding:4,
+        borderRadius:3
+    },
+
+
 
 })
+//camand10sa@gmail.com
 
 export default style;
