@@ -48,7 +48,7 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
       })
     navigation.navigate('Login')
   }
-  /* LogBox.ignoreAllLogs() */
+  // LogBox.ignoreAllLogs()
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>

@@ -1,29 +1,29 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   ScrollView,
   TouchableOpacity,
   LogBox,
-  Alert
+  Alert,
 } from "react-native";
 import style from "./transferEstilos";
 import { Icon, Text, ListItem } from "react-native-elements";
 import { TextInput } from "react-native-gesture-handler";
 import * as SMS from "expo-sms";
 import { styles } from "../../Views/Sign-Up/Sing-Up-Styles";
-import { auth,storage } from "../../../firebase";
-import {transferir} from '../../Redux/movements';
+import { auth, storage } from "../../../firebase";
+import { transferir } from "../../Redux/movements";
 import { useDispatch, useSelector } from "react-redux";
-import {getSaldo} from "../../Redux/movements";
-
+import { getSaldo } from "../../Redux/movements";
 
 const Transferencias = ({ navigation }) => {
+  // LogBox.ignoreAllLogs();
 
   const dispatch = useDispatch();
   const movements = useSelector((store) => store.movementsReducer);
+  console.log("movimientos", movements);
   useEffect(() => {
     dispatch(getSaldo());
-   
   }, []);
   const [state, setState] = useState(false);
   const [smsNotification, setSmsNotification] = useState(false);
@@ -33,62 +33,54 @@ const Transferencias = ({ navigation }) => {
     receivercvu: "",
     amount: "",
     motivo: "",
-  
   });
   const [Err, setErr] = useState({
     invalidPhoneFormat: "",
     emptyPhone: "",
   });
-  const [incomplete,setIncomplete]=useState(false);
-  const [errorcvu,setErrorCvu]=useState(false);
-  const[errormoney,setErrorMoney]=useState(false);
+  const [incomplete, setIncomplete] = useState(false);
+  const [errorcvu, setErrorCvu] = useState(false);
+  const [errormoney, setErrorMoney] = useState(false);
 
   (async function () {
     const email = await auth.currentUser.email;
     setUser(email);
   })();
 
-  const comprobarCvu = async()=>{
+  const comprobarCvu = async () => {
     const query = await storage
-     .collection("Directions")
-     .doc("Cvu")
-     .collection("listaDeCvu")
-     .doc((dato.receivercvu).toString())
-     .get();
-     let resultado = query.data();
-     console.log('dato',dato.receivercvu)
-     console.log('Resultado',resultado)
-     
-     return resultado ? resultado.userId :null;
-     
-  }
-  const handleSubmit = async()=>{
-  
-    
-    const {receivercvu,amount,motivo}=dato;
-    if(!receivercvu || !amount || !motivo){
-       return setIncomplete(true);
+      .collection("Directions")
+      .doc("Cvu")
+      .collection("listaDeCvu")
+      .doc(dato.receivercvu.toString())
+      .get();
+    let resultado = query.data();
+    console.log("dato", dato.receivercvu);
+    console.log("Resultado", resultado);
+
+    return resultado ? resultado.userId : null;
+  };
+  const handleSubmit = async () => {
+    const { receivercvu, amount, motivo } = dato;
+    if (!receivercvu || !amount || !motivo) {
+      return setIncomplete(true);
     }
     setIncomplete(false);
-    const rcvu= await comprobarCvu();
-    if(!rcvu){
+    const rcvu = await comprobarCvu();
+    if (!rcvu) {
       return setErrorCvu(true);
     }
-      setErrorCvu(false);
-      if(parseInt(amount)>parseInt(movements.saldo)){
-       return setErrorMoney(true);
-      }
-      setErrorMoney(false);
+    setErrorCvu(false);
+    if (parseInt(amount) > parseInt(movements.saldo)) {
+      return setErrorMoney(true);
+    }
+    setErrorMoney(false);
 
-      const id = await auth.currentUser.uid;
-      const data = {receivercvu,amount,motivo,senderId:id}
-      transferir(data);
-      Alert.alert('Transacción exitosa');
-
-  }
-
-  
-
+    const id = await auth.currentUser.uid;
+    const data = { receivercvu, amount, motivo, senderId: id };
+    transferir(data);
+    Alert.alert("Transacción exitosa");
+  };
 
   const validateForm = () => {
     setErr({
@@ -117,8 +109,7 @@ const Transferencias = ({ navigation }) => {
       if (isAvailable) {
         const { result } = await SMS.sendSMSAsync(
           [`${phone}`],
-          `${user.replace(/@.*$/, "")} le ha enviado $ ${
-            dato.amount
+          `${user.replace(/@.*$/, "")} le ha enviado $ ${dato.amount
           } a traves de QuiqueBank`
         );
         console.log("Result", result);
@@ -169,7 +160,7 @@ const Transferencias = ({ navigation }) => {
             <ListItem.Title>Monto</ListItem.Title>
             <TextInput
               placeholder="Ingrese Monto"
-              keyboardType='numeric'
+              keyboardType="numeric"
               style={style.input}
               onChangeText={(data) => setDato({ ...dato, amount: data })}
             />
@@ -186,7 +177,7 @@ const Transferencias = ({ navigation }) => {
             />
           </ListItem.Content>
         </ListItem>
-       
+
         <ListItem style={style.lista}>
           <ListItem.Chevron />
           <ListItem.Content style={style.listaContenedor}>
@@ -220,19 +211,31 @@ const Transferencias = ({ navigation }) => {
           </View>
         ) : null}
       </View>
-     {incomplete&& <View style={style.contError}><Text style={style.error}>Todos los campos son obligatorios</Text></View>}
-    {errorcvu && <View style={style.contError}><Text style={style.error}>El número de cuenta al que deseas enviar no existe</Text></View>}
-    {errormoney && <View style={style.contError}><Text style={style.error}>No tienes suficiente saldo paa completar la transacción</Text></View>}
-      
+      {incomplete && (
+        <View style={style.contError}>
+          <Text style={style.error}>Todos los campos son obligatorios</Text>
+        </View>
+      )}
+      {errorcvu && (
+        <View style={style.contError}>
+          <Text style={style.error}>
+            El número de cuenta al que deseas enviar no existe
+          </Text>
+        </View>
+      )}
+      {errormoney && (
+        <View style={style.contError}>
+          <Text style={style.error}>
+            No tienes suficiente saldo paa completar la transacción
+          </Text>
+        </View>
+      )}
+
       <View style={[style.botonContainer, { marginBottom: 15 }]}>
-        <TouchableOpacity 
-        
+        <TouchableOpacity
           style={style.boton}
           onPress={() => {
-
             handleSubmit();
-            
-            
             const valid = validateForm();
             if (valid) {
               state && smsNotification ? sendSMS() : null;
@@ -244,13 +247,9 @@ const Transferencias = ({ navigation }) => {
                 motivo: dato.motivo,
               });
             }
-           
-          }
-          
-        }
+          }}
         >
-
-          <Text style={{ fontWeight: "bold", fontSize: 15 }} >
+          <Text style={{ fontWeight: "bold", fontSize: 15 }}>
             Confirmar Transferencia
           </Text>
         </TouchableOpacity>

@@ -18,7 +18,6 @@ import { auth, storage } from "../../../firebase";
 import Clave from "../../Screen/Configuracion/Clave/Clave";
 
 const SignUp2 = ({ navigation }) => {
-
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [code, setCode] = useState("");
@@ -74,13 +73,13 @@ const SignUp2 = ({ navigation }) => {
         const cvu = storage.collection('Directions').doc('Cvu').collection('listaDeCvu').doc(userData.dni);
         const carga = storage.collection('Directions').doc('Pin').collection('listaDePin').doc(pinRecarga);
         await cvu.set({
-          userId: NewUser.user.uid
-        })
+          userId: NewUser.user.uid,
+        });
         await carga.set({
-          userId: NewUser.user.uid
-        })
+          userId: NewUser.user.uid,
+        });
         await walletRef.set({
-          saldo: 0
+          saldo: 0,
         });
         //se le agrega modelo de transactiones inicial
 
