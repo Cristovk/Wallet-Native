@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import { ListItem, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { generateInvoice } from "./utils";
+
 const DetalleDeTransaccion = ({ route, navigation }) => {
   const {
     fecha,
@@ -14,9 +15,13 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     operacion,
     empresa,
     desde,
+    sender,
+    receiver,
   } = route.params;
-  // const Operacion =  operacion[0].toUpperCase() + operacion.substring(1)
-  // const Tipo =  tipo[0].toUpperCase() + tipo.substring(1)
+  const oparation = operacion
+    ? operacion[0].toUpperCase() + operacion.substring(1)
+    : null;
+  const type = tipo ? tipo[0].toUpperCase() + tipo.substring(1) : null;
   const iconList = {
     panaderia: "cookie",
     almacen: "shopping-basket",
@@ -31,6 +36,9 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     Tentrante: "arrow-circle-down",
     recarga: "wallet",
   };
+  function formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  }
   let date = new Date(fecha).toLocaleDateString();
   let time = new Date(fecha).toLocaleTimeString([], {
     hour: "2-digit",
@@ -50,11 +58,13 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
         </View>
         <View style={{ marginTop: 20 }}>
           <Text style={{ color: "white", fontSize: 20 }}>
-            {desde ? `${desde} te envió` : `Le enviaste a ${hacia}`}
+            {sender ? `${sender} te envió` : `Le enviaste a ${receiver}`}
           </Text>
         </View>
         <View style={{ marginTop: 5 }}>
-          <Text style={{ color: "white", fontSize: 20 }}>{`$ ${monto}`}</Text>
+          <Text style={{ color: "white", fontSize: 20 }}>{`$ ${formatNumber(
+            monto
+          )}`}</Text>
         </View>
       </View>
       <View>
@@ -62,7 +72,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <ListItem.Content>
             <ListItem.Title>{"Operacion"}</ListItem.Title>
           </ListItem.Content>
-          <Text>{operacion}</Text>
+          <Text>{oparation}</Text>
         </ListItem>
         <ListItem>
           <ListItem.Content>
@@ -70,6 +80,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           </ListItem.Content>
           <Text>{estado}</Text>
         </ListItem>
+        {}
         <ListItem>
           <ListItem.Content>
             <ListItem.Title>{"Fecha"}</ListItem.Title>
@@ -109,7 +120,9 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <Icon name={iconList[tipo]} size={50} color="white" />
         </View>
         <View style={{ marginTop: 15 }}>
-          <Text style={{ color: "white", fontSize: 20 }}>{`$${monto}`}</Text>
+          <Text style={{ color: "white", fontSize: 20 }}>{`$ ${formatNumber(
+            monto
+          )}`}</Text>
         </View>
       </View>
       <View>
@@ -117,7 +130,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <ListItem.Content>
             <ListItem.Title>{"Operacion"}</ListItem.Title>
           </ListItem.Content>
-          <Text>{tipo === "recarga" ? empresa : tipo}</Text>
+          <Text>{tipo === "recarga" ? empresa : oparation}</Text>
         </ListItem>
         <ListItem>
           <ListItem.Content>
@@ -125,7 +138,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
               {tipo === "recarga" ? "Empresa" : "Categoria"}
             </ListItem.Title>
           </ListItem.Content>
-          <Text>{tipo === "recarga" ? empresa : tipo}</Text>
+          <Text>{tipo === "recarga" ? empresa : type}</Text>
         </ListItem>
         <ListItem>
           <ListItem.Content>

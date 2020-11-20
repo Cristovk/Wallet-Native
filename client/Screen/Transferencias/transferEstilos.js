@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 
 const style = StyleSheet.create({
   container: {
@@ -33,7 +34,12 @@ const style = StyleSheet.create({
     justifyContent: "space-between",
   },
   lista: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 15,
+    paddingHorizontal: 20,
+    marginHorizontal: 20,
+    borderRadius: 10,
   },
   input: {
     width: 150,
@@ -62,18 +68,28 @@ const style = StyleSheet.create({
     paddingVertical: 5,
     fontSize: 22,
   },
-  contError:{
-    flexDirection:'row',
-    justifyContent:'center'
+  contError: {
+    flexDirection: "row",
+    justifyContent: "center",
   },
-  error:{
-    backgroundColor:'red',
-    color:'#fff',
-    width:'95%',
-    padding:2,
-    borderRadius:2,
-    textAlign:'center'
-  }
+  error: {
+    backgroundColor: "red",
+    color: "#fff",
+    width: "95%",
+    padding: 2,
+    borderRadius: 2,
+    textAlign: "center",
+  },
+  transfer: {
+    flexDirection: "column",
+  },
+  darkBlueButton: {
+    borderRadius: 10,
+    color: white,
+    marginHorizontal: 35,
+    backgroundColor: orange,
+    paddingHorizontal: 15,
+  },
 });
 
 export default style;

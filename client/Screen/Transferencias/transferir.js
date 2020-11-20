@@ -21,6 +21,7 @@ const Transferencias = ({ navigation }) => {
 
   const dispatch = useDispatch();
   const movements = useSelector((store) => store.movementsReducer);
+  console.log("movimientos", movements);
   useEffect(() => {
     dispatch(getSaldo());
   }, []);
@@ -236,7 +237,6 @@ const Transferencias = ({ navigation }) => {
           style={style.boton}
           onPress={() => {
             handleSubmit();
-
             const valid = validateForm();
             if (valid) {
               state && smsNotification ? sendSMS() : null;

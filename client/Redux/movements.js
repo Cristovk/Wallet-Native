@@ -169,23 +169,23 @@ export const getMonthMovements = (allMovements) => (dispatch) => {
   });
 };
 
-export const test = async () => {
-  const userId = await auth.currentUser.uid;
-  Axios.post("https://us-central1-henrybankfire.cloudfunctions.net/sendMoney", {
-    amount: 100000,
-    senderId: userId,
-    receivercvu: "41130203",
-    motivo: "probando el navegador",
-  })
-    .then((x) => console.log("succes", x.data))
-    .catch((err) => console.log("error", err));
-};
-
 export const transferir = async (data) => {
-
- return Axios.post("https://us-central1-henrybankfire.cloudfunctions.net/sendMoney",data)
-    .then((x) =>   x.data)
-    .catch((err) =>  console.log(err));
-
+  return Axios.post(
+    "https://us-central1-henrybankfire.cloudfunctions.net/sendMoney",
+    data
+  )
+    .then((x) => x.data)
+    .catch((err) => console.log(err));
 };
 
+// export const test = async () => {
+//   const userId = await auth.currentUser.uid;
+//   Axios.post("https://us-central1-henrybankfire.cloudfunctions.net/sendMoney", {
+//     amount: 100000,
+//     senderId: userId,
+//     receivercvu: "23768945",
+//     motivo: "demo para diego",
+//   })
+//     .then((x) => console.log("succes", x.data))
+//     .catch((err) => console.log("error", err));
+// };

@@ -6,7 +6,7 @@ import {LogBox} from 'react-native'
 
 // COMPONENTES
 import Home from '../../Screen/Home/home';
-import Transferencias from '../../Screen/Transferencias/transferir';
+import Transfers from '../../Screen/Transferencias/Transfers';
 import Perfil from '../../Screen/perfil/Perfil';
 
 // Creamos el navegador
@@ -40,7 +40,7 @@ export function MyTab(){
     }}
     >
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Transferencias" component={Transferencias} />
+      <Tab.Screen name="Transferencias" component={Transfers} />
       <Tab.Screen name="Perfil" component={Perfil} />
     </Tab.Navigator>
   )
