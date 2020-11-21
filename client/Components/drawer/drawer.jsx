@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { View, TouchableOpacity, SafeAreaView, Switch, LogBox } from 'react-native';
+import { View, TouchableOpacity, SafeAreaView, Switch, LogBox, Alert, BackHandler } from 'react-native';
 import { Icon, ListItem } from 'react-native-elements'
 import { useSelector, useDispatch } from 'react-redux'
 import { darkMode } from '../../Redux/Estilos'
@@ -57,6 +57,10 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
     await AsyncStorage.removeItem('Metodo')
   }
 
+  const handleBackButtonClick = () => {
+    BackHandler.exitApp()
+  }
+
 
   const setApp = route.params.darker
   const handleLogOut = () => {
@@ -64,12 +68,20 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
     auth.signOut()
       .then(resp => {
         cerrar()
-        console.log("Cerró")
       })
       .catch(err => {
         console.log(err);
       })
-    navigation.navigate('Login')
+    Alert.alert('Sesión Cerrada', 'Te esperamos pronto',
+      [{ text: 'Ok', onPress: () => handleBackButtonClick() }]
+    )
+  }
+
+  const confirmCerrar = () => {
+    Alert.alert('Cerrar Sesión', '¿Estás Seguro?',
+      [{ text: 'Si, cerrar', onPress: () => handleLogOut() },
+      { text: 'Cancelar', onPress: () => navigation.goBack() }]
+    )
   }
   // LogBox.ignoreAllLogs()
 
@@ -143,7 +155,7 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
 
         </ListItem>
         <ListItem topDivider containerStyle={{ backgroundColor: 'transparent' }}
-          onPress={handleLogOut}>
+          onPress={confirmCerrar}>
           <Icon name='ios-log-out' type='ionicon' color={dark ? secondary : primary} />
           <ListItem.Content>
             <ListItem.Title style={{ color: text }}>Cerrar sesión</ListItem.Title>

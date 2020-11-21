@@ -25,6 +25,11 @@ const Huella = ({ navigation }) => {
     }
   }
 
+  // const cerrar = async () => {
+  //   await AsyncStorage.removeItem("Metodo")
+  // }
+
+  // cerrar()
 
 
   return (
@@ -35,7 +40,6 @@ const Huella = ({ navigation }) => {
         >
           <Text>Huella</Text>
         </TouchableOpacity>
-        <Button onPress={() => navigation.navigate('HomeDrawer')} title="Go back home" />
 
       </View>
     </ScrollView>

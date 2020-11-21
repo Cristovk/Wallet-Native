@@ -21,6 +21,7 @@
     "expo": "^39.0.4",
     "expo-contacts": "^8.5.0",
     "expo-image-picker": "^9.1.1",
+    "expo-local-authentication": "~9.3.0",
     "expo-media-library": "~9.2.1",
     "expo-permissions": "^9.3.0",
     "expo-print": "~9.1.0",
@@ -40,6 +41,7 @@
     "react-native-chart-kit": "^6.7.0",
     "react-native-credit-card-input": "^0.4.1",
     "react-native-elements": "^3.0.0-alpha.1",
+    "react-native-exit-app": "^1.1.0",
     "react-native-flip-card": "^3.5.6",
     "react-native-gesture-handler": "~1.7.0",
     "react-native-paper": "^4.3.1",
@@ -54,8 +56,7 @@
     "redux": "^4.0.5",
     "redux-devtools": "^3.7.0",
     "redux-thunk": "^2.3.0",
-    "write-file-atomic": "^3.0.3",
-    "expo-local-authentication": "~9.3.0"
+    "write-file-atomic": "^3.0.3"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
