@@ -6,12 +6,12 @@ import { auth } from "../../../../firebase";
 import {ModificarEmail} from '../../../Redux/User';
 
 
-const Correo = ({cambiar,navigation,main}) => {
+const Correo = ({cambiar,navigation,oscuro}) => {
 
     const [email,setEmail]=useState('');
     const [error,setError]=useState(false);
     const [empty,setEmpty]=useState(false)
-    
+    const colorPlaceholer = oscuro ? '#fff':'grey';
 
     function handleSubmit() {
       const emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
@@ -31,14 +31,14 @@ const Correo = ({cambiar,navigation,main}) => {
 
 
     return (  
-        <View style={styles.generalClave}>
+        <View style={oscuro ? styles.generalClaveDark : styles.generalClave}>
             <View style={styles.titulo}>
             <Icon
                 size={16}
                 name='arrow-circle-left'
                 type='font-awesome'
                 color='#fff'
-                onPress={() =>{ cambiar(false),main(true)}}
+                onPress={() =>cambiar(false)}
               />
             <Text style={styles.subtitulo}>Cambia tu correo</Text>
             </View>
@@ -46,22 +46,22 @@ const Correo = ({cambiar,navigation,main}) => {
         <View style={styles.contraseñas}>
            <TextInput 
            placeholder='Correo' 
-           style={styles.input}  
+           style={oscuro ? styles.inputDark :styles.input}  
            value={auth.currentUser.email}
-           placeholderTextColor='#fff'
+           placeholderTextColor={colorPlaceholer}
           />
            <TextInput 
            placeholder='Nuevo correo'  
-           style={styles.input} 
+           style={oscuro ? styles.inputDark :styles.input}  
            onChangeText={(data) => setEmail(data)}
-           placeholderTextColor='#fff'
+           placeholderTextColor={colorPlaceholer}
            />
            {error &&  <Text style={styles.error}>El correo ingresado no es valido</Text>}
            {empty &&  <Text style={styles.error}>Debes ingresar un correo para continuar</Text>}
         </View>
         
         <TouchableOpacity style={styles.btnGuardar} onPress={() => handleSubmit()}>
-            <Text style={styles.btn}>Guardar</Text>
+            <Text style={oscuro ? styles.btnDark: styles.btn}>Guardar</Text>
         </TouchableOpacity>
 
          

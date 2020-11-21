@@ -21,44 +21,61 @@ export const historial = (lista, { navigation }) => {
     servicios: "file-invoice-dollar",
     Tsaliente: "arrow-circle-up",
     Tentrante: "arrow-circle-down",
-    recarga:  "wallet"
+    recarga: "wallet",
   };
-  
-  return  (
-    lista.map((item, i) => (
-      <ListItem
-        onPress={() =>
-          navigation.navigate("Detalle", {
-            fecha: item.fecha,
-            monto: item.monto,
-            hacia: item.hacia,
-            desde: item.desde,
-            estado: item.estado,
-            tipo: item.tipo,
-            motivo: item.motivo,
-            operacion: item.operacion,
-            estado: item.estado,
-            empresa: item.empresa,
-            desde: item.desde
-          })
-        }
-        key={i}
-        bottomDivider
-      >
-        <Icon name={iconList[item.tipo]} size={30} color="black" />
-        <ListItem.Content>
-          <ListItem.Title>{item.empresa ? item.empresa: "Quiquebank"}</ListItem.Title>
-          <ListItem.Subtitle>{`${item.tipo === "Tsaliente" || item.tipo ==="Tentrante" ? "transferencia": item.tipo}`}</ListItem.Subtitle>
-        </ListItem.Content>
-        <Text style={{ marginRight: 3 }}>{`$ ${item.monto}`}</Text>
-        <ListItem.Chevron
-          name="chevron-right"
-          type="font-awesome"
-          color="black"
-        />
-      </ListItem>
-    ))
-  )
+  function formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  }
+  return lista.map((item, i) => (
+    <ListItem
+      onPress={() =>
+        navigation.navigate("Detalle", {
+          fecha: item.fecha,
+          monto: item.monto,
+          hacia: item.hacia,
+          desde: item.desde,
+          estado: item.estado,
+          tipo: item.tipo,
+          motivo: item.motivo,
+          operacion: item.operacion,
+          estado: item.estado,
+          empresa: item.empresa,
+          sender: item.sender,
+          receiver: item.receiver,
+        })
+      }
+      key={i}
+      bottomDivider
+    >
+      <Icon name={iconList[item.tipo]} size={30} color="black" />
+      <ListItem.Content>
+        <ListItem.Title>
+          {item.tipo == "Tsaliente"
+            ? item.receiver
+            : item.tipo == "Tentrante"
+            ? item.sender
+            : item.empresa
+            ? item.empresa
+            : "Quiquebank"}
+        </ListItem.Title>
+        <ListItem.Subtitle>{`${
+          item.tipo === "Tsaliente" || item.tipo === "Tentrante"
+            ? "transferencia"
+            : item.tipo
+        }`}</ListItem.Subtitle>
+      </ListItem.Content>
+      <Text style={{ marginRight: 3 }}>
+        {item.tipo == "Tsaliente" || item.empresa || item.operacion == "Compra"
+          ? `- $ ${formatNumber(item.monto)}`
+          : `$ ${formatNumber(item.monto)}`}
+      </Text>
+      <ListItem.Chevron
+        name="chevron-right"
+        type="font-awesome"
+        color="black"
+      />
+    </ListItem>
+  ));
 };
 
 /*Esta funcion parsea el html*/

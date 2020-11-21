@@ -18,7 +18,6 @@ export function MyDrowner({ navigation, route }) {
   const {status} = route.params
   const dispatch = useDispatch()
   const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
-  /* LogBox.ignoreAllLogs() */
   useEffect(()=>{
     if(status){
       let id = auth.currentUser.uid
@@ -27,27 +26,27 @@ export function MyDrowner({ navigation, route }) {
   },[])
 
   return (
-    <Drawer.Navigator drawerContent={({ navigation }) => CustomDrawerContent({ navigation, route, text, bg, dispatch, dark })} drawerStyle={{ backgroundColor: bg }}>
+    <Drawer.Navigator drawerContent={({ navigation }) => CustomDrawerContent({ navigation, route, primary, secondary,text, bg, dispatch, dark })} drawerStyle={{ backgroundColor: bg }}>
       <Drawer.Screen name='HomeScreen' component={homeScreen} initialParams={{status:status}} options={{ headerShown: false }} />
     </Drawer.Navigator>
   )
 }
 
 // Esta función nos permite configurar el drawer según lo que queremos mostrar (requerido en la línea 15)
-function CustomDrawerContent({ navigation, text, bg, route, dark, dispatch }) {
+function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, dark, dispatch }) {
 
   const setApp = route.params.darker
   const handleLogOut = () => {
     dispatch(deleteAll())
     navigation.navigate('Login')
   }
-  /* LogBox.ignoreAllLogs() */
+  LogBox.ignoreAllLogs()
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>
       <View>
         <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }} onPress={() => navigation.navigate('HomeScreen', { screen: 'Recargas' })} >
-          <Icon name='ios-log-out' type='ionicon' color={text} />
+          <Icon name='ios-log-out' type='ionicon' color={dark ? secondary : primary} />
           <ListItem.Content>
             <ListItem.Title style={{ color: text }}>Recargar</ListItem.Title>
           </ListItem.Content>
@@ -57,7 +56,7 @@ function CustomDrawerContent({ navigation, text, bg, route, dark, dispatch }) {
       <View>
         <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }}
           onPress={() => navigation.navigate('HomeScreen', { screen: 'Tarjetas' })}>
-          <Icon name='credit-card' type='fontisto' color={text} />
+          <Icon name='credit-card' type='fontisto' color={dark ? secondary : primary} />
           <ListItem.Content>
             <ListItem.Title style={{ color: text }}>Tarjetas</ListItem.Title>
           </ListItem.Content>
@@ -65,7 +64,7 @@ function CustomDrawerContent({ navigation, text, bg, route, dark, dispatch }) {
         </ListItem>
         <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }}
           onPress={() => navigation.navigate('HomeScreen', { screen: 'Balance' })} >
-          <Icon name='bar-chart' type='fontisto' color={text} />
+          <Icon name='bar-chart' type='fontisto' color={dark ? secondary : primary} />
           <ListItem.Content>
             <ListItem.Title style={{ color: text }}>Balance</ListItem.Title>
           </ListItem.Content>
@@ -73,7 +72,7 @@ function CustomDrawerContent({ navigation, text, bg, route, dark, dispatch }) {
         </ListItem>
         <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }}
           onPress={() => navigation.navigate('HomeScreen', { screen: 'Movimientos' })}>
-          <Icon name='list-2' type='fontisto' color={text} />
+          <Icon name='list-2' type='fontisto' color={dark ? secondary : primary} />
           <ListItem.Content>
             <ListItem.Title style={{ color: text }}>Movimientos</ListItem.Title>
           </ListItem.Content>
@@ -81,7 +80,7 @@ function CustomDrawerContent({ navigation, text, bg, route, dark, dispatch }) {
         </ListItem>
         <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }}
           onPress={() => navigation.navigate('HomeScreen', { screen: 'Pagos' })}>
-          <Icon name='lightbulb' type='fontisto' color={text} />
+          <Icon name='lightbulb' type='fontisto' color={dark ? secondary : primary} />
           <ListItem.Content>
             <ListItem.Title style={{ color: text }}>Servicios</ListItem.Title>
           </ListItem.Content>
@@ -89,7 +88,7 @@ function CustomDrawerContent({ navigation, text, bg, route, dark, dispatch }) {
         </ListItem>
         <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }}
           onPress={() => navigation.navigate('HomeScreen', { screen: 'Amigos' })}>
-          <Icon name='persons' type='fontisto' color={text} />
+          <Icon name='persons' type='fontisto' color={dark ? secondary : primary} />
           <ListItem.Content>
             <ListItem.Title style={{ color: text }}>Contactos</ListItem.Title>
           </ListItem.Content>
@@ -97,7 +96,7 @@ function CustomDrawerContent({ navigation, text, bg, route, dark, dispatch }) {
         </ListItem>
         <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }}
           onPress={() => navigation.navigate('HomeScreen', { screen: 'Ayuda' })}>
-          <Icon name='info' type='fontisto' color={text} />
+          <Icon name='info' type='fontisto' color={dark ? secondary : primary} />
           <ListItem.Content>
             <ListItem.Title style={{ color: text }}>Ayuda</ListItem.Title>
           </ListItem.Content>
@@ -106,7 +105,7 @@ function CustomDrawerContent({ navigation, text, bg, route, dark, dispatch }) {
       </View>
       <View>
         <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }} onPress={() => navigation.navigate('Configuracion', route)}>
-          <Icon name='player-settings' type='fontisto' color={text} />
+          <Icon name='player-settings' type='fontisto' color={dark ? secondary : primary} />
           <ListItem.Content>
             <ListItem.Title style={{ color: text }}>Configuración</ListItem.Title>
           </ListItem.Content>
@@ -114,7 +113,7 @@ function CustomDrawerContent({ navigation, text, bg, route, dark, dispatch }) {
         </ListItem>
         <ListItem topDivider containerStyle={{ backgroundColor: 'transparent' }}
           onPress={handleLogOut}>
-          <Icon name='ios-log-out' type='ionicon' color={text} />
+          <Icon name='ios-log-out' type='ionicon' color={dark ? secondary : primary} />
           <ListItem.Content>
             <ListItem.Title style={{ color: text }}>Cerrar sesión</ListItem.Title>
           </ListItem.Content>

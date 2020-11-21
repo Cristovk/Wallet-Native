@@ -3,9 +3,10 @@ import { StyleSheet } from 'react-native'
 
 const style = StyleSheet.create({
     generalClave:{
-        // backgroundColor: "#02072F",
+         backgroundColor: "#fff",
         position:'absolute',
         width:'100%',
+        height:'100%',
         top:0,
         left:0,
     },
@@ -13,7 +14,9 @@ const style = StyleSheet.create({
         flexDirection:'row',
         padding:5,
         alignItems:'center',
-        backgroundColor: "#fc7029",
+        backgroundColor:'#02072f',
+        borderColor:'#fff',
+        borderTopWidth:1,
     },
     subtitulo:{
         color:'#fff',
@@ -28,11 +31,11 @@ const style = StyleSheet.create({
     },
     input:{
         width:'90%',
-        borderBottomColor:'#fff',
+        borderBottomColor:'#ccc',
         borderBottomWidth:1,
         padding:5,
         marginBottom:8,
-        color:'#fff'
+        color:'grey'
     },
     btnGuardar:{
         flexDirection:'row',
@@ -40,7 +43,7 @@ const style = StyleSheet.create({
         color:'#fff'
     },
     btn:{
-        backgroundColor: "#fc7029",
+        backgroundColor:'#02072f',
         padding:3,
         marginTop:20,
         width:90,
@@ -55,7 +58,31 @@ const style = StyleSheet.create({
         color:'#fff',
         padding:2,
         borderRadius:2
-    }
+    },//Dark styles
+    generalClaveDark:{
+        backgroundColor: "#02072f",
+       position:'absolute',
+       width:'100%',
+       height:'100%',
+       top:0,
+       left:0,
+   },
+   btnDark:{
+    backgroundColor:'#fff',
+    padding:3,
+    marginTop:20,
+    width:90,
+    borderRadius:3,
+    color: "#02072f",
+    textAlign:'center',
+},inputDark:{
+    width:'90%',
+    borderBottomColor:'#fff',
+    borderBottomWidth:1,
+    padding:5,
+    marginBottom:8,
+    color:'#fff'
+},
 
 })
 
