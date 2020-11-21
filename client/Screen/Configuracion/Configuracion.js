@@ -179,9 +179,8 @@ const Configuracion = ({ navigation, route }) => {
 
             <View style={styles.textoSubitem}>
               <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>
-                ¿Cómo te querés loguear?
+                Ingreso con huella:
                 </Text>
-              <Text style={dark ? styles.letraClara : styles.letraOscura}>Huella</Text>
             </View>
           </View>
           <View style={styles.interruptor}>

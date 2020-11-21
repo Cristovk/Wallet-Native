@@ -57,9 +57,6 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
     await AsyncStorage.removeItem('Metodo')
   }
 
-  const handleBackButtonClick = () => {
-    BackHandler.exitApp()
-  }
 
 
   const setApp = route.params.darker
@@ -73,7 +70,7 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
         console.log(err);
       })
     Alert.alert('Sesión Cerrada', 'Te esperamos pronto',
-      [{ text: 'Ok', onPress: () => handleBackButtonClick() }]
+      [{ text: 'Ok', onPress: () => navigation.navigate('Splash', { usuario2: false }) }]
     )
   }
 

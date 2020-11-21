@@ -48,6 +48,7 @@ import DeleteUser from '../../Screen/Modificar-Email-Pass/DeleteUser';
 import ConfirmDelete from '../../Screen/Modificar-Email-Pass/ConfirmDelete';
 import Pin from '../../Views/Login/pin';
 import Huella from '../../Views/Login/Huella';
+import Splash from '../../Screen/Splash/Splash';
 
 // Creamos los navegadores
 const Stack = createStackNavigator()
@@ -95,8 +96,11 @@ export function MyStack(props) {
   // LogBox.ignoreAllLogs()
   return (
     <Stack.Navigator>
-
-      {!usuario ? <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} /> : huella ? <Stack.Screen name="Huella" component={Huella} options={{ headerShown: false }} /> : <Stack.Screen name="Pin" component={Pin} options={{ headerShown: false }} />}
+      <Stack.Screen name="Splash" component={Splash} initialParams={props} options={{ headerShown: false }} />
+      {/* <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} /> */}
+      <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+      <Stack.Screen name="Huella" component={Huella} options={{ headerShown: false }} />
+      <Stack.Screen name="Pin" component={Pin} options={{ headerShown: false }} />
       <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />
