@@ -1421,3 +1421,165 @@ SyntaxError: missing ) after argument list
 [info] i  functions: Finished "ex" in ~1s {"metadata":{"emulator":{"name":"functions"},"function":{"name":"ex"},"message":"Finished \"ex\" in ~1s"}}
 [debug] [2020-11-10T23:13:52.156Z] [worker-ex-9e064c06-b758-4c92-b7b1-8ff7343c5519]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-ex-9e064c06-b758-4c92-b7b1-8ff7343c5519]: IDLE"}}
 [debug] [2020-11-10T23:13:52.156Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2020-11-21T05:03:05.622Z] ----------------------------------------------------------------------
+[debug] [2020-11-21T05:03:05.627Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2020-11-21T05:03:05.627Z] CLI Version:   8.16.2
+[debug] [2020-11-21T05:03:05.628Z] Platform:      win32
+[debug] [2020-11-21T05:03:05.628Z] Node Version:  v14.0.0
+[debug] [2020-11-21T05:03:05.630Z] Time:          Sat Nov 21 2020 02:03:05 GMT-0300 (hora de verano de Chile)
+[debug] [2020-11-21T05:03:05.630Z] ----------------------------------------------------------------------
+[debug] [2020-11-21T05:03:05.630Z] 
+[debug] [2020-11-21T05:03:05.647Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2020-11-21T05:03:05.730Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-11-21T05:03:05.731Z] > authorizing via signed-in user
+[debug] [2020-11-21T05:03:05.731Z] [iam] checking project henrybankfire for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2020-11-21T05:03:05.735Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-11-21T05:03:05.736Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-11-21T05:03:07.011Z] <<< HTTP RESPONSE 200 {"expires":"Mon, 01 Jan 1990 00:00:00 GMT","pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Sat, 21 Nov 2020 05:03:07 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:03:07.032Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/henrybankfire:testIamPermissions  
+ {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2020-11-21T05:03:07.369Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:03:07 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=163","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:03:07.372Z] >>> HTTP REQUEST POST https://iam.googleapis.com/v1/projects/henrybankfire/serviceAccounts/henrybankfire@appspot.gserviceaccount.com:testIamPermissions  
+ {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2020-11-21T05:03:07.421Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2020-11-21T05:03:07.421Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2020-11-21T05:03:08.430Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:03:08 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Deploying to 'henrybankfire'...
+[info] 
+[info] i  deploying functions 
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] +  functions: Finished running predeploy script. 
+[debug] [2020-11-21T05:03:25.237Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "12"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "firebase-admin": "^9.2.0",
+    "firebase-functions": "^3.11.0",
+    "jsonwebtoken": "^8.5.1",
+    "react-native-screens": "^2.14.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[debug] [2020-11-21T05:03:28.257Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/henrybankfire/services/cloudfunctions.googleapis.com  
+ 
+[debug] [2020-11-21T05:03:28.258Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/henrybankfire/services/runtimeconfig.googleapis.com  
+ 
+[debug] [2020-11-21T05:03:28.258Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/henrybankfire/services/cloudbuild.googleapis.com  
+ 
+[debug] [2020-11-21T05:03:29.621Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:03:29 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2020-11-21T05:03:29.628Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:03:29 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:03:29.737Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:03:29 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2020-11-21T05:03:29.739Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/henrybankfire/adminSdkConfig  
+ 
+[debug] [2020-11-21T05:03:31.008Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:03:30 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  functions: preparing functions directory for uploading... 
+[debug] [2020-11-21T05:03:31.012Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/henrybankfire/configs  
+ 
+[debug] [2020-11-21T05:03:32.128Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:03:31 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  functions: packaged functions (40.07 KB) for uploading 
+[debug] [2020-11-21T05:03:39.613Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/projects/henrybankfire/locations/-/functions  
+ 
+[debug] [2020-11-21T05:03:41.730Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:03:41 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:03:41.735Z] [functions] found 1 new HTTP functions, testing setIamPolicy permission...
+[debug] [2020-11-21T05:03:41.736Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/henrybankfire:testIamPermissions  
+ {"permissions":["cloudfunctions.functions.setIamPolicy"]}
+[debug] [2020-11-21T05:03:42.688Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:03:42 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=812","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:03:42.689Z] [functions] found setIamPolicy permission, proceeding with deploy
+[debug] [2020-11-21T05:03:42.690Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/henrybankfire/locations/us-central1/functions:generateUploadUrl  
+ 
+[debug] [2020-11-21T05:03:43.886Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:03:43 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:03:43.888Z] >>> HTTP REQUEST PUT https://storage.googleapis.com/gcf-upload-us-central1-e90af5c7-924a-4d11-9502-6a77a392ff5f/5a1c7be6-d2f6-4118-a3a6-a81344730c3d.zip?GoogleAccessId=service-414362968909@gcf-admin-robot.iam.gserviceaccount.com&Expires=1605936823&Signature=E1frBDnTUrG%2BjIPp7gX%2B9Dck04ZTNXhXagZj3deE4dD8uDeLKWoTa4aDl38xLlAdk6kWhNthpqAl91e6NhnufwEgJngSJDZXTgxxH8jyaf82lI6%2FjOYINpzDZQL9UFpSGucwfNiCECx6cYSf5HQka%2BD9P9u5bmY%2Fwr69FdLMsxmfhPYFPZtCO9hNkmhVPmCZ4eyE1FmlYv5Tf%2BpQtMU22541fm%2BKgF0OgsfRwqrc8b2cJ4KuvLC6Vki8l%2F4PPiSkAkeoypVjdSDMsLaMjKXrsytjY6Pod3PToWqMEUKMcDjqwMDaOtg4lrGjjH8HgK0RJA5P5GZtiTDKGeySEDmaGQ%3D%3D  
+ <request body omitted>
+[debug] [2020-11-21T05:03:44.609Z] <<< HTTP RESPONSE 200 {"x-guploader-uploadid":"ABg5-Uy0n8HfCEGoDc2RM6WpUtypM1L6aMFcNI07973KZYRjwLpt01c8OGz0lYcTQFABpg8Ft5E0SqRQIqCA6XsRq5JGdtW38w","etag":"\"7a156f404e7cccfaa29e20df1697d403\"","x-goog-generation":"1605935024521967","x-goog-metageneration":"1","x-goog-hash":"crc32c=LteIjg==, md5=ehVvQE58zPqiniDfFpfUAw==","x-goog-stored-content-length":"41031","x-goog-stored-content-encoding":"identity","vary":"Origin","content-length":"0","date":"Sat, 21 Nov 2020 05:03:44 GMT","server":"UploadServer","content-type":"text/html; charset=UTF-8","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""}
+[info] +  functions: functions folder uploaded successfully 
+[info] i  functions: creating Node.js 12 function ex(us-central1)... 
+[debug] [2020-11-21T05:03:44.618Z] Trigger is:  {"httpsTrigger":{}}
+[info] 
+The following functions are found in your project but do not exist in your local source code:
+	addPurchase(us-central1)
+	cvuExist(us-central1)
+	recargaV1(us-central1)
+
+If you are renaming a function or changing its region, it is recommended that you create the new function first before deleting the old one to prevent event loss. For more info, visit https://firebase.google.com/docs/functions/manage-functions#modify
+
+[info] i  functions: continuing with other deployments. 
+[debug] [2020-11-21T05:04:26.077Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/henrybankfire/locations/us-central1/functions  
+ {"sourceUploadUrl":"https://storage.googleapis.com/gcf-upload-us-central1-e90af5c7-924a-4d11-9502-6a77a392ff5f/5a1c7be6-d2f6-4118-a3a6-a81344730c3d.zip?GoogleAccessId=service-414362968909@gcf-admin-robot.iam.gserviceaccount.com&Expires=1605936823&Signature=E1frBDnTUrG%2BjIPp7gX%2B9Dck04ZTNXhXagZj3deE4dD8uDeLKWoTa4aDl38xLlAdk6kWhNthpqAl91e6NhnufwEgJngSJDZXTgxxH8jyaf82lI6%2FjOYINpzDZQL9UFpSGucwfNiCECx6cYSf5HQka%2BD9P9u5bmY%2Fwr69FdLMsxmfhPYFPZtCO9hNkmhVPmCZ4eyE1FmlYv5Tf%2BpQtMU22541fm%2BKgF0OgsfRwqrc8b2cJ4KuvLC6Vki8l%2F4PPiSkAkeoypVjdSDMsLaMjKXrsytjY6Pod3PToWqMEUKMcDjqwMDaOtg4lrGjjH8HgK0RJA5P5GZtiTDKGeySEDmaGQ%3D%3D","name":"projects/henrybankfire/locations/us-central1/functions/ex","entryPoint":"ex","labels":{"deployment-tool":"cli-firebase"},"runtime":"nodejs12","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"henrybankfire\",\"databaseURL\":\"https://henrybankfire.firebaseio.com\",\"storageBucket\":\"henrybankfire.appspot.com\",\"locationId\":\"southamerica-east1\"}"},"httpsTrigger":{}}
+[debug] [2020-11-21T05:04:27.332Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:04:27 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:04:27.333Z] Setting public policy for function ex
+[debug] [2020-11-21T05:04:27.335Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/henrybankfire/locations/us-central1/functions/ex:setIamPolicy  
+ {"policy":{"version":3,"bindings":[{"role":"roles/cloudfunctions.invoker","members":["allUsers"]}]},"updateMask":"version,bindings"}
+[debug] [2020-11-21T05:04:27.970Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:04:27 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:04:27.973Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/projects/henrybankfire/locations/-/functions  
+ 
+[debug] [2020-11-21T05:04:29.257Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:04:29 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:04:29.260Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/aGVucnliYW5rZmlyZS91cy1jZW50cmFsMS9leC9vZFdiNHhaaDRfQQ  
+ 
+[debug] [2020-11-21T05:04:29.760Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:04:29 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:04:31.775Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/aGVucnliYW5rZmlyZS91cy1jZW50cmFsMS9leC9vZFdiNHhaaDRfQQ  
+ 
+[debug] [2020-11-21T05:04:32.296Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:04:32 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:04:34.310Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/aGVucnliYW5rZmlyZS91cy1jZW50cmFsMS9leC9vZFdiNHhaaDRfQQ  
+ 
+[debug] [2020-11-21T05:04:34.856Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:04:34 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:04:36.862Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/aGVucnliYW5rZmlyZS91cy1jZW50cmFsMS9leC9vZFdiNHhaaDRfQQ  
+ 
+[debug] [2020-11-21T05:04:37.575Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:04:37 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:04:39.590Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/aGVucnliYW5rZmlyZS91cy1jZW50cmFsMS9leC9vZFdiNHhaaDRfQQ  
+ 
+[debug] [2020-11-21T05:04:40.296Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:04:40 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:04:42.297Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/aGVucnliYW5rZmlyZS91cy1jZW50cmFsMS9leC9vZFdiNHhaaDRfQQ  
+ 
+[debug] [2020-11-21T05:04:43.024Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:04:42 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:04:45.037Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/aGVucnliYW5rZmlyZS91cy1jZW50cmFsMS9leC9vZFdiNHhaaDRfQQ  
+ 
+[debug] [2020-11-21T05:04:45.415Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:04:45 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:04:47.430Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/aGVucnliYW5rZmlyZS91cy1jZW50cmFsMS9leC9vZFdiNHhaaDRfQQ  
+ 
+[debug] [2020-11-21T05:04:48.120Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:04:48 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:04:50.121Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/aGVucnliYW5rZmlyZS91cy1jZW50cmFsMS9leC9vZFdiNHhaaDRfQQ  
+ 
+[debug] [2020-11-21T05:04:50.750Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:04:50 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:04:52.760Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/aGVucnliYW5rZmlyZS91cy1jZW50cmFsMS9leC9vZFdiNHhaaDRfQQ  
+ 
+[debug] [2020-11-21T05:04:53.255Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:04:53 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:04:55.259Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/aGVucnliYW5rZmlyZS91cy1jZW50cmFsMS9leC9vZFdiNHhaaDRfQQ  
+ 
+[debug] [2020-11-21T05:04:55.811Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:04:55 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:04:57.814Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/aGVucnliYW5rZmlyZS91cy1jZW50cmFsMS9leC9vZFdiNHhaaDRfQQ  
+ 
+[debug] [2020-11-21T05:04:58.200Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:04:58 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:05:00.210Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/aGVucnliYW5rZmlyZS91cy1jZW50cmFsMS9leC9vZFdiNHhaaDRfQQ  
+ 
+[debug] [2020-11-21T05:05:00.931Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:05:00 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:05:02.939Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/aGVucnliYW5rZmlyZS91cy1jZW50cmFsMS9leC9vZFdiNHhaaDRfQQ  
+ 
+[debug] [2020-11-21T05:05:03.355Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:05:03 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-21T05:05:05.362Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/aGVucnliYW5rZmlyZS91cy1jZW50cmFsMS9leC9vZFdiNHhaaDRfQQ  
+ 
+[debug] [2020-11-21T05:05:05.742Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 21 Nov 2020 05:05:05 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
