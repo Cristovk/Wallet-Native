@@ -31,14 +31,20 @@ export function MyDrowner({ navigation, route }) {
   const user = useSelector(store => store.user.user)
 
   console.log(JSON.stringify(user.clave), "usuario");
+  console.log(JSON.stringify(user.metodo), "Metodo");
 
   const save = async () => {
     if (user && user.clave) {
       const asyncStor = await AsyncStorage.getItem('Metodo')
       if (!asyncStor) {
-        const usuario = JSON.stringify(user.clave)
-        await AsyncStorage.setItem('Metodo', usuario);
-        const clave = await AsyncStorage.getItem('Metodo');
+        if (user.metodo === "") {
+          const usuario = JSON.stringify(user.clave)
+          await AsyncStorage.setItem('Metodo', usuario);
+          const clave = await AsyncStorage.getItem('Metodo');
+        } else {
+          const usuario = user.metodo
+          await AsyncStorage.setItem('Metodo', usuario);
+        }
       }
     }
   }

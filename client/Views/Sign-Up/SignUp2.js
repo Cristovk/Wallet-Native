@@ -52,6 +52,7 @@ const SignUp2 = ({ navigation }) => {
           return number.toString()
         }
         const pinRecarga = generatePin()
+        const metodo = ""
         await docRef.set({
           id: docRef.id,
           created: Date.now(),
@@ -65,6 +66,7 @@ const SignUp2 = ({ navigation }) => {
           pin: pinRecarga,
           cvu: userData.dni,
           clave: clave,
+          metodo: metodo
 
         });
         //se crea Wallet

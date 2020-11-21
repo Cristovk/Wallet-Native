@@ -3,7 +3,6 @@ import { View, Text, ScrollView, Button, Image, StyleSheet, TouchableOpacity } f
 import AsyncStorage from "@react-native-community/async-storage";
 import * as LocalAuthentication from 'expo-local-authentication';
 import styles from './HuellaStyle'
-import style from '../../Screen/Configuracion/Usuario/EstilosUsuario';
 
 
 const Huella = ({ navigation }) => {

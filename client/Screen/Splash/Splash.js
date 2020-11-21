@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, ScrollView, Button, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
-import { useSelector, useDispatch } from 'react-redux'
-import { Icon } from "react-native-elements";
+
 import style from './SplashStyle'
 import { ActivityIndicator } from 'react-native-paper';
 
@@ -10,7 +9,6 @@ const Splash = ({ navigation, route }) => {
 
   const [usuario, setUsuario] = useState(false)
   const [huella, setHuella] = useState(false)
-  const user = useSelector(store => store.user.user)
 
 
   const storageAsync = async () => {
@@ -62,12 +60,6 @@ const Splash = ({ navigation, route }) => {
       <View style={style.logo}>
         <Image source={require("../../src/logo.png")} />
       </View>
-      {/* <Icon
-        name="spinner"
-        type="fontisto"
-        size={50}
-        
-      /> */}
       <ActivityIndicator color='#02072F' size="large" />
     </View>
 
