@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { View, Text, ScrollView, Button, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import AsyncStorage from "@react-native-community/async-storage";
 import * as LocalAuthentication from 'expo-local-authentication';
+import styles from './HuellaStyle'
+import style from '../../Screen/Configuracion/Usuario/EstilosUsuario';
 
 
 const Huella = ({ navigation }) => {
@@ -33,16 +35,22 @@ const Huella = ({ navigation }) => {
 
 
   return (
-    <ScrollView>
-      <View>
-        <TouchableOpacity
-          onPress={AuthWithFinger}
-        >
-          <Text>Huella</Text>
-        </TouchableOpacity>
 
+    <View style={styles.container}>
+      <View style={styles.containerTwo} >
+        <View style={styles.title}>
+          <Text style={styles.texto}>Ingrese su huella para continuar</Text>
+        </View>
+        <View style={styles.botonContainer}>
+          <TouchableOpacity
+            onPress={AuthWithFinger}
+            style={styles.boton}
+          >
+            <Text style={styles.textBoton}>Ingresar Huella</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </ScrollView>
+    </View>
   )
 }
 

@@ -1,26 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, ScrollView, TouchableOpacity, TextInput, Alert, BackHandler } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native'
 import styles from './EstilosEliminar';
 import { Icon } from 'react-native-elements';
-import { auth } from "../../../../firebase";
+import { auth, storage } from "../../../../firebase";
 import { userLog, deleteUsuario } from '../../../Redux/User';
 import { connect } from 'react-redux'
 
-const Eliminar = ({ navigation, cambiar, userLog, user, oscuro }) => {
+const Eliminar = ({ navigation, cambiar, userLog, user }) => {
 
 
   const [dni, setDni] = useState("");
   const [error, setError] = useState(false);
-  const colorPlaceholder = oscuro ? '#fff' : 'grey';
 
   useEffect(() => {
     userLog(auth.currentUser.uid)
   }, [])
-
-
-  const handleBackButtonClick = () => {
-    BackHandler.exitApp()
-  }
 
 
   const deleteUser = async () => {
@@ -37,12 +31,7 @@ const Eliminar = ({ navigation, cambiar, userLog, user, oscuro }) => {
       Alert.alert("Dni incorrecto, intente nuevamente")
     }
 
-    Alert.alert('Sesión Cerrada', 'Te esperamos pronto',
-      [{ text: 'Ok', onPress: () => handleBackButtonClick() }]
-    )
-
   }
-
 
   return (
     <ScrollView style={styles.general}>
@@ -59,13 +48,12 @@ const Eliminar = ({ navigation, cambiar, userLog, user, oscuro }) => {
         <Text style={styles.subtitulo}>Eliminar usuario</Text>
       </View>
       <View style={styles.contCuadro}>
-        <View style={oscuro ? styles.cuadroDark : styles.cuadro}>
-          <Text style={oscuro ? styles.titEliDark : styles.titEli}>Para eliminar el usuario ingresa el DNI</Text>
+        <View style={styles.cuadro}>
+          <Text style={styles.titEli}>Para eliminar el usuario ingresa el DNI</Text>
           <TextInput
             placeholder='Ingresa el DNI'
-            style={oscuro ? styles.inputDark : styles.input}
+            style={styles.input}
             onChangeText={(data) => setDni(data)}
-            placeholderTextColor={colorPlaceholder}
 
           />
           {error &&
@@ -75,7 +63,7 @@ const Eliminar = ({ navigation, cambiar, userLog, user, oscuro }) => {
 
 
           <TouchableOpacity style={styles.btnBorrar} >
-            <Text onPress={() => deleteUser()} style={oscuro ? styles.textoBtnDark : styles.textoBtn}>Eliminar cuenta</Text>
+            <Text onPress={() => deleteUser()} style={styles.textoBtn}>Eliminar cuenta</Text>
           </TouchableOpacity>
         </View>
 
@@ -96,7 +84,7 @@ function mapDispatchToProps(dispatch) {
     userLog: id => dispatch(userLog(id))
   }
 }
-
+// export default Configuracion;
 
 export default connect(
   mapStateToProps,

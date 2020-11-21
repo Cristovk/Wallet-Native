@@ -1,142 +1,119 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import styles from './EstilosUsuario';
 import { Icon } from 'react-native-elements';
 import Eliminar from './Eliminar';
 
-import { userLog } from '../../../Redux/User';
-import { connect } from 'react-redux'
 
+const Configuracion = ({ navigation, cambiar, main }) => {
 
-const Configuracion = (props) => {
+  const [remove, setRemove] = useState(false);
 
-  const { navigation,cambiar,oscuro }=props
-   const [remove,setRemove]=useState(false);
-   const iconColor=oscuro ?'#fff':'#02072f' ;
-   const {phone,name,lastName,dni,cvu,email}=props.user;
-
-  
-   
   return (
-    <View style={oscuro? styles.generalDark:styles.general}>
-        {!remove &&
+    <View >
+      {!remove &&
         <View>
-        <View style={styles.titulo}>
-        <Icon
-          size={16}
-          name="arrow-circle-left"
-          type="font-awesome"
-          color='#fff'
-          onPress={()=>cambiar(false)}
-        />
-        <Text style={styles.subtitulo}>Eliminar usuario</Text>
-        </View>
-    
-        <View style={oscuro ? styles.itemDatosDark : styles.itemDatos}>
-            <Text style={oscuro ? styles.tituloItemDark: styles.tituloItem}>Nombre</Text>
-            <View style={styles.subItem}>
+          <View style={styles.titulo}>
             <Icon
-             size={16}
-             name="user"
-             type="font-awesome"
-             color={iconColor}
-           />
-             <Text style={oscuro ? styles.datoDark:styles.dato}>{name}</Text>
-            </View>
-        </View>
+              size={16}
+              name="arrow-circle-left"
+              type="font-awesome"
+              color="#fff"
+              onPress={() => { cambiar(false); main(true) }}
+            />
+            <Text style={styles.subtitulo}>Eliminar usuario</Text>
+          </View>
 
-        <View style={oscuro ? styles.itemDatosDark : styles.itemDatos}>
-            <Text style={oscuro ? styles.tituloItemDark: styles.tituloItem}>Apellido</Text>
+          <View style={styles.itemDatos}>
+            <Text style={styles.tituloItem}>Nombre</Text>
             <View style={styles.subItem}>
-            <Icon
-             size={16}
-             name="user"
-             type="font-awesome"
-             color={iconColor}
-           />
-             <Text style={oscuro ? styles.datoDark:styles.dato}>{lastName}</Text>
+              <Icon
+                size={16}
+                name="user"
+                type="font-awesome"
+                color="#fff"
+              />
+              <Text style={styles.dato}>Andrés</Text>
             </View>
-        </View>
+          </View>
 
-        <View style={oscuro ? styles.itemDatosDark : styles.itemDatos}>
-            <Text style={oscuro ? styles.tituloItemDark: styles.tituloItem}>DNI</Text>
+          <View style={styles.itemDatos}>
+            <Text style={styles.tituloItem}>Apellido</Text>
             <View style={styles.subItem}>
-            <Icon
-             size={16}
-             name="address-card"
-             type="font-awesome"
-             color={iconColor}
-           />
-             <Text style={oscuro ? styles.datoDark:styles.dato}>{dni}</Text>
+              <Icon
+                size={16}
+                name="user"
+                type="font-awesome"
+                color="#fff"
+              />
+              <Text style={styles.dato}>Sánchez</Text>
             </View>
-        </View>
+          </View>
 
-        <View style={oscuro ? styles.itemDatosDark : styles.itemDatos}>
-            <Text style={oscuro ? styles.tituloItemDark: styles.tituloItem}>Cvu</Text>
+          <View style={styles.itemDatos}>
+            <Text style={styles.tituloItem}>DNI</Text>
             <View style={styles.subItem}>
-            <Icon
-             size={16}
-             name="id-card"
-             type="font-awesome"
-             color={iconColor}
-           />
-             <Text style={oscuro ? styles.datoDark:styles.dato}>{cvu}</Text>
+              <Icon
+                size={16}
+                name="address-card"
+                type="font-awesome"
+                color="#fff"
+              />
+              <Text style={styles.dato}>1070974943</Text>
             </View>
-        </View>
+          </View>
 
-        <View style={oscuro ? styles.itemDatosDark : styles.itemDatos}>
-            <Text style={oscuro ? styles.tituloItemDark: styles.tituloItem}>Teléfono</Text>
+          <View style={styles.itemDatos}>
+            <Text style={styles.tituloItem}>Cuil</Text>
             <View style={styles.subItem}>
-            <Icon
-             size={16}
-             name="phone"
-             type="font-awesome"
-             color={iconColor}
-           />
-             <Text style={oscuro ? styles.datoDark:styles.dato}>{phone}</Text>
+              <Icon
+                size={16}
+                name="id-card"
+                type="font-awesome"
+                color="#fff"
+              />
+              <Text style={styles.dato}>1233</Text>
             </View>
-        </View>
+          </View>
 
-        <View style={oscuro ? styles.itemDatosDark : styles.itemDatos}>
-            <Text style={oscuro ? styles.tituloItemDark: styles.tituloItem}>Email</Text>
+          <View style={styles.itemDatos}>
+            <Text style={styles.tituloItem}>Teléfono</Text>
             <View style={styles.subItem}>
-            <Icon
-             size={16}
-             name="envelope"
-             type="font-awesome"
-             color={iconColor}
-           />
-             <Text style={oscuro ? styles.datoDark:styles.dato}>{email}</Text>
+              <Icon
+                size={16}
+                name="phone"
+                type="font-awesome"
+                color="#fff"
+              />
+              <Text style={styles.dato}>+54 3013184491</Text>
             </View>
-        </View>
+          </View>
 
-        <TouchableOpacity style={styles.btnBorrar}>
-            <Text style={oscuro ? styles.textoBtnDark:styles.textoBtn} onPress={()=>setRemove(true)}>Eliminar usuario</Text>
-        </TouchableOpacity> 
+          <View style={styles.itemDatos}>
+            <Text style={styles.tituloItem}>Email</Text>
+            <View style={styles.subItem}>
+              <Icon
+                size={16}
+                name="envelope"
+                type="font-awesome"
+                color="#fff"
+              />
+              <Text style={styles.dato}>camand10sa@gmail.com</Text>
+            </View>
+          </View>
+
+          <TouchableOpacity style={styles.btnBorrar}>
+            <Text style={styles.textoBtn} onPress={() => setRemove(true)}>Eliminar usuario</Text>
+          </TouchableOpacity>
         </View>}
-      
-        
-        {remove && <Eliminar cambiar={setRemove} navigation={navigation} oscuro={oscuro}/>}   
-  
 
-     
+
+      {remove && <Eliminar cambiar={setRemove} navigation={navigation} />}
+
+
+
     </View>
   )
 }
-const mapStateToProps = state => {
-  return {
-    user: state.user.user
-  }
-}
 
-function mapDispatchToProps(dispatch) {
-  return {
-    userLog: id => dispatch(userLog(id))
-  }
-}
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Configuracion)
-
-// export default Configuracion;
+export default Configuracion;
