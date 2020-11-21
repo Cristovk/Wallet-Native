@@ -2,6 +2,7 @@ const functions = require("firebase-functions");
 const express = require("express");
 const ex = express();
 const admin = require("firebase-admin");
+const { user } = require("firebase-functions/lib/providers/auth");
 //import {auth} from '../../firebase'
 
 //Cloud Functions
@@ -14,7 +15,10 @@ admin.initializeApp({
 const DBS = admin.firestore();
 const auth = admin.auth();
 
-ex.get('/', async (req, res) => {
+
+
+// trae todos los usuarios
+ex.get('/users', async (req, res) => {
 
   const snapshot = await DBS.collection('Users').get();
 
@@ -29,7 +33,17 @@ ex.get('/', async (req, res) => {
     res.status(200).send(JSON.stringify(users));
 });
 
+//traer datos de un usuario especifico
 
+ex.get('/users/:id', async (req, res) =>{
+  const snapshot = await DBS.collection('Users').doc(req.params.id).get();
+
+  const userID = snapshot.id;
+  const userData = snapshot.data();
+  
+  res.status(200).send(JSON.stringify({id: userID, ...userData}));
+
+})
 
 
 
