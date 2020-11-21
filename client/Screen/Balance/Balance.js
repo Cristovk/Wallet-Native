@@ -4,29 +4,39 @@ import style from "./BalanceStyles.js";
 import { ButtonGroup } from "react-native-elements";
 import { LineChart } from "react-native-chart-kit";
 import { useDispatch, useSelector } from "react-redux";
+import {getWeekMovement} from "../../Redux/movements";
+import { filtroSemana , filtroMes,filtroAño ,  last6Months, lastWeek} from "./balanceFunction"
 
 const Balance = ({ navigation }) => {
   const {primary,secondary,text,dark,bg} = useSelector(store => store.color)
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(2);
+  const today = new Date(Date.now())
+  const aDay = 86400000
   const [data, setData] = useState({
-    labels: ["Jun", "Jul", "Ago", "Sep", "Oct", "Nov"], //la data es lo que se va a mostrat en el grafico
+    labels: ["days"], //la data es lo que se va a mostrat en el grafico
     datasets: [
       {
-        data: [900, 1000, 1500, 250, 799, 850],
-      },
-    ],
+        data: [0]
+      }],
   });
   const buttons = ["Año", "Mes", "Semana"];
+  const movements = useSelector((store) => store.movementsReducer);
+  const dispatch = useDispatch();
+  
+
+  useEffect(() => {
+    dispatch(getWeekMovement(movements.allMovements));
+  }, []);
 
   //que hacer cuando se apreta cada boton
   useEffect(() => {
     if (selectedIndex == 0) {
       //cuando se apreta año
       setData({
-        labels: ["Jun", "Jul", "Ago", "Sep", "Oct", "Nov"],
+        labels:  last6Months(today),
         datasets: [
           {
-            data: [900, 1000, 1500, 250, 799, 850],
+            data: filtroAño(today, movements.allMovements),
           },
         ],
       });
@@ -37,30 +47,54 @@ const Balance = ({ navigation }) => {
         labels: ["1-7", "8-14", "15-21", "21-28"],
         datasets: [
           {
-            data: [300, 900, 500, 250, 799, 850],
-          },
+            data: filtroMes(today, movements.allMovements)
+          }
         ],
       });
     }
     if (selectedIndex == 2) {
       //cuando se apreta semana
+      
       setData({
-        labels: ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
+        labels: lastWeek(today),
         datasets: [
           {
-            data: [800, 800, 800, 500, 500, 1000, 1000],
+            data: filtroSemana(today, movements.weekMovements),
+            // color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`
           },
+      // {data: [1,2,3,4,2],
+      //   color: (opacity = 1) => `rgba(50, 205, 50, ${opacity})`}
         ],
       });
     }
-  }, [selectedIndex]);
+  }, [selectedIndex]); 
+
+  function filtro(objetos){
+    let obj ={
+    entrante: [],
+     saliente: [],
+    }
+    for(let i = 0; objetos.length; i++){
+      
+      if(objetos[i].tipo === "Tentrante" || objetos[i].tipo === "recarga"){
+        obj.entrante.push(objetos[i].monto)
+        obj.saliente.push(0)
+      } else {
+        obj.saliente.push(objetos[i].monto)
+        obj.entrante.push(0)
+      }
+  }
+    return obj
+  }
 
   const chartConfig = {
     //configuracion para el grafico
     backgroundGradientFrom: bg,
     backgroundGradientTo: bg,
+    decimalPlaces: 0,
     color: (opacity = 1) => `rgba(252, 112, 41, ${opacity})`,
     labelColor: (opacity = 1) => text,
+    useShadowColorFromDataset: true
   };
   const saldo = useSelector((store) => store.movementsReducer.saldo);
   function formatNumber(num) {
