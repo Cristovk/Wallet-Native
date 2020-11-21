@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, ScrollView, Switch } from "react-native";
 import styles from "./EstilosConfiguracion";
 import { Icon } from "react-native-elements";
@@ -7,7 +7,7 @@ import Correo from "./Correo/Correo";
 import Usuario from "./Usuario/Usuario";
 import { useDispatch, useSelector } from "react-redux";
 import { darkMode } from "../../Redux/Estilos";
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from '@react-native-community/async-storage'
 
 
 const Configuracion = ({ navigation, route }) => {
@@ -17,10 +17,12 @@ const Configuracion = ({ navigation, route }) => {
   const dark = useSelector((store) => store.color.dark);
 
   const [huella, setHuella] = useState()
+
   const [passwordchange, setPasswordChange] = useState(false);
   const [emailchange, setEmailChange] = useState(false);
   const [deleteuser, setDeleteUser] = useState(false);
   const iconColor = dark ? '#02072f' : '#fff';
+
 
   const user = useSelector(store => store.user.user)
 
@@ -33,7 +35,6 @@ const Configuracion = ({ navigation, route }) => {
       const usoHuella = await AsyncStorage.setItem("Metodo", "huella")
     }
     const usuario = await AsyncStorage.getItem("Metodo")
-    console.log(usuario);
   }
 
   const getHuella = () => {
@@ -51,7 +52,8 @@ const Configuracion = ({ navigation, route }) => {
     getHuella()
   }, [])
 
-  console.log(huella);
+
+
 
   return (
     <ScrollView style={dark ? styles.generalOscuro : styles.general}>
@@ -179,7 +181,7 @@ const Configuracion = ({ navigation, route }) => {
 
             <View style={styles.textoSubitem}>
               <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>
-                Ingreso con huella:
+                Ingreso con Huella :
                 </Text>
             </View>
           </View>
