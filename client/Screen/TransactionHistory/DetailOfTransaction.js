@@ -18,8 +18,10 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     sender,
     receiver,
   } = route.params;
-  // const Operacion =  operacion[0].toUpperCase() + operacion.substring(1)
-  // const Tipo =  tipo[0].toUpperCase() + tipo.substring(1)
+  const oparation = operacion
+    ? operacion[0].toUpperCase() + operacion.substring(1)
+    : null;
+  const type = tipo ? tipo[0].toUpperCase() + tipo.substring(1) : null;
   const iconList = {
     panaderia: "cookie",
     almacen: "shopping-basket",
@@ -70,7 +72,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <ListItem.Content>
             <ListItem.Title>{"Operacion"}</ListItem.Title>
           </ListItem.Content>
-          <Text>{operacion}</Text>
+          <Text>{oparation}</Text>
         </ListItem>
         <ListItem>
           <ListItem.Content>
@@ -118,7 +120,9 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <Icon name={iconList[tipo]} size={50} color="white" />
         </View>
         <View style={{ marginTop: 15 }}>
-          <Text style={{ color: "white", fontSize: 20 }}>{`$${monto}`}</Text>
+          <Text style={{ color: "white", fontSize: 20 }}>{`$ ${formatNumber(
+            monto
+          )}`}</Text>
         </View>
       </View>
       <View>
@@ -126,7 +130,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <ListItem.Content>
             <ListItem.Title>{"Operacion"}</ListItem.Title>
           </ListItem.Content>
-          <Text>{tipo === "recarga" ? empresa : tipo}</Text>
+          <Text>{tipo === "recarga" ? empresa : oparation}</Text>
         </ListItem>
         <ListItem>
           <ListItem.Content>
@@ -134,7 +138,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
               {tipo === "recarga" ? "Empresa" : "Categoria"}
             </ListItem.Title>
           </ListItem.Content>
-          <Text>{tipo === "recarga" ? empresa : tipo}</Text>
+          <Text>{tipo === "recarga" ? empresa : type}</Text>
         </ListItem>
         <ListItem>
           <ListItem.Content>
