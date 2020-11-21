@@ -19,7 +19,19 @@ const style = StyleSheet.create({
   },
   lista: {
     marginBottom: 10
-  }
+  },
+  botonContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  boton: {
+    marginTop: 10,
+    marginHorizontal: "5%",
+    backgroundColor: "#FC7029",
+    padding: 15,
+    borderRadius: 8,
+  },
 })
 
 export default style;
