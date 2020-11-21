@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, ScrollView, Button, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, Button, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 
 import style from './SplashStyle'
@@ -11,24 +11,31 @@ const Splash = ({ navigation, route }) => {
   const [huella, setHuella] = useState(false)
 
 
-  const storageAsync = async () => {
-    const clave = await AsyncStorage.getItem('Metodo')
-    if (clave !== null) {
-      setUsuario(true)
-      if (clave === "huella") {
-        setHuella(true)
-      }
-    }
-    else if (route.params.usuario2 === false) {
-      setUsuario(false)
-    }
-    else {
-      setUsuario(false)
+  const storageAsync = () => {
+    AsyncStorage.getItem('Metodo')
+      .then(clave => {
+        if (clave !== null) {
+          setUsuario(true)
+          if (clave === "huella") {
+            setHuella(true)
+          }
+        }
+        else if (route.params.usuario2 === false) {
+          setUsuario(false)
+        }
+        else {
+          setUsuario(false)
 
-    }
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        Alert.alert('Hubo un error')
+      })
   }
 
   console.log(route.params.usuario2, "USUARIO");
+
 
 
   useEffect(() => {
