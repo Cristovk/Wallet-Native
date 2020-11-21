@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, Dimensions } from "react-native";
+import { View, Text, ScrollView, Dimensions, Switch } from "react-native";
 import style from "./BalanceStyles.js";
 import { ButtonGroup } from "react-native-elements";
 import { LineChart } from "react-native-chart-kit";
@@ -10,8 +10,10 @@ import { filtroSemana , filtroMes,filtroAño ,  last6Months, lastWeek} from "./b
 const Balance = ({ navigation }) => {
   const {primary,secondary,text,dark,bg} = useSelector(store => store.color)
   const [selectedIndex, setSelectedIndex] = useState(2);
+  const [balance, setBalance] = useState(true)
+  const [cartel,setCartel]= useState({gastos:0,
+                                      ingresos:0})
   const today = new Date(Date.now())
-  const aDay = 86400000
   const [data, setData] = useState({
     labels: ["days"], //la data es lo que se va a mostrat en el grafico
     datasets: [
@@ -22,7 +24,6 @@ const Balance = ({ navigation }) => {
   const buttons = ["Año", "Mes", "Semana"];
   const movements = useSelector((store) => store.movementsReducer);
   const dispatch = useDispatch();
-  
 
   useEffect(() => {
     dispatch(getWeekMovement(movements.allMovements));
@@ -32,60 +33,75 @@ const Balance = ({ navigation }) => {
   useEffect(() => {
     if (selectedIndex == 0) {
       //cuando se apreta año
-      setData({
-        labels:  last6Months(today),
-        datasets: [
-          {
-            data: filtroAño(today, movements.allMovements),
-          },
-        ],
-      });
+      setCartel({ingresos:  filtroAño(today, movements.allMovements).ingresosTot,
+        gastos: filtroAño(today, movements.allMovements).gastosTot})
+        if(balance){
+          setData({
+            labels: last6Months(today),
+            datasets:[{ data: filtroAño(today, movements.allMovements).balance,} ] 
+          });
+        } else {
+          setData({
+            labels:last6Months(today),
+            datasets: [
+              {
+                data: filtroAño(today, movements.allMovements).gasto,
+                color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`
+              },
+              {data: filtroAño(today, movements.allMovements).ingreso,
+                color: (opacity = 1) => `rgba(50, 205, 50, ${opacity})`}
+              ],
+            }
+          )};
     }
     if (selectedIndex == 1) {
       //cuando se apreta mes
-      setData({
-        labels: ["1-7", "8-14", "15-21", "21-28"],
-        datasets: [
-          {
-            data: filtroMes(today, movements.allMovements)
-          }
-        ],
-      });
+      setCartel({ingresos:  filtroMes(today, movements.allMovements).ingresosTot,
+        gastos: filtroMes(today, movements.allMovements).gastosTot})
+        if(balance){
+          setData({
+            labels: ["1-7", "8-14", "15-21", "21-28"],
+            datasets:[{ data: filtroMes(today, movements.allMovements).balance} ] 
+          });
+        } else {
+          setData({
+            labels: ["1-7", "8-14", "15-21", "21-28"],
+            datasets: [
+              {
+                data: filtroMes(today, movements.allMovements).gasto,
+                color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`
+              },
+              {data: filtroMes(today, movements.allMovements).ingreso,
+                color: (opacity = 1) => `rgba(50, 205, 50, ${opacity})`}
+              ],
+            }
+          )};
     }
     if (selectedIndex == 2) {
       //cuando se apreta semana
-      
-      setData({
-        labels: lastWeek(today),
-        datasets: [
-          {
-            data: filtroSemana(today, movements.weekMovements),
-            // color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`
-          },
-      // {data: [1,2,3,4,2],
-      //   color: (opacity = 1) => `rgba(50, 205, 50, ${opacity})`}
-        ],
-      });
-    }
-  }, [selectedIndex]); 
-
-  function filtro(objetos){
-    let obj ={
-    entrante: [],
-     saliente: [],
-    }
-    for(let i = 0; objetos.length; i++){
-      
-      if(objetos[i].tipo === "Tentrante" || objetos[i].tipo === "recarga"){
-        obj.entrante.push(objetos[i].monto)
-        obj.saliente.push(0)
+      setCartel({ingresos:  filtroSemana(today, movements.weekMovements).ingresosTot,
+      gastos: filtroSemana(today, movements.weekMovements).gastosTot})
+      if(balance){
+        setData({
+          labels: lastWeek(today),
+          datasets:[{ data: filtroSemana(today, movements.weekMovements).balance,} ] 
+        });
       } else {
-        obj.saliente.push(objetos[i].monto)
-        obj.entrante.push(0)
-      }
-  }
-    return obj
-  }
+        setData({
+          labels: lastWeek(today),
+          datasets: [
+            {
+              data: filtroSemana(today, movements.weekMovements).gasto,
+              color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`
+            },
+            {data: filtroSemana(today, movements.weekMovements).ingreso,
+              color: (opacity = 1) => `rgba(50, 205, 50, ${opacity})`}
+            ],
+          }
+        )};
+    }
+  }, [selectedIndex, balance]); 
+
 
   const chartConfig = {
     //configuracion para el grafico
@@ -118,6 +134,16 @@ const Balance = ({ navigation }) => {
           containerStyle={{ height: 50, borderRadius: 5, marginTop: 0 }}
         />
       </View>
+      <View >
+              <Switch
+                trackColor={{ false: "green", true: "orange" }}
+                thumbColor={"#f4f3f4"}
+                value={balance}
+                onValueChange={() => {
+                  setBalance(!balance);
+                  }}
+              />
+            </View>
       <View style={style.grafico}>
         {/* grafico */}
         <LineChart
@@ -132,11 +158,11 @@ const Balance = ({ navigation }) => {
       <View style={style.contenedor}>
         <View style={{...style.ingresoCont,borderColor:dark ? secondary : primary}}>
           <Text style={{...style.letraButton,color:dark ? secondary : primary}}>Ingresos</Text>
-          <Text style={style.ingreso}>+ $5000</Text>
+          <Text style={style.ingreso}>+ ${cartel.ingresos}</Text>
         </View>
         <View style={{...style.ingresoCont,borderColor:dark ? secondary : primary}}>
           <Text style={{...style.letraButton,color:dark ? secondary : primary}}>Gastos</Text>
-          <Text style={style.gasto}>- $3000</Text>
+                <Text style={style.gasto}>- ${cartel.gastos}</Text>
         </View>
       </View>
     </ScrollView>

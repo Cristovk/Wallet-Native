@@ -18,7 +18,11 @@ export function filtroSemana(today, mov){
                 5:0,
                 6:0,
                 7:0}
-      let balance =[]
+      let resp = {balance :[],
+    gasto:[],
+ingreso:[],
+ingresosTot:0,
+gastosTot:0}
 
 
       for(let i = 0; i < mov.length; i++){
@@ -78,16 +82,22 @@ export function filtroSemana(today, mov){
 
       }
 
+      for(let i = 1; i < 8; i++){
+          resp.balance.unshift(ingreso[i]-gasto[i]) 
+          resp.ingreso.unshift(ingreso[i]) 
+          resp.gasto.unshift(gasto[i]) 
+      }
+      
 
-      balance.unshift(ingreso[1]-gasto[1]) 
-      balance.unshift(ingreso[2]-gasto[2]) 
-      balance.unshift(ingreso[3]-gasto[3]) 
-      balance.unshift(ingreso[4]-gasto[4]) 
-      balance.unshift(ingreso[5]-gasto[5]) 
-      balance.unshift(ingreso[6]-gasto[6]) 
-      balance.unshift(ingreso[7]-gasto[7]) 
+      for (const property in ingreso){
+          resp.ingresosTot= ingreso[property] + resp.ingresosTot
+      }
 
-      return balance
+      for (const property in gasto){
+        resp.gastosTot= gasto[property] + resp.gastosTot
+    }
+    
+      return resp
 
 }
 
@@ -106,7 +116,11 @@ export function filtroMes(today, mov){
         3:0,
         4:0,
                }
-      let balance =[]
+               let resp = {balance :[],
+                gasto:[],
+            ingreso:[],
+            ingresosTot:0,
+            gastosTot:0}
 
 
       for(let i = 0; i < mov.length; i++){
@@ -149,12 +163,20 @@ export function filtroMes(today, mov){
         }
             
     }
-            balance.push(ingreso[1]-gasto[1]) 
-            balance.push(ingreso[2]-gasto[2]) 
-            balance.push(ingreso[3]-gasto[3]) 
-            balance.push(ingreso[4]-gasto[4]) 
+    for(let i = 1; i < 5; i++){
+        resp.balance.unshift(ingreso[i]-gasto[i]) 
+        resp.ingreso.unshift(ingreso[i]) 
+        resp.gasto.unshift(gasto[i]) 
+    }
+    for (const property in ingreso){
+        resp.ingresosTot= ingreso[property] + resp.ingresosTot
+    }
 
-      return balance
+    for (const property in gasto){
+      resp.gastosTot= gasto[property] + resp.gastosTot
+  }
+
+      return resp
 
 }
 
@@ -179,7 +201,11 @@ export function filtroAño(today, mov){
                 5:0,
                 6:0,
                 }
-      let balance =[]
+    let resp = {balance :[],
+        gasto:[],
+    ingreso:[],
+    ingresosTot:0,
+    gastosTot:0}
 
 
       for(let i = 0; i < mov.length; i++){
@@ -232,14 +258,22 @@ export function filtroAño(today, mov){
 
       }
 
-      balance.unshift(ingreso[1]-gasto[1]) 
-      balance.unshift(ingreso[2]-gasto[2]) 
-      balance.unshift(ingreso[3]-gasto[3]) 
-      balance.unshift(ingreso[4]-gasto[4]) 
-      balance.unshift(ingreso[5]-gasto[5]) 
-      balance.unshift(ingreso[6]-gasto[6]) 
+      for(let i = 1; i < 7; i++){
+        resp.balance.unshift(ingreso[i]-gasto[i]) 
+        resp.ingreso.unshift(ingreso[i]) 
+        resp.gasto.unshift(gasto[i]) 
+    }
+    
 
-      return balance
+    for (const property in ingreso){
+        resp.ingresosTot= ingreso[property] + resp.ingresosTot
+    }
+
+    for (const property in gasto){
+      resp.gastosTot= gasto[property] + resp.gastosTot
+  }
+
+      return resp
 
 }
 
