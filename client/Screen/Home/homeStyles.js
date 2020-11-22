@@ -29,9 +29,8 @@ const style = StyleSheet.create({
     marginBottom: 30,
   },
   listaContenedor: {
-    marginBottom: 15,
+    marginBottom: 2,
     marginHorizontal: 25,
-    borderRadius: 10,
   },
   lista: {
     marginBottom: 10,

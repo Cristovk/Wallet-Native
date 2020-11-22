@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { LogBox, View, Text, ScrollView, FlatList } from "react-native";
 import style from "./transferEstilos";
+import styles from "../Home/homeStyles";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useSelector, useDispatch } from "react-redux";
 import { ListItem, Button } from "react-native-elements";
@@ -38,7 +39,7 @@ const Transfers = ({ navigation }) => {
         .doc(CVU)
         .collection("Movimientos")
         .where("operacion", "==", "Transferencia")
-        .orderBy("fecha", "asc")
+        .orderBy("fecha", "desc")
         .onSnapshot((query) => {
           const trans = [];
           let i = 0;
@@ -55,8 +56,11 @@ const Transfers = ({ navigation }) => {
   };
   useEffect(() => {
     getTransfers();
-    dispatch(saveTransfers(transfers));
   }, []);
+
+  useEffect(() => {
+    dispatch(saveTransfers(transfers));
+  }, [transfers]);
 
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -64,7 +68,7 @@ const Transfers = ({ navigation }) => {
   // LogBox.ignoreAllLogs();
   /* ====================== RENDERING ========================== */
   return (
-    <View style={{ backgroundColor: "white" }}>
+    <ScrollView>
       <Button
         title="Nueva Transferencia"
         buttonStyle={[
@@ -86,56 +90,54 @@ const Transfers = ({ navigation }) => {
         style={{ marginVertical: 15 }}
         renderItem={({ item }) => {
           return (
-            <View
+            <ListItem
               key={item.id}
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
+              style={styles.listaContenedor}
+              onPress={() =>
+                navigation.navigate("Detalle", {
+                  estado: item.estado,
+                  fecha: item.fecha,
+                  hacia: item.hacia,
+                  id: item.id,
+                  monto: item.monto,
+                  motivo: item.motivo,
+                  tipo: item.tipo,
+                  operacion: item.operacion,
+                  receiver: item.receiver,
+                  sender: item.sender,
+                })
+              }
             >
-              <ListItem
-                style={style.lista}
-                onPress={() =>
-                  navigation.navigate("Detalle", {
-                    estado: item.estado,
-                    fecha: item.fecha,
-                    hacia: item.hacia,
-                    id: item.id,
-                    monto: item.monto,
-                    motivo: item.motivo,
-                    tipo: item.tipo,
-                    operacion: item.operacion,
-                    receiver: item.receiver,
-                    sender: item.sender,
-                  })
-                }
-              >
-                <Icon name={iconList[item.tipo]} size={30} color="black" />
-                <ListItem.Content /* style={style.transfer} */>
-                  <ListItem.Title>
-                    {item.tipo == "Tsaliente" ? item.receiver : item.sender}
-                  </ListItem.Title>
-                  <ListItem.Subtitle>
-                    {new Date(item.fecha).toLocaleDateString()}
-                  </ListItem.Subtitle>
-                </ListItem.Content>
-                <Text style={{ marginRight: 3 }}>
-                  {item.tipo == "Tsaliente"
-                    ? `- $ ${formatNumber(item.monto)}`
-                    : `$ ${formatNumber(item.monto)}`}
-                </Text>
-                <ListItem.Chevron
-                  name="chevron-right"
-                  type="font-awesome"
-                  color="black"
-                />
-              </ListItem>
-            </View>
+              {item.tipo == "Tsaliente" ||
+              item.empresa ||
+              item.operacion == "Compra" ? (
+                <Icon name={iconList[item.tipo]} size={30} color="red" />
+              ) : (
+                <Icon name={iconList[item.tipo]} size={30} color="green" />
+              )}
+              <ListItem.Content /* style={style.transfer} */>
+                <ListItem.Title>
+                  {item.tipo == "Tsaliente" ? item.receiver : item.sender}
+                </ListItem.Title>
+                <ListItem.Subtitle>
+                  {new Date(item.fecha).toLocaleDateString()}
+                </ListItem.Subtitle>
+              </ListItem.Content>
+              <Text style={{ marginRight: 3 }}>
+                {item.tipo == "Tsaliente"
+                  ? `- $ ${formatNumber(item.monto)}`
+                  : `$ ${formatNumber(item.monto)}`}
+              </Text>
+              <ListItem.Chevron
+                name="chevron-right"
+                type="font-awesome"
+                color="black"
+              />
+            </ListItem>
           );
         }}
       ></FlatList>
-    </View>
+    </ScrollView>
   );
 };
 
