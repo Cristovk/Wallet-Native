@@ -33,15 +33,17 @@ const style = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  lista: {
-    flexDirection: "column",
-    justifyContent: "space-between",
-    marginBottom: 15,
-    marginHorizontal: 25,
-    borderRadius: 10,
   input:{
     marginVertical: 3,
     height: 40,
+    width: "100%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    textAlign: "center"
+  },input1:{
+    marginVertical: 3,
+    height:70,
     width: "100%",
     justifyContent: 'center',
     alignItems: 'center',
@@ -123,7 +125,8 @@ const style = StyleSheet.create({
     flexDirection:'row',
     justifyContent:'center',
     padding:5
-  }
+  },
+  
 });
 
 export default style;

@@ -1,13 +1,13 @@
 import React from 'react'
 import { View, Text, ScrollView, Button, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import style from '../Transferencias/estilosConfir'
+import style from '../Transferencias/Check_Styles'
 import { Icon, ListItem } from 'react-native-elements'
 
 
 const TransfAmigoConfirm = ({ navigation, route }) => {
 
   const { nombre, banco, cvu, alias, monto, telefono } = route.params
-
+  console.log("PArams", route.params)
   return (
     <ScrollView>
       <View>
