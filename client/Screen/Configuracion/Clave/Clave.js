@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity,Alert } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import styles from "./EstilosClave";
 import { Icon } from "react-native-elements";
-import {ModificarPassword} from '../../../Redux/User';
+import { ModificarPassword } from '../../../Redux/User';
+import { auth } from "../../../../firebase";
 
-const Clave = ({ cambiar,navigation,oscuro }) => {
+const Clave = ({ cambiar, navigation, oscuro }) => {
 
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
@@ -14,7 +15,7 @@ const Clave = ({ cambiar,navigation,oscuro }) => {
     notNumberPasswordErr: "",
     codeErr: "",
   });
-  const colorPlaceholer = oscuro ? '#fff':'grey';
+  const colorPlaceholer = oscuro ? '#fff' : 'grey';
 
   function validateForm() {
     setErr({
@@ -52,17 +53,21 @@ const Clave = ({ cambiar,navigation,oscuro }) => {
     } else return true;
   }
 
+
+
+
   function handleSubmit() {
     const valid = validateForm()
     if (valid) {
       ModificarPassword(password2)
-      Alert.alert("contraseña modificada")
-      navigation.navigate('Login')
+        .then(() => {
+          Alert.alert("contraseña modificada")
+        })
     }
   }
 
   return (
-    <View style={oscuro ? styles.generalClaveDark :styles.generalClave}>
+    <View style={oscuro ? styles.generalClaveDark : styles.generalClave}>
       <View style={styles.titulo}>
         <Icon
           size={16}
@@ -81,7 +86,7 @@ const Clave = ({ cambiar,navigation,oscuro }) => {
           secureTextEntry={true}
           onChangeText={(data) => setPassword1(data)}
           maxLength={15}
-          placeholderTextColor={oscuro ? '#fff':'grey'}
+          placeholderTextColor={oscuro ? '#fff' : 'grey'}
         />
         {Err.shortPasswordErr ? (
           <Text style={styles.error}>{Err.shortPasswordErr}</Text>
@@ -89,7 +94,7 @@ const Clave = ({ cambiar,navigation,oscuro }) => {
         {Err.notNumberPasswordErr ? (
           <Text style={styles.error}>{Err.notNumberPasswordErr}</Text>
         ) : null}
-       
+
         <TextInput
           placeholder="Repite tu contraseña"
           style={styles.input}
@@ -99,13 +104,13 @@ const Clave = ({ cambiar,navigation,oscuro }) => {
           placeholderTextColor={colorPlaceholer}
         />
 
-         {Err.matchPasswordErr ? (
+        {Err.matchPasswordErr ? (
           <Text style={styles.error}>{Err.matchPasswordErr}</Text>
         ) : null}
       </View>
 
       <TouchableOpacity style={styles.btnGuardar}>
-       <Text style={oscuro ? styles.btnDark:styles.btn} onPress={() => handleSubmit()}>Guardar</Text> 
+        <Text style={oscuro ? styles.btnDark : styles.btn} onPress={() => handleSubmit()}>Guardar</Text>
       </TouchableOpacity>
     </View>
   );

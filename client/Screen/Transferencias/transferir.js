@@ -57,13 +57,13 @@ const Transferencias = ({ navigation }) => {
       setDato({ receivercvu: "", senderId: "" });
       respuesta
         ? navigation.navigate("confirmOrError", {
-            receiver: respuesta.data.datos,
-            dato: dato,
-          })
+          receiver: respuesta.data.datos,
+          dato: dato,
+        })
         : navigation.navigate("confirmOrError", {
-            receiver: null,
-            dato: dato,
-          });
+          receiver: null,
+          dato: dato,
+        });
     }, 2000);
   };
 

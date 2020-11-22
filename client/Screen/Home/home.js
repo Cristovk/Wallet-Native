@@ -9,6 +9,7 @@ import {
   ScrollView,
   FlatList,
   ActivityIndicator,
+  BackHandler
 } from "react-native";
 import { ListItem, Button } from "react-native-elements";
 import style from "./homeStyles";
@@ -138,6 +139,10 @@ const Home = ({ navigation }) => {
     getSaldo();
     getAllMovements();
     getSomeMovements();
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+    }
   }, []);
 
   useEffect(() => {
@@ -146,11 +151,24 @@ const Home = ({ navigation }) => {
     dispatch(getDayMovements(allMovements));
   }, [isFocused]);
 
+
   function formatNumber(num) {
     let number =
       num && num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     return number;
   }
+
+  const handleBackButtonClick = () => {
+    BackHandler.exitApp()
+  }
+
+
+
+  // const handleOnTest = () => {
+  //   test();
+  //   console.log("allmovements", allMovements);
+  // };
+
   // LogBox.ignoreAllLogs();
 
   /* ====================== RENDERING ========================== */
@@ -170,8 +188,8 @@ const Home = ({ navigation }) => {
           {saldo == 0 ? (
             <ActivityIndicator size="large" color={orange} />
           ) : (
-            `$ ${formatNumber(saldo)}`
-          )}
+              `$ ${formatNumber(saldo)}`
+            )}
         </Text>
       </View>
       <FlatList
@@ -203,8 +221,8 @@ const Home = ({ navigation }) => {
               {item.tipo == "Tsaliente" ? (
                 <Icon name={iconList[item.tipo]} size={30} color="red" />
               ) : (
-                <Icon name={iconList[item.tipo]} size={30} color="green" />
-              )}
+                  <Icon name={iconList[item.tipo]} size={30} color="green" />
+                )}
               <ListItem.Content>
                 <ListItem.Title>{item.operacion}</ListItem.Title>
                 <ListItem.Subtitle>

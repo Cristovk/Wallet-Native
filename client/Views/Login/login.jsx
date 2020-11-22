@@ -12,7 +12,7 @@ import { Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import db from "../../../firebase";
 import { useDispatch, useSelector } from "react-redux";
-import {getContacts, addContact} from "../../Redux/Contacts"
+import { getContacts, addContact } from "../../Redux/Contacts"
 import { userLog } from "../../Redux/User";
 import * as LocalAuthentication from 'expo-local-authentication';
 import AsyncStorage from "@react-native-community/async-storage";
@@ -28,14 +28,14 @@ const Login = ({ navigation }) => {
     email: "",
     password: ""
   });
-  const [hide,setHide]=useState(true);
-  const nameIcon= hide ? 'eye-slash':'eye';
+  const [hide, setHide] = useState(true);
+  const nameIcon = hide ? 'eye-slash' : 'eye';
   const security = useState("");
 
   useEffect(() => {
     //AuthWithFinger()
     console.log(user)
-  },[])
+  }, [])
 
   const handleChange = async (name, value) => {
     // const permisosFinger = await Permissions.askAsync(Permissions.USE_FINGERPRINT);
@@ -65,7 +65,7 @@ const Login = ({ navigation }) => {
         //Valida si el mail se verificó
         if (res.user.emailVerified) {
           disptach(userLog());
-          navigation.navigate("HomeDrawer",{status:true})
+          navigation.navigate("HomeDrawer", { status: true })
         } else {
           navigation.navigate("Verify");
         }
@@ -85,36 +85,42 @@ const Login = ({ navigation }) => {
   };
 
   const traerDatos = async () => {
-    console.log(user)
-  //  const token = await AsyncStorage.getAllKeys()
-  //  console.log("Es el token---------------------------------",token)
+    let clave = await AsyncStorage.getItem('Pin');
   }
 
-   const AuthWithFinger = async () => {
-   const res =  await LocalAuthentication.hasHardwareAsync()
-   if(!res)return Alert.alert("Su dispositivo no soporta los metodos de login")
+  traerDatos()
 
-   const autorization = await LocalAuthentication.supportedAuthenticationTypesAsync({})
-   if(!autorization) return Alert.alert('No autorizado')
-   
-   const huella = await LocalAuthentication.isEnrolledAsync()
-   if(!huella) return Alert.alert('No tiene autorizacion')
-   const login = await LocalAuthentication.authenticateAsync('Ponga su huella')
-   if(login.success){
-     console.log(login)
-    // Alert.alert('Usuario encontrado')
-    navigation.navigate("HomeDrawer")
-   } else {
-    Alert.alert('Hubo un error')
-   }
-  }
+  // const cerrar = async () => {
+  //   await AsyncStorage.removeItem('Pin')
+  // }
 
-  
+  // cerrar()
+
+  // const AuthWithFinger = async () => {
+  //   const res = await LocalAuthentication.hasHardwareAsync()
+  //   if (!res) return Alert.alert("Su dispositivo no soporta los metodos de login")
+
+  //   const autorization = await LocalAuthentication.supportedAuthenticationTypesAsync({})
+  //   if (!autorization) return Alert.alert('No autorizado')
+
+  //   const huella = await LocalAuthentication.isEnrolledAsync()
+  //   if (!huella) return Alert.alert('No tiene autorizacion')
+  //   const login = await LocalAuthentication.authenticateAsync('Ponga su huella')
+  //   if (login.success) {
+  //     console.log(login)
+  //     // Alert.alert('Usuario encontrado')
+  //     navigation.navigate("HomeDrawer")
+  //   } else {
+  //     Alert.alert('Hubo un error')
+  //   }
+  // }
+
+
 
   return (
-    
+
     <View style={styles.container}>
-      
+
       <Image source={require("../../src/logo.png")} />
       <View style={{ width: '90%' }}>
         <Input
@@ -128,34 +134,34 @@ const Login = ({ navigation }) => {
           defaultValue={text.email}
         />
         <View style={styles.contEye}>
-        <Input
-          secureTextEntry={hide}
-          autoCompleteType='password'
-          label='Password'
-          leftIcon={{ type: 'font-awesome', name: 'lock' }}
-          placeholderTextColor='grey'
-          placeholder=' Password'
-          onChangeText={(value) => handleChange('password', value)}
-          defaultValue={text.password}
-        />
-        <View style={styles.eye}>
+          <Input
+            secureTextEntry={hide}
+            autoCompleteType='password'
+            label='Password'
+            leftIcon={{ type: 'font-awesome', name: 'lock' }}
+            placeholderTextColor='grey'
+            placeholder=' Password'
+            onChangeText={(value) => handleChange('password', value)}
+            defaultValue={text.password}
+          />
+          <View style={styles.eye}>
             <Icon
-                size={16}
-                name={nameIcon}
-                type="font-awesome"
-                color="#02072f"
-                onPress={()=>setHide(!hide)}
-               
-              />
+              size={16}
+              name={nameIcon}
+              type="font-awesome"
+              color="#02072f"
+              onPress={() => setHide(!hide)}
+
+            />
           </View>
 
         </View>
       </View>
-      <View style={styles.button}>
+      {/* <View style={styles.button}>
         <Button mode="contained" title="finger" onPress={AuthWithFinger} color="darkblue">
           Huella
         </Button>
-      </View>
+      </View> */}
       <View style={styles.button}>
         <Button mode="contained" title="Login" onPress={login} color="darkblue">
           Login
