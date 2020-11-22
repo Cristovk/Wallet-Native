@@ -80,7 +80,12 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           </ListItem.Content>
           <Text>{estado}</Text>
         </ListItem>
-        {}
+        <ListItem>
+          <ListItem.Content>
+            <ListItem.Title>{"Motivo"}</ListItem.Title>
+          </ListItem.Content>
+          <Text>{motivo}</Text>
+        </ListItem>
         <ListItem>
           <ListItem.Content>
             <ListItem.Title>{"Fecha"}</ListItem.Title>
