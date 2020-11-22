@@ -19,9 +19,6 @@ const Transferencias = ({ navigation }) => {
   const dispatch = useDispatch();
   const movements = useSelector((store) => store.movementsReducer);
   const saldo = useSelector((store) => store.movementsReducer.saldo);
-  const [state, setState] = useState(false);
-  const [exist, setExist] = useState(false);
-  const [receiver, setReceiver] = useState({});
   const [dato, setDato] = useState({
     receivercvu: "",
     senderId: "",

@@ -36,8 +36,6 @@ import Transferencias from '../../Screen/Transferencias/transferir';
 import Transfers from '../../Screen/Transferencias/Transfers';
 import PagoServicios from '../../Screen/Pagos/PagoServicios';
 import PagoConfirm from '../../Screen/Pagos/PagoConfirm';
-import TransfAmigo from '../../Screen/Contactos/TransfAmigos';
-import TransfAmigoConfirm from '../../Screen/Contactos/TransAmConf';
 import { userLog } from '../../Redux/User';
 import ResetPaswword from '../../Screen/ResetPassword/resetPass';
 import ModificaEmail from '../../Screen/Modificar-Email-Pass/ModificaEmail';
@@ -136,8 +134,6 @@ function HomeScreen({ userLog, user, status }) {
       <HomeScreenStack.Screen name='Finish' component={Finish} options={{ title: 'Finalizar Transferencia' }} />
       <HomeScreenStack.Screen name='PagoServicios' component={PagoServicios} options={{ title: 'Confirmar Pago' }} />
       <HomeScreenStack.Screen name='PagoConfirm' component={PagoConfirm} options={{ title: 'Pago Confirmado' }} />
-      <HomeScreenStack.Screen name='TransfAmigo' component={TransfAmigo} options={{ title: 'Transferir a Contacto' }} />
-      <HomeScreenStack.Screen name='TransfAmigoConfirm' component={TransfAmigoConfirm} options={{ title: 'Transferencia Confrimada' }} />
       <HomeScreenStack.Screen name='ModificaEmail' component={ModificaEmail} options={{ title: 'Modificar Email' }} />
       <HomeScreenStack.Screen name='ModificaPassword' component={ModificaPassword} options={{ title: 'Modificar Password' }} />
       <HomeScreenStack.Screen name='DeleteUser' component={DeleteUser} options={{ title: 'Borrar Usuario' }} />

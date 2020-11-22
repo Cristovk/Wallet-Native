@@ -90,8 +90,8 @@ const Amigos = ({ navigation }) => {
                 name="ios-send"
                 type="ionicon"
                 onPress={() =>
-                  navigation.navigate("TransfAmigo", {
-                    name: l.name,
+                  navigation.navigate("Finish", {
+                    datos: l.name,
                     banco: l.subtitle,
                     alias: l.alias,
                     cvu: l.cvu,
