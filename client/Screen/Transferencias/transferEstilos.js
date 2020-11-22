@@ -3,7 +3,7 @@ import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 
 const style = StyleSheet.create({
   container: {
-    height: "100%",
+    height: 100,
     flex: 1,
   },
   barraSuperior: {
@@ -37,17 +37,17 @@ const style = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     marginBottom: 15,
-    paddingHorizontal: 20,
-    marginHorizontal: 20,
+    marginHorizontal: 25,
     borderRadius: 10,
-  input:{
+  },
+  input: {
     marginVertical: 3,
     height: 40,
-    width: "100%",
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'center',
-    textAlign: "center"
+    width: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    textAlign: "center",
   },
   cvu: {
     alignContent: "center",
@@ -67,10 +67,10 @@ const style = StyleSheet.create({
     borderBottomRightRadius: 15,
     borderBottomLeftRadius: 15,
   },
-  text:{
+  text: {
     color: "white",
     marginVertical: 15,
-    textAlign: 'center',
+    textAlign: "center",
     height: 40,
   },
   botonContainer: {
@@ -104,7 +104,7 @@ const style = StyleSheet.create({
   error: {
     backgroundColor: "red",
     color: "#fff",
-    width: "95%",
+    width: 95,
     padding: 2,
     borderRadius: 2,
     textAlign: "center",
@@ -119,12 +119,12 @@ const style = StyleSheet.create({
     backgroundColor: orange,
     paddingHorizontal: 15,
   },
-  spinner:{
-    width:'100%',
-    flexDirection:'row',
-    justifyContent:'center',
-    padding:5
-  }
+  spinner: {
+    width: 100,
+    flexDirection: "row",
+    justifyContent: "center",
+    padding: 5,
+  },
 });
 
 export default style;

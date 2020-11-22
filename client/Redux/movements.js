@@ -7,9 +7,10 @@ const Axios = require("axios");
 const GET_DAY_MOV = "GET_DAY_MOV";
 const GET_WEEK_MOV = "GET_WEEK_MOV";
 const GET_MONTH_MOV = "GET_MONTH_MOV";
-const GET_ALL_MOV = "GET_ALL_MOV";
+const SAVE_ALL_MOV = "SAVE_ALL_MOV";
 const SAVE_NEW_MOV = "SAVE_NEW_MOV";
 const SAVE_SALDO = "SAVE_SALDO";
+const SAVE_CVU = "SAVE_CVU";
 const SAVE_TRANSFER = "SAVE_TRANSFER";
 
 const today = new Date(Date.now());
@@ -25,6 +26,7 @@ const initialState = {
   monthMovements: [],
   transfers: [],
   saldo: "",
+  CVU: "",
 };
 /* ========================== REDUCERS ========================== */
 export default function movementsReducer(state = initialState, action) {
@@ -40,12 +42,19 @@ export default function movementsReducer(state = initialState, action) {
         ...state,
         saldo: saldo,
       };
+    case SAVE_CVU:
+      let CVU = action.payload;
+      console.log("CVU redux", CVU);
+      return {
+        ...state,
+        CVU: CVU,
+      };
     case SAVE_TRANSFER:
       return {
         ...state,
         transfers: [...action.payload],
       };
-    case GET_ALL_MOV:
+    case SAVE_ALL_MOV:
       return {
         ...state,
         allMovements: [...action.payload],
@@ -70,46 +79,25 @@ export default function movementsReducer(state = initialState, action) {
   }
 }
 /* =========================== ACTIONS ============================ */
+export const saveCVU = (CVU) => (dispatch) => {
+  dispatch({
+    type: SAVE_CVU,
+    payload: CVU,
+  });
+};
+
+export const saveAllMovements = (allMovements) => (dispatch) => {
+  dispatch({
+    type: SAVE_ALL_MOV,
+    payload: allMovements,
+  });
+};
+
 export const saveSaldo = (saldo) => (dispatch) => {
   dispatch({
     type: SAVE_SALDO,
     payload: saldo,
   });
-};
-export const getAllMovements = () => {
-  return async function (dispatch) {
-    try {
-      const userId = await auth.currentUser.uid;
-      let CVU;
-      let movements = [];
-      const searchCVU = await storage
-        .collection("Users")
-        .doc(userId)
-        .collection("Wallet")
-        .get();
-      searchCVU.forEach((doc) => {
-        CVU = doc.id;
-      });
-      const query = await storage
-        .collection("Users")
-        .doc(userId)
-        .collection("Wallet")
-        .doc(CVU)
-        .collection("Movimientos")
-        .get();
-      for (const mov of query.docs) {
-        let movement = await mov.data();
-        movement.id = mov.id;
-        movements.push(movement);
-      }
-      dispatch({
-        type: GET_ALL_MOV,
-        payload: movements,
-      });
-    } catch (error) {
-      return error;
-    }
-  };
 };
 
 export const getDayMovements = (allMovements) => (dispatch) => {

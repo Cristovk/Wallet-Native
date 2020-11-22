@@ -14,8 +14,9 @@ import { ListItem, Button } from "react-native-elements";
 import style from "./homeStyles";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getAllMovements,
+  saveAllMovements,
   saveSaldo,
+  saveCVU,
   getDayMovements,
 } from "../../Redux/movements";
 import { useIsFocused } from "@react-navigation/native";
@@ -24,7 +25,9 @@ import { auth, storage } from "../../../firebase";
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
   const [saldo, setSaldo] = useState(0);
+  const CVU = useSelector((store) => store.movementsReducer.CVU);
   const [movements, setMovements] = useState([]);
+  const [allMovements, setAllMovements] = useState([]);
   const userId = auth.currentUser.uid;
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
@@ -44,38 +47,6 @@ const Home = ({ navigation }) => {
   };
 
   /* ======================= FUNCTIONS ========================== */
-  const getSomeMovements = async () => {
-    try {
-      let CVU;
-      const searchCVU = await storage
-        .collection("Users")
-        .doc(userId)
-        .collection("Wallet")
-        .get();
-      searchCVU.forEach((doc) => {
-        CVU = doc.id;
-      });
-      storage
-        .collection("Users")
-        .doc(userId)
-        .collection("Wallet")
-        .doc(CVU)
-        .collection("Movimientos")
-        .orderBy("fecha", "asc")
-        .limit(10)
-        .onSnapshot((query) => {
-          const movs = [];
-          let i = 0;
-          for (const mov of query.docs) {
-            movs.push(mov.data());
-            movs[i].id = mov.id;
-            i++;
-          }
-          setMovements(movs);
-        });
-    } catch (error) {}
-  };
-
   const getSaldo = async () => {
     try {
       let ref = await storage
@@ -94,12 +65,85 @@ const Home = ({ navigation }) => {
     }
   };
 
+  const getSomeMovements = async () => {
+    try {
+      let CVU;
+      const searchCVU = await storage
+        .collection("Users")
+        .doc(userId)
+        .collection("Wallet")
+        .get();
+      searchCVU.forEach((doc) => {
+        CVU = doc.id;
+      });
+      dispatch(saveCVU(CVU));
+      storage
+        .collection("Users")
+        .doc(userId)
+        .collection("Wallet")
+        .doc(CVU)
+        .collection("Movimientos")
+        .orderBy("fecha", "desc")
+        .limit(10)
+        .onSnapshot((query) => {
+          const movs = [];
+          let i = 0;
+          for (const mov of query.docs) {
+            movs.push(mov.data());
+            movs[i].id = mov.id;
+            i++;
+          }
+          setMovements(movs);
+        });
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+
+  const getAllMovements = async () => {
+    try {
+      let CVU;
+      const searchCVU = await storage
+        .collection("Users")
+        .doc(userId)
+        .collection("Wallet")
+        .get();
+      searchCVU.forEach((doc) => {
+        CVU = doc.id;
+      });
+      storage
+        .collection("Users")
+        .doc(userId)
+        .collection("Wallet")
+        .doc(CVU)
+        .collection("Movimientos")
+        .orderBy("fecha", "desc")
+        .onSnapshot((query) => {
+          const movs = [];
+          let i = 0;
+          for (const mov of query.docs) {
+            movs.push(mov.data());
+            movs[i].id = mov.id;
+            i++;
+          }
+          setAllMovements(movs);
+        });
+    } catch (error) {
+      console.log("error", error);
+      return error;
+    }
+  };
+
   useEffect(() => {
     getSaldo();
+    getAllMovements();
     getSomeMovements();
+  }, []);
+
+  useEffect(() => {
     dispatch(saveSaldo(saldo));
-    dispatch(getAllMovements());
-    dispatch(getDayMovements(movements.allMovements));
+    dispatch(saveAllMovements(allMovements));
+    dispatch(getDayMovements(allMovements));
   }, [isFocused]);
 
   function formatNumber(num) {

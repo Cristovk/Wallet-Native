@@ -25,7 +25,6 @@ const Transferencias = ({ navigation }) => {
   useEffect(() => {
     dispatch(getSaldo());
   }, []);
-  const [state, setState] = useState(false);
   const [smsNotification, setSmsNotification] = useState(false);
   const [phone, setPhone] = useState("");
   const [user, setUser] = useState("");
@@ -103,24 +102,7 @@ const Transferencias = ({ navigation }) => {
       return false;
     } else return true;
   };
-  const sendSMS = async () => {
-    try {
-      const isAvailable = await SMS.isAvailableAsync();
-      if (isAvailable) {
-        const { result } = await SMS.sendSMSAsync(
-          [`${phone}`],
-          `${user.replace(/@.*$/, "")} le ha enviado $ ${
-            dato.amount
-          } a traves de QuiqueBank`
-        );
-        console.log("Result", result);
-      } else {
-        Alert.alert("Su dispositivo no es compatible con esta función");
-      }
-    } catch (error) {
-      console.log("Error: ", error);
-    }
-  };
+
   return (
     <ScrollView>
       <View style={style.barraSuperior}>
