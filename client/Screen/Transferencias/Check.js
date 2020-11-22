@@ -11,7 +11,6 @@ import { Icon, ListItem } from "react-native-elements";
 
 const confirmOrError = ({ navigation, route }) => {
   const datos = route.params
-  console.log(datos)
   return (
     <ScrollView>
       { datos.receiver ?
@@ -54,7 +53,7 @@ const confirmOrError = ({ navigation, route }) => {
                     style={style.boton}
                     onPress={() => {
                         navigation.navigate("Finish", {
-                         
+                         datos
                         })
                     }}
                   >
