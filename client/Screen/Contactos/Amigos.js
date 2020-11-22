@@ -16,10 +16,10 @@ import { addContact, getContacts } from '../../Redux/Contacts'
 
 const Amigos = ({ navigation }) => {
   // const onlyContacts = [...new Set(contactsRedux)] 
+
   const user = useSelector((store) => store.user);
   const contactos = useSelector((store) => store.contacts)
   const [contacts, setContacts] = useState(contactos);
-
   const dispatch = useDispatch()
   const { text, bg } = useSelector((store) => store.color);
 
@@ -47,9 +47,9 @@ const Amigos = ({ navigation }) => {
   //   await dispatch(addContact(id))
   //   await dispatch(getContacts(id)) 
   // };
-
+  
   useEffect(() => {
-    // console.log("contactos--------------", contactos)
+    console.log("contactos--------------", contactos)
   }, []);
 
   const requestMoney = async (phone) => {
@@ -91,11 +91,8 @@ const Amigos = ({ navigation }) => {
                 type="ionicon"
                 onPress={() =>
                   navigation.navigate("Finish", {
-                    datos: l.name,
-                    banco: l.subtitle,
-                    alias: l.alias,
-                    cvu: l.cvu,
-                    telefono: l.telefono,
+                    dato: {receivercvu: l.cvu, senderId:user.id},
+                    receiver: {apellido: "", nombre: l.nombre, cvu: l.cvu, dni: "", telefono:  l.telefono}
                   })
                 }
               />

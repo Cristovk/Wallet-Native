@@ -9,7 +9,7 @@ import * as SMS from "expo-sms";
 // Check saldo, mandar la wea,
 
 const Finish = ({ navigation, route }) => {
-  const { datos, sms } = route.params;
+  const { datos} = route.params;
   console.log("datos", datos);
   const [errormoney, setErrorMoney] = useState(false);
   const [transferencia, setTransferencia] = useState({
@@ -21,7 +21,7 @@ const Finish = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const movements = useSelector((store) => store.movementsReducer);
   const user = useSelector((store) => store.user.user);
-
+  const [sms, setSms] = useState(false);
   useEffect(() => {
     dispatch(saveSaldo());
   }, []);
@@ -91,7 +91,7 @@ const Finish = ({ navigation, route }) => {
           </Text>
         </View>
       )}
-
+      
       <View style={[style.botonContainer, { marginBottom: 15 }]}>
         <TouchableOpacity
           style={style.boton}
