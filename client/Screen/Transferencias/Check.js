@@ -4,10 +4,10 @@ import style from "./Check_Styles";
 import { Icon, ListItem } from "react-native-elements";
 
 const confirmOrError = ({ navigation, route }) => {
-  const datos = route.params;
+  const {dato, receiver } = route.params;
   return (
     <ScrollView>
-      {datos.receiver ? (
+      {receiver ? (
         <View>
           <View style={style.tituloContainer}>
             <Text style={style.titulo}>Datos del receptor</Text>
@@ -17,26 +17,26 @@ const confirmOrError = ({ navigation, route }) => {
               <ListItem.Content>
                 <ListItem.Title>Nombre:</ListItem.Title>
                 <ListItem.Subtitle>
-                  {datos.receiver.nombre + " " + datos.receiver.apellido}
+                  {receiver.nombre + " " + receiver.apellido}
                 </ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
             <ListItem style={style.lista}>
               <ListItem.Content>
                 <ListItem.Title>Dni: </ListItem.Title>
-                <ListItem.Subtitle>{datos.receiver.dni} </ListItem.Subtitle>
+                <ListItem.Subtitle>{receiver.dni} </ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
             <ListItem style={style.lista}>
               <ListItem.Content style={style.listaPhone1}>
                 <ListItem.Title>Telefono: </ListItem.Title>
-                <ListItem.Subtitle>{datos.receiver.telefono}</ListItem.Subtitle>
+                <ListItem.Subtitle>{receiver.telefono}</ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
             <ListItem style={style.lista}>
               <ListItem.Content>
                 <ListItem.Title>Cvu: </ListItem.Title>
-                <ListItem.Subtitle>{datos.receiver.cvu} </ListItem.Subtitle>
+                <ListItem.Subtitle>{receiver.cvu} </ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
             <View style={[style.botonContainer, { marginBottom: 15 }]}>
@@ -44,7 +44,8 @@ const confirmOrError = ({ navigation, route }) => {
                 style={style.boton}
                 onPress={() => {
                   navigation.navigate("Finish", {
-                    datos,
+                    receiver: receiver,
+                    dato: dato,
                   });
                 }}
               >
