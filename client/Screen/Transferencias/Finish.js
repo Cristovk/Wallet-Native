@@ -4,24 +4,45 @@ import { transferir } from "../../Redux/movements";
 import { useDispatch, useSelector } from "react-redux";
 import { saveSaldo } from "../../Redux/movements";
 import style from "./Finish_Styles";
+import * as SMS from "expo-sms";
+
 // Check saldo, mandar la wea,
 
 const Finish = ({ navigation, route }) => {
-  const { datos } = route.params;
-  console.log(datos);
-  const dispatch = useDispatch();
-  const movements = useSelector((store) => store.movementsReducer);
-  useEffect(() => {
-    dispatch(saveSaldo());
-  }, []);
+  const { datos, sms } = route.params;
+  console.log("datos", datos);
+  const [errormoney, setErrorMoney] = useState(false);
   const [transferencia, setTransferencia] = useState({
     senderId: datos.dato.senderId,
     receivercvu: datos.receiver.cvu,
     amount: "",
     motivo: "",
   });
-  const [errormoney, setErrorMoney] = useState(false);
-  console.log(transferencia);
+  const dispatch = useDispatch();
+  const movements = useSelector((store) => store.movementsReducer);
+  const user = useSelector((store) => store.user.user);
+
+  useEffect(() => {
+    dispatch(saveSaldo());
+  }, []);
+
+  const sendSMS = async () => {
+    try {
+      const isAvailable = await SMS.isAvailableAsync();
+      if (isAvailable) {
+        const { result } = await SMS.sendSMSAsync(
+          [`${datos.receiver.telefono}`],
+          `Hola ${datos.receiver.nombre}, ${user.name} ${user.lastName} le ha enviado $ ${transferencia.amount} a traves de MoonBank.\n Motivo: ${transferencia.motivo}.`
+        );
+        console.log("Result", result);
+      } else {
+        Alert.alert("Su dispositivo no es compatible con esta función");
+      }
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
+
   const handleSubmit = async () => {
     const { amount } = transferencia;
     if (parseInt(amount) > parseInt(movements.saldo)) {
@@ -29,6 +50,7 @@ const Finish = ({ navigation, route }) => {
     }
     setErrorMoney(false);
     transferir(transferencia);
+    sms ? sendSMS() : null;
   };
 
   return (

@@ -9,7 +9,6 @@ import {
   Text,
 } from "react-native";
 import style from "./transferEstilos";
-import * as SMS from "expo-sms";
 import { auth, storage } from "../../../firebase";
 import { transferir } from "../../Redux/movements";
 import { useDispatch, useSelector } from "react-redux";
@@ -89,7 +88,7 @@ const Transferencias = ({ navigation }) => {
         <View style={[style.botonContainer, { marginBottom: 15 }]}>
           <TouchableOpacity
             style={style.boton}
-            onPress={handleSubmit}
+            onPress={() => handleSubmit()}
             disabled={dato.receivercvu.length < 8 ? true : false}
           >
             <Text style={{ fontWeight: "bold", fontSize: 15 }}>Continuar</Text>

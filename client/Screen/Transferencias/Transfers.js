@@ -111,7 +111,7 @@ const Transfers = ({ navigation }) => {
                 <Icon name={iconList[item.tipo]} size={30} color="red" />
               ) : (
                 <Icon name={iconList[item.tipo]} size={30} color="green" />
-              )}{" "}
+              )}
               <ListItem.Content /* style={style.transfer} */>
                 <ListItem.Title>
                   {item.tipo == "Tsaliente" ? item.receiver : item.sender}
