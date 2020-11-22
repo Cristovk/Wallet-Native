@@ -9,7 +9,9 @@ const GET_WEEK_MOV = "GET_WEEK_MOV";
 const GET_MONTH_MOV = "GET_MONTH_MOV";
 const GET_ALL_MOV = "GET_ALL_MOV";
 const SAVE_NEW_MOV = "SAVE_NEW_MOV";
-const GET_SALDO = "GET_SALDO";
+const SAVE_SALDO = "SAVE_SALDO";
+const SAVE_TRANSFER = "SAVE_TRANSFER";
+
 const today = new Date(Date.now());
 const weekInMiliseconds = 604800000;
 const monthInMiliseconds = 2592000000;
@@ -21,6 +23,7 @@ const initialState = {
   dayMovements: [],
   weekMovements: [],
   monthMovements: [],
+  transfers: [],
   saldo: "",
 };
 /* ========================== REDUCERS ========================== */
@@ -31,11 +34,16 @@ export default function movementsReducer(state = initialState, action) {
         ...state,
         allMovements: [...state.allMovements, ...action.payload],
       };
-    case GET_SALDO:
+    case SAVE_SALDO:
       let saldo = action.payload;
       return {
         ...state,
-        ...saldo,
+        saldo: saldo,
+      };
+    case SAVE_TRANSFER:
+      return {
+        ...state,
+        transfers: [...action.payload],
       };
     case GET_ALL_MOV:
       return {
@@ -62,28 +70,11 @@ export default function movementsReducer(state = initialState, action) {
   }
 }
 /* =========================== ACTIONS ============================ */
-export const getSaldo = () => {
-  return async function (dispatch) {
-    try {
-      let saldo;
-      const userId = await auth.currentUser.uid;
-      const ref = await storage
-        .collection("Users")
-        .doc(userId)
-        .collection("Wallet")
-        .get();
-      for (const mov of ref.docs) {
-        saldo = await mov.data();
-        /* console.log("Saldo", saldo); */
-      }
-      dispatch({
-        type: GET_SALDO,
-        payload: saldo,
-      });
-    } catch (error) {
-      console.log("Error", error);
-    }
-  };
+export const saveSaldo = (saldo) => (dispatch) => {
+  dispatch({
+    type: SAVE_SALDO,
+    payload: saldo,
+  });
 };
 export const getAllMovements = () => {
   return async function (dispatch) {
@@ -135,14 +126,15 @@ export const getDayMovements = (allMovements) => (dispatch) => {
     mes: today.getMonth() + 1,
     año: today.getFullYear(),
   };
-  let todayMovements = allMovements.length
-    ? allMovements.filter(
-        (m) =>
-          formatingdate(m.fecha).dia === aujourdui.dia &&
-          formatingdate(m.fecha).mes === aujourdui.mes &&
-          formatingdate(m.fecha).año === aujourdui.año
-      )
-    : [];
+  let todayMovements =
+    allMovements && allMovements.length
+      ? allMovements.filter(
+          (m) =>
+            formatingdate(m.fecha).dia === aujourdui.dia &&
+            formatingdate(m.fecha).mes === aujourdui.mes &&
+            formatingdate(m.fecha).año === aujourdui.año
+        )
+      : [];
   dispatch({
     type: GET_DAY_MOV,
     payload: todayMovements,
@@ -166,6 +158,13 @@ export const getMonthMovements = (allMovements) => (dispatch) => {
   dispatch({
     type: GET_MONTH_MOV,
     payload: monthMovements,
+  });
+};
+
+export const saveTransfers = (transfers) => (dispatch) => {
+  dispatch({
+    type: SAVE_TRANSFER,
+    payload: transfers,
   });
 };
 

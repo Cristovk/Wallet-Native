@@ -14,17 +14,14 @@ import { styles } from "../../Views/Sign-Up/Sing-Up-Styles";
 import { auth, storage } from "../../../firebase";
 import { transferir } from "../../Redux/movements";
 import { useDispatch, useSelector } from "react-redux";
-import { getSaldo } from "../../Redux/movements";
 
 const Transferencias = ({ navigation }) => {
   // LogBox.ignoreAllLogs();
 
   const dispatch = useDispatch();
   const movements = useSelector((store) => store.movementsReducer);
-  console.log("movimientos", movements);
-  useEffect(() => {
-    dispatch(getSaldo());
-  }, []);
+  const saldo = useSelector((store) => store.movementsReducer.saldo);
+
   const [state, setState] = useState(false);
   const [smsNotification, setSmsNotification] = useState(false);
   const [phone, setPhone] = useState("");
@@ -71,7 +68,7 @@ const Transferencias = ({ navigation }) => {
       return setErrorCvu(true);
     }
     setErrorCvu(false);
-    if (parseInt(amount) > parseInt(movements.saldo)) {
+    if (parseInt(amount) > parseInt(saldo)) {
       return setErrorMoney(true);
     }
     setErrorMoney(false);

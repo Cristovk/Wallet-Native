@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 import { LogBox, View, Text, ScrollView, FlatList } from "react-native";
 import style from "./transferEstilos";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { ListItem, Button } from "react-native-elements";
-import { useIsFocused } from "@react-navigation/native";
+import { auth, storage } from "../../../firebase";
+import { saveTransfers } from "../../Redux/movements";
 
 /* ========================= STATES ============================ */
 const Transfers = ({ navigation }) => {
@@ -14,17 +15,48 @@ const Transfers = ({ navigation }) => {
     Tsaliente: "arrow-circle-up",
     Tentrante: "arrow-circle-down",
   };
-  const isFocused = useIsFocused();
+  const dispatch = useDispatch();
+  const userId = useSelector((store) => store.user.user.id);
 
   /* ======================= FUNCTIONS ========================== */
-  const allMovements = useSelector(
-    (store) => store.movementsReducer.allMovements
-  );
+
+  const getTransfers = async () => {
+    try {
+      let CVU;
+      const searchCVU = await storage
+        .collection("Users")
+        .doc(userId)
+        .collection("Wallet")
+        .get();
+      searchCVU.forEach((doc) => {
+        CVU = doc.id;
+      });
+      storage
+        .collection("Users")
+        .doc(userId)
+        .collection("Wallet")
+        .doc(CVU)
+        .collection("Movimientos")
+        .where("operacion", "==", "Transferencia")
+        .orderBy("fecha", "asc")
+        .onSnapshot((query) => {
+          const trans = [];
+          let i = 0;
+          query.forEach((doc) => {
+            trans.push(doc.data());
+            trans[i].id = doc.id;
+            i++;
+          });
+          setTransfers(trans);
+        });
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
   useEffect(() => {
-    setTransfers(
-      allMovements.filter((mov) => mov.operacion === "Transferencia")
-    );
-  }, [isFocused]);
+    getTransfers();
+    dispatch(saveTransfers(transfers));
+  }, []);
 
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -49,9 +81,9 @@ const Transfers = ({ navigation }) => {
         }}
       />
       <FlatList
+        data={transfers}
         keyExtractor={(transfer) => transfer.id}
         style={{ marginVertical: 15 }}
-        data={transfers}
         renderItem={({ item }) => {
           return (
             <View
