@@ -65,7 +65,7 @@ const Transfers = ({ navigation }) => {
   // LogBox.ignoreAllLogs();
   /* ====================== RENDERING ========================== */
   return (
-    <View>
+    <ScrollView>
       <Button
         title="Nueva Transferencia"
         buttonStyle={[
@@ -134,7 +134,7 @@ const Transfers = ({ navigation }) => {
           );
         }}
       ></FlatList>
-    </View>
+    </ScrollView>
   );
 };
 
