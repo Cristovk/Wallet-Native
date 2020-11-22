@@ -47,7 +47,13 @@ export const historial = (lista, { navigation }) => {
       key={i}
       bottomDivider
     >
-      <Icon name={iconList[item.tipo]} size={30} color="black" />
+      {item.tipo == "Tsaliente" ||
+      item.empresa ||
+      item.operacion == "Compra" ? (
+        <Icon name={iconList[item.tipo]} size={30} color="red" />
+      ) : (
+        <Icon name={iconList[item.tipo]} size={30} color="green" />
+      )}
       <ListItem.Content>
         <ListItem.Title>
           {item.tipo == "Tsaliente"
