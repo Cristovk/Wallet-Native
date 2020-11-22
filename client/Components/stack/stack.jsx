@@ -5,8 +5,11 @@ import { Icon } from 'react-native-elements'
 import db from '../../../firebase'
 import { useSelector, useDispatch } from 'react-redux'
 import { connect } from 'react-redux'
-import {addContact, deleteAll} from '../../Redux/Contacts'
-import {profileImage} from './profileImage'
+import { addContact, deleteAll } from '../../Redux/Contacts'
+import { profileImage } from './profileImage'
+import AsyncStorage from '@react-native-community/async-storage'
+
+
 // COMPONENTES
 import Balance from '../../Screen/Balance/Balance.js';
 import Pagos from '../../Screen/Pagos/Pagos';
@@ -25,24 +28,26 @@ import TransactionHistory from '../../Screen/TransactionHistory/Movimientos'
 import Detalle from '../../Screen/TransactionHistory/DetailOfTransaction'
 import Recargas from '../../Screen/Recargas/Recargas';
 import Verify from "../../Screen/verificacion/verify"
-import TransfConfirm from "../../Screen/Transferencias/TransfConfirmada"
-
+import confirmOrError from "../../Screen/Transferencias/Check"
+import Finish from "../../Screen/Transferencias/Finish"
+import postScreen from "../../Screen/Transferencias/postScreen"
 
 // NAVIGATORS
-import {MyTab} from '../tab/tab'
-import {MyDrowner} from '../drawer/drawer'
+import { MyTab } from '../tab/tab'
+import { MyDrowner } from '../drawer/drawer'
 import Transferencias from '../../Screen/Transferencias/transferir';
 import Transfers from '../../Screen/Transferencias/Transfers';
 import PagoServicios from '../../Screen/Pagos/PagoServicios';
 import PagoConfirm from '../../Screen/Pagos/PagoConfirm';
-import TransfAmigo from '../../Screen/Contactos/TransfAmigos';
-import TransfAmigoConfirm from '../../Screen/Contactos/TransAmConf';
 import { userLog } from '../../Redux/User';
 import ResetPaswword from '../../Screen/ResetPassword/resetPass';
 import ModificaEmail from '../../Screen/Modificar-Email-Pass/ModificaEmail';
 import ModificaPassword from '../../Screen/Modificar-Email-Pass/ModificarPassword';
 import DeleteUser from '../../Screen/Modificar-Email-Pass/DeleteUser';
 import ConfirmDelete from '../../Screen/Modificar-Email-Pass/ConfirmDelete';
+import Pin from '../../Views/Login/pin';
+import Huella from '../../Views/Login/Huella';
+import Splash from '../../Screen/Splash/Splash';
 
 // Creamos los navegadores
 const Stack = createStackNavigator()
@@ -51,12 +56,50 @@ const HomeScreenStack = createStackNavigator()
 
 // Navegador Inicial para ingresar a la wallet (importado en App.js)
 export function MyStack(props) {
-  
+
+  const [usuario, setUsuario] = useState(false)
+  const [huella, setHuella] = useState(false)
+
+  const storageAsync = async () => {
+    const clave = await AsyncStorage.getItem('Metodo')
+    if (clave !== null) {
+      setUsuario(true)
+      if (clave === "huella") {
+        setHuella(true)
+      }
+    }
+    else {
+      setUsuario(false)
+    }
+  }
+
+  // const UsarHuella = async () => {
+  //   const clave = await AsyncStorage.getItem('Huella') ? JSON.parse(await AsyncStorage.getItem('Huella')) : null;
+  //   console.log("claveee", clave);
+  //   if (clave === false) {
+  //     setHuella(false)
+  //   }
+  //   else if (clave === true) {
+  //     setHuella(true)
+  //   }
+  // }
+
+
+  useEffect(() => {
+    storageAsync();
+    // UsarHuella();
+  }, [])
+  console.log("huellaaaaa", huella);
+
+
   // LogBox.ignoreAllLogs()
   return (
     <Stack.Navigator>
-     
-       <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />    
+      <Stack.Screen name="Splash" component={Splash} initialParams={props} options={{ headerShown: false }} />
+      {/* <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} /> */}
+      <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+      <Stack.Screen name="Huella" component={Huella} options={{ headerShown: false }} />
+      <Stack.Screen name="Pin" component={Pin} options={{ headerShown: false }} />
       <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />
@@ -103,7 +146,7 @@ function HomeScreen({ userLog, user, status }) {
         headerTitleAlign: 'center',
         headerRight: () => (
           <TouchableOpacity
-          onPress={() => navigation.navigate('Perfil')}
+            onPress={() => navigation.navigate('Perfil')}
           >
             <Image
               source={{ uri: user.imagen || profileImage }}
@@ -116,13 +159,13 @@ function HomeScreen({ userLog, user, status }) {
       <HomeScreenStack.Screen name='AddTarjeta' component={AddTarjeta} options={{ title: 'Añadir Tarjeta' }} />
       <HomeScreenStack.Screen name='Movimientos' component={TransactionHistory} options={{ title: 'Mis Movimientos' }} />
       <HomeScreenStack.Screen name='Pagos' component={Pagos} options={{ title: 'Mis Servicios' }} />
-      <HomeScreenStack.Screen name='Transferir' component={Transferencias} options={{ title: 'Transferir' }} />
+      <HomeScreenStack.Screen name='Transferir' component={Transferencias} options={{ title: 'Realizar transferencia' }} />
       <HomeScreenStack.Screen name='Transfers' component={Transfers} options={{ title: 'Transferencias' }} />
-      <HomeScreenStack.Screen name='Amigos' component={Amigos} options={{ 
+      <HomeScreenStack.Screen name='Amigos' component={Amigos} options={{
         title: 'Mis Contactos',
         headerRight: () => (
           <TouchableOpacity onPress={handleRefresh}>
-            <Icon name='spinner-refresh' type='fontisto' color={secondary} style={{marginRight:30}}/>
+            <Icon name='spinner-refresh' type='fontisto' color={secondary} style={{ marginRight: 30 }} />
           </TouchableOpacity>
         )
       }} />
@@ -131,11 +174,11 @@ function HomeScreen({ userLog, user, status }) {
       <HomeScreenStack.Screen name='Balance' component={Balance} options={{ title: 'Mi Balance' }} />
       <HomeScreenStack.Screen name='Detalle' component={Detalle} options={{ title: 'Detalle de la transaccion' }} />
       <HomeScreenStack.Screen name='Recargas' component={Recargas} options={{ title: 'Recargar' }} />
-      <HomeScreenStack.Screen name='TransfConfirm' component={TransfConfirm} options={{ title: 'Confirmar' }} />
+      <HomeScreenStack.Screen name='confirmOrError' component={confirmOrError} options={{ title: 'Receptor' }} />
+      <HomeScreenStack.Screen name='postScreen' component={postScreen} options={{ headerLeft: null, title: "Transferencia completada"}}/>
+      <HomeScreenStack.Screen name='Finish' component={Finish} options={{ title: 'Monto' }} />
       <HomeScreenStack.Screen name='PagoServicios' component={PagoServicios} options={{ title: 'Confirmar Pago' }} />
       <HomeScreenStack.Screen name='PagoConfirm' component={PagoConfirm} options={{ title: 'Pago Confirmado' }} />
-      <HomeScreenStack.Screen name='TransfAmigo' component={TransfAmigo} options={{ title: 'Transferir a Contacto' }} />
-      <HomeScreenStack.Screen name='TransfAmigoConfirm' component={TransfAmigoConfirm} options={{ title: 'Transferencia Confrimada' }} />
       <HomeScreenStack.Screen name='ModificaEmail' component={ModificaEmail} options={{ title: 'Modificar Email' }} />
       <HomeScreenStack.Screen name='ModificaPassword' component={ModificaPassword} options={{ title: 'Modificar Password' }} />
       <HomeScreenStack.Screen name='DeleteUser' component={DeleteUser} options={{ title: 'Borrar Usuario' }} />

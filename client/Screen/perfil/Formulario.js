@@ -12,26 +12,26 @@ import { auth, storage } from '../../../firebase';
 
 const Formulario = ({ data, updateUser, navigation, color }) => {
 
-  const {text,primary,secondary,dark} = color
+  const { text, primary, secondary, dark } = color
   const { name, phone, dni, cuil, lastName, imagen } = data;
   //State que guarda los datos del usuario editado.
   const [datos, setDatos] = useState({ name, phone, dni, cuil, lastName, imagen });
-  
+
   function handleSubmit() {
-    
-    storage.collection('Users').doc(auth.currentUser.uid).set({...datos,imagen})
-    .then( res => Alert.alert('Datos actualizados!'))
-    .catch(err => console.log(err))
+
+    storage.collection('Users').doc(auth.currentUser.uid).update({ ...datos, imagen })
+      .then(res => Alert.alert('Datos actualizados!'))
+      .catch(err => console.log(err))
   }
 
   return (
     <View>
       <View style={styles.grupoform}>
-        <Text style={{...styles.labelinput, color:dark ? secondary: primary}}>Nombre</Text>
+        <Text style={{ ...styles.labelinput, color: dark ? secondary : primary }}>Nombre</Text>
         <TextInput
           placeholder={name}
           placeholderTextColor={dark && 'gray'}
-          style={{...styles.inputperfil,color:text}}
+          style={{ ...styles.inputperfil, color: text }}
           onChangeText={(data) => setDatos({ ...datos, name: data })}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
@@ -39,22 +39,22 @@ const Formulario = ({ data, updateUser, navigation, color }) => {
       </View>
 
       <View style={styles.grupoform}>
-        <Text style={{...styles.labelinput, color:dark ? secondary: primary}} >Apellido</Text>
+        <Text style={{ ...styles.labelinput, color: dark ? secondary : primary }} >Apellido</Text>
         <TextInput
           placeholder={lastName}
           placeholderTextColor={dark && 'gray'}
-          style={{...styles.inputperfil,color:text}}
+          style={{ ...styles.inputperfil, color: text }}
           onChangeText={(data) => setDatos({ ...datos, lastName: data })}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
       </View>
 
       <View style={styles.grupoform}>
-        <Text style={{...styles.labelinput, color:dark ? secondary: primary}}>Teléfono</Text>
+        <Text style={{ ...styles.labelinput, color: dark ? secondary : primary }}>Teléfono</Text>
         <TextInput
           placeholder={phone}
           placeholderTextColor={dark && 'gray'}
-          style={{...styles.inputperfil,color:text}}
+          style={{ ...styles.inputperfil, color: text }}
           onChangeText={(data) => setDatos({ ...datos, phone: data })}
 
         />
@@ -72,35 +72,35 @@ const Formulario = ({ data, updateUser, navigation, color }) => {
       </View> */}
 
       <View style={styles.grupoform}>
-        <Text style={{...styles.labelinput, color:dark ? secondary: primary}}>DNI</Text>
+        <Text style={{ ...styles.labelinput, color: dark ? secondary : primary }}>DNI</Text>
         <TextInput
           value={dni}
-          style={{...styles.inputperfil,color:text}}
+          style={{ ...styles.inputperfil, color: text }}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
       </View>
 
       <View style={styles.grupoform}>
-        <Text style={{...styles.labelinput, color:dark ? secondary: primary}}>CUIL</Text>
+        <Text style={{ ...styles.labelinput, color: dark ? secondary : primary }}>CUIL</Text>
         <TextInput
           placeholder={cuil}
           placeholderTextColor={dark && 'gray'}
-          style={{...styles.inputperfil,color:text}}
+          style={{ ...styles.inputperfil, color: text }}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
       </View>
       <View style={styles.grupoform}>
-        <Text style={{...styles.labelinput, color:dark ? secondary: primary}}>EMAIL</Text>
+        <Text style={{ ...styles.labelinput, color: dark ? secondary : primary }}>EMAIL</Text>
         <TextInput
           placeholder={auth.currentUser.email}
           placeholderTextColor={dark && 'gray'}
-          style={{...styles.inputperfil,color:text}}
+          style={{ ...styles.inputperfil, color: text }}
         />
         <Text style={styles.padrelapiz}><Lapiz /></Text>
       </View>
       <View style={styles2.generalvolver}>
 
-        <TouchableOpacity style={{...styles2.btnvolver,backgroundColor:dark ? secondary:primary}} onPress={() => handleSubmit()}>
+        <TouchableOpacity style={{ ...styles2.btnvolver, backgroundColor: dark ? secondary : primary }} onPress={() => handleSubmit()}>
           <Text style={styles2.link}>Guardar</Text>
         </TouchableOpacity>
         {/* <TouchableOpacity style={styles2.btnvolver} onPress={() => navigation.navigate('ModificaEmail')}>
