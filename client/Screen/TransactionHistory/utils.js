@@ -47,22 +47,24 @@ export const historial = (lista, { navigation }) => {
       key={i}
       bottomDivider
     >
-      <Icon name={iconList[item.tipo]} size={30} color="black" />
+      {item.tipo == "Tsaliente" ||
+      item.empresa ||
+      item.operacion == "Compra" ? (
+        <Icon name={iconList[item.tipo]} size={30} color="red" />
+      ) : (
+        <Icon name={iconList[item.tipo]} size={30} color="green" />
+      )}
       <ListItem.Content>
         <ListItem.Title>
-          {item.tipo == "Tsaliente"
-            ? item.receiver
-            : item.tipo == "Tentrante"
-            ? item.sender
+          {item.operacion
+            ? item.operacion
             : item.empresa
             ? item.empresa
             : "Quiquebank"}
         </ListItem.Title>
-        <ListItem.Subtitle>{`${
-          item.tipo === "Tsaliente" || item.tipo === "Tentrante"
-            ? "transferencia"
-            : item.tipo
-        }`}</ListItem.Subtitle>
+        <ListItem.Subtitle>
+          {new Date(item.fecha).toLocaleDateString()}
+        </ListItem.Subtitle>
       </ListItem.Content>
       <Text style={{ marginRight: 3 }}>
         {item.tipo == "Tsaliente" || item.empresa || item.operacion == "Compra"

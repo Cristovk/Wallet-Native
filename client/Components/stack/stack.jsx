@@ -28,7 +28,8 @@ import TransactionHistory from '../../Screen/TransactionHistory/Movimientos'
 import Detalle from '../../Screen/TransactionHistory/DetailOfTransaction'
 import Recargas from '../../Screen/Recargas/Recargas';
 import Verify from "../../Screen/verificacion/verify"
-import TransfConfirm from "../../Screen/Transferencias/TransfConfirmada"
+import confirmOrError from "../../Screen/Transferencias/Check"
+import Finish from "../../Screen/Transferencias/Finish"
 
 
 // NAVIGATORS
@@ -175,7 +176,8 @@ function HomeScreen({ userLog, user, status }) {
       <HomeScreenStack.Screen name='Balance' component={Balance} options={{ title: 'Mi Balance' }} />
       <HomeScreenStack.Screen name='Detalle' component={Detalle} options={{ title: 'Detalle de la transaccion' }} />
       <HomeScreenStack.Screen name='Recargas' component={Recargas} options={{ title: 'Recargar' }} />
-      <HomeScreenStack.Screen name='TransfConfirm' component={TransfConfirm} options={{ title: 'Confirmar' }} />
+      <HomeScreenStack.Screen name='confirmOrError' component={confirmOrError} options={{ title: 'Receptor' }} />
+      <HomeScreenStack.Screen name='Finish' component={Finish} options={{ title: 'Finalizar Transferencia' }} />
       <HomeScreenStack.Screen name='PagoServicios' component={PagoServicios} options={{ title: 'Confirmar Pago' }} />
       <HomeScreenStack.Screen name='PagoConfirm' component={PagoConfirm} options={{ title: 'Pago Confirmado' }} />
       <HomeScreenStack.Screen name='TransfAmigo' component={TransfAmigo} options={{ title: 'Transferir a Contacto' }} />
