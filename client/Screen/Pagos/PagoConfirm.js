@@ -36,15 +36,15 @@ const PagoConfirm = ({ navigation, route }) => {
           <ListItem style={style.lista}>
             <ListItem.Chevron />
             <ListItem.Content>
-              <ListItem.Title>Cliente: </ListItem.Title>
-              <ListItem.Subtitle>{route.params.cliente}</ListItem.Subtitle>
+              <ListItem.Title>Categoría: </ListItem.Title>
+              <ListItem.Subtitle>{route.params.categoria}</ListItem.Subtitle>
             </ListItem.Content>
           </ListItem>
           <ListItem style={style.lista}>
             <ListItem.Chevron />
             <ListItem.Content>
-              <ListItem.Title>Factura Nro: </ListItem.Title>
-              <ListItem.Subtitle>{route.params.factura}</ListItem.Subtitle>
+              <ListItem.Title>Operación de tipo: </ListItem.Title>
+              <ListItem.Subtitle>{route.params.operacion}</ListItem.Subtitle>
             </ListItem.Content>
           </ListItem>
         </View>

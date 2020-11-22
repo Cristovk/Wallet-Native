@@ -117,11 +117,11 @@ export const getDayMovements = (allMovements) => (dispatch) => {
   let todayMovements =
     allMovements && allMovements.length
       ? allMovements.filter(
-          (m) =>
-            formatingdate(m.fecha).dia === aujourdui.dia &&
-            formatingdate(m.fecha).mes === aujourdui.mes &&
-            formatingdate(m.fecha).año === aujourdui.año
-        )
+        (m) =>
+          formatingdate(m.fecha).dia === aujourdui.dia &&
+          formatingdate(m.fecha).mes === aujourdui.mes &&
+          formatingdate(m.fecha).año === aujourdui.año
+      )
       : [];
   dispatch({
     type: GET_DAY_MOV,
@@ -159,6 +159,15 @@ export const saveTransfers = (transfers) => (dispatch) => {
 export const transferir = async (data) => {
   return Axios.post(
     "https://us-central1-henrybankfire.cloudfunctions.net/sendMoney",
+    data
+  )
+    .then((x) => x.data)
+    .catch((err) => console.log(err));
+};
+
+export const pagoServicio = async (data) => {
+  return Axios.post(
+    "https://us-central1-henrybankfire.cloudfunctions.net/addPurchase",
     data
   )
     .then((x) => x.data)

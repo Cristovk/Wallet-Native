@@ -3,13 +3,37 @@ import { View, ScrollView, Button, Image, StyleSheet, TouchableOpacity } from 'r
 import { Icon, Text, ListItem } from 'react-native-elements'
 import { TextInput } from 'react-native-gesture-handler'
 import style from './PagoServicioEstilo'
-
+import { pagoServicio } from '../../Redux/movements'
+import { auth } from '../../../firebase'
 
 const PagoServicios = ({ navigation, route }) => {
 
-  const { title, amount, cliente, factura } = route.params
+  const { title, servicio } = route.params
 
-  const [precio, setPrecio] = useState({ amount: amount })
+  const [precio, setPrecio] = useState("")
+
+
+  const handleSubmit = async () => {
+    const id = await auth.currentUser.uid
+
+    const data = {
+      userId: id,
+      amount: precio,
+      categoria: servicio,
+      empresa: title,
+      operacion: "servicio"
+    }
+    pagoServicio(data)
+      .then((resp) => {
+        navigation.navigate('PagoConfirm', {
+          title: title,
+          amount: precio,
+          categoria: servicio,
+          operacion: "servicio",
+
+        })
+      })
+  }
 
   return (
     <ScrollView>
@@ -18,7 +42,16 @@ const PagoServicios = ({ navigation, route }) => {
           <ListItem style={style.lista}>
             <ListItem.Chevron />
             <ListItem.Content style={style.listaContenedor}>
-              <ListItem.Title>{title}</ListItem.Title>
+              <ListItem.Title>Servicio: </ListItem.Title>
+              <ListItem.Subtitle>{servicio}</ListItem.Subtitle>
+
+            </ListItem.Content>
+          </ListItem>
+          <ListItem style={style.lista}>
+            <ListItem.Chevron />
+            <ListItem.Content style={style.listaContenedor}>
+              <ListItem.Title>Empresa:</ListItem.Title>
+              <ListItem.Subtitle>{title}</ListItem.Subtitle>
             </ListItem.Content>
           </ListItem>
           <ListItem style={style.lista}>
@@ -26,35 +59,30 @@ const PagoServicios = ({ navigation, route }) => {
             <ListItem.Content style={style.listaContenedor}>
               <ListItem.Title>Total a Pagar:</ListItem.Title>
               <TextInput
-                placeholder={"$" + amount}
+                placeholder="       Monto $"
                 value={precio.amount}
-                onChangeText={(data) => setPrecio({ ...precio, amount: data })}
+                onChangeText={(data) => setPrecio(data)}
                 style={{ width: 80 }}
               />
             </ListItem.Content>
           </ListItem >
-          <ListItem style={style.lista}>
+          {/* <ListItem style={style.lista}>
             <ListItem.Chevron />
             <ListItem.Content style={style.listaContenedor}>
               <ListItem.Title>Cliente:{cliente}</ListItem.Title>
             </ListItem.Content>
-          </ListItem>
-          <ListItem style={style.lista}>
+          </ListItem> */}
+          {/* <ListItem style={style.lista}>
             <ListItem.Chevron />
             <ListItem.Content style={style.listaContenedor}>
               <ListItem.Title>Nro Factura:{factura}</ListItem.Title>
             </ListItem.Content>
-          </ListItem>
+          </ListItem> */}
         </View>
         <View style={style.botonContainer}>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate('PagoConfirm', {
-              title: title,
-              amount: precio.amount,
-              cliente: cliente,
-              factura: factura
-            })}
+            onPress={handleSubmit}
             style={style.boton}
           >
             <Text
