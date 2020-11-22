@@ -18,14 +18,23 @@ const Eliminar = ({ navigation, cambiar, userLog, user, oscuro }) => {
   }, [])
 
 
+  const cerrar = async () => {
+    await AsyncStorage.removeItem('Metodo')
+  }
+
+
   const deleteUser = async () => {
     if (!dni) {
       return setError(true);
     }
     setError(false);
     if (dni === user.dni) {
+      cerrar()
       deleteUsuario(auth.currentUser.uid)
-      alert("Usuario eliminado Correctamente!")
+        .then(() => {
+          Alert.alert('Usuario eliminado', 'Esperamos vuelvas pronto',
+            [{ text: 'Ok', onPress: () => navigation.navigate('Splash', { usuario3: false }) }])
+        })
     }
     else {
       Alert.alert("Dni incorrecto, intente nuevamente")

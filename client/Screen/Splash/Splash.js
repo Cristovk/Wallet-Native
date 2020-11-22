@@ -40,7 +40,7 @@ const Splash = ({ navigation, route }) => {
 
   useEffect(() => {
     storageAsync();
-    if (!usuario || route.params.usuario2 === false) {
+    if (!usuario || route.params.usuario2 === false || route.params.usuario3 === false) {
       setTimeout(() => {
         navigation.navigate('Login')
       }, 2000)
@@ -56,7 +56,7 @@ const Splash = ({ navigation, route }) => {
         }, 2000)
       }
     }
-  }, [usuario, huella, route.params.usuario2])
+  }, [usuario, huella, route.params.usuario2, route.params.usuario3])
 
 
 
