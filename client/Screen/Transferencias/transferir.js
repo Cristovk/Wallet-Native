@@ -4,6 +4,16 @@ import style from "./transferEstilos";
 import { Icon, ListItem } from "react-native-elements";
 import * as SMS from "expo-sms";
 import { auth, storage } from "../../../firebase";
+import { transferir } from "../../Redux/movements";
+import { useDispatch, useSelector } from "react-redux";
+
+const Transferencias = ({ navigation }) => {
+  // LogBox.ignoreAllLogs();
+
+  const dispatch = useDispatch();
+  const movements = useSelector((store) => store.movementsReducer);
+  const saldo = useSelector((store) => store.movementsReducer.saldo);
+
 const axios = require("axios");
 const Transferencias = ({ navigation }) => {
   
@@ -33,7 +43,7 @@ const Transferencias = ({ navigation }) => {
   }
     
   };
- 
+
   const handleSubmit = async ()=>{
     let respuesta = await comprobarCvu();
     setSpinner(true);
@@ -52,7 +62,6 @@ const Transferencias = ({ navigation }) => {
                 })
       }, 2000);
   }
-
   return (
     <View>
       <View style={style.cvu}>

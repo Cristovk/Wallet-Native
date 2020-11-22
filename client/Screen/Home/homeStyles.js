@@ -11,14 +11,14 @@ const style = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     fontSize: 40,
-    marginBottom: 50,
+    marginBottom: 20,
     // textDecorationLine: "underline"
   },
   tituloBalance: {
     color: "white",
     fontWeight: "bold",
     fontSize: 20,
-    paddingBottom: 30,
+    paddingBottom: 10,
     marginBottom: 10,
   },
   gastos: {
@@ -30,6 +30,8 @@ const style = StyleSheet.create({
   },
   listaContenedor: {
     marginBottom: 15,
+    marginHorizontal: 25,
+    borderRadius: 10,
   },
   lista: {
     marginBottom: 10,

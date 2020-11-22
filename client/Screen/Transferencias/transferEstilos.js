@@ -33,6 +33,13 @@ const style = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  lista: {
+    flexDirection: "column",
+    justifyContent: "space-between",
+    marginBottom: 15,
+    paddingHorizontal: 20,
+    marginHorizontal: 20,
+    borderRadius: 10,
   input:{
     marginVertical: 3,
     height: 40,
