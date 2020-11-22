@@ -41,6 +41,14 @@ const style = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     textAlign: "center"
+  },input1:{
+    marginVertical: 3,
+    height:70,
+    width: "100%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    textAlign: "center"
   },
   cvu: {
     alignContent: "center",
@@ -117,7 +125,8 @@ const style = StyleSheet.create({
     flexDirection:'row',
     justifyContent:'center',
     padding:5
-  }
+  },
+  
 });
 
 export default style;
