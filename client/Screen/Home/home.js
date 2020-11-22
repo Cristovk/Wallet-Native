@@ -214,7 +214,7 @@ const Home = ({ navigation }) => {
                   estado: item.estado,
                   empresa: item.empresa,
                   sender: item.sender,
-                  receiver: item.receiver,
+                  receiver: item.receiver
                 })
               }
             >
