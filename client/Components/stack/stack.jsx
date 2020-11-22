@@ -27,7 +27,7 @@ import Recargas from '../../Screen/Recargas/Recargas';
 import Verify from "../../Screen/verificacion/verify"
 import confirmOrError from "../../Screen/Transferencias/Check"
 import Finish from "../../Screen/Transferencias/Finish"
-
+import postScreen from "../../Screen/Transferencias/postScreen"
 
 // NAVIGATORS
 import {MyTab} from '../tab/tab'
@@ -115,7 +115,7 @@ function HomeScreen({ userLog, user, status }) {
       <HomeScreenStack.Screen name='AddTarjeta' component={AddTarjeta} options={{ title: 'Añadir Tarjeta' }} />
       <HomeScreenStack.Screen name='Movimientos' component={TransactionHistory} options={{ title: 'Mis Movimientos' }} />
       <HomeScreenStack.Screen name='Pagos' component={Pagos} options={{ title: 'Mis Servicios' }} />
-      <HomeScreenStack.Screen name='Transferir' component={Transferencias} options={{ title: 'Transferir' }} />
+      <HomeScreenStack.Screen name='Transferir' component={Transferencias} options={{ title: 'Realizar transferencia' }} />
       <HomeScreenStack.Screen name='Transfers' component={Transfers} options={{ title: 'Transferencias' }} />
       <HomeScreenStack.Screen name='Amigos' component={Amigos} options={{ 
         title: 'Mis Contactos',
@@ -131,7 +131,8 @@ function HomeScreen({ userLog, user, status }) {
       <HomeScreenStack.Screen name='Detalle' component={Detalle} options={{ title: 'Detalle de la transaccion' }} />
       <HomeScreenStack.Screen name='Recargas' component={Recargas} options={{ title: 'Recargar' }} />
       <HomeScreenStack.Screen name='confirmOrError' component={confirmOrError} options={{ title: 'Receptor' }} />
-      <HomeScreenStack.Screen name='Finish' component={Finish} options={{ title: 'Finalizar Transferencia' }} />
+      <HomeScreenStack.Screen name='postScreen' component={postScreen} options={{ headerLeft: null, title: "Transferencia completada"}}/>
+      <HomeScreenStack.Screen name='Finish' component={Finish} options={{ title: 'Monto' }} />
       <HomeScreenStack.Screen name='PagoServicios' component={PagoServicios} options={{ title: 'Confirmar Pago' }} />
       <HomeScreenStack.Screen name='PagoConfirm' component={PagoConfirm} options={{ title: 'Pago Confirmado' }} />
       <HomeScreenStack.Screen name='ModificaEmail' component={ModificaEmail} options={{ title: 'Modificar Email' }} />

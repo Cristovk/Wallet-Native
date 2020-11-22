@@ -1,36 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import {
   View,
   TouchableOpacity,
-  LogBox,
-  Alert,
   ActivityIndicator,
   TextInput,
   Text,
 } from "react-native";
 import style from "./transferEstilos";
 import { auth, storage } from "../../../firebase";
-import { transferir } from "../../Redux/movements";
-import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-
+import { useSelector, useDispatch } from "react-redux";
 const Transferencias = ({ navigation }) => {
-  // LogBox.ignoreAllLogs();
-  const dispatch = useDispatch();
-  const movements = useSelector((store) => store.movementsReducer);
-  const saldo = useSelector((store) => store.movementsReducer.saldo);
+  const user = useSelector((store) => store.user);
   const [dato, setDato] = useState({
     receivercvu: "",
-    senderId: "",
+    senderId: user.user.id,
+    sendercvu: user.user.cvu
   });
-
-  useEffect(() => {
-    async function setear() {
-      const senderId = await auth.currentUser.uid;
-      setDato({ ...dato, senderId: senderId });
-    }
-    setear();
-  }, []);
+  const [error, setError] = useState(false)
+  
 
   const [spinner, setSpinner] = useState(false);
 
@@ -48,10 +36,15 @@ const Transferencias = ({ navigation }) => {
 
   const handleSubmit = async () => {
     let respuesta = await comprobarCvu();
+    if(dato.receivercvu===dato.sendercvu){
+      return setError(true)
+    }
     setSpinner(true);
+   
     setTimeout(() => {
       setSpinner(false);
       setDato({ receivercvu: "", senderId: "" });
+
       respuesta
         ? navigation.navigate("confirmOrError", {
             receiver: respuesta.data.datos,
@@ -73,12 +66,19 @@ const Transferencias = ({ navigation }) => {
         placeholder="12345678"
         keyboardType="numeric"
         style={style.input}
-        onChangeText={(data) => setDato({ ...dato, receivercvu: data })}
+        onChangeText={(data) => setDato({ ...dato, receivercvu: data }, setError(false))}
         value={dato.receivercvu}
       />
       {spinner && (
         <View style={style.spinner}>
           <ActivityIndicator size="small" color="#fff" />
+        </View>
+      )}
+       {error && (
+        <View style={style.contError}>
+          <Text style={style.error}>
+          No puedes trasnferirte a tu propio cvu
+          </Text>
         </View>
       )}
       {!spinner && (

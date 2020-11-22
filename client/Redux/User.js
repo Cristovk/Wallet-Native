@@ -23,7 +23,7 @@ const initialState = {
     phone: "",
     dni: "",
     cuil: "",
-    cvu :""
+    cvu: ""
   },
   user: [],
   security: {
