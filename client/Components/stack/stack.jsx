@@ -20,6 +20,7 @@ import SignUp2 from '../../Views/Sign-Up/SignUp2'
 
 import Tarjetas from '../card/Tarjetas';
 import AddTarjeta from '../card/AddTarjeta';
+import MoonCard from '../../Screen/MoonCard/MoonCard.js'
 
 import TransactionHistory from '../../Screen/TransactionHistory/Movimientos'
 import Detalle from '../../Screen/TransactionHistory/DetailOfTransaction'
@@ -130,6 +131,7 @@ function HomeScreen({ userLog, user, status }) {
       <HomeScreenStack.Screen name='Configuracion' component={Configuracion} options={{ title: 'Ajustes' }} />
       <HomeScreenStack.Screen name='Ayuda' component={Ayuda} options={{ title: 'Soporte y Atención' }} />
       <HomeScreenStack.Screen name='Balance' component={Balance} options={{ title: 'Mi Balance' }} />
+      <HomeScreenStack.Screen name='MoonCard' component={MoonCard} options={{ title: 'MoonCard' }} />
       <HomeScreenStack.Screen name='Detalle' component={Detalle} options={{ title: 'Detalle de la transaccion' }} />
       <HomeScreenStack.Screen name='Recargas' component={Recargas} options={{ title: 'Recargar' }} />
       <HomeScreenStack.Screen name='confirmOrError' component={confirmOrError} options={{ title: 'Receptor' }} />
