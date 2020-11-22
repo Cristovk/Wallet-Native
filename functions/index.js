@@ -54,13 +54,22 @@ ex.get('/api/users', async (req, res) => {
 
 //traer datos de un usuario especifico
 
-ex.get('/users/:id', (req, res) =>{
-   const snapshot = DBS.collection('Users').where('dni', '==', req.params.dni).get();
-
-  const userID = snapshot.id;
-  const userData = snapshot.data();
+ex.get('/api/users/:dni',  (req, res) =>{
   
-  res.status(200).send(JSON.stringify({id: userID, ...userData}));
+  DBS.collection('Users').where('dni', '==', req.params.dni).get()
+  
+  .then(snap => {
+    snap.forEach(doc => {
+      const userData = doc.data();
+     return userData
+    })
+
+  })
+
+  // const userID = snapshot.dni;   
+  // const userData = snapshot.data();
+  
+  res.status(200).send(JSON.stringify({userData}));
 
 })
 
