@@ -66,18 +66,6 @@ const PagoServicios = ({ navigation, route }) => {
               />
             </ListItem.Content>
           </ListItem >
-          {/* <ListItem style={style.lista}>
-            <ListItem.Chevron />
-            <ListItem.Content style={style.listaContenedor}>
-              <ListItem.Title>Cliente:{cliente}</ListItem.Title>
-            </ListItem.Content>
-          </ListItem> */}
-          {/* <ListItem style={style.lista}>
-            <ListItem.Chevron />
-            <ListItem.Content style={style.listaContenedor}>
-              <ListItem.Title>Nro Factura:{factura}</ListItem.Title>
-            </ListItem.Content>
-          </ListItem> */}
         </View>
         <View style={style.botonContainer}>
 

@@ -10,10 +10,11 @@ import {
 } from "react-native";
 import style from "../Transferencias/Check_Styles";
 import { Icon, ListItem } from "react-native-elements";
+import styles from '../../Views/Login/PinStyle'
 
 const PagoConfirm = ({ navigation, route }) => {
   return (
-    <ScrollView>
+    <ScrollView style={{ marginTop: 40 }}>
       <View>
         <View style={style.tituloContainer}>
           <Text style={style.titulo}>Pago Confirmado</Text>
@@ -48,7 +49,17 @@ const PagoConfirm = ({ navigation, route }) => {
             </ListItem.Content>
           </ListItem>
         </View>
-        <Icon name="check" type="fontisto" color="green" size={60} />
+        <View style={{ marginBottom: 70 }}>
+          <Icon name="check" type="fontisto" color="green" size={70} />
+        </View>
+        <View style={styles.botonContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.navagte("Home")}
+            style={styles.boton}
+          >
+            <Text style={styles.textBoton}>Volver al home</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
   );
