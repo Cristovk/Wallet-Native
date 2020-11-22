@@ -6,9 +6,7 @@ const express = require("express");
 const ex = express();
 const admin = require("firebase-admin");
 
-const { user } = require("firebase-functions/lib/providers/auth");
-const { toUpper } = require("lodash");
-//import {auth} from '../../firebase'
+
 
 //Cloud Functions
 // credenciales para uso de FIREBASE
@@ -17,12 +15,27 @@ admin.initializeApp({
   databaseURL: "https://henrybankfire.firebaseio.com",
 });
 
-// llamado a cors
+//llamado a cors
 const cors = require('cors');
 ex.use( cors ( { origin: true}));
+ex.use(express.urlencoded({ extended: true })); 
 
 const DBS = admin.firestore();
 const auth = admin.auth();
+// auth para tokens
+const authMiddleware = require('./authMiddle');
+
+
+//toda las rutas necesitan auth
+ex.use(authMiddleware);
+
+//HELLO
+ex.get('/api', async (req, res) => {
+  await res.status(200).send('Bienvenido a Moon Bank');
+
+});
+
+
 
 
 
@@ -54,70 +67,39 @@ ex.get('/api/users', async (req, res) => {
 
 //traer datos de un usuario especifico
 
-ex.get('/api/users/:dni',  (req, res) =>{
+ex.get('/api/users/cv/:cvu', async (req, res) =>{
   
-  DBS.collection('Users').where('dni', '==', req.params.dni).get()
   
-  .then(snap => {
-    snap.forEach(doc => {
-      const userData = doc.data();
-     return userData
-    })
+    //const wh = DBS.collection('Users').doc(req.params.id);
+     //const wh = DBS.collection('Users').where('cvu', '==', `${req.params.cvu}`);
 
-  })
-
-  // const userID = snapshot.dni;   
-  // const userData = snapshot.data();
+  await DBS.collection('Users').where('cvu', '==', `${req.params.cvu}`).onSnapshot(docu => {
+  //console.log(docu);
+  return res.status(200).send(JSON.stringify(docu));
+          })
+});
   
-  res.status(200).send(JSON.stringify({userData}));
-
-})
 
 
+
+  // traer usuario por id
+
+  ex.get('/api/users/:id', async (req, res) =>{
+    try{
+    const snapshot = await DBS.collection('Users').doc(req.params.id).get();
+  
+    const userID = snapshot.id;
+    const userData = snapshot.data();
+    
+    res.status(200).send(JSON.stringify({id: userID, ...userData}));
+    
+    }catch(error){
+      res.status(500).send(error, 'Usuario no encontrado');
+    }
+  });
 
 
 
 //----------------------------**------------------------ 
 
 exports.ex = functions.https.onRequest(ex);
-
-// ex.post("/user", (req, res) => {
-//   const {
-//     email,
-//     password,
-//     name,
-//     lastName,
-//     birtday,
-//     phone,
-//     dni,
-//     cuil,
-//   } = req.body;
-
-//   //crear usuario
-//   auth
-//     .createUserWithEmailAndPassword(email, password)
-//     .then(() => {
-//       //Si el usuario se crea,los datos del registro se agregan
-//       DBS.collection("user")
-//         .doc(auth.currentUser.uid)
-//         .set({
-//           name: name,
-//           lastName: lastName,
-//           birthay: birtday,
-//           phone: phone,
-//           dni: dni,
-//           cuil: cuil,
-//           created: Date.now(),
-//         })
-//         .catch((error) => {
-//           console.log("Algo salio mal al agregar el user a firestore", error);
-//         });
-
-//       return res.status(200).json();
-//     })
-//     .catch((error) => {
-//       console.log("Algo fallo en el Registro", error);
-//       return res.status(500).send(error);
-//     });
-// });
-
