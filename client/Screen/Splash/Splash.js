@@ -11,27 +11,22 @@ const Splash = ({ navigation, route }) => {
   const [huella, setHuella] = useState(false)
 
 
-  const storageAsync = () => {
-    AsyncStorage.getItem('Metodo')
-      .then(clave => {
-        if (clave !== null) {
-          setUsuario(true)
-          if (clave === "huella") {
-            setHuella(true)
-          }
-        }
-        else if (route.params.usuario2 === false) {
-          setUsuario(false)
-        }
-        else {
-          setUsuario(false)
+  const storageAsync = async () => {
+    const clave = await AsyncStorage.getItem('Metodo')
 
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-        Alert.alert('Hubo un error')
-      })
+    if (clave !== null) {
+      setUsuario(true)
+      if (clave === "huella") {
+        setHuella(true)
+      }
+    }
+    else if (route.params.usuario2 === false) {
+      setUsuario(false)
+    }
+    else {
+      setUsuario(false)
+
+    }
   }
 
   console.log(route.params.usuario2, "USUARIO");
