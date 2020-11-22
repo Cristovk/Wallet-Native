@@ -56,19 +56,15 @@ export const historial = (lista, { navigation }) => {
       )}
       <ListItem.Content>
         <ListItem.Title>
-          {item.tipo == "Tsaliente"
-            ? item.receiver
-            : item.tipo == "Tentrante"
-            ? item.sender
+          {item.operacion
+            ? item.operacion
             : item.empresa
             ? item.empresa
             : "Quiquebank"}
         </ListItem.Title>
-        <ListItem.Subtitle>{`${
-          item.tipo === "Tsaliente" || item.tipo === "Tentrante"
-            ? "transferencia"
-            : item.tipo
-        }`}</ListItem.Subtitle>
+        <ListItem.Subtitle>
+          {new Date(item.fecha).toLocaleDateString()}
+        </ListItem.Subtitle>
       </ListItem.Content>
       <Text style={{ marginRight: 3 }}>
         {item.tipo == "Tsaliente" || item.empresa || item.operacion == "Compra"

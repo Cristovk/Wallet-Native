@@ -30,11 +30,12 @@ const confirmOrError = ({ navigation, route }) => {
               </ListItem.Content>
             </ListItem>
             <ListItem style={style.lista}>
-              <ListItem.Content>
+              <ListItem.Content style={style.listaPhone1}>
                 <ListItem.Title>Telefono: </ListItem.Title>
-                <ListItem.Subtitle>
-                  {datos.receiver.telefono}{" "}
-                </ListItem.Subtitle>
+                <ListItem.Subtitle>{datos.receiver.telefono}</ListItem.Subtitle>
+              </ListItem.Content>
+              <ListItem.Content style={style.listaPhone2}>
+                <ListItem.Title>Notificar por SMS</ListItem.Title>
                 <ListItem.CheckBox
                   checked={sms}
                   onPress={() => {

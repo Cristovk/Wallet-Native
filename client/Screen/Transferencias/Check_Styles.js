@@ -1,24 +1,30 @@
-import { StyleSheet } from 'react-native'
-
+import { StyleSheet } from "react-native";
 
 const style = StyleSheet.create({
-
   tituloContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     height: 50,
-    marginVertical: 20
+    marginVertical: 20,
   },
   titulo: {
     fontSize: 18,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   listaContenedor: {
-    marginBottom: 40
+    marginBottom: 40,
   },
   lista: {
-    marginBottom: 10
+    marginBottom: 10,
+  },
+  listaPhone1: {
+    flexDirection: "column",
+  },
+  listaPhone2: {
+    alignContent: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   botonContainer: {
     flexDirection: "row",
@@ -32,6 +38,6 @@ const style = StyleSheet.create({
     padding: 15,
     borderRadius: 8,
   },
-})
+});
 
 export default style;

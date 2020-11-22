@@ -39,7 +39,7 @@ const Transfers = ({ navigation }) => {
         .doc(CVU)
         .collection("Movimientos")
         .where("operacion", "==", "Transferencia")
-        .orderBy("fecha", "asc")
+        .orderBy("fecha", "desc")
         .onSnapshot((query) => {
           const trans = [];
           let i = 0;
@@ -56,8 +56,11 @@ const Transfers = ({ navigation }) => {
   };
   useEffect(() => {
     getTransfers();
-    dispatch(saveTransfers(transfers));
   }, []);
+
+  useEffect(() => {
+    dispatch(saveTransfers(transfers));
+  }, [transfers]);
 
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
