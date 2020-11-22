@@ -9,15 +9,19 @@ import * as SMS from "expo-sms";
 // Check saldo, mandar la wea,
 
 const Finish = ({ navigation, route }) => {
-  const { datos} = route.params;
-  console.log("datos", datos);
+  const datos = route.params;
+ 
+  console.log("DSd T",datos.dato, "-------------", datos.receiver)
+  console.log("---------------------------------------------------")
+  console.log("DSd C",datos.dato, "-------------", datos.receiver)
+  
   const [errormoney, setErrorMoney] = useState(false);
-  const [transferencia, setTransferencia] = useState({
+ /*  const [transferencia, setTransferencia] = useState({
     senderId: datos.dato.senderId,
     receivercvu: datos.receiver.cvu,
     amount: "",
     motivo: "",
-  });
+  }); */
   const dispatch = useDispatch();
   const movements = useSelector((store) => store.movementsReducer);
   const user = useSelector((store) => store.user.user);
@@ -43,7 +47,7 @@ const Finish = ({ navigation, route }) => {
     }
   };
 
-  const handleSubmit = async () => {
+  /* const handleSubmit = async () => {
     const { amount } = transferencia;
     if (parseInt(amount) > parseInt(movements.saldo)) {
       return setErrorMoney(true);
@@ -51,7 +55,7 @@ const Finish = ({ navigation, route }) => {
     setErrorMoney(false);
     transferir(transferencia);
     sms ? sendSMS() : null;
-  };
+  }; */
 
   return (
     <View>
@@ -65,9 +69,9 @@ const Finish = ({ navigation, route }) => {
           placeholder="$0"
           keyboardType="numeric"
           style={style.input}
-          onChangeText={(data) =>
+          /* onChangeText={(data) =>
             setTransferencia({ ...transferencia, amount: data })
-          }
+          } */
         />
       </View>
       <View>
@@ -79,9 +83,9 @@ const Finish = ({ navigation, route }) => {
         <TextInput
           placeholder="Enviando desde Moonbank"
           style={style.input1}
-          onChangeText={(data) =>
+         /*  onChangeText={(data) =>
             setTransferencia({ ...transferencia, motivo: data })
-          }
+          } */
         />
       </View>
       {errormoney && (
@@ -92,7 +96,7 @@ const Finish = ({ navigation, route }) => {
         </View>
       )}
       
-      <View style={[style.botonContainer, { marginBottom: 15 }]}>
+     {/*  <View style={[style.botonContainer, { marginBottom: 15 }]}>
         <TouchableOpacity
           style={style.boton}
           onPress={() => {
@@ -102,7 +106,7 @@ const Finish = ({ navigation, route }) => {
         >
           <Text style={{ fontWeight: "bold", fontSize: 15 }}>Enviar</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 };

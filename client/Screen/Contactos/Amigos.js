@@ -49,7 +49,7 @@ const Amigos = ({ navigation }) => {
   // };
   
   useEffect(() => {
-    console.log("contactos--------------", contactos)
+    console.log(user)
   }, []);
 
   const requestMoney = async (phone) => {
@@ -90,10 +90,11 @@ const Amigos = ({ navigation }) => {
                 name="ios-send"
                 type="ionicon"
                 onPress={() =>
-                  navigation.navigate("Finish", {
-                    dato: {receivercvu: l.cvu, senderId:user.id},
-                    receiver: {apellido: "", nombre: l.nombre, cvu: l.cvu, dni: "", telefono:  l.telefono}
-                  })
+                  navigation.navigate("Finish",  {
+                    receiver: {apellido: l.lastName, nombre: l.name, cvu: l.cvu, dni: l.dni, telefono:  l.phone},
+                    dato: {receivercvu: l.cvu, senderId:user.user.id},
+                  }
+                  )
                 }
               />
             </ListItem>
