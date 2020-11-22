@@ -8,7 +8,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import style from "../Transferencias/estilosConfir";
+import style from "../Transferencias/Check_Styles";
 import { Icon, ListItem } from "react-native-elements";
 
 const PagoConfirm = ({ navigation, route }) => {
