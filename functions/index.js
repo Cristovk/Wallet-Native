@@ -1,25 +1,35 @@
+
+//inicializacion FIREBASE functions
+//llamado a EXPRESS
 const functions = require("firebase-functions");
 const express = require("express");
 const ex = express();
 const admin = require("firebase-admin");
+
 const { user } = require("firebase-functions/lib/providers/auth");
+const { toUpper } = require("lodash");
 //import {auth} from '../../firebase'
 
 //Cloud Functions
-
+// credenciales para uso de FIREBASE
 admin.initializeApp({
   credential: admin.credential.cert("./permissions.json"),
   databaseURL: "https://henrybankfire.firebaseio.com",
 });
+
+// llamado a cors
+const cors = require('cors');
+ex.use( cors ( { origin: true}));
 
 const DBS = admin.firestore();
 const auth = admin.auth();
 
 
 
-// trae todos los usuarios
-ex.get('/users', async (req, res) => {
+// RETURN todos los usuarios
+ex.get('/api/users', async (req, res) => {
 
+  try {
   const snapshot = await DBS.collection('Users').get();
 
   let users = [];
@@ -31,12 +41,21 @@ ex.get('/users', async (req, res) => {
 
   });
     res.status(200).send(JSON.stringify(users));
-});
+
+
+      }catch(error){
+        
+        console.log(error);
+        return res.status(500).send(error);
+          }
+
+  });
+
 
 //traer datos de un usuario especifico
 
-ex.get('/users/:id', async (req, res) =>{
-  const snapshot = await DBS.collection('Users').doc(req.params.id).get();
+ex.get('/users/:id', (req, res) =>{
+   const snapshot = DBS.collection('Users').where('dni', '==', req.params.dni).get();
 
   const userID = snapshot.id;
   const userData = snapshot.data();
