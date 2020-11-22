@@ -126,6 +126,10 @@ const style = StyleSheet.create({
     justifyContent:'center',
     padding:5
   },
+  che:{
+    flex: 1,
+    flexDirection: "row"
+  }
   
 });
 

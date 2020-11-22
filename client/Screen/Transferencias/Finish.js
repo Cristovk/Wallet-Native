@@ -5,25 +5,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { saveSaldo } from "../../Redux/movements";
 import style from "./Finish_Styles";
 import * as SMS from "expo-sms";
+import { CheckBox} from "react-native-elements";
 
 // Check saldo, mandar la wea,
 
 const Finish = ({ navigation, route }) => {
-  const { datos, sms } = route.params;
-  console.log("datos", datos);
+  const datos = route.params;
   const [errormoney, setErrorMoney] = useState(false);
   const [transferencia, setTransferencia] = useState({
-    senderId: datos.dato.senderId,
-    receivercvu: datos.receiver.cvu,
+    senderId: datos.datos.dato.senderId,
+    receivercvu: datos.datos.receiver.cvu,
     amount: "",
     motivo: "",
-  });
+  }); 
   const dispatch = useDispatch();
   const movements = useSelector((store) => store.movementsReducer);
   const user = useSelector((store) => store.user.user);
-
+  const [checked, setChecked] = useState(false);
   useEffect(() => {
-    dispatch(saveSaldo());
+    saveSaldo()
   }, []);
 
   const sendSMS = async () => {
@@ -31,8 +31,8 @@ const Finish = ({ navigation, route }) => {
       const isAvailable = await SMS.isAvailableAsync();
       if (isAvailable) {
         const { result } = await SMS.sendSMSAsync(
-          [`${datos.receiver.telefono}`],
-          `Hola ${datos.receiver.nombre}, ${user.name} ${user.lastName} le ha enviado $ ${transferencia.amount} a traves de MoonBank.\n Motivo: ${transferencia.motivo}.`
+          [`${datos.datos.receiver.telefono}`],
+          `Hola ${datos.datos.receiver.nombre}, ${user.name} ${user.lastName} le ha enviado $ ${transferencia.amount} a traves de MoonBank.\n Motivo: ${transferencia.motivo}.`
         );
         console.log("Result", result);
       } else {
@@ -48,11 +48,15 @@ const Finish = ({ navigation, route }) => {
     if (parseInt(amount) > parseInt(movements.saldo)) {
       return setErrorMoney(true);
     }
-    setErrorMoney(false);
+    
     transferir(transferencia);
-    sms ? sendSMS() : null;
+    checked ? sendSMS() : null;
+    navigation.navigate("postScreen", {
+      datos:datos.datos.receiver,
+      amount:transferencia.amount
+    })
   };
-
+  
   return (
     <View>
       <View>
@@ -66,7 +70,7 @@ const Finish = ({ navigation, route }) => {
           keyboardType="numeric"
           style={style.input}
           onChangeText={(data) =>
-            setTransferencia({ ...transferencia, amount: data })
+            setTransferencia({ ...transferencia, amount: data }, setErrorMoney(false))
           }
         />
       </View>
@@ -91,19 +95,29 @@ const Finish = ({ navigation, route }) => {
           </Text>
         </View>
       )}
-
-      <View style={[style.botonContainer, { marginBottom: 15 }]}>
-        <TouchableOpacity
-          style={style.boton}
-          onPress={() => {
-            handleSubmit();
-          }}
-          disabled={transferencia.amount.length <= 0 ? true : false}
-        >
-          <Text style={{ fontWeight: "bold", fontSize: 15 }}>Enviar</Text>
-        </TouchableOpacity>
+      <View style={style.che}>
+      <CheckBox
+          center
+          title='Notificar por sms'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          checked={checked} 
+          onPress={() => setChecked(!checked)}
+         />
+        <View style={[style.botonContainer, { marginBottom: 15 }]}>
+          <TouchableOpacity
+            style={style.boton}
+            onPress={() => {
+              handleSubmit();
+            }}
+            disabled={transferencia.amount.length <= 0 ? true : false}
+          >
+            <Text style={{ fontWeight: "bold", fontSize: 15 }}>Enviar</Text>
+          </TouchableOpacity>
+        </View>
+        </View>
       </View>
-    </View>
+      
   );
 };
 
