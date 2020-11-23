@@ -1,6 +1,6 @@
 /* ====================== IMPORTATIONS ========================= */
 import React, { useEffect, useState } from "react";
-import { orange } from "../../Global-Styles/colors";
+import { darkBlue, orange, white } from "../../Global-Styles/colors";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import {
   View,
@@ -26,7 +26,9 @@ import { auth, storage } from "../../../firebase";
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
   const [saldo, setSaldo] = useState(0);
+
   const CVU = useSelector((store) => store.movementsReducer.CVU);
+
   const [movements, setMovements] = useState([]);
   const [allMovements, setAllMovements] = useState([]);
   const userId = auth.currentUser.uid;
@@ -62,7 +64,7 @@ const Home = ({ navigation }) => {
           for (const mov of query.docs) {
             saldo = mov.data().saldo;
           }
-          setSaldo(saldo);
+          saldo == 0 ? setSaldo(null) : setSaldo(saldo);
         });
     } catch (error) {
       console.log("Error", error);
@@ -97,7 +99,11 @@ const Home = ({ navigation }) => {
             movs[i].id = mov.id;
             i++;
           }
-          setMovements(movs);
+          if (movs.length == 0) {
+            setMovements([null]);
+          } else {
+            setMovements(movs);
+          }
         });
     } catch (error) {
       console.log("Error", error);
@@ -162,6 +168,7 @@ const Home = ({ navigation }) => {
   }
 
   const handleBackButtonClick = () => {
+
     BackHandler.exitApp()
   }
 
@@ -173,6 +180,7 @@ const Home = ({ navigation }) => {
   // };
 
   // LogBox.ignoreAllLogs();
+
 
   /* ====================== RENDERING ========================== */
   return (
@@ -189,7 +197,9 @@ const Home = ({ navigation }) => {
           onPress={() => navigation.navigate("Balance")}
         >
           {saldo == 0 ? (
+
             <ActivityIndicator size="large" color={primary} />
+
           ) : (
               `$ ${formatNumber(saldo)}`
             )}
@@ -257,6 +267,7 @@ const Home = ({ navigation }) => {
         </ScrollView>
       </View>
     </View>
+
   );
 };
 

@@ -13,11 +13,13 @@ import Perfil from '../../Screen/perfil/Perfil';
 const Tab = createBottomTabNavigator();
 
 // Nos renderiza una tabBar con los componentes principales (logueado)
+
 export function MyTab() {
 
   const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
   // LogBox.ignoreAllLogs()
   return (
+
     <Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({ // Configuración del tabBar
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;

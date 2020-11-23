@@ -1,6 +1,7 @@
 /* ====================== IMPORTATIONS ========================= */
 import React, { useState, useEffect } from "react";
 import { LogBox, View, Text, ScrollView, FlatList, TouchableOpacity } from "react-native";
+
 import styles from "../Home/homeStyles";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,8 +10,10 @@ import { auth, storage } from "../../../firebase";
 import { saveTransfers } from "../../Redux/movements";
 import botonStyle from '../../Global-Styles/BotonGrande'
 
+
 /* ========================= STATES ============================ */
 const Transfers = ({ navigation }) => {
+  LogBox.ignoreAllLogs();
   const [transfers, setTransfers] = useState([]);
   const iconList = {
     Tsaliente: "arrow-circle-up",
@@ -50,10 +53,14 @@ const Transfers = ({ navigation }) => {
             trans[i].id = doc.id;
             i++;
           });
-          setTransfers(trans);
+          if (trans.length) {
+            setTransfers(trans);
+          } else {
+            setTransfers([null]);
+          }
         });
     } catch (error) {
-      console.log("Error", error);
+      console.log("Error in transfers", error);
     }
   };
   useEffect(() => {
@@ -67,7 +74,6 @@ const Transfers = ({ navigation }) => {
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
-  // LogBox.ignoreAllLogs();
   /* ====================== RENDERING ========================== */
   return (
     <View>

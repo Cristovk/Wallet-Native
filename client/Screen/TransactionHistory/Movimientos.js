@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { View, ScrollView, Dimensions, Text } from "react-native";
+import {
+  View,
+  ScrollView,
+  Dimensions,
+  Text,
+  ActivityIndicator,
+  FlatList,
+} from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome5";
+import { ListItem, Button } from "react-native-elements";
 import { ButtonGroup } from "react-native-elements";
 import { historial } from "./utils";
 import {
@@ -12,7 +21,9 @@ import { useIsFocused } from "@react-navigation/native";
 import viewStyle from '../../Global-Styles/ViewContainer'
 
 
+
 const Movimientos = ({ navigation }) => {
+  LogBox.ignoreAllLogs();
   const windowHeight = Dimensions.get("window").height;
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [list, setList] = useState([]);
@@ -23,6 +34,10 @@ const Movimientos = ({ navigation }) => {
   const { primary, bg, secondary, text, dark } = useSelector(store => store.color)
 
 
+
+  function formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  }
   useEffect(() => {
     dispatch(getDayMovements(movements.allMovements));
     dispatch(getWeekMovement(movements.allMovements));
@@ -31,7 +46,9 @@ const Movimientos = ({ navigation }) => {
 
   useEffect(() => {
     if (selectedIndex == 0) {
-      setList(movements.dayMovements);
+      movements.length === 0
+        ? setList([null])
+        : setList(movements.dayMovements);
     }
     if (selectedIndex == 1) {
       setList(movements.weekMovements);
@@ -96,6 +113,7 @@ const Movimientos = ({ navigation }) => {
           )}
       </View>
     </ScrollView>
+
   );
 };
 
