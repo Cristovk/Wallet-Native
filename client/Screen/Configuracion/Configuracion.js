@@ -97,8 +97,8 @@ const Configuracion = ({ navigation, route }) => {
           </View>
           <View style={styles.interruptor}>
             <Switch
-              trackColor={{ false: "#767577", true: "#02072f" }}
-              thumbColor={"#f4f3f4"}
+              trackColor={{ false: dark ? primary : secondary, true: dark ? secondary : bg }}
+              thumbColor={dark ? primary : secondary}
               value={dark}
               onValueChange={() => {
                 setApp(!dark);
@@ -207,8 +207,8 @@ const Configuracion = ({ navigation, route }) => {
           </View>
           <View style={styles.interruptor}>
             <Switch
-              trackColor={{ false: "#767577", true: "#02072f" }}
-              thumbColor={"#f4f3f4"}
+              trackColor={{ false: dark ? primary : secondary, true: dark ? secondary : bg }}
+              thumbColor={dark ? primary : secondary}
               value={huella}
               onValueChange={() => {
                 setHuella(!huella);
