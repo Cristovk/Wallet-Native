@@ -5,6 +5,8 @@ const functions = require("firebase-functions");
 const express = require("express");
 const ex = express();
 const admin = require("firebase-admin");
+var jwt = require('express-jwt');
+var jwks = require('jwks-rsa');
 
 
 
@@ -20,14 +22,36 @@ const cors = require('cors');
 ex.use( cors ( { origin: true}));
 ex.use(express.urlencoded({ extended: true })); 
 
+
+//var port = process.env.PORT || 8080;
+
+// const jwtCheck = jwt({
+//       secret: jwks.expressJwtSecret({
+//           cache: true,
+//           rateLimit: true,
+//           jwksRequestsPerMinute: 5,
+//           jwksUri: 'https://dev-i-yg-fcf.us.auth0.com/.well-known/jwks.json'
+//     }),
+//     audience: 'https://moonbank/api',
+//     issuer: 'https://dev-i-yg-fcf.us.auth0.com/',
+//     algorithms: ['RS256']
+// });
+
+// ex.use(jwtCheck);
+
+// ex.get('/authorized',  (req, res) {
+//     res.send('Secured Resource');
+// });
+
+
 const DBS = admin.firestore();
 const auth = admin.auth();
 // auth para tokens
-const authMiddleware = require('./authMiddle');
+//const authMiddleware = require('./authMiddle');
 
 
 //toda las rutas necesitan auth
-ex.use(authMiddleware);
+//ex.use(authMiddleware);
 
 //HELLO
 ex.get('/api', async (req, res) => {
@@ -53,7 +77,7 @@ ex.get('/api/users', async (req, res) => {
     users.push({id, ...data});
 
   });
-    res.status(200).send(JSON.stringify(users));
+    return res.status(200).send(JSON.stringify(users));
 
 
       }catch(error){
@@ -67,17 +91,31 @@ ex.get('/api/users', async (req, res) => {
 
 //traer datos de un usuario especifico
 
-ex.get('/api/users/cv/:cvu', async (req, res) =>{
+ex.get('/api/users/cvu/:cvu', async (req, res) =>{
   
-  
-    //const wh = DBS.collection('Users').doc(req.params.id);
-     //const wh = DBS.collection('Users').where('cvu', '==', `${req.params.cvu}`);
+      try{
+        let {cvu} = req.params;
+        const collect = DBS.collection('Users').where('cvu', '==', `${cvu}`);
 
-  await DBS.collection('Users').where('cvu', '==', `${req.params.cvu}`).onSnapshot(docu => {
-  //console.log(docu);
-  return res.status(200).send(JSON.stringify(docu));
-          })
-});
+        let querySnapshot = await  collect.get();
+
+              console.log(querySnapshot);
+              querySnapshot.forEach(documentSnapshot =>{
+                let data = documentSnapshot.data();
+                res.sendStatus(403);
+          
+              return res.status(200).send(JSON.stringify({...data}));
+          
+
+        })
+      }catch(error){ 
+          console.log(error)
+         return res.status(500).send(error, 'El Cvu no se encontro');  
+        }
+
+    });
+
+
   
 
 
