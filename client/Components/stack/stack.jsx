@@ -128,7 +128,7 @@ function HomeScreen({ userLog, user, status }) {
     <HomeScreenStack.Navigator screenOptions={{ // Personalizamos las cabeceras en general
       headerStyle: {
         backgroundColor: bg,
-        borderBottomColor: bg
+        borderBottomColor: bg,
       },
       headerTintColor: primary
     }}>

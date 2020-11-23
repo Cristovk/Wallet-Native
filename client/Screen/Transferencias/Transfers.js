@@ -70,8 +70,9 @@ const Transfers = ({ navigation }) => {
   // LogBox.ignoreAllLogs();
   /* ====================== RENDERING ========================== */
   return (
-    <ScrollView style={{ backgroundColor: bg }}>
-      <View style={[{ backgroundColor: primary }, styles.background2]}>
+    <View>
+    <View style={{ backgroundColor: bg }}>
+      <ScrollView style={[{ backgroundColor: primary }, styles.background2]}>
         <View>
           <FlatList
             data={transfers}
@@ -130,18 +131,19 @@ const Transfers = ({ navigation }) => {
             }}
           ></FlatList>
         </View>
+      </ScrollView>
+    </View>
         <View style={botonStyle.container}>
-          <TouchableOpacity
-            style={[{ backgroundColor: secondary }, botonStyle.boton]}
-            onPress={() => {
-              navigation.navigate("Transferir");
-            }}
-          >
-            <Text style={[{ color: text }, botonStyle.texto]}>Nueva Transferencia</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          style={[{ backgroundColor: secondary }, botonStyle.boton]}
+          onPress={() => {
+            navigation.navigate("Transferir");
+          }}
+        >
+          <Text style={[{ color: text }, botonStyle.texto]}>Nueva Transferencia</Text>
+        </TouchableOpacity>
       </View>
-    </ScrollView>
+      </View>
   );
 };
 

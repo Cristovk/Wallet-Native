@@ -11,6 +11,7 @@ const style = StyleSheet.create({
   }, background2: {
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
+    marginTop:25,
     height: heightPercentageToDP("87%")
   },
   balance: {
