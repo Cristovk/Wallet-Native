@@ -16,9 +16,11 @@ import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import { userLog } from "../../Redux/User";
 import { connect, useSelector } from "react-redux";
+import styleView from '../../Global-Styles/ViewContainer'
+import { profileImage } from '../../Components/stack/profileImage'
 
 const Perfil = (props) => {
-  const { bg, text } = useSelector((store) => store.color);
+  const { bg, text, primary, secondary, dark } = useSelector((store) => store.color);
   const [data, setData] = useState({
     name: props.user.name,
     lastName: props.user.lastName,
@@ -26,6 +28,8 @@ const Perfil = (props) => {
     dni: props.user.dni,
     cuil: props.user.cuil,
     id: props.user.id,
+    cvu: props.user.cvu,
+    email: props.user.email,
     imagen:
       props.user.imagen ||
       "https://sistemas.com/termino/wp-content/uploads/Usuario-Icono.jpg",
@@ -58,12 +62,15 @@ const Perfil = (props) => {
   LogBox.ignoreAllLogs();
 
   return (
-    <ScrollView>
-      <View style={{ backgroundColor: bg, height: "100%" }}>
+    <ScrollView style={{ backgroundColor: bg }}>
+      <View style={{
+        backgroundColor: primary, height: "100%", borderTopRightRadius: 10,
+        borderTopLeftRadius: 10, marginTop: 25
+      }}>
         <View style={styles.generalimagen}>
-          <View style={{ ...styles.contenedorimagen, borderColor: text }}>
+          <View style={[styles.contenedorimagen, { borderColor: dark ? bg : secondary }]}>
             {/* <Image style={styles.imagenperfil} source={{ uri: 'https://sistemas.com/termino/wp-content/uploads/Usuario-Icono.jpg' }} /> */}
-            <Image style={styles.imagenperfil} source={{ uri: data.imagen }} />
+            <Image style={[{ borderColor: dark ? bg : secondary }, styles.imagenperfil]} source={{ uri: data.imagen || profileImage }} />
 
             <View style={styles.contenedorcamara}>
               <Icon
@@ -77,11 +84,8 @@ const Perfil = (props) => {
           </View>
         </View>
 
-        <Text style={{ ...styles.nombreusuario, color: text }}>
+        <Text style={{ ...styles.nombreusuario, color: dark ? bg : text }}>
           {data.name + " " + data.lastName}
-        </Text>
-        <Text style={{ ...styles.titulodatos, color: text }}>
-          Datos Personales
         </Text>
         <Formulario data={data} navigation={props.navigation} />
       </View>

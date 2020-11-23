@@ -9,7 +9,7 @@ import {
   ScrollView,
   FlatList,
   ActivityIndicator,
-  BackHandler,
+  BackHandler
 } from "react-native";
 import { ListItem, Button } from "react-native-elements";
 import style from "./homeStyles";
@@ -26,6 +26,9 @@ import { auth, storage } from "../../../firebase";
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
   const [saldo, setSaldo] = useState(0);
+
+  const CVU = useSelector((store) => store.movementsReducer.CVU);
+
   const [movements, setMovements] = useState([]);
   const [allMovements, setAllMovements] = useState([]);
   const userId = auth.currentUser.uid;
@@ -45,6 +48,9 @@ const Home = ({ navigation }) => {
     Tentrante: "arrow-circle-down",
     recarga: "wallet",
   };
+
+
+  const { primary, bg, secondary, text } = useSelector(store => store.color)
 
   /* ======================= FUNCTIONS ========================== */
   const getSaldo = async () => {
@@ -142,20 +148,18 @@ const Home = ({ navigation }) => {
     getSaldo();
     getAllMovements();
     getSomeMovements();
-    BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick);
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
     return () => {
-      BackHandler.removeEventListener(
-        "hardwareBackPress",
-        handleBackButtonClick
-      );
-    };
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+    }
   }, []);
 
   useEffect(() => {
     dispatch(saveSaldo(saldo));
     dispatch(saveAllMovements(allMovements));
     dispatch(getDayMovements(allMovements));
-  }, [isFocused, allMovements]);
+  }, [isFocused]);
+
 
   function formatNumber(num) {
     let number =
@@ -164,14 +168,24 @@ const Home = ({ navigation }) => {
   }
 
   const handleBackButtonClick = () => {
-    BackHandler.exitApp();
-  };
-  LogBox.ignoreAllLogs();
+
+    BackHandler.exitApp()
+  }
+
+
+
+  // const handleOnTest = () => {
+  //   test();
+  //   console.log("allmovements", allMovements);
+  // };
+
+  // LogBox.ignoreAllLogs();
+
 
   /* ====================== RENDERING ========================== */
   return (
-    <ScrollView>
-      <View style={style.balance}>
+    <View style={{ backgroundColor: bg }}>
+      <View style={[{ backgroundColor: bg }, style.balance]}>
         <Text
           style={style.tituloBalance}
           onPress={() => navigation.navigate("Balance")}
@@ -183,135 +197,77 @@ const Home = ({ navigation }) => {
           onPress={() => navigation.navigate("Balance")}
         >
           {saldo == 0 ? (
-            <ActivityIndicator size="large" color={orange} />
-          ) : saldo == null ? (
-            <View
-              style={{
-                fontSize: 16,
-              }}
-            >
-              <Text
-                style={{
-                  textAlign: "center",
-                  fontSize: 22,
-                  paddingVertical: 15,
-                  color: white,
-                }}
-              >
-                Bienvenido a MoonBank! 🤗
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: white,
-                }}
-              >
-                {" "}
-                Ups! No tenes $$$ ??
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: white,
-                }}
-              >
-                Recargá tu billetera
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: white,
-                }}
-                style={{
-                  textAlign: "center",
-                  color: white,
-                }}
-              >
-                O mejor aun!
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: white,
-                }}
-              >
-                Comparti tu CVU para recibir transferencias 😉
-              </Text>
-            </View>
+
+            <ActivityIndicator size="large" color={primary} />
+
           ) : (
-            `$ ${formatNumber(saldo)}`
-          )}
+              `$ ${formatNumber(saldo)}`
+            )}
         </Text>
       </View>
-      {movements.length === 0 ? (
-        <View style={{ marginTop: 100 }}>
-          <ActivityIndicator size="large" color={darkBlue} />
-        </View>
-      ) : movements[0] == null ? (
-        <Text
-          style={{
-            textAlign: "center",
-            textAlignVertical: "auto",
-            fontSize: 24,
-            padding: 25,
-          }}
-        >
-          {"Acá se listarán tus movimientos una vez que los tengas"}
-        </Text>
-      ) : (
-        <FlatList
-          data={movements}
-          keyExtractor={(mov) => mov.id}
-          style={{ marginVertical: 15 }}
-          renderItem={({ item }) => {
-            return (
-              <ListItem
-                key={item.id}
-                style={style.listaContenedor}
-                onPress={() =>
-                  navigation.navigate("Detalle", {
-                    fecha: item.fecha,
-                    monto: item.monto,
-                    hacia: item.hacia,
-                    desde: item.desde,
-                    estado: item.estado,
-                    tipo: item.tipo,
-                    motivo: item.motivo,
-                    operacion: item.operacion,
-                    estado: item.estado,
-                    empresa: item.empresa,
-                    sender: item.sender,
-                    receiver: item.receiver,
-                  })
-                }
-              >
-                {item.tipo == "Tsaliente" ? (
-                  <Icon name={iconList[item.tipo]} size={30} color="red" />
-                ) : (
-                  <Icon name={iconList[item.tipo]} size={30} color="green" />
-                )}
-                <ListItem.Content>
-                  <ListItem.Title>{item.operacion}</ListItem.Title>
-                  <ListItem.Subtitle>
-                    {new Date(item.fecha).toLocaleDateString()}
-                  </ListItem.Subtitle>
-                </ListItem.Content>
-                <Text style={{ marginRight: 3 }}>
-                  {item.tipo == "Tsaliente"
-                    ? `- $ ${formatNumber(item.monto)}`
-                    : `$ ${formatNumber(item.monto)}`}
-                </Text>
-                <ListItem.Chevron
-                  name="chevron-right"
-                  type="font-awesome"
-                  color="black"
-                />
-              </ListItem>
-            );
-          }}
-        ></FlatList>
-      )}
-    </ScrollView>
+      <View style={{ height: 50, borderRadius: 10, backgroundColor: primary, marginBottom: -15 }} >
+        <View style={{ alignSelf: "center", width: 200, borderStyle: "solid", borderColor: bg, borderWidth: 3, marginTop: 10, borderRadius: 5 }}></View>
+      </View>
+      <View style={[{ backgroundColor: primary }, style.background]}>
+        <ScrollView>
+          <FlatList
+            data={movements}
+            keyExtractor={(mov) => mov.id}
+            style={{ marginVertical: 15, backgroundColor: primary }}
+            renderItem={({ item }) => {
+              return (
+                <ListItem
+                  key={item.id}
+                  containerStyle={{
+                    backgroundColor: primary
+                  }}
+                  style={[{ borderBottomColor: secondary }, style.listaContenedor]}
+                  onPress={() =>
+                    navigation.navigate("Detalle", {
+                      fecha: item.fecha,
+                      monto: item.monto,
+                      hacia: item.hacia,
+                      desde: item.desde,
+                      estado: item.estado,
+                      tipo: item.tipo,
+                      motivo: item.motivo,
+                      operacion: item.operacion,
+                      estado: item.estado,
+                      empresa: item.empresa,
+                      sender: item.sender,
+                      receiver: item.receiver
+                    })
+                  }
+                >
+                  {item.tipo == "Tsaliente" ? (
+                    <Icon name={iconList[item.tipo]} size={30} color="red" />
+                  ) : (
+                      <Icon name={iconList[item.tipo]} size={30} color="green" />
+                    )}
+                  <ListItem.Content >
+                    <ListItem.Title>{item.operacion}</ListItem.Title>
+                    <ListItem.Subtitle>
+                      {new Date(item.fecha).toLocaleDateString()}
+                    </ListItem.Subtitle>
+                  </ListItem.Content>
+                  <Text style={{ marginRight: 3 }}>
+                    {item.tipo == "Tsaliente"
+                      ? `- $ ${formatNumber(item.monto)}`
+                      : `$ ${formatNumber(item.monto)}`}
+                  </Text>
+                  <ListItem.Chevron
+                    name="chevron-right"
+                    type="font-awesome"
+                    color="black"
+                  />
+                </ListItem>
+              );
+            }}
+          ></FlatList>
+        </ScrollView>
+      </View>
+    </View>
+
   );
 };
 

@@ -15,14 +15,14 @@ const Configuracion = ({ navigation, route }) => {
 
   const setApp = route.params.params.darker;
   const dispatch = useDispatch();
-  const dark = useSelector((store) => store.color.dark);
+  const { primary, secondary, text, bg, dark } = useSelector((store) => store.color);
 
   const [huella, setHuella] = useState()
 
   const [passwordchange, setPasswordChange] = useState(false);
   const [emailchange, setEmailChange] = useState(false);
   const [deleteuser, setDeleteUser] = useState(false);
-  const iconColor = dark ? '#02072f' : '#fff';
+  const iconColor = dark ? bg : secondary;
 
 
   const user = useSelector(store => store.user.user)
@@ -97,8 +97,8 @@ const Configuracion = ({ navigation, route }) => {
           </View>
           <View style={styles.interruptor}>
             <Switch
-              trackColor={{ false: "#767577", true: "#02072f" }}
-              thumbColor={"#f4f3f4"}
+              trackColor={{ false: dark ? primary : secondary, true: dark ? secondary : bg }}
+              thumbColor={dark ? primary : secondary}
               value={dark}
               onValueChange={() => {
                 setApp(!dark);
@@ -207,8 +207,8 @@ const Configuracion = ({ navigation, route }) => {
           </View>
           <View style={styles.interruptor}>
             <Switch
-              trackColor={{ false: "#767577", true: "#02072f" }}
-              thumbColor={"#f4f3f4"}
+              trackColor={{ false: dark ? primary : secondary, true: dark ? secondary : bg }}
+              thumbColor={dark ? primary : secondary}
               value={huella}
               onValueChange={() => {
                 setHuella(!huella);

@@ -33,19 +33,19 @@ const style = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  input:{
+  input: {
     marginVertical: 3,
     height: 40,
     width: "100%",
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    textAlign: "center"
+    textAlign: "center",
+    marginTop: 40
   },
   cvu: {
     alignContent: "center",
     marginTop: 2,
-    backgroundColor: "#02072F",
     height: 60,
     alignItems: "center",
     borderTopStartRadius: 15,
@@ -60,22 +60,11 @@ const style = StyleSheet.create({
     borderBottomRightRadius: 15,
     borderBottomLeftRadius: 15,
   },
-  text:{
+  text: {
     color: "white",
     marginVertical: 15,
     textAlign: 'center',
     height: 40,
-  },
-  botonContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  boton: {
-    marginTop: 10,
-    backgroundColor: "#FC7029",
-    padding: 15,
-    borderRadius: 8,
   },
   error: {
     color: "red",
@@ -112,11 +101,11 @@ const style = StyleSheet.create({
     backgroundColor: orange,
     paddingHorizontal: 15,
   },
-  spinner:{
-    width:'100%',
-    flexDirection:'row',
-    justifyContent:'center',
-    padding:5
+  spinner: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 5
   }
 });
 

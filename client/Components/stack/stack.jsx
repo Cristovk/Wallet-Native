@@ -113,7 +113,7 @@ export function MyStack(props) {
 // Navegador que se encarga de darle cabeceras a los componentes y renderizarlos (importado en drawer.jsx)
 function HomeScreen({ userLog, user, status }) {
   const [users, setUsers] = useState([])
-  const { primary, secondary, text, bg } = useSelector(store => store.color)
+  const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
   const dispatch = useDispatch()
   useEffect(() => {
     userLog()
@@ -127,19 +127,22 @@ function HomeScreen({ userLog, user, status }) {
   return (
     <HomeScreenStack.Navigator screenOptions={{ // Personalizamos las cabeceras en general
       headerStyle: {
-        backgroundColor: primary
+        backgroundColor: bg,
+        borderBottomColor: bg,
       },
-      headerTintColor: secondary
+      headerTintColor: primary
     }}>
       <HomeScreenStack.Screen name='HomeTab' initialParams={status} component={MyTab} options={({ navigation }) => ({ // Personalizamos las cabeceras de los atajos principales
         headerLeft: () => (
           <TouchableOpacity
-            style={style.boton}
             onPress={() => navigation.openDrawer()}
+            style={style.boton}
           >
             <Icon
               name="ios-menu"
               type='ionicon'
+              color={dark ? primary : secondary}
+              size={30}
             />
           </TouchableOpacity>),
         title: `Bienvenido ${user && user.name}`,
@@ -208,7 +211,6 @@ export const homeScreen = connect(
 
 const style = StyleSheet.create({
   boton: {
-    backgroundColor: "#FC7029",
     height: 25,
     width: 25,
     marginStart: 10,

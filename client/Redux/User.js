@@ -65,13 +65,13 @@ export default function userReducer(state = initialState, action) {
     case CHANGE_LOGIN_METHOD:
       return {
         ...state,
-        security : {
+        security: {
           ...state.security,
           fingerPrint: action.payload
         }
-      } 
+      }
 
-    
+
     default:
       return {
         ...state,
@@ -106,15 +106,17 @@ export const saveData = (obj) => (dispatch) => {
 };
 
 export const userLog = () => async (dispatch) => {
-  const id = await auth.currentUser.uid;
-  const consulta = storage.collection('Users').doc(id) //Con esto consulto en la base de datos para que me traiga el documento segun el id que le estoy pasando
-  const doc = await consulta.get() // como la respuesta debe ser asincrona, ponemos el await y le damos el metodo get, para que nos traiga esos datos.
-    .then(resp => {
-      dispatch({
-        type: LOGEADO,
-        payload: resp.data()
+  if (await auth.currentUser) {
+    const id = await auth.currentUser.uid;
+    const consulta = storage.collection('Users').doc(id) //Con esto consulto en la base de datos para que me traiga el documento segun el id que le estoy pasando
+    const doc = await consulta.get() // como la respuesta debe ser asincrona, ponemos el await y le damos el metodo get, para que nos traiga esos datos.
+      .then(resp => {
+        dispatch({
+          type: LOGEADO,
+          payload: resp.data()
+        })
       })
-    })
+  }
 }
 
 export const updateUser = (data) => (dispatch) => {
@@ -134,20 +136,20 @@ export const updateUser = (data) => (dispatch) => {
   //   cuil: cuil,
   //   imagen: imagen
   // })
-    // .then(resp => {
-      
-    //   dispatch({
-    //     type: MODIFICA_USUARIO,
-    //     payload: {
-    //       name: name,
-    //       lastName: lastName,
-    //       phone: phone,
-    //       dni: dni,
-    //       cuil: cuil,
-    //       imagen: imagen,
-    //     }
-    //   })
-    // })
+  // .then(resp => {
+
+  //   dispatch({
+  //     type: MODIFICA_USUARIO,
+  //     payload: {
+  //       name: name,
+  //       lastName: lastName,
+  //       phone: phone,
+  //       dni: dni,
+  //       cuil: cuil,
+  //       imagen: imagen,
+  //     }
+  //   })
+  // })
 
 }
 
@@ -156,20 +158,25 @@ export const ResetPass = async (email) => {
 }
 
 export const ModificarEmail = async (email) => {
-  await auth.currentUser.updateEmail(email)
-    .then(() => {
-      auth.currentUser.sendEmailVerification()
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  if (await auth.currentUser) {
+    await auth.currentUser.updateEmail(email)
+      .then(() => {
+        auth.currentUser.sendEmailVerification()
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 }
 
 export const ModificarPassword = async (password) => {
-  await auth.currentUser.updatePassword(password)
+  if (await auth.currentUser) {
+    await auth.currentUser.updatePassword(password)
+  }
 }
 
 export const deleteUsuario = async (id) => {
+
   const consulta = storage.collection('Users').doc(id);
   await consulta.delete()
   auth.currentUser.delete()
