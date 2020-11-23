@@ -71,7 +71,7 @@ const Transfers = ({ navigation }) => {
   /* ====================== RENDERING ========================== */
   return (
     <ScrollView style={{ backgroundColor: bg }}>
-      <View style={[{ justifyContent: "space-between", backgroundColor: primary }, styles.background]}>
+      <View style={[{ justifyContent: "space-between", backgroundColor: primary }, styles.background2]}>
         <View>
           <FlatList
             data={transfers}

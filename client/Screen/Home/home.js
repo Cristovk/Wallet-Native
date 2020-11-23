@@ -176,7 +176,7 @@ const Home = ({ navigation }) => {
 
   /* ====================== RENDERING ========================== */
   return (
-    <ScrollView style={{ backgroundColor: bg }}>
+    <View style={{ backgroundColor: bg }}>
       <View style={[{ backgroundColor: bg }, style.balance]}>
         <Text
           style={style.tituloBalance}
@@ -195,7 +195,11 @@ const Home = ({ navigation }) => {
             )}
         </Text>
       </View>
+      <View style= {{height: 50, borderRadius: 10 , backgroundColor: "white",marginBottom:-15 }} >
+        <View style={{alignSelf: "center", width: 200, borderStyle: "solid", borderColor: bg, borderWidth:3, marginTop: 10, borderRadius:5  }}></View>
+      </View>
       <View style={[{ backgroundColor: primary }, style.background]}>
+        <ScrollView>
         <FlatList
           data={movements}
           keyExtractor={(mov) => mov.id}
@@ -250,8 +254,9 @@ const Home = ({ navigation }) => {
             );
           }}
         ></FlatList>
+        </ScrollView>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
