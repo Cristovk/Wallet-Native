@@ -1,24 +1,19 @@
 /* ====================== IMPORTATIONS ========================= */
 import React, { useState, useEffect } from "react";
-import {
-  LogBox,
-  View,
-  Text,
-  ScrollView,
-  FlatList,
-  ActivityIndicator,
-} from "react-native";
-import style from "./transferEstilos";
+import { LogBox, View, Text, ScrollView, FlatList, TouchableOpacity } from "react-native";
+
 import styles from "../Home/homeStyles";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useSelector, useDispatch } from "react-redux";
 import { ListItem, Button } from "react-native-elements";
 import { auth, storage } from "../../../firebase";
 import { saveTransfers } from "../../Redux/movements";
-import { darkBlue, white } from "../../Global-Styles/colors";
+import botonStyle from '../../Global-Styles/BotonGrande'
+
+
 /* ========================= STATES ============================ */
 const Transfers = ({ navigation }) => {
-  LogBox.ignoreAllLogs();
+  // LogBox.ignoreAllLogs();
   const [transfers, setTransfers] = useState([]);
   const iconList = {
     Tsaliente: "arrow-circle-up",
@@ -81,41 +76,10 @@ const Transfers = ({ navigation }) => {
   }
   /* ====================== RENDERING ========================== */
   return (
-    <ScrollView>
-      <Button
-        title="Nueva Transferencia"
-        buttonStyle={[
-          style.darkBlueButton,
-          {
-            marginTop: 10,
-            padding: 15,
-            borderRadius: 8,
-            zIndex: 1,
-          },
-        ]}
-        onPress={() => {
-          navigation.navigate("Transferir");
-        }}
-      />
-      {transfers.length === 0 ? (
-        <View style={{ marginTop: 100 }}>
-          <ActivityIndicator size="large" color={darkBlue} />
-        </View>
-      ) : transfers[0] == null ? (
-        <Text
-          style={{
-            textAlign: "center",
-            textAlignVertical: "auto",
-            fontSize: 24,
-            padding: 25,
-            color: white,
-          }}
-        >
-          {
-            "Ups!\nAun no tenes transferencias!\nComparti tu CVU para recibirlas\n😉"
-          }
-        </Text>
-      ) : (
+    <View>
+      <View style={{ backgroundColor: bg }}>
+        <ScrollView style={[{ backgroundColor: primary }, styles.background2]}>
+          <View>
             <FlatList
               data={transfers}
               keyExtractor={(transfer) => transfer.id}
@@ -124,7 +88,10 @@ const Transfers = ({ navigation }) => {
                 return (
                   <ListItem
                     key={item.id}
-                    style={styles.listaContenedor}
+                    containerStyle={{
+                      backgroundColor: primary
+                    }}
+                    style={[{ borderBottomColor: secondary }, styles.listaContenedor]}
                     onPress={() =>
                       navigation.navigate("Detalle", {
                         estado: item.estado,
@@ -169,8 +136,20 @@ const Transfers = ({ navigation }) => {
                 );
               }}
             ></FlatList>
-          )}
-    </ScrollView>
+          </View>
+        </ScrollView>
+      </View>
+      <View style={botonStyle.container}>
+        <TouchableOpacity
+          style={[{ backgroundColor: secondary }, botonStyle.boton]}
+          onPress={() => {
+            navigation.navigate("Transferir");
+          }}
+        >
+          <Text style={[{ color: text }, botonStyle.texto]}>Nueva Transferencia</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 

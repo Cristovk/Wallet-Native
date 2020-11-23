@@ -1,14 +1,21 @@
 import { StyleSheet } from "react-native";
+import { widthPercentageToDP, heightPercentageToDP } from "react-native-responsive-screen"
+
 
 
 const style = StyleSheet.create({
   background: {
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
-    minHeight: 600
+    height: heightPercentageToDP("60%")
+  }, background2: {
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    marginTop:25,
+    height: heightPercentageToDP("87%")
   },
   balance: {
-    height: 200,
+    height: 170,
     justifyContent: "center",
     alignItems: "center",
   },

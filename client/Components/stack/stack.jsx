@@ -92,7 +92,7 @@ export function MyStack(props) {
   console.log("huellaaaaa", huella);
 
 
-  LogBox.ignoreAllLogs()
+  // LogBox.ignoreAllLogs()
   return (
     <Stack.Navigator>
       <Stack.Screen name="Splash" component={Splash} initialParams={props} options={{ headerShown: false }} />
@@ -128,7 +128,7 @@ function HomeScreen({ userLog, user, status }) {
     <HomeScreenStack.Navigator screenOptions={{ // Personalizamos las cabeceras en general
       headerStyle: {
         backgroundColor: bg,
-        borderBottomColor: bg
+        borderBottomColor: bg,
       },
       headerTintColor: primary
     }}>

@@ -15,14 +15,14 @@ const Configuracion = ({ navigation, route }) => {
 
   const setApp = route.params.params.darker;
   const dispatch = useDispatch();
-  const dark = useSelector((store) => store.color.dark);
+  const { primary, secondary, text, bg, dark } = useSelector((store) => store.color);
 
   const [huella, setHuella] = useState()
 
   const [passwordchange, setPasswordChange] = useState(false);
   const [emailchange, setEmailChange] = useState(false);
   const [deleteuser, setDeleteUser] = useState(false);
-  const iconColor = dark ? '#02072f' : '#fff';
+  const iconColor = dark ? bg : secondary;
 
 
   const user = useSelector(store => store.user.user)
@@ -97,43 +97,14 @@ const Configuracion = ({ navigation, route }) => {
           </View>
           <View style={styles.interruptor}>
             <Switch
-              trackColor={{ false: "#767577", true: "#02072f" }}
-              thumbColor={"#f4f3f4"}
+              trackColor={{ false: dark ? primary : secondary, true: dark ? secondary : bg }}
+              thumbColor={dark ? primary : secondary}
               value={dark}
               onValueChange={() => {
                 setApp(!dark);
                 dispatch(darkMode(dark));
 
 
-              }}
-            />
-          </View>
-        </View>
-        <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
-          <View style={styles.subitemAjustes}>
-            <View style={dark ? styles.contIconoDark : styles.contIcono}>
-              <Icon
-                name="fingerprint"
-                type="material"
-                size={20}
-                color={iconColor}
-              />
-            </View>
-
-            <View style={styles.textoSubitem}>
-              <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>
-                Ingreso con Huella :
-                </Text>
-            </View>
-          </View>
-          <View style={styles.interruptor}>
-            <Switch
-              trackColor={{ false: "#767577", true: "#02072f" }}
-              thumbColor={"#f4f3f4"}
-              value={huella}
-              onValueChange={() => {
-                setHuella(!huella);
-                usarHuella()
               }}
             />
           </View>
@@ -187,6 +158,62 @@ const Configuracion = ({ navigation, route }) => {
               type="font-awesome"
               color={iconColor}
               onPress={() => setEmailChange(true)}
+            />
+          </View>
+        </View>
+
+        <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
+          <View style={styles.subitemAjustes}>
+            <View style={dark ? styles.contIconoDark : styles.contIcono}>
+              <Icon
+                size={20}
+                name="microphone"
+                type="font-awesome"
+                color={iconColor}
+              />
+            </View>
+
+            <View style={styles.textoSubitem}>
+              <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>Reconocimiento</Text>
+              <Text style={dark ? styles.letraClara : styles.letraOscura}>Voz</Text>
+            </View>
+          </View>
+          <View style={[dark ? styles.contIconoDark : styles.contIcono, styles.flecha]} >
+            <Icon
+              size={14}
+              name="chevron-right"
+              type="font-awesome"
+              color={iconColor}
+            />
+          </View>
+        </View>
+
+        <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
+          <View style={styles.subitemAjustes}>
+            <View style={dark ? styles.contIconoDark : styles.contIcono}>
+              <Icon
+                name="fingerprint"
+                type="material"
+                size={20}
+                color={iconColor}
+              />
+            </View>
+
+            <View style={styles.textoSubitem}>
+              <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>
+                Ingreso con Huella :
+                </Text>
+            </View>
+          </View>
+          <View style={styles.interruptor}>
+            <Switch
+              trackColor={{ false: dark ? primary : secondary, true: dark ? secondary : bg }}
+              thumbColor={dark ? primary : secondary}
+              value={huella}
+              onValueChange={() => {
+                setHuella(!huella);
+                usarHuella()
+              }}
             />
           </View>
         </View>
