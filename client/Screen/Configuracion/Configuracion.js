@@ -109,6 +109,35 @@ const Configuracion = ({ navigation, route }) => {
             />
           </View>
         </View>
+        <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
+          <View style={styles.subitemAjustes}>
+            <View style={dark ? styles.contIconoDark : styles.contIcono}>
+              <Icon
+                name="fingerprint"
+                type="material"
+                size={20}
+                color={iconColor}
+              />
+            </View>
+
+            <View style={styles.textoSubitem}>
+              <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>
+                Ingreso con Huella :
+                </Text>
+            </View>
+          </View>
+          <View style={styles.interruptor}>
+            <Switch
+              trackColor={{ false: "#767577", true: "#02072f" }}
+              thumbColor={"#f4f3f4"}
+              value={huella}
+              onValueChange={() => {
+                setHuella(!huella);
+                usarHuella()
+              }}
+            />
+          </View>
+        </View>
 
         <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
           <View style={styles.subitemAjustes}>
@@ -158,62 +187,6 @@ const Configuracion = ({ navigation, route }) => {
               type="font-awesome"
               color={iconColor}
               onPress={() => setEmailChange(true)}
-            />
-          </View>
-        </View>
-
-        <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
-          <View style={styles.subitemAjustes}>
-            <View style={dark ? styles.contIconoDark : styles.contIcono}>
-              <Icon
-                size={20}
-                name="microphone"
-                type="font-awesome"
-                color={iconColor}
-              />
-            </View>
-
-            <View style={styles.textoSubitem}>
-              <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>Reconocimiento</Text>
-              <Text style={dark ? styles.letraClara : styles.letraOscura}>Voz</Text>
-            </View>
-          </View>
-          <View style={[dark ? styles.contIconoDark : styles.contIcono, styles.flecha]} >
-            <Icon
-              size={14}
-              name="chevron-right"
-              type="font-awesome"
-              color={iconColor}
-            />
-          </View>
-        </View>
-
-        <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
-          <View style={styles.subitemAjustes}>
-            <View style={dark ? styles.contIconoDark : styles.contIcono}>
-              <Icon
-                name="fingerprint"
-                type="material"
-                size={20}
-                color={iconColor}
-              />
-            </View>
-
-            <View style={styles.textoSubitem}>
-              <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>
-                Ingreso con Huella :
-                </Text>
-            </View>
-          </View>
-          <View style={styles.interruptor}>
-            <Switch
-              trackColor={{ false: "#767577", true: "#02072f" }}
-              thumbColor={"#f4f3f4"}
-              value={huella}
-              onValueChange={() => {
-                setHuella(!huella);
-                usarHuella()
-              }}
             />
           </View>
         </View>

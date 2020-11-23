@@ -1,8 +1,13 @@
 import { StyleSheet } from "react-native";
 
+
 const style = StyleSheet.create({
+  background: {
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    minHeight: 600
+  },
   balance: {
-    backgroundColor: "#02072F",
     height: 200,
     justifyContent: "center",
     alignItems: "center",
@@ -30,10 +35,11 @@ const style = StyleSheet.create({
   },
   listaContenedor: {
     marginBottom: 2,
-    marginHorizontal: 25,
+    borderBottomWidth: 1
   },
   lista: {
     marginBottom: 10,
+
   },
 });
 
