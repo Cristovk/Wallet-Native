@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import style from "../Transferencias/Check_Styles";
 import { Icon, ListItem } from "react-native-elements";
-import styles from '../../Views/Login/PinStyle'
+import styles from "../../Views/Login/PinStyle";
 
 const PagoConfirm = ({ navigation, route }) => {
   return (
@@ -54,7 +54,7 @@ const PagoConfirm = ({ navigation, route }) => {
         </View>
         <View style={styles.botonContainer}>
           <TouchableOpacity
-            onPress={() => navigation.navagte("Home")}
+            onPress={() => navigation.navigate("Home")}
             style={styles.boton}
           >
             <Text style={styles.textBoton}>Volver al home</Text>

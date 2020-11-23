@@ -9,7 +9,7 @@ import {
   ScrollView,
   FlatList,
   ActivityIndicator,
-  BackHandler
+  BackHandler,
 } from "react-native";
 import { ListItem, Button } from "react-native-elements";
 import style from "./homeStyles";
@@ -26,7 +26,7 @@ import { auth, storage } from "../../../firebase";
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
   const [saldo, setSaldo] = useState(0);
-  const CVU = useSelector((store) => store.movementsReducer.CVU);
+  const allMovs = useSelector((store) => store.movementsReducer.allMovements);
   const [movements, setMovements] = useState([]);
   const [allMovements, setAllMovements] = useState([]);
   const userId = auth.currentUser.uid;
@@ -139,18 +139,20 @@ const Home = ({ navigation }) => {
     getSaldo();
     getAllMovements();
     getSomeMovements();
-    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick);
     return () => {
-      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
-    }
+      BackHandler.removeEventListener(
+        "hardwareBackPress",
+        handleBackButtonClick
+      );
+    };
   }, []);
 
   useEffect(() => {
     dispatch(saveSaldo(saldo));
     dispatch(saveAllMovements(allMovements));
     dispatch(getDayMovements(allMovements));
-  }, [isFocused]);
-
+  }, [isFocused, allMovements]);
 
   function formatNumber(num) {
     let number =
@@ -159,10 +161,8 @@ const Home = ({ navigation }) => {
   }
 
   const handleBackButtonClick = () => {
-    BackHandler.exitApp()
-  }
-
-
+    BackHandler.exitApp();
+  };
 
   // const handleOnTest = () => {
   //   test();
@@ -188,8 +188,8 @@ const Home = ({ navigation }) => {
           {saldo == 0 ? (
             <ActivityIndicator size="large" color={orange} />
           ) : (
-              `$ ${formatNumber(saldo)}`
-            )}
+            `$ ${formatNumber(saldo)}`
+          )}
         </Text>
       </View>
       <FlatList
@@ -214,15 +214,15 @@ const Home = ({ navigation }) => {
                   estado: item.estado,
                   empresa: item.empresa,
                   sender: item.sender,
-                  receiver: item.receiver
+                  receiver: item.receiver,
                 })
               }
             >
               {item.tipo == "Tsaliente" ? (
                 <Icon name={iconList[item.tipo]} size={30} color="red" />
               ) : (
-                  <Icon name={iconList[item.tipo]} size={30} color="green" />
-                )}
+                <Icon name={iconList[item.tipo]} size={30} color="green" />
+              )}
               <ListItem.Content>
                 <ListItem.Title>{item.operacion}</ListItem.Title>
                 <ListItem.Subtitle>
