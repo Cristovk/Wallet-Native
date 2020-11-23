@@ -7,9 +7,12 @@ import {
   Text,
 } from "react-native";
 import style from "./transferEstilos";
+import viewStyle from '../../Global-Styles/ViewContainer'
+import botonStyle from '../../Global-Styles/BotonMediano'
 import { auth, storage } from "../../../firebase";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
+import { ScrollView } from "react-native-gesture-handler";
 const Transferencias = ({ navigation }) => {
   const user = useSelector((store) => store.user);
   const [dato, setDato] = useState({
@@ -18,7 +21,7 @@ const Transferencias = ({ navigation }) => {
     sendercvu: user.user.cvu
   });
   const [error, setError] = useState(false)
-  
+  const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
 
   const [spinner, setSpinner] = useState(false);
 
@@ -36,11 +39,11 @@ const Transferencias = ({ navigation }) => {
 
   const handleSubmit = async () => {
     let respuesta = await comprobarCvu();
-    if(dato.receivercvu===dato.sendercvu){
+    if (dato.receivercvu === dato.sendercvu) {
       return setError(true)
     }
     setSpinner(true);
-   
+
     setTimeout(() => {
       setSpinner(false);
       setDato({ receivercvu: "", senderId: "" });
@@ -58,41 +61,44 @@ const Transferencias = ({ navigation }) => {
   };
 
   return (
-    <View>
-      <View style={style.cvu}>
+    <ScrollView style={{ backgroundColor: bg }} >
+
+      <View style={[{ backgroundColor: bg }, style.cvu]}>
         <Text style={style.text}>CVU</Text>
       </View>
-      <TextInput
-        placeholder="El cvu consiste en 22 caracteres numericos"
-        keyboardType="numeric"
-        style={style.input}
-        onChangeText={(data) => setDato({ ...dato, receivercvu: data }, setError(false))}
-        value={dato.receivercvu}
-      />
-      {spinner && (
-        <View style={style.spinner}>
-          <ActivityIndicator size="small" color="#fff" />
-        </View>
-      )}
-       {error && (
-        <View style={style.contError}>
-          <Text style={style.error}>
-          No puedes realizar una transferencia a ti mismo
+      <View style={[{ backgroundColor: primary }, viewStyle.container]}>
+        <TextInput
+          placeholder="El cvu consiste en 22 caracteres numericos"
+          keyboardType="numeric"
+          style={style.input}
+          onChangeText={(data) => setDato({ ...dato, receivercvu: data }, setError(false))}
+          value={dato.receivercvu}
+        />
+        {spinner && (
+          <View style={style.spinner}>
+            <ActivityIndicator size="small" color="#fff" />
+          </View>
+        )}
+        {error && (
+          <View style={style.contError}>
+            <Text style={style.error}>
+              No puedes realizar una transferencia a ti mismo
           </Text>
-        </View>
-      )}
-      {!spinner && (
-        <View style={[style.botonContainer, { marginBottom: 15 }]}>
-          <TouchableOpacity
-            style={style.boton}
-            onPress={() => handleSubmit()}
-            disabled={dato.receivercvu.length == 22? false: true}
-          >
-            <Text style={{ fontWeight: "bold", fontSize: 15 }}>Continuar</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-    </View>
+          </View>
+        )}
+        {!spinner && (
+          <View style={[botonStyle.botonContainer, { marginBottom: 15 }]}>
+            <TouchableOpacity
+              style={[{ backgroundColor: secondary }, botonStyle.boton]}
+              onPress={() => handleSubmit()}
+              disabled={dato.receivercvu.length == 22 ? false : true}
+            >
+              <Text style={{ fontSize: 15, color: text }}>Continuar</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
+    </ScrollView>
   );
 };
 

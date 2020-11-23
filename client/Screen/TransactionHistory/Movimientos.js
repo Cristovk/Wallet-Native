@@ -9,6 +9,8 @@ import {
 } from "../../Redux/movements";
 import { useDispatch, useSelector } from "react-redux";
 import { useIsFocused } from "@react-navigation/native";
+import viewStyle from '../../Global-Styles/ViewContainer'
+
 
 const Movimientos = ({ navigation }) => {
   const windowHeight = Dimensions.get("window").height;
@@ -18,6 +20,8 @@ const Movimientos = ({ navigation }) => {
   const movements = useSelector((store) => store.movementsReducer);
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
+  const { primary, bg, secondary, text } = useSelector(store => store.color)
+
 
   useEffect(() => {
     dispatch(getDayMovements(movements.allMovements));
@@ -38,44 +42,46 @@ const Movimientos = ({ navigation }) => {
   }, [selectedIndex]);
 
   return (
-    <View>
-      <View>
-        <ButtonGroup
-          onPress={setSelectedIndex}
-          selectedIndex={selectedIndex}
-          buttons={buttons}
-          containerStyle={{ height: 50 }}
-        />
-      </View>
-      {list.length ? (
-        <ScrollView style={{ maxHeight: windowHeight }}>
-          {historial(list, { navigation })}
-        </ScrollView>
-      ) : (
-        <View
-          style={{
-            backgroundColor: "white",
-            marginHorizontal: "10%",
-            paddingHorizontal: 20,
-            borderRadius: 10,
-            alignContent: "center",
-            marginTop: 100,
-          }}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              textAlignVertical: "auto",
-              fontSize: 24,
-            }}
-          >
-            {
-              "Ups!\nAun no tenes movimientos!\n¿Que esperas?\nAnda a comprar!\nTenemos promociones para vos!!"
-            }
-          </Text>
+    <ScrollView style={{ backgroundColor: bg }}>
+      <View style={[{ backgroundColor: primary }, viewStyle.container]}>
+        <View>
+          <ButtonGroup
+            onPress={setSelectedIndex}
+            selectedIndex={selectedIndex}
+            buttons={buttons}
+            containerStyle={{ height: 50, backgroundColor: primary, borderColor: secondary }}
+          />
         </View>
-      )}
-    </View>
+        {list.length ? (
+          <ScrollView style={{ maxHeight: windowHeight }}>
+            {historial(list, { navigation }, primary)}
+          </ScrollView>
+        ) : (
+            <View
+              style={{
+                backgroundColor: primary,
+                marginHorizontal: "10%",
+                paddingHorizontal: 20,
+                borderRadius: 10,
+                alignContent: "center",
+                marginTop: 100,
+              }}
+            >
+              <Text
+                style={{
+                  textAlign: "center",
+                  textAlignVertical: "auto",
+                  fontSize: 24,
+                }}
+              >
+                {
+                  "Ups!\nAun no tenes movimientos!\n¿Que esperas?\nAnda a comprar!\nTenemos promociones para vos!!"
+                }
+              </Text>
+            </View>
+          )}
+      </View>
+    </ScrollView>
   );
 };
 
