@@ -63,7 +63,7 @@ const Transferencias = ({ navigation }) => {
         <Text style={style.text}>CVU</Text>
       </View>
       <TextInput
-        placeholder="12345678"
+        placeholder="El cvu consiste en 22 caracteres numericos"
         keyboardType="numeric"
         style={style.input}
         onChangeText={(data) => setDato({ ...dato, receivercvu: data }, setError(false))}
@@ -77,7 +77,7 @@ const Transferencias = ({ navigation }) => {
        {error && (
         <View style={style.contError}>
           <Text style={style.error}>
-          No puedes trasnferirte a tu propio cvu
+          No puedes realizar una transferencia a ti mismo
           </Text>
         </View>
       )}
@@ -86,7 +86,7 @@ const Transferencias = ({ navigation }) => {
           <TouchableOpacity
             style={style.boton}
             onPress={() => handleSubmit()}
-            disabled={dato.receivercvu.length < 8 ? true : false}
+            disabled={dato.receivercvu.length == 22? false: true}
           >
             <Text style={{ fontWeight: "bold", fontSize: 15 }}>Continuar</Text>
           </TouchableOpacity>
