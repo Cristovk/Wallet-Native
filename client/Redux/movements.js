@@ -1,6 +1,4 @@
 /* ========================= IMPORTATIONS ======================== */
-import { move } from "react-native-redash";
-import db, { auth, functions, storage } from "../../firebase";
 const Axios = require("axios");
 
 /* ========================= CONSTANTS ============================ */

@@ -169,7 +169,7 @@ const Home = ({ navigation }) => {
   const handleBackButtonClick = () => {
     BackHandler.exitApp();
   };
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
 
   /* ====================== RENDERING ========================== */
   return (

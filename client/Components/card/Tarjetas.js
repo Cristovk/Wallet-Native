@@ -14,9 +14,11 @@ import { styles } from "./estilosTarjetas";
 import { getCards, deleteCard } from "../../Redux/CardActions";
 import { CardView } from "react-native-credit-card-input";
 import { darkBlue } from "../../Global-Styles/colors";
+import { LogBox } from "react-native";
 
 /* =============================== STATES ============================== */
 const Tarjetas = (props) => {
+  LogBox.ignoreAllLogs();
   const [cards, setCards] = useState([]);
   const [questionModal, setQuestionModal] = useState(false);
   const [deletedModal, setDeletedModal] = useState(false);
