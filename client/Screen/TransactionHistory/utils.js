@@ -6,9 +6,10 @@ import * as Print from "expo-print";
 import * as MediaLibrary from "expo-media-library";
 import * as Sharing from "expo-sharing";
 import { View } from "react-native";
+import { useSelector } from 'react-redux'
 
 /*Esta funcion genera la lista de transacciones (ListItem), re que ni servia con la db*/
-export const historial = (lista, { navigation }) => {
+export const historial = (lista, { navigation }, primary) => {
   const iconList = {
     panaderia: "cookie",
     almacen: "shopping-basket",
@@ -23,6 +24,8 @@ export const historial = (lista, { navigation }) => {
     Tentrante: "arrow-circle-down",
     recarga: "wallet",
   };
+
+
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
@@ -44,23 +47,24 @@ export const historial = (lista, { navigation }) => {
           receiver: item.receiver,
         })
       }
+      containerStyle={{ backgroundColor: primary }}
       key={i}
       bottomDivider
     >
       {item.tipo == "Tsaliente" ||
-      item.empresa ||
-      item.operacion == "Compra" ? (
-        <Icon name={iconList[item.tipo]} size={30} color="red" />
-      ) : (
-        <Icon name={iconList[item.tipo]} size={30} color="green" />
-      )}
+        item.empresa ||
+        item.operacion == "Compra" ? (
+          <Icon name={iconList[item.tipo]} size={30} color="red" />
+        ) : (
+          <Icon name={iconList[item.tipo]} size={30} color="green" />
+        )}
       <ListItem.Content>
         <ListItem.Title>
           {item.operacion
             ? item.operacion
             : item.empresa
-            ? item.empresa
-            : "Quiquebank"}
+              ? item.empresa
+              : "Quiquebank"}
         </ListItem.Title>
         <ListItem.Subtitle>
           {new Date(item.fecha).toLocaleDateString()}

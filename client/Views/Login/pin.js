@@ -5,12 +5,14 @@ import { Input } from 'react-native-elements'
 import { TextInput } from 'react-native-paper'
 import { useSelector, useDispatch } from 'react-redux'
 import style from './PinStyle'
+import styleBoton from '../../Global-Styles/BotonMediano'
 
 
 const Pin = ({ navigation }) => {
 
   const [clave, setClave] = useState("")
 
+  const { primary, secondary, text, bg } = useSelector(store => store.color)
 
   // const cerrar = async () => {
   //   await AsyncStorage.removeItem("Huella")
@@ -32,10 +34,10 @@ const Pin = ({ navigation }) => {
 
   return (
 
-    <View style={style.container} >
-      <View style={style.containerTwo} >
+    <View style={[{ backgroundColor: primary }, style.container]} >
+      <View style={[{ borderColor: bg }, style.containerTwo]} >
         <View style={style.title}>
-          <Text style={style.texto}>Ingrese clave de aplicación para continuar</Text>
+          <Text style={[{ color: bg }, style.texto]}>Ingrese clave de aplicación para continuar</Text>
         </View>
         <Input
           placeholder="Ingrese Clave"
@@ -43,12 +45,12 @@ const Pin = ({ navigation }) => {
           autoCompleteType='password'
           secureTextEntry={true}
         />
-        <View style={style.botonContainer}>
+        <View style={styleBoton.botonContainer}>
           <TouchableOpacity
             onPress={() => ingresar()}
-            style={style.boton}
+            style={[{ backgroundColor: bg }, styleBoton.boton]}
           >
-            <Text style={style.textBoton}>Ingresar</Text>
+            <Text style={[{ color: primary }, styleBoton.texto]}>Ingresar</Text>
           </TouchableOpacity>
         </View>
       </View>

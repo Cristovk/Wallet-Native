@@ -1,8 +1,8 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {Icon} from 'react-native-elements'
-import {useSelector} from 'react-redux'
-import {LogBox} from 'react-native'
+import { Icon } from 'react-native-elements'
+import { useSelector } from 'react-redux'
+import { LogBox } from 'react-native'
 
 // COMPONENTES
 import Home from '../../Screen/Home/home';
@@ -13,11 +13,13 @@ import Perfil from '../../Screen/perfil/Perfil';
 const Tab = createBottomTabNavigator();
 
 // Nos renderiza una tabBar con los componentes principales (logueado)
-export function MyTab(){
-    
-  const {primary,secondary,text,bg} = useSelector(store => store.color)
+
+export function MyTab() {
+
+  const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
   // LogBox.ignoreAllLogs()
-    return(
+  return (
+
     <Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({ // Configuración del tabBar
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
@@ -32,12 +34,12 @@ export function MyTab(){
         return <Icon name={iconName} type='fontisto' size={size} color={color} />;
       }
     })}
-    tabBarOptions={{
-      activeTintColor: '#FC7029',
-      inactiveTintColor: 'gray',
-      activeBackgroundColor: bg,
-      inactiveBackgroundColor: bg
-    }}
+      tabBarOptions={{
+        activeTintColor: dark ? text : primary,
+        inactiveTintColor: dark ? primary : secondary,
+        activeBackgroundColor: bg,
+        inactiveBackgroundColor: bg
+      }}
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Transferencias" component={Transfers} />
