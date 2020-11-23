@@ -189,7 +189,7 @@ const Home = ({ navigation }) => {
           onPress={() => navigation.navigate("Balance")}
         >
           {saldo == 0 ? (
-            <ActivityIndicator size="large" color={orange} />
+            <ActivityIndicator size="large" color={primary} />
           ) : (
               `$ ${formatNumber(saldo)}`
             )}

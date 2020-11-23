@@ -3,6 +3,8 @@ import { View, Text, ScrollView, Button, Image, StyleSheet, TouchableOpacity } f
 import AsyncStorage from "@react-native-community/async-storage";
 import * as LocalAuthentication from 'expo-local-authentication';
 import styles from './HuellaStyle'
+import { useSelector } from 'react-redux'
+import styleBoton from '../../Global-Styles/BotonMediano'
 
 
 const Huella = ({ navigation }) => {
@@ -26,6 +28,9 @@ const Huella = ({ navigation }) => {
     }
   }
 
+  const { primary, secondary, text, bg } = useSelector(store => store.color)
+
+
   // const cerrar = async () => {
   //   await AsyncStorage.removeItem("Metodo")
   // }
@@ -35,17 +40,17 @@ const Huella = ({ navigation }) => {
 
   return (
 
-    <View style={styles.container}>
-      <View style={styles.containerTwo} >
+    <View style={[{ backgroundColor: primary }, styles.container]}>
+      <View style={[{ borderColor: bg }, styles.containerTwo]} >
         <View style={styles.title}>
-          <Text style={styles.texto}>Ingrese su huella para continuar</Text>
+          <Text style={[{ color: bg }, styles.texto]}>Ingrese su huella para continuar</Text>
         </View>
-        <View style={styles.botonContainer}>
+        <View style={styleBoton.botonContainer}>
           <TouchableOpacity
             onPress={AuthWithFinger}
-            style={styles.boton}
+            style={[{ backgroundColor: bg }, styleBoton.boton]}
           >
-            <Text style={styles.textBoton}>Ingresar Huella</Text>
+            <Text style={[{ color: primary }, styleBoton.texto]}>Ingresar Huella</Text>
           </TouchableOpacity>
         </View>
       </View>

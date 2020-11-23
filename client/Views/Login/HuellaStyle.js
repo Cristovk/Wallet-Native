@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
   },
   containerTwo: {
     borderWidth: 2,
-    color: darkBlue,
     width: 360,
     height: 300,
     justifyContent: "center",
@@ -30,15 +29,11 @@ const styles = StyleSheet.create({
     borderRadius: 15
   },
   boton: {
-    backgroundColor: darkBlue,
     width: 130,
     height: 50,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 30
-  },
-  textBoton: {
-    color: white
   }
 });
 
