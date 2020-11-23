@@ -9,7 +9,7 @@ import {
   ScrollView,
   FlatList,
   ActivityIndicator,
-  BackHandler
+  BackHandler,
 } from "react-native";
 import { ListItem, Button } from "react-native-elements";
 import style from "./homeStyles";
@@ -26,7 +26,7 @@ import { auth, storage } from "../../../firebase";
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
   const [saldo, setSaldo] = useState(0);
-  const CVU = useSelector((store) => store.movementsReducer.CVU);
+  const allMovs = useSelector((store) => store.movementsReducer.allMovements);
   const [movements, setMovements] = useState([]);
   const [allMovements, setAllMovements] = useState([]);
   const userId = auth.currentUser.uid;
@@ -142,18 +142,20 @@ const Home = ({ navigation }) => {
     getSaldo();
     getAllMovements();
     getSomeMovements();
-    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick);
     return () => {
-      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
-    }
+      BackHandler.removeEventListener(
+        "hardwareBackPress",
+        handleBackButtonClick
+      );
+    };
   }, []);
 
   useEffect(() => {
     dispatch(saveSaldo(saldo));
     dispatch(saveAllMovements(allMovements));
     dispatch(getDayMovements(allMovements));
-  }, [isFocused]);
-
+  }, [isFocused, allMovements]);
 
   function formatNumber(num) {
     let number =
@@ -162,10 +164,8 @@ const Home = ({ navigation }) => {
   }
 
   const handleBackButtonClick = () => {
-    BackHandler.exitApp()
-  }
-
-
+    BackHandler.exitApp();
+  };
 
   // const handleOnTest = () => {
   //   test();
@@ -195,62 +195,57 @@ const Home = ({ navigation }) => {
             )}
         </Text>
       </View>
-      <View style={[{ backgroundColor: primary }, style.background]}>
-        <FlatList
-          data={movements}
-          keyExtractor={(mov) => mov.id}
-          style={{ marginVertical: 15, backgroundColor: primary }}
-          renderItem={({ item }) => {
-            return (
-              <ListItem
-                key={item.id}
-                containerStyle={{
-                  backgroundColor: primary
-                }}
-                style={[{ borderBottomColor: secondary }, style.listaContenedor]}
-                onPress={() =>
-                  navigation.navigate("Detalle", {
-                    fecha: item.fecha,
-                    monto: item.monto,
-                    hacia: item.hacia,
-                    desde: item.desde,
-                    estado: item.estado,
-                    tipo: item.tipo,
-                    motivo: item.motivo,
-                    operacion: item.operacion,
-                    estado: item.estado,
-                    empresa: item.empresa,
-                    sender: item.sender,
-                    receiver: item.receiver
-                  })
-                }
-              >
-                {item.tipo == "Tsaliente" ? (
-                  <Icon name={iconList[item.tipo]} size={30} color="red" />
-                ) : (
-                    <Icon name={iconList[item.tipo]} size={30} color="green" />
-                  )}
-                <ListItem.Content >
-                  <ListItem.Title>{item.operacion}</ListItem.Title>
-                  <ListItem.Subtitle>
-                    {new Date(item.fecha).toLocaleDateString()}
-                  </ListItem.Subtitle>
-                </ListItem.Content>
-                <Text style={{ marginRight: 3 }}>
-                  {item.tipo == "Tsaliente"
-                    ? `- $ ${formatNumber(item.monto)}`
-                    : `$ ${formatNumber(item.monto)}`}
-                </Text>
-                <ListItem.Chevron
-                  name="chevron-right"
-                  type="font-awesome"
-                  color="black"
-                />
-              </ListItem>
-            );
-          }}
-        ></FlatList>
-      </View>
+      <FlatList
+        data={movements}
+        keyExtractor={(mov) => mov.id}
+        style={{ marginVertical: 15 }}
+        renderItem={({ item }) => {
+          return (
+            <ListItem
+              key={item.id}
+              style={style.listaContenedor}
+              onPress={() =>
+                navigation.navigate("Detalle", {
+                  fecha: item.fecha,
+                  monto: item.monto,
+                  hacia: item.hacia,
+                  desde: item.desde,
+                  estado: item.estado,
+                  tipo: item.tipo,
+                  motivo: item.motivo,
+                  operacion: item.operacion,
+                  estado: item.estado,
+                  empresa: item.empresa,
+                  sender: item.sender,
+                  receiver: item.receiver,
+                })
+              }
+            >
+              {item.tipo == "Tsaliente" ? (
+                <Icon name={iconList[item.tipo]} size={30} color="red" />
+              ) : (
+                  <Icon name={iconList[item.tipo]} size={30} color="green" />
+                )}
+              <ListItem.Content>
+                <ListItem.Title>{item.operacion}</ListItem.Title>
+                <ListItem.Subtitle>
+                  {new Date(item.fecha).toLocaleDateString()}
+                </ListItem.Subtitle>
+              </ListItem.Content>
+              <Text style={{ marginRight: 3 }}>
+                {item.tipo == "Tsaliente"
+                  ? `- $ ${formatNumber(item.monto)}`
+                  : `$ ${formatNumber(item.monto)}`}
+              </Text>
+              <ListItem.Chevron
+                name="chevron-right"
+                type="font-awesome"
+                color="black"
+              />
+            </ListItem>
+          );
+        }}
+      ></FlatList>
     </ScrollView>
   );
 };
