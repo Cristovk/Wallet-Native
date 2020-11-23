@@ -195,65 +195,65 @@ const Home = ({ navigation }) => {
             )}
         </Text>
       </View>
-      <View style= {{height: 50, borderRadius: 10 , backgroundColor: "white",marginBottom:-15 }} >
-        <View style={{alignSelf: "center", width: 200, borderStyle: "solid", borderColor: bg, borderWidth:3, marginTop: 10, borderRadius:5  }}></View>
+      <View style={{ height: 50, borderRadius: 10, backgroundColor: primary, marginBottom: -15 }} >
+        <View style={{ alignSelf: "center", width: 200, borderStyle: "solid", borderColor: bg, borderWidth: 3, marginTop: 10, borderRadius: 5 }}></View>
       </View>
       <View style={[{ backgroundColor: primary }, style.background]}>
         <ScrollView>
-        <FlatList
-          data={movements}
-          keyExtractor={(mov) => mov.id}
-          style={{ marginVertical: 15, backgroundColor: primary }}
-          renderItem={({ item }) => {
-            return (
-              <ListItem
-                key={item.id}
-                containerStyle={{
-                  backgroundColor: primary
-                }}
-                style={[{ borderBottomColor: secondary }, style.listaContenedor]}
-                onPress={() =>
-                  navigation.navigate("Detalle", {
-                    fecha: item.fecha,
-                    monto: item.monto,
-                    hacia: item.hacia,
-                    desde: item.desde,
-                    estado: item.estado,
-                    tipo: item.tipo,
-                    motivo: item.motivo,
-                    operacion: item.operacion,
-                    estado: item.estado,
-                    empresa: item.empresa,
-                    sender: item.sender,
-                    receiver: item.receiver
-                  })
-                }
-              >
-                {item.tipo == "Tsaliente" ? (
-                  <Icon name={iconList[item.tipo]} size={30} color="red" />
-                ) : (
-                    <Icon name={iconList[item.tipo]} size={30} color="green" />
-                  )}
-                <ListItem.Content >
-                  <ListItem.Title>{item.operacion}</ListItem.Title>
-                  <ListItem.Subtitle>
-                    {new Date(item.fecha).toLocaleDateString()}
-                  </ListItem.Subtitle>
-                </ListItem.Content>
-                <Text style={{ marginRight: 3 }}>
-                  {item.tipo == "Tsaliente"
-                    ? `- $ ${formatNumber(item.monto)}`
-                    : `$ ${formatNumber(item.monto)}`}
-                </Text>
-                <ListItem.Chevron
-                  name="chevron-right"
-                  type="font-awesome"
-                  color="black"
-                />
-              </ListItem>
-            );
-          }}
-        ></FlatList>
+          <FlatList
+            data={movements}
+            keyExtractor={(mov) => mov.id}
+            style={{ marginVertical: 15, backgroundColor: primary }}
+            renderItem={({ item }) => {
+              return (
+                <ListItem
+                  key={item.id}
+                  containerStyle={{
+                    backgroundColor: primary
+                  }}
+                  style={[{ borderBottomColor: secondary }, style.listaContenedor]}
+                  onPress={() =>
+                    navigation.navigate("Detalle", {
+                      fecha: item.fecha,
+                      monto: item.monto,
+                      hacia: item.hacia,
+                      desde: item.desde,
+                      estado: item.estado,
+                      tipo: item.tipo,
+                      motivo: item.motivo,
+                      operacion: item.operacion,
+                      estado: item.estado,
+                      empresa: item.empresa,
+                      sender: item.sender,
+                      receiver: item.receiver
+                    })
+                  }
+                >
+                  {item.tipo == "Tsaliente" ? (
+                    <Icon name={iconList[item.tipo]} size={30} color="red" />
+                  ) : (
+                      <Icon name={iconList[item.tipo]} size={30} color="green" />
+                    )}
+                  <ListItem.Content >
+                    <ListItem.Title>{item.operacion}</ListItem.Title>
+                    <ListItem.Subtitle>
+                      {new Date(item.fecha).toLocaleDateString()}
+                    </ListItem.Subtitle>
+                  </ListItem.Content>
+                  <Text style={{ marginRight: 3 }}>
+                    {item.tipo == "Tsaliente"
+                      ? `- $ ${formatNumber(item.monto)}`
+                      : `$ ${formatNumber(item.monto)}`}
+                  </Text>
+                  <ListItem.Chevron
+                    name="chevron-right"
+                    type="font-awesome"
+                    color="black"
+                  />
+                </ListItem>
+              );
+            }}
+          ></FlatList>
         </ScrollView>
       </View>
     </View>

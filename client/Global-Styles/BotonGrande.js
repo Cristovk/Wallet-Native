@@ -13,6 +13,8 @@ const style = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
+    position: "relative",
+    top: 330,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

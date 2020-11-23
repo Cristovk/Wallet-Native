@@ -4,6 +4,7 @@ const style = StyleSheet.create({
   balance: {
     justifyContent: "center",
     alignItems: "center",
+    height: 170
   },
   saldoBalance: {
     fontWeight: "bold",
@@ -20,10 +21,12 @@ const style = StyleSheet.create({
   grafico: {
     height: 300,
     flexDirection: "column",
+    marginTop: 25
   },
   contenedor: {
     flexDirection: "row",
     justifyContent: "space-around",
+    marginTop: 25
   },
   letraButton: {
     fontWeight: "bold",

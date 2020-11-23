@@ -20,7 +20,7 @@ const Movimientos = ({ navigation }) => {
   const movements = useSelector((store) => store.movementsReducer);
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
-  const { primary, bg, secondary, text } = useSelector(store => store.color)
+  const { primary, bg, secondary, text, dark } = useSelector(store => store.color)
 
 
   useEffect(() => {
@@ -43,13 +43,27 @@ const Movimientos = ({ navigation }) => {
 
   return (
     <ScrollView style={{ backgroundColor: bg }}>
-      <View style={[{ backgroundColor: primary }, viewStyle.container]}>
+      <View style={[{ backgroundColor: primary, marginTop: 25 }, viewStyle.container]}>
         <View>
           <ButtonGroup
             onPress={setSelectedIndex}
             selectedIndex={selectedIndex}
+            buttonContainerStyle={{
+              backgroundColor: dark ? bg : secondary, marginRight: 1, shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 5,
+              },
+              shadowOpacity: 0.34,
+              shadowRadius: 6.27,
+
+              elevation: 10,
+            }}
             buttons={buttons}
-            containerStyle={{ height: 50, backgroundColor: primary, borderColor: secondary }}
+            selectedButtonStyle={{ backgroundColor: dark ? secondary : bg }}
+            textStyle={{ color: text, fontSize: 15 }}
+            selectedTextStyle={{ color: primary }}
+            containerStyle={{ height: 50, borderRadius: 5, marginTop: 30 }}
           />
         </View>
         {list.length ? (

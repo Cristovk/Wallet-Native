@@ -5,12 +5,15 @@ import { ListItem, } from 'react-native-elements'
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { TextInput, Title } from 'react-native-paper'
 import style from './pagosEstilos'
-
+import { useSelector } from 'react-redux';
+import styleView from '../../Global-Styles/ViewContainer'
 
 const Pagos = ({ navigation }) => {
 
   const [state, setState] = useState(false)
   const [nombre, setNombre] = useState("")
+  const { primary, secundary, text, bg, dark } = useSelector(store => store.color)
+
 
   const iconList = {
 
@@ -43,63 +46,53 @@ const Pagos = ({ navigation }) => {
 
 
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <View style={{ backgroundColor: "#02072F", borderBottomRightRadius: 15, borderBottomLeftRadius: 15, alignItems: 'center' }}>
-        <View style={style.inputContainer}>
-          <TextInput placeholder="Buscar Servicio" style={style.input} />
-          <TouchableOpacity
-            onPress={() => Alert.alert('buscando')}
-            style={{ marginStart: 10 }}
-          >
-            <Icon
-              name="search"
-              type='fontisto'
-              size={30}
-              color="#FC7029"
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <ScrollView
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        style={{ marginTop: 15 }}
-      >
-        {nombres && nombres.map(x =>
-          <View key={x} style={{ width: 105, justifyContent: "center", alignItems: "center", marginEnd: 15 }}>
-            <TouchableOpacity
-              style={{ justifyContent: "center", alignItems: "center" }}
-              onPress={() => cambioEstado(x)}
-            >
-              <Icon
-                name={iconList[x]}
-                size={30}
-                color="#02072F"
-              />
-              <Text>{x} </Text>
-            </TouchableOpacity>
-          </View>
-        )
-        }
-      </ScrollView>
+    <ScrollView style={{ flex: 1, backgroundColor: bg }}>
 
-      <View style={{ marginTop: 50 }}>
-        {state && nombres && servicios[nombre].map(x =>
-          <ListItem key={x} style={style.listaContenedor}>
-            <ListItem.Chevron />
-            <ListItem.Content style={style.lista}>
-              <ListItem.Title>{x}</ListItem.Title>
+      <View style={[{
+        backgroundColor: primary, borderTopRightRadius: 10,
+        borderTopLeftRadius: 10, height: 300
+      }]}>
+        <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          style={{ marginTop: 15 }}
+        >
+          {nombres && nombres.map(x =>
+            <View key={x} style={{ width: 105, justifyContent: "flex-start", alignItems: "center", marginEnd: 15 }}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('PagoServicios', {
-                  title: x,
-                  servicio: nombre
-                })}
+                style={{ justifyContent: "center", alignItems: "center" }}
+                onPress={() => cambioEstado(x)}
               >
-                <Text>Pagar</Text>
+                <Icon
+                  name={iconList[x]}
+                  size={30}
+                  color="#02072F"
+                />
+                <Text>{x} </Text>
               </TouchableOpacity>
-            </ListItem.Content>
-          </ListItem>
-        )}
+            </View>
+          )
+          }
+        </ScrollView>
+
+        <View >
+          {state && nombres && servicios[nombre].map(x =>
+            <ListItem key={x} style={style.listaContenedor}>
+              <ListItem.Chevron />
+              <ListItem.Content style={style.lista}>
+                <ListItem.Title>{x}</ListItem.Title>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('PagoServicios', {
+                    title: x,
+                    servicio: nombre
+                  })}
+                >
+                  <Text>Pagar</Text>
+                </TouchableOpacity>
+              </ListItem.Content>
+            </ListItem>
+          )}
+        </View>
       </View>
       {/* <View style={style.qrContainer} >
           <TouchableOpacity

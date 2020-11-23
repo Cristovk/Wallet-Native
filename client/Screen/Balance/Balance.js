@@ -44,7 +44,7 @@ const Balance = ({ navigation }) => {
       if (balance) {
         setData({
           labels: last6Months(today),
-          datasets: [{ data: filtroAño(today, movements.allMovements).balance, }]
+          datasets: [{ data: filtroAño(today, movements.allMovements).balance, color: (opacity = 1) => bg }]
         });
       } else {
         setData({
@@ -72,7 +72,7 @@ const Balance = ({ navigation }) => {
       if (balance) {
         setData({
           labels: ["1-7", "8-14", "15-21", "21-28"],
-          datasets: [{ data: filtroMes(today, movements.allMovements).balance }]
+          datasets: [{ data: filtroMes(today, movements.allMovements).balance, color: (opacity = 1) => bg }]
         });
       } else {
         setData({
@@ -100,7 +100,7 @@ const Balance = ({ navigation }) => {
       if (balance) {
         setData({
           labels: lastWeek(today),
-          datasets: [{ data: filtroSemana(today, movements.weekMovements).balance, }]
+          datasets: [{ data: filtroSemana(today, movements.weekMovements).balance, color: (opacity = 1) => bg }]
         });
       } else {
         setData({
@@ -127,8 +127,8 @@ const Balance = ({ navigation }) => {
     backgroundGradientFrom: primary,
     backgroundGradientTo: primary,
     decimalPlaces: 0,
-    color: (opacity = 1) => secondary,
-    labelColor: (opacity = 1) => text,
+    color: (opacity = 1) => primary,
+    labelColor: (opacity = 1) => dark ? bg : text,
     useShadowColorFromDataset: true
   };
   const saldo = useSelector((store) => store.movementsReducer.saldo);
@@ -137,33 +137,34 @@ const Balance = ({ navigation }) => {
   }
   return (
     <ScrollView style={{ backgroundColor: bg }}>
-      <View style={style.balance}>
+      {/* <View style={style.balance}>
         <Text style={[{ color: primary }, style.tituloBalance]}>Balance General</Text>
         <Text style={[{ color: primary }, style.saldoBalance]}>{`$ ${formatNumber(saldo)}`}</Text>
-      </View>
-      <View style={[{ backgroundColor: primary }, styleView.container]}>
+      </View> */}
+      <View style={[{ backgroundColor: primary, marginTop: 25 }, styleView.container]}>
         <View>
           <ButtonGroup
             onPress={setSelectedIndex}
             selectedIndex={selectedIndex}
             buttons={buttons}
-            buttonContainerStyle={{ backgroundColor: secondary }}
-            selectedButtonStyle={{ backgroundColor: bg }}
+            buttonContainerStyle={{
+              backgroundColor: dark ? bg : secondary, marginRight: 1, shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 5,
+              },
+              shadowOpacity: 0.34,
+              shadowRadius: 6.27,
+
+              elevation: 10,
+            }}
+            selectedButtonStyle={{ backgroundColor: dark ? secondary : bg }}
             textStyle={{ color: text, fontSize: 15 }}
             selectedTextStyle={{ color: primary }}
-            containerStyle={{ height: 50, borderRadius: 5, marginTop: 0 }}
+            containerStyle={{ height: 50, borderRadius: 5, marginTop: 30 }}
           />
         </View>
-        <View >
-          <Switch
-            trackColor={{ false: secondary, true: bg }}
-            thumbColor={secondary}
-            value={balance}
-            onValueChange={() => {
-              setBalance(!balance);
-            }}
-          />
-        </View>
+
         <View style={style.grafico}>
           {/* grafico */}
           <LineChart
@@ -175,13 +176,23 @@ const Balance = ({ navigation }) => {
             chartConfig={chartConfig}
           ></LineChart>
         </View>
+        <View >
+          <Switch
+            trackColor={{ false: secondary, true: bg }}
+            thumbColor={secondary}
+            value={balance}
+            onValueChange={() => {
+              setBalance(!balance);
+            }}
+          />
+        </View>
         <View style={style.contenedor}>
           <View style={[{ borderColor: bg }, style.ingresoCont]}>
-            <Text style={[{ color: text }, style.letraButton]}>Ingresos</Text>
+            <Text style={[{ color: dark ? bg : text }, style.letraButton]}>Ingresos</Text>
             <Text style={style.ingreso}>+ ${cartel.ingresos}</Text>
           </View>
           <View style={[{ borderColor: bg }, style.ingresoCont]}>
-            <Text style={[{ color: text }, style.letraButton]}>Gastos</Text>
+            <Text style={[{ color: dark ? bg : text }, style.letraButton]}>Gastos</Text>
             <Text style={style.gasto}>- ${cartel.gastos}</Text>
           </View>
         </View>
