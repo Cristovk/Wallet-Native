@@ -10,11 +10,11 @@ import { CheckBox} from "react-native-elements";
 // Check saldo, mandar la wea,
 
 const Finish = ({ navigation, route }) => {
-  const datos = route.params;
+  const {dato, receiver} = route.params;
   const [errormoney, setErrorMoney] = useState(false);
   const [transferencia, setTransferencia] = useState({
-    senderId: datos.datos.dato.senderId,
-    receivercvu: datos.datos.receiver.cvu,
+    senderId: dato.senderId,
+    receivercvu: receiver.cvu,
     amount: "",
     motivo: "",
   }); 
@@ -31,8 +31,8 @@ const Finish = ({ navigation, route }) => {
       const isAvailable = await SMS.isAvailableAsync();
       if (isAvailable) {
         const { result } = await SMS.sendSMSAsync(
-          [`${datos.datos.receiver.telefono}`],
-          `Hola ${datos.datos.receiver.nombre}, ${user.name} ${user.lastName} le ha enviado $ ${transferencia.amount} a traves de MoonBank.\n Motivo: ${transferencia.motivo}.`
+          [`${receiver.telefono}`],
+          `Hola ${receiver.nombre}, ${user.name} ${user.lastName} le ha enviado $ ${transferencia.amount} a traves de MoonBank.\n Motivo: ${transferencia.motivo}.`
         );
         console.log("Result", result);
       } else {
@@ -52,7 +52,7 @@ const Finish = ({ navigation, route }) => {
     transferir(transferencia);
     checked ? sendSMS() : null;
     navigation.navigate("postScreen", {
-      datos:datos.datos.receiver,
+      receiver:receiver,
       amount:transferencia.amount
     })
   };
