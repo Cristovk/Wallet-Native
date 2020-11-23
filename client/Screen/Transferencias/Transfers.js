@@ -15,10 +15,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { ListItem, Button } from "react-native-elements";
 import { auth, storage } from "../../../firebase";
 import { saveTransfers } from "../../Redux/movements";
-import { darkBlue } from "../../Global-Styles/colors";
-
+import { darkBlue, white } from "../../Global-Styles/colors";
 /* ========================= STATES ============================ */
 const Transfers = ({ navigation }) => {
+  LogBox.ignoreAllLogs();
   const [transfers, setTransfers] = useState([]);
   const iconList = {
     Tsaliente: "arrow-circle-up",
@@ -77,7 +77,6 @@ const Transfers = ({ navigation }) => {
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
-  // LogBox.ignoreAllLogs();
   /* ====================== RENDERING ========================== */
   return (
     <ScrollView>
@@ -107,6 +106,7 @@ const Transfers = ({ navigation }) => {
             textAlignVertical: "auto",
             fontSize: 24,
             padding: 25,
+            color: white,
           }}
         >
           {
