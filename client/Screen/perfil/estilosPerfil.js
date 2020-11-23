@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   generalperfil: {
-    backgroundColor: '#fff',
     height: '100%'
   },
   generalimagen: {
@@ -15,8 +14,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  contenedorimagen: {/* 
-    borderColor: '#0272F', */
+  contenedorimagen: {
+    // borderColor: '#0272F',
     borderWidth: 1,
     width: 100,
     height: 100,
@@ -28,7 +27,6 @@ const styles = StyleSheet.create({
   imagenperfil: {
     width: '96%',
     height: '96%',
-    borderColor: '#ccc',
     borderWidth: 1,
     position: 'absolute',
     borderRadius: 100,
@@ -50,7 +48,7 @@ const styles = StyleSheet.create({
     margin: 10,
     fontWeight: '600',
     color: '#02072f',
-    fontWeight:'bold'
+    fontWeight: 'bold'
   },
   titulodatos: {
     paddingLeft: 10,

@@ -5,7 +5,7 @@ const style = StyleSheet.create({
   container: {
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
-    minHeight: 600,
+    minHeight: 700,
   }
 })
 
