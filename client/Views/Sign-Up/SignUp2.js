@@ -52,6 +52,7 @@ const SignUp2 = ({ navigation }) => {
           return number.toString()
         }
         const pinRecarga = generatePin()
+        const elCvu = "" + 202005051 + pinRecarga
         const metodo = ""
         await docRef.set({
           id: docRef.id,
@@ -64,15 +65,15 @@ const SignUp2 = ({ navigation }) => {
           dni: userData.dni,
           cuil: userData.cuil,
           pin: pinRecarga,
-          cvu: userData.dni,
+          cvu: elCvu,
           clave: clave,
           metodo: metodo
 
         });
         //se crea Wallet
 
-        const walletRef = storage.collection('Users').doc(NewUser.user.uid).collection('Wallet').doc(userData.dni);
-        const cvu = storage.collection('Directions').doc('Cvu').collection('listaDeCvu').doc(userData.dni);
+        const walletRef = storage.collection('Users').doc(NewUser.user.uid).collection('Wallet').doc(elCvu);
+        const cvu = storage.collection('Directions').doc('Cvu').collection('listaDeCvu').doc(elCvu);
         const carga = storage.collection('Directions').doc('Pin').collection('listaDePin').doc(pinRecarga);
         await cvu.set({
           userId: NewUser.user.uid,
@@ -89,7 +90,7 @@ const SignUp2 = ({ navigation }) => {
           .collection("Users")
           .doc(NewUser.user.uid)
           .collection("Wallet")
-          .doc(userData.dni)
+          .doc(elCvu)
           .collection("Movimientos")
           .doc();
 
