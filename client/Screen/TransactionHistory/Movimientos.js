@@ -23,7 +23,7 @@ const Movimientos = ({ navigation }) => {
     dispatch(getDayMovements(movements.allMovements));
     dispatch(getWeekMovement(movements.allMovements));
     dispatch(getMonthMovements(movements.allMovements));
-  }, [isFocused]);
+  }, [isFocused, selectedIndex]);
 
   useEffect(() => {
     if (selectedIndex == 0) {
@@ -35,7 +35,7 @@ const Movimientos = ({ navigation }) => {
     if (selectedIndex == 2) {
       setList(movements.monthMovements);
     }
-  }, [selectedIndex]);
+  }, [selectedIndex, isFocused, movements]);
 
   return (
     <View>
