@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { Dimensions } from "react-native";
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 
 export const styles = StyleSheet.create({
@@ -46,7 +47,6 @@ export const styles = StyleSheet.create({
     paddingVertical: 15,
     justifyContent: "space-evenly",
     borderTopColor: darkBlue,
-    borderTopWidth: 1,
   },
 });
 export const estilos = StyleSheet.create({

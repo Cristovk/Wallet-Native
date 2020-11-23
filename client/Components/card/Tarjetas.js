@@ -4,17 +4,16 @@ import {
   View,
   Text,
   ScrollView,
-  Alert,
   Modal,
   FlatList,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
-import { ListItem, Icon, Button } from "react-native-elements";
-import { estilos, styles } from "./estilosTarjetas";
+import { Icon, Button } from "react-native-elements";
+import { styles } from "./estilosTarjetas";
 import { getCards, deleteCard } from "../../Redux/CardActions";
 import { CardView } from "react-native-credit-card-input";
-// import {  } from "react-native-gesture-handler";
-import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
+import { darkBlue } from "../../Global-Styles/colors";
 
 /* =============================== STATES ============================== */
 const Tarjetas = (props) => {
@@ -32,7 +31,8 @@ const Tarjetas = (props) => {
   };
   let func = async () => {
     response = await getCards();
-    setCards(response);
+    console.log("RESPONSE", response);
+    response.length ? setCards(response) : setCards([null]);
   };
   const toggleDModal = () => {
     setDeletedModal(!deletedModal);
@@ -43,49 +43,87 @@ const Tarjetas = (props) => {
   }, [deletedModal, state]);
   /* ============================ RENDERING ============================= */
   return (
-    <View style={styles.container}>
-      <FlatList
-        keyExtractor={(card) => card.id}
-        data={cards}
-        renderItem={({ item }) => {
-          return (
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <TouchableOpacity>
-                <CardView
-                  name={item.name}
-                  focused="number"
-                  brand={item.type}
-                  number={item.number}
-                  expiry={item.expiry}
-                  scale={0.8}
+    <ScrollView style={styles.container}>
+      <View style={[styles.rowButtons]}>
+        <Button
+          onPress={() =>
+            props.navigation.navigate("AddTarjeta", {
+              renderState: () =>
+                setState(({ render }) => ({ render: render + 1 })),
+            })
+          }
+          title="Añadir Tarjeta"
+          buttonStyle={[styles.orangeButton]}
+        />
+        <Button
+          onPress={() => props.navigation.goBack()}
+          title="Go back home"
+          buttonStyle={[styles.darkBlueButton]}
+        />
+      </View>
+      {cards.length === 0 ? (
+        <ScrollView>
+          <View style={{ marginTop: 100 }}>
+            <ActivityIndicator size="large" color={darkBlue} />
+          </View>
+        </ScrollView>
+      ) : cards[0] == null ? (
+        <ScrollView>
+          <Text
+            style={{
+              textAlign: "center",
+              textAlignVertical: "auto",
+              fontSize: 24,
+              padding: 25,
+            }}
+          >
+            {"Aun no agregaste ninguna tarjeta"}
+          </Text>
+        </ScrollView>
+      ) : (
+        <FlatList
+          keyExtractor={(card) => card.id}
+          data={cards}
+          renderItem={({ item }) => {
+            return (
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <TouchableOpacity>
+                  <CardView
+                    name={item.name}
+                    focused="number"
+                    brand={item.type}
+                    number={item.number}
+                    expiry={item.expiry}
+                    scale={0.8}
+                  />
+                </TouchableOpacity>
+                <Button
+                  buttonStyle={{
+                    backgroundColor: darkBlue,
+                    color: darkBlue,
+                    paddingHorizontal: 15,
+                    paddingVertical: 10,
+                    borderRadius: 5,
+                    fontWeight: "bold",
+                  }}
+                  onPress={() => {
+                    setId(item.id);
+                    setQuestionModal(!questionModal);
+                  }}
+                  title="X"
+                  iconRight={true}
                 />
-              </TouchableOpacity>
-              <Button
-                buttonStyle={{
-                  backgroundColor: darkBlue,
-                  color: darkBlue,
-                  paddingHorizontal: 15,
-                  paddingVertical: 10,
-                  borderRadius: 5,
-                  fontWeight: "bold",
-                }}
-                onPress={() => {
-                  setId(item.id);
-                  setQuestionModal(!questionModal);
-                }}
-                title="X"
-                iconRight={true}
-              />
-            </View>
-          );
-        }}
-      ></FlatList>
+              </View>
+            );
+          }}
+        ></FlatList>
+      )}
       <View>
         <Modal
           visible={questionModal}
@@ -125,24 +163,7 @@ const Tarjetas = (props) => {
           />
         </Modal>
       </View>
-      <View style={styles.rowButtons}>
-        <Button
-          onPress={() =>
-            props.navigation.navigate("AddTarjeta", {
-              renderState: () =>
-                setState(({ render }) => ({ render: render + 1 })),
-            })
-          }
-          title="Añadir Tarjeta"
-          buttonStyle={[styles.orangeButton]}
-        />
-        <Button
-          onPress={() => props.navigation.goBack()}
-          title="Go back home"
-          buttonStyle={[styles.darkBlueButton]}
-        />
-      </View>
-    </View>
+    </ScrollView>
   );
 };
 export default Tarjetas;
