@@ -44,7 +44,6 @@ export default function movementsReducer(state = initialState, action) {
       };
     case SAVE_CVU:
       let CVU = action.payload;
-      console.log("CVU redux", CVU);
       return {
         ...state,
         CVU: CVU,
@@ -115,14 +114,14 @@ export const getDayMovements = (allMovements) => (dispatch) => {
     año: today.getFullYear(),
   };
   let todayMovements =
-    allMovements && allMovements.length
-      ? allMovements.filter(
-        (m) =>
-          formatingdate(m.fecha).dia === aujourdui.dia &&
-          formatingdate(m.fecha).mes === aujourdui.mes &&
-          formatingdate(m.fecha).año === aujourdui.año
-      )
-      : [];
+    allMovements[0] == null
+      ? []
+      : allMovements.filter(
+          (m) =>
+            formatingdate(m.fecha).dia === aujourdui.dia &&
+            formatingdate(m.fecha).mes === aujourdui.mes &&
+            formatingdate(m.fecha).año === aujourdui.año
+        );
   dispatch({
     type: GET_DAY_MOV,
     payload: todayMovements,
