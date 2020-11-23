@@ -2,19 +2,16 @@ import { StyleSheet } from "react-native";
 
 const style = StyleSheet.create({
   balance: {
-    backgroundColor: "#02072F",
     justifyContent: "center",
     alignItems: "center",
   },
   saldoBalance: {
-    color: "white",
     fontWeight: "bold",
     fontSize: 40,
     marginBottom: 50,
     //   textDecorationLine: "underline"
   },
   tituloBalance: {
-    color: "white",
     fontWeight: "bold",
     fontSize: 20,
     paddingBottom: 30,
@@ -32,12 +29,10 @@ const style = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     alignSelf: "center",
-    color: "#02072F",
     textDecorationLine: "underline",
   },
   ingresoCont: {
     borderRadius: 5,
-    borderColor: "#02072F",
     borderWidth: 1,
     height: 90,
     width: 150,
