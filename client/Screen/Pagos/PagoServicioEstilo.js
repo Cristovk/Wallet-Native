@@ -34,6 +34,8 @@ const style = StyleSheet.create({
   },
   lista: {
     marginBottom: 15,
+    borderBottomWidth: 1,
+    marginTop: 15
   },
   input: {
     width: 150,

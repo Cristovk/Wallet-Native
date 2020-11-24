@@ -23,7 +23,7 @@ import viewStyle from "../../Global-Styles/ViewContainer";
 import { darkBlue, orange, white } from "../../Global-Styles/colors";
 
 const Movimientos = ({ navigation }) => {
-  LogBox.ignoreAllLogs();
+  // LogBox.ignoreAllLogs();
   const windowHeight = Dimensions.get("window").height;
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [list, setList] = useState([]);

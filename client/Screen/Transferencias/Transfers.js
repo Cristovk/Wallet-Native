@@ -16,10 +16,12 @@ import { ListItem } from "react-native-elements";
 import { storage } from "../../../firebase";
 import { saveTransfers } from "../../Redux/movements";
 import botonStyle from "../../Global-Styles/BotonGrande";
+import { heightPercentageToDP } from "react-native-responsive-screen"
+
 
 /* ========================= STATES ============================ */
 const Transfers = ({ navigation }) => {
-  LogBox.ignoreAllLogs();
+  // LogBox.ignoreAllLogs();
   const [transfers, setTransfers] = useState([]);
   const iconList = {
     Tsaliente: "arrow-circle-up",
@@ -103,86 +105,86 @@ const Transfers = ({ navigation }) => {
             }
           </Text>
         ) : (
-          <ScrollView
-            style={[{ backgroundColor: primary }, styles.background2]}
-          >
-            <View>
-              <FlatList
-                data={transfers}
-                keyExtractor={(transfer) => transfer.id}
-                style={{ marginVertical: 15 }}
-                renderItem={({ item }) => {
-                  return (
-                    <ListItem
-                      key={item.id}
-                      containerStyle={{
-                        backgroundColor: primary,
-                      }}
-                      style={[
-                        { borderBottomColor: secondary },
-                        styles.listaContenedor,
-                      ]}
-                      onPress={() =>
-                        navigation.navigate("Detalle", {
-                          estado: item.estado,
-                          fecha: item.fecha,
-                          hacia: item.hacia,
-                          id: item.id,
-                          monto: item.monto,
-                          motivo: item.motivo,
-                          tipo: item.tipo,
-                          operacion: item.operacion,
-                          receiver: item.receiver,
-                          sender: item.sender,
-                        })
-                      }
-                    >
-                      {item.tipo == "Tsaliente" ||
-                      item.empresa ||
-                      item.operacion == "Compra" ? (
-                        <Icon
-                          name={iconList[item.tipo]}
-                          size={30}
-                          color="red"
-                        />
-                      ) : (
-                        <Icon
-                          name={iconList[item.tipo]}
-                          size={30}
-                          color="green"
-                        />
-                      )}
-                      <ListItem.Content>
-                        <ListItem.Title>
-                          {item.tipo == "Tsaliente"
-                            ? item.receiver
-                            : item.sender}
-                        </ListItem.Title>
-                        <ListItem.Subtitle>
-                          {new Date(item.fecha).toLocaleDateString()}
-                        </ListItem.Subtitle>
-                      </ListItem.Content>
-                      <Text style={{ marginRight: 3 }}>
-                        {item.tipo == "Tsaliente"
-                          ? `- $ ${formatNumber(item.monto)}`
-                          : `$ ${formatNumber(item.monto)}`}
-                      </Text>
-                      <ListItem.Chevron
-                        name="chevron-right"
-                        type="font-awesome"
-                        color="black"
-                      />
-                    </ListItem>
-                  );
-                }}
-              ></FlatList>
-            </View>
-          </ScrollView>
-        )}
+              <ScrollView
+                style={[{ backgroundColor: primary }, styles.background2]}
+              >
+                <View>
+                  <FlatList
+                    data={transfers}
+                    keyExtractor={(transfer) => transfer.id}
+                    style={{ marginVertical: 15 }}
+                    renderItem={({ item }) => {
+                      return (
+                        <ListItem
+                          key={item.id}
+                          containerStyle={{
+                            backgroundColor: primary,
+                          }}
+                          style={[
+                            { borderBottomColor: secondary },
+                            styles.listaContenedor,
+                          ]}
+                          onPress={() =>
+                            navigation.navigate("Detalle", {
+                              estado: item.estado,
+                              fecha: item.fecha,
+                              hacia: item.hacia,
+                              id: item.id,
+                              monto: item.monto,
+                              motivo: item.motivo,
+                              tipo: item.tipo,
+                              operacion: item.operacion,
+                              receiver: item.receiver,
+                              sender: item.sender,
+                            })
+                          }
+                        >
+                          {item.tipo == "Tsaliente" ||
+                            item.empresa ||
+                            item.operacion == "Compra" ? (
+                              <Icon
+                                name={iconList[item.tipo]}
+                                size={30}
+                                color="red"
+                              />
+                            ) : (
+                              <Icon
+                                name={iconList[item.tipo]}
+                                size={30}
+                                color="green"
+                              />
+                            )}
+                          <ListItem.Content>
+                            <ListItem.Title>
+                              {item.tipo == "Tsaliente"
+                                ? item.receiver
+                                : item.sender}
+                            </ListItem.Title>
+                            <ListItem.Subtitle>
+                              {new Date(item.fecha).toLocaleDateString()}
+                            </ListItem.Subtitle>
+                          </ListItem.Content>
+                          <Text style={{ marginRight: 3 }}>
+                            {item.tipo == "Tsaliente"
+                              ? `- $ ${formatNumber(item.monto)}`
+                              : `$ ${formatNumber(item.monto)}`}
+                          </Text>
+                          <ListItem.Chevron
+                            name="chevron-right"
+                            type="font-awesome"
+                            color="black"
+                          />
+                        </ListItem>
+                      );
+                    }}
+                  ></FlatList>
+                </View>
+              </ScrollView>
+            )}
       </View>
       <View style={botonStyle.container}>
         <TouchableOpacity
-          style={[{ backgroundColor: secondary }, botonStyle.boton]}
+          style={[{ backgroundColor: secondary, top: heightPercentageToDP("72%") }, botonStyle.boton]}
           onPress={() => {
             navigation.navigate("Transferir");
           }}

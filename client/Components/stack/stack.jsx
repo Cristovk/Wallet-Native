@@ -169,7 +169,7 @@ function HomeScreen({ userLog, user, status }) {
         title: 'Mis Contactos',
         headerRight: () => (
           <TouchableOpacity onPress={handleRefresh}>
-            <Icon name='spinner-refresh' type='fontisto' color={secondary} style={{ marginRight: 30 }} />
+            <Icon name='spinner-refresh' type='fontisto' color={!dark? secondary: primary} style={{ marginRight: 30 }} />
           </TouchableOpacity>
         )
       }} />
