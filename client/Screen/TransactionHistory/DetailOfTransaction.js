@@ -123,9 +123,9 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
               </ListItem>
             </ScrollView>
           </View>
-          <View style={styleBoton.container}>
+          <View style={[{ top: heightPercentageToDP("55%") }, styleBoton.container]}>
             <TouchableOpacity
-              style={[{ backgroundColor: secondary, top: heightPercentageToDP("72%") }, styleBoton.boton]}
+              style={[{ backgroundColor: secondary }, styleBoton.boton]}
               onPress={() => generateInvoice(title, amount, icon)}
               icon={{
                 name: "receipt",
@@ -210,7 +210,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
                 </ListItem>
               </ScrollView>
             </View>
-            <View style={styleBoton.container}>
+            <View style={[{ top: heightPercentageToDP("55%") }, styleBoton.container]}>
               <TouchableOpacity
                 style={[{ backgroundColor: secondary }, styleBoton.boton]}
                 onPress={() => generateInvoice(title, amount, icon)}

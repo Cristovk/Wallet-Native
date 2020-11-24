@@ -297,7 +297,7 @@ const Home = ({ navigation }) => {
                           backgroundColor: primary,
                         }}
                         style={[
-                          { borderBottomColor: secondary },
+                          { borderBottomColor: dark ? "grey" : secondary },
                           style.listaContenedor,
                         ]}
                         onPress={() =>

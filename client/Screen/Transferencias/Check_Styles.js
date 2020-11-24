@@ -17,6 +17,7 @@ const style = StyleSheet.create({
   },
   lista: {
     marginBottom: 10,
+    borderBottomWidth: 1
   },
   listaPhone1: {
     flexDirection: "column",
