@@ -13,9 +13,8 @@ import styleBoton from '../../Global-Styles/BotonGrande'
 
 
 
-const Ayuda = () => {
+const Ayuda = ({navigation}) => {
   
-
 
   const { bg, text, primary, secondary,dark } = useSelector((store) => store.color);
   console.log('LOS COLORES',bg,text,primary,text);
@@ -183,30 +182,15 @@ const Ayuda = () => {
         </View>
       )}
 
-
-      {/* <View style={{justifyContent:'center',flexDirection:'row',marginTop:15}}> */}
-      <View style={styleBoton.container} >
+       <View style={{justifyContent:'center',flexDirection:'row',marginTop:15}} onPress={() => alert('Hacia el chat')}> 
         <TouchableOpacity 
-        onPress={()=>{setChat(true),alert('hola')}}
+        onPress={() => navigation.navigate('Chat')}
         style={[{ backgroundColor: secondary,top:60 }, styleBoton.boton]}
         >
-  
-          <Text style={[{ color: text }, styleBoton.texto]}  >Inicia chat de ayuda</Text>
+        <Text style={[{ color: text }, styleBoton.texto]}  >Inicia chat de ayuda</Text>
         </TouchableOpacity>
-      </View>
-      <Text onPress={()=>{setChat(true),alert('hola')}}>CHAT</Text>
-
-      {/* <View style={styleBoton.botonContainer}>
-        <TouchableOpacity
-          onPress={() => handleSubmit()}
-          style={[{ backgroundColor: secondary }, styleBoton.boton]}
-        >
-          <Text style={[{ color: text }, styleBoton.texto]} >Guardar</Text>
-        </TouchableOpacity>
-      </View> */}
-
+      </View> 
      
-
       {currentview === 'reconocimientoFacial' &&
         <Modelo change={setCurrentView}
           volver='Reconocimiento facial'

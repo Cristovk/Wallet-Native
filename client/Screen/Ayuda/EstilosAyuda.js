@@ -4,21 +4,14 @@ import { StyleSheet } from 'react-native'
 const style = StyleSheet.create({
     generalClave:{
         width:'100%',
-        height:'100%',
         top:0,
         left:0,
-        
-        
     },
     generalView:{
         borderTopRightRadius: 10,
         borderTopLeftRadius:10,
         width:'100%',
-        height:'100%',
-        marginTop:25
-        
-       
-       
+         marginTop:25
     },
     busqueda:{
         flexDirection:'row',

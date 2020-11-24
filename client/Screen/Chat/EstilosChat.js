@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
     general:{
         width:'100%',
-        height:'100%',
+        // height:'100%',
         top:0,
         left:0,
         justifyContent:'space-between',
@@ -20,10 +20,6 @@ const styles = StyleSheet.create({
       position:'relative',
     //   top:30,
       overflow:'hidden',
-     
-      
-     
- 
     },
     scroll:{
       
@@ -71,8 +67,8 @@ const styles = StyleSheet.create({
     },
     input:{
         width:'94%',
-        paddingLeft:10,
-        paddingTop:5
+        paddingLeft:13,
+        paddingTop:12
     },
     imagen:{
         width:120,
@@ -82,7 +78,7 @@ const styles = StyleSheet.create({
     contCam:{
         position:'relative',
         left:6,
-        top:2
+        top:0
     },
     contSend:{
         position:'relative',

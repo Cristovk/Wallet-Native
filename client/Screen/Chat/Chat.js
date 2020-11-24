@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, ScrollView, Text, TextInput } from "react-native";
+import { View, ScrollView, Text, TextInput,Dimensions } from "react-native";
 import styles from "./EstilosChat";
 import { Icon } from "react-native-elements";
 import MsjBot from "./MsjBot";
@@ -11,11 +11,11 @@ import { useSelector } from "react-redux";
 const Prueba = () => {
   const [conversation, setConversation] = useState([]); //Listado de mensajes del usuario
   const [msj, setMsj] = useState(""); //Mensaje actual del usuario
+  const alto= Dimensions.get('window').height*0.90;
 
   const { bg, text, primary, secondary,dark } = useSelector((store) => store.color);
   const sendMsj = () => {
     if (msj) {
-     
       const mensaje = msj.toLowerCase();
       const respuesta = validarChat(mensaje);
       setConversation([
@@ -27,7 +27,7 @@ const Prueba = () => {
   };
 
   return (
-    <View style={styles.general,{backgroundColor:dark?'#000':bg}}>
+    <View style={styles.general,{backgroundColor:dark?'#000':bg,height:'100%'}}>
       <View style={[styles.contMensajes,{backgroundColor:'#fff'}]}>
         <ScrollView style={styles.scroll}>
           <View style={styles.contBot}>
