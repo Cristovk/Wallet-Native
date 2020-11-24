@@ -16,6 +16,7 @@ import { ListItem } from "react-native-elements";
 import { storage } from "../../../firebase";
 import { saveTransfers } from "../../Redux/movements";
 import botonStyle from "../../Global-Styles/BotonGrande";
+import { heightPercentageToDP } from "react-native-responsive-screen";
 
 /* ========================= STATES ============================ */
 const Transfers = ({ navigation }) => {
@@ -182,7 +183,10 @@ const Transfers = ({ navigation }) => {
       </View>
       <View style={botonStyle.container}>
         <TouchableOpacity
-          style={[{ backgroundColor: secondary }, botonStyle.boton]}
+          style={[
+            { backgroundColor: secondary, top: heightPercentageToDP("72%") },
+            botonStyle.boton,
+          ]}
           onPress={() => {
             navigation.navigate("Transferir");
           }}

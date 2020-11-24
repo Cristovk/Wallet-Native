@@ -47,7 +47,10 @@ const Home = ({ navigation }) => {
     Tentrante: "arrow-circle-down",
     recarga: "wallet",
   };
-  const { primary, bg, secondary, text } = useSelector((store) => store.color);
+
+  const { primary, bg, secondary, text, dark } = useSelector(
+    (store) => store.color
+  );
 
   /* ======================= FUNCTIONS ========================== */
   const getSaldo = async () => {

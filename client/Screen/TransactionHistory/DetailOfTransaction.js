@@ -2,7 +2,16 @@ import React from "react";
 import { View, Text } from "react-native";
 import { ListItem, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { useSelector } from "react-redux";
 import { generateInvoice } from "./utils";
+import styleView from "../../Global-Styles/ViewContainer";
+import {
+  widthPercentageToDP,
+  heightPercentageToDP,
+} from "react-native-responsive-screen";
+import { ScrollView } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
+import styleBoton from "../../Global-Styles/BotonGrande";
 
 const DetalleDeTransaccion = ({ route, navigation }) => {
   const {
@@ -31,7 +40,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     gasolinera: "gas-pump",
     jet: "fighter-jet",
     farmacia: "first-aid",
-    servicios: "file-invoice-dollar",
+    Servicio: "file-invoice-dollar",
     Tsaliente: "arrow-circle-up",
     Tentrante: "arrow-circle-down",
     recarga: "wallet",
@@ -44,137 +53,253 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     hour: "2-digit",
     minute: "2-digit",
   });
+
+  const { primary, secondary, bg, text, dark } = useSelector(
+    (store) => store.color
+  );
+
   return tipo === "Tsaliente" || tipo === "Tentrante" ? (
-    <View>
-      <View
-        style={{
-          backgroundColor: "#02072F",
-          height: 150,
-          alignItems: "center",
-        }}
-      >
-        <View>
-          <Icon name={iconList[tipo]} size={50} color="white" />
-        </View>
-        <View style={{ marginTop: 20 }}>
-          <Text style={{ color: "white", fontSize: 20 }}>
-            {sender ? `${sender} te envió` : `Le enviaste a ${receiver}`}
-          </Text>
-        </View>
-        <View style={{ marginTop: 5 }}>
-          <Text style={{ color: "white", fontSize: 20 }}>{`$ ${formatNumber(
-            monto
-          )}`}</Text>
-        </View>
-      </View>
+    <View style={{ backgroundColor: bg }}>
       <View>
-        <ListItem>
-          <ListItem.Content>
-            <ListItem.Title>{"Operacion"}</ListItem.Title>
-          </ListItem.Content>
-          <Text>{oparation}</Text>
-        </ListItem>
-        <ListItem>
-          <ListItem.Content>
-            <ListItem.Title>{"Estado"}</ListItem.Title>
-          </ListItem.Content>
-          <Text>{estado}</Text>
-        </ListItem>
-        <ListItem>
-          <ListItem.Content>
-            <ListItem.Title>{"Motivo"}</ListItem.Title>
-          </ListItem.Content>
-          <Text>{motivo}</Text>
-        </ListItem>
-        <ListItem>
-          <ListItem.Content>
-            <ListItem.Title>{"Fecha"}</ListItem.Title>
-          </ListItem.Content>
-          <Text>{date}</Text>
-        </ListItem>
-        <ListItem>
-          <ListItem.Content>
-            <ListItem.Title>{"Hora"}</ListItem.Title>
-          </ListItem.Content>
-          <Text>{time}</Text>
-        </ListItem>
-      </View>
-      <View style={{ alignItems: "center" }}>
-        <Button
-          containerStyle={{ borderRadius: 30, width: "75%", marginTop: "25%" }}
-          onPress={() => generateInvoice(title, amount, icon)}
-          icon={{
-            name: "receipt",
-            size: 20,
-            color: "white",
+        <View
+          style={{
+            backgroundColor: bg,
+            height: 150,
+            alignItems: "center",
           }}
-          title="Generar recibo"
-        />
+        >
+          <View>
+            <Icon name={iconList[tipo]} size={50} color={primary} />
+          </View>
+          <View style={{ marginTop: 20 }}>
+            <Text style={{ color: primary, fontSize: 20 }}>
+              {sender ? `${sender} te envió` : `Le enviaste a ${receiver}`}
+            </Text>
+          </View>
+          <View style={{ marginTop: 5 }}>
+            <Text style={{ color: primary, fontSize: 20 }}>{`$ ${formatNumber(
+              monto
+            )}`}</Text>
+          </View>
+        </View>
+        <View
+          style={{
+            height: heightPercentageToDP("100%"),
+            backgroundColor: primary,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+            marginTop: 25,
+          }}
+        >
+          <View style={{ marginTop: 15 }}>
+            <ScrollView>
+              <ListItem
+                containerStyle={{
+                  backgroundColor: primary,
+                  borderBottomColor: dark ? "grey" : secondary,
+                  borderBottomWidth: 1,
+                }}
+              >
+                <ListItem.Content>
+                  <ListItem.Title>{"Operacion"}</ListItem.Title>
+                </ListItem.Content>
+                <Text>{oparation}</Text>
+              </ListItem>
+              <ListItem
+                containerStyle={{
+                  backgroundColor: primary,
+                  borderBottomColor: dark ? "grey" : secondary,
+                  borderBottomWidth: 1,
+                }}
+              >
+                <ListItem.Content>
+                  <ListItem.Title>{"Estado"}</ListItem.Title>
+                </ListItem.Content>
+                <Text>{estado}</Text>
+              </ListItem>
+              <ListItem
+                containerStyle={{
+                  backgroundColor: primary,
+                  borderBottomColor: dark ? "grey" : secondary,
+                  borderBottomWidth: 1,
+                }}
+              >
+                <ListItem.Content>
+                  <ListItem.Title>{"Motivo"}</ListItem.Title>
+                </ListItem.Content>
+                <Text>{motivo}</Text>
+              </ListItem>
+              <ListItem
+                containerStyle={{
+                  backgroundColor: primary,
+                  borderBottomColor: dark ? "grey" : secondary,
+                  borderBottomWidth: 1,
+                }}
+              >
+                <ListItem.Content>
+                  <ListItem.Title>{"Fecha"}</ListItem.Title>
+                </ListItem.Content>
+                <Text>{date}</Text>
+              </ListItem>
+              <ListItem
+                containerStyle={{
+                  backgroundColor: primary,
+                  borderBottomColor: dark ? "grey" : secondary,
+                  borderBottomWidth: 1,
+                }}
+              >
+                <ListItem.Content>
+                  <ListItem.Title>{"Hora"}</ListItem.Title>
+                </ListItem.Content>
+                <Text>{time}</Text>
+              </ListItem>
+            </ScrollView>
+          </View>
+          <View style={styleBoton.container}>
+            <TouchableOpacity
+              style={[
+                {
+                  backgroundColor: secondary,
+                  top: heightPercentageToDP("72%"),
+                },
+                styleBoton.boton,
+              ]}
+              onPress={() => generateInvoice(title, amount, icon)}
+              icon={{
+                name: "receipt",
+                size: 20,
+                color: text,
+              }}
+            >
+              <Text style={[{ color: text }, styleBoton.texto]}>
+                Compartir Recibo
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </View>
   ) : (
-    <View>
-      <View
-        style={{
-          backgroundColor: "#02072F",
-          height: 150,
-          alignItems: "center",
-        }}
-      >
-        <View>
-          <Icon name={iconList[tipo]} size={50} color="white" />
-        </View>
-        <View style={{ marginTop: 15 }}>
-          <Text style={{ color: "white", fontSize: 20 }}>{`$ ${formatNumber(
-            monto
-          )}`}</Text>
-        </View>
-      </View>
+    <View style={{ backgroundColor: bg }}>
       <View>
-        <ListItem>
-          <ListItem.Content>
-            <ListItem.Title>{"Operacion"}</ListItem.Title>
-          </ListItem.Content>
-          <Text>{tipo === "recarga" ? empresa : oparation}</Text>
-        </ListItem>
-        <ListItem>
-          <ListItem.Content>
-            <ListItem.Title>
-              {tipo === "recarga" ? "Empresa" : "Categoria"}
-            </ListItem.Title>
-          </ListItem.Content>
-          <Text>{tipo === "recarga" ? empresa : type}</Text>
-        </ListItem>
-        <ListItem>
-          <ListItem.Content>
-            <ListItem.Title>{"Estado"}</ListItem.Title>
-          </ListItem.Content>
-          <Text>{estado}</Text>
-        </ListItem>
-        <ListItem>
-          <ListItem.Content>
-            <ListItem.Title>{"Fecha"}</ListItem.Title>
-          </ListItem.Content>
-          <Text>{date}</Text>
-        </ListItem>
-        <ListItem>
-          <ListItem.Content>
-            <ListItem.Title>{"Hora"}</ListItem.Title>
-          </ListItem.Content>
-          <Text>{time}</Text>
-        </ListItem>
-      </View>
-      <View style={{ alignItems: "center" }}>
-        <Button
-          containerStyle={{ borderRadius: 30, width: "75%", marginTop: "25%" }}
-          onPress={() => generateInvoice(title, amount, icon)}
-          icon={{
-            name: "receipt",
-            size: 20,
-            color: "white",
+        <View
+          style={{
+            backgroundColor: bg,
+            height: 150,
+            alignItems: "center",
           }}
-          title="Generar recibo"
-        />
+        >
+          <View>
+            <Icon
+              name={tipo === "recarga" ? iconList[tipo] : iconList[oparation]}
+              size={50}
+              color={primary}
+            />
+          </View>
+          <View style={{ marginTop: 20 }}>
+            <Text style={{ color: primary, fontSize: 20 }}>
+              {tipo === "recarga"
+                ? "Recarga desde " + " " + empresa
+                : "Gasto de" + " " + oparation}
+            </Text>
+          </View>
+          <View style={{ marginTop: 15 }}>
+            <Text style={{ color: primary, fontSize: 20 }}>{`$ ${formatNumber(
+              monto
+            )}`}</Text>
+          </View>
+        </View>
+        <View
+          style={{
+            height: heightPercentageToDP("100%"),
+            backgroundColor: primary,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+            marginTop: 25,
+          }}
+        >
+          <View style={{ marginTop: 15 }}>
+            <ScrollView>
+              <ListItem
+                containerStyle={{
+                  backgroundColor: primary,
+                  borderBottomColor: dark ? "grey" : secondary,
+                  borderBottomWidth: 1,
+                }}
+              >
+                <ListItem.Content>
+                  <ListItem.Title>{"Operacion"}</ListItem.Title>
+                </ListItem.Content>
+                <Text>{tipo === "recarga" ? empresa : oparation}</Text>
+              </ListItem>
+              <ListItem
+                containerStyle={{
+                  backgroundColor: primary,
+                  borderBottomColor: dark ? "grey" : secondary,
+                  borderBottomWidth: 1,
+                }}
+              >
+                <ListItem.Content>
+                  <ListItem.Title>
+                    {tipo === "recarga" ? "Empresa" : "Categoria"}
+                  </ListItem.Title>
+                </ListItem.Content>
+                <Text>{tipo === "recarga" ? empresa : type}</Text>
+              </ListItem>
+              <ListItem
+                containerStyle={{
+                  backgroundColor: primary,
+                  borderBottomColor: dark ? "grey" : secondary,
+                  borderBottomWidth: 1,
+                }}
+              >
+                <ListItem.Content>
+                  <ListItem.Title>{"Estado"}</ListItem.Title>
+                </ListItem.Content>
+                <Text>{estado}</Text>
+              </ListItem>
+              <ListItem
+                containerStyle={{
+                  backgroundColor: primary,
+                  borderBottomColor: dark ? "grey" : secondary,
+                  borderBottomWidth: 1,
+                }}
+              >
+                <ListItem.Content>
+                  <ListItem.Title>{"Fecha"}</ListItem.Title>
+                </ListItem.Content>
+                <Text>{date}</Text>
+              </ListItem>
+              <ListItem
+                containerStyle={{
+                  backgroundColor: primary,
+                  borderBottomColor: dark ? "grey" : secondary,
+                  borderBottomWidth: 1,
+                }}
+              >
+                <ListItem.Content>
+                  <ListItem.Title>{"Hora"}</ListItem.Title>
+                </ListItem.Content>
+                <Text>{time}</Text>
+              </ListItem>
+            </ScrollView>
+          </View>
+          <View style={styleBoton.container}>
+            <TouchableOpacity
+              style={[{ backgroundColor: secondary }, styleBoton.boton]}
+              onPress={() => generateInvoice(title, amount, icon)}
+              icon={{
+                name: "receipt",
+                size: 20,
+                color: text,
+              }}
+            >
+              <Text style={[{ color: text }, styleBoton.texto]}>
+                Compartir Recibo
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </View>
   );

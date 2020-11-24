@@ -14,7 +14,8 @@ import AsyncStorage from '@react-native-community/async-storage'
 import Balance from '../../Screen/Balance/Balance.js';
 import Pagos from '../../Screen/Pagos/Pagos';
 import Amigos from '../../Screen/Contactos/Amigos';
-import Ayuda from '../../Screen/Ayuda'
+ import Chat from '../../Screen/Chat/Chat';
+ import Ayuda from '../../Screen/Ayuda/Ayuda';
 import Configuracion from '../../Screen/Configuracion/Configuracion';
 import Login from '../../Views/Login/login'
 import SignUp from '../../Views/Sign-Up/Sign-Up'
@@ -168,7 +169,7 @@ function HomeScreen({ userLog, user, status }) {
         title: 'Mis Contactos',
         headerRight: () => (
           <TouchableOpacity onPress={handleRefresh}>
-            <Icon name='spinner-refresh' type='fontisto' color={secondary} style={{ marginRight: 30 }} />
+            <Icon name='spinner-refresh' type='fontisto' color={!dark? secondary: primary} style={{ marginRight: 30 }} />
           </TouchableOpacity>
         )
       }} />
@@ -186,6 +187,7 @@ function HomeScreen({ userLog, user, status }) {
       <HomeScreenStack.Screen name='ModificaPassword' component={ModificaPassword} options={{ title: 'Modificar Password' }} />
       <HomeScreenStack.Screen name='DeleteUser' component={DeleteUser} options={{ title: 'Borrar Usuario' }} />
       <HomeScreenStack.Screen name='ConfirmDelete' component={ConfirmDelete} options={{ title: 'Borrar Usuario' }} />
+      <HomeScreenStack.Screen name='Chat' component={Chat} options={{ title: 'Chat ayuda' }} />
 
     </HomeScreenStack.Navigator >
   )
