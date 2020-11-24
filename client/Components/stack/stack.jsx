@@ -179,7 +179,7 @@ function HomeScreen({ userLog, user, status }) {
       <HomeScreenStack.Screen name='Detalle' component={Detalle} options={{ title: 'Detalle de la transaccion' }} />
       <HomeScreenStack.Screen name='Recargas' component={Recargas} options={{ title: 'Recargar' }} />
       <HomeScreenStack.Screen name='confirmOrError' component={confirmOrError} options={{ title: 'Receptor' }} />
-      <HomeScreenStack.Screen name='postScreen' component={postScreen} options={{ headerLeft: null, title: "Transferencia completada" }} />
+      <HomeScreenStack.Screen name='postScreen' component={postScreen} options={{ headerLeft: null, title: null }} />
       <HomeScreenStack.Screen name='Finish' component={Finish} options={{ title: 'Monto' }} />
       <HomeScreenStack.Screen name='PagoServicios' component={PagoServicios} options={{ title: 'Confirmar Pago' }} />
       <HomeScreenStack.Screen name='PagoConfirm' component={PagoConfirm} options={({ navigation }) => ({
