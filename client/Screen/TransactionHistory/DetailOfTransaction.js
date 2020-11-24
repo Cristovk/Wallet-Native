@@ -125,7 +125,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           </View>
           <View style={styleBoton.container}>
             <TouchableOpacity
-              style={[{ backgroundColor: secondary }, styleBoton.boton]}
+              style={[{ backgroundColor: secondary, top: heightPercentageToDP("72%") }, styleBoton.boton]}
               onPress={() => generateInvoice(title, amount, icon)}
               icon={{
                 name: "receipt",

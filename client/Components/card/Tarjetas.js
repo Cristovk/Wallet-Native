@@ -33,7 +33,6 @@ const Tarjetas = (props) => {
   };
   let func = async () => {
     response = await getCards();
-    console.log("RESPONSE", response);
     response.length ? setCards(response) : setCards([null]);
   };
   const toggleDModal = () => {

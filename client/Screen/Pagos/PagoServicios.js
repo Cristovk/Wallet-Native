@@ -107,7 +107,7 @@ const PagoServicios = ({ navigation, route }) => {
         {err ? <Text style={{ color: "red" }}>{err}</Text> : null}
         <View style={styleBoton.container}>
           <TouchableOpacity
-            style={[{ backgroundColor: secondary }, styleBoton.boton]}
+            style={[{ backgroundColor: secondary, top: heightPercentageToDP("72%") }, styleBoton.boton]}
             onPress={handleSubmit}
           >
             <Text style={[{ color: text }, styleBoton.texto]}>Pagar Servicio</Text>

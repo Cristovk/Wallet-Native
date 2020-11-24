@@ -24,7 +24,7 @@ const Modelo = ({change,titulo,texto,volver,hide}) => {
         <Text style={[styles.subtitulo,{color:dark ? bg : text}]} >{volver}</Text>
       </View>
       </Text>
-      <View style={[styles.menu,{backgroundColor:primary,height:alto}]}>
+      <View style={[styles.menu,{backgroundColor:primary,height:'100%'}]}>
       <Text style={styles.titulo}>{titulo}</Text>
         <Text style={styles.parrafo}>{texto}</Text>
       </View>
@@ -68,11 +68,10 @@ const styles = StyleSheet.create({
         marginLeft:15,
     },
     accionVolver:{
-      backgroundColor:'red',
       borderTopColor:'#fff',
       borderTopWidth:1,
-    
-      borderWidth:1
+      borderBottomWidth:1
+
     },
     menu:{
       position:'absolute',
