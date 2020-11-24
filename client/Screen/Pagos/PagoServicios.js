@@ -20,36 +20,42 @@ import viewStyle from '../../Global-Styles/ViewContainer'
 import { widthPercentageToDP, heightPercentageToDP } from "react-native-responsive-screen"
 
 
+
 const PagoServicios = ({ navigation, route }) => {
   const { title, servicio } = route.params;
   const [loading, setLoading] = useState(false);
   const [precio, setPrecio] = useState("");
+  const [errormoney, setErrorMoney] = useState(false);
   const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
-  const [err, setErr] = useState("")
-
+  const [err, setErr] = useState(false)
+  const movements = useSelector((store) => store.movementsReducer);
   const handleSubmit = async () => {
     if (!precio) {
-      setErr("Necesita ingresar un monto para continuar")
+      setErr(true)
     } else {
-      setLoading(!loading);
-      const id = await auth.currentUser.uid;
-      const data = {
-        userId: id,
-        amount: precio,
-        categoria: servicio,
-        empresa: title,
-        operacion: "servicio",
-      };
-      pagoServicio(data).then((resp) => {
+      if (parseInt(precio) > parseInt(movements.saldo)) {
+        setErrorMoney(true);
+      }else{
         setLoading(!loading);
-        navigation.navigate("PagoConfirm", {
-          title: title,
+        const id = await auth.currentUser.uid;
+        const data = {
+          userId: id,
           amount: precio,
           categoria: servicio,
+          empresa: title,
           operacion: "servicio",
-          loading: loading,
+        };
+        pagoServicio(data).then((resp) => {
+          setLoading(!loading);
+          navigation.navigate("PagoConfirm", {
+            title: title,
+            amount: precio,
+            categoria: servicio,
+            operacion: "servicio",
+            loading: loading,
+          });
         });
-      });
+      }
     }
   };
 
@@ -97,14 +103,23 @@ const PagoServicios = ({ navigation, route }) => {
                 <TextInput
                   placeholder="Monto"
                   value={precio.amount}
-                  onChangeText={(data) => setPrecio(data)}
+                  onChangeText={(data) => {setPrecio(data), setErrorMoney(false), setErr(false)}}
                   style={{ width: 80 }}
                 />
               </View>
             </ListItem.Content>
           </ListItem>
         </View>
-        {err ? <Text style={{ color: "red" }}>{err}</Text> : null}
+        {err ? <View>
+          <Text style={{ color: "red" }}>Ingresa el monto a pagar</Text>
+          </View>: 
+          errormoney ? (
+        <View>
+          <Text style={{color: "red"}}>
+            No tienes suficiente saldo para completar la transacción
+          </Text>
+        </View>
+      ): null}
         <View style={styleBoton.container}>
           <TouchableOpacity
             style={[{ backgroundColor: secondary, top: heightPercentageToDP("72%") }, styleBoton.boton]}
@@ -159,13 +174,20 @@ const PagoServicios = ({ navigation, route }) => {
                   <TextInput
                     placeholder="Monto"
                     value={precio.amount}
-                    onChangeText={(data) => setPrecio(data)}
+                    onChangeText={(data) => setPrecio(data) }
                     style={{ width: 80 }}
                   />
                 </View>
               </ListItem.Content>
             </ListItem>
           </View>
+         {/*  {err ? <Text style={{ color: "red" }}>{err}</Text> : errormoney ? (
+        <View>
+          <Text style={{color: "red"}}>
+            No tienes suficiente saldo para completar la transacción
+          </Text>
+        </View>
+      ): null} */}
           <View style={style.activityIndicator}>
             <ActivityIndicator size="large" color={dark ? secondary : bg} />
           </View>
