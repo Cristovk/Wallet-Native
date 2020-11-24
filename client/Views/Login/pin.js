@@ -15,8 +15,7 @@ const Pin = ({ navigation }) => {
   const { primary, secondary, text, bg } = useSelector(store => store.color)
 
   // const cerrar = async () => {
-  //   await AsyncStorage.removeItem("Huella")
-  //   await AsyncStorage.removeItem("Pin")
+  //   await AsyncStorage.removeItem("Metodo")
   // }
   // cerrar()
 

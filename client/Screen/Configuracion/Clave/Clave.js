@@ -74,7 +74,7 @@ const Clave = ({ cambiar, navigation, oscuro }) => {
         <View style={{ marginTop: 25 }}>
 
           <View style={oscuro ? styles.tituloBlack : styles.titulo}>
-            <Text style={styles.subtitulo}>Cambia tu contraseña</Text>
+            <Text style={[{ backgroundColor: oscuro ? grey : white }, styles.subtitulo]}>Cambia tu contraseña</Text>
           </View>
 
           <View style={styles.contraseñas}>
