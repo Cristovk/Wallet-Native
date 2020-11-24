@@ -16,11 +16,13 @@ import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import { userLog } from "../../Redux/User";
 import { connect, useSelector } from "react-redux";
-import styleView from '../../Global-Styles/ViewContainer'
-import { profileImage } from '../../Components/stack/profileImage'
+import styleView from "../../Global-Styles/ViewContainer";
+import { profileImage } from "../../Components/stack/profileImage";
 
 const Perfil = (props) => {
-  const { bg, text, primary, secondary, dark } = useSelector((store) => store.color);
+  const { bg, text, primary, secondary, dark } = useSelector(
+    (store) => store.color
+  );
   const [data, setData] = useState({
     name: props.user.name,
     lastName: props.user.lastName,
@@ -59,18 +61,34 @@ const Perfil = (props) => {
     props.userLog();
   }, []);
 
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
 
   return (
     <ScrollView style={{ backgroundColor: bg }}>
-      <View style={{
-        backgroundColor: primary, height: "100%", borderTopRightRadius: 10,
-        borderTopLeftRadius: 10, marginTop: 25
-      }}>
+      <View
+        style={{
+          backgroundColor: primary,
+          height: "100%",
+          borderTopRightRadius: 10,
+          borderTopLeftRadius: 10,
+          marginTop: 25,
+        }}
+      >
         <View style={styles.generalimagen}>
-          <View style={[styles.contenedorimagen, { borderColor: dark ? bg : secondary }]}>
+          <View
+            style={[
+              styles.contenedorimagen,
+              { borderColor: dark ? bg : secondary },
+            ]}
+          >
             {/* <Image style={styles.imagenperfil} source={{ uri: 'https://sistemas.com/termino/wp-content/uploads/Usuario-Icono.jpg' }} /> */}
-            <Image style={[{ borderColor: dark ? bg : secondary }, styles.imagenperfil]} source={{ uri: data.imagen || profileImage }} />
+            <Image
+              style={[
+                { borderColor: dark ? bg : secondary },
+                styles.imagenperfil,
+              ]}
+              source={{ uri: data.imagen || profileImage }}
+            />
 
             <View style={styles.contenedorcamara}>
               <Icon

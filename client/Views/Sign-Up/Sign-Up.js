@@ -19,7 +19,7 @@ Dimensions.get("window").height;
 /* ======================================= STATE ================================================ */
 
 const SignUp = ({ navigation }) => {
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
