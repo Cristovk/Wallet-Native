@@ -22,6 +22,7 @@ import {
 import { useIsFocused } from "@react-navigation/native";
 import { auth, storage } from "../../../firebase";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { darkBlue, orange, white } from "../../Global-Styles/colors";
 
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
@@ -346,7 +347,7 @@ const Home = ({ navigation }) => {
             ></FlatList>
             <Button
               buttonStyle={{
-                marginBottom: 40,
+                marginBottom: 20,
                 backgroundColor: secondary,
                 borderRadius: 10,
                 marginHorizontal: 75,

@@ -47,7 +47,13 @@ const Movimientos = ({ navigation }) => {
     Tsaliente: "arrow-circle-up",
     Tentrante: "arrow-circle-down",
     recarga: "wallet",
+    Agua: "tint",
+    Telefono: "phone",
+    Gas: "burn",
+    Electricidad: "bolt",
+    Internet: "wifi",
   };
+
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
@@ -105,7 +111,7 @@ const Movimientos = ({ navigation }) => {
         </View>
         {list.length === 0 ? (
           <View style={{ marginTop: 100 }}>
-            <ActivityIndicator size="large" color={darkBlue} />
+            <ActivityIndicator size="large" color={secondary} />
           </View>
         ) : list[0] == null ? (
           <View
@@ -148,7 +154,6 @@ const Movimientos = ({ navigation }) => {
                         desde: item.desde,
                         estado: item.estado,
                         categoria: item.categoria,
-                        tipo: item.tipo,
                         motivo: item.motivo,
                         operacion: item.operacion,
                         estado: item.estado,
@@ -158,8 +163,12 @@ const Movimientos = ({ navigation }) => {
                       })
                     }
                   >
-                    {item.tipo == "Tsaliente" ? (
-                      <Icon name={iconList[item.tipo]} size={30} color="red" />
+                    {item.categoria ? (
+                      <Icon
+                        name={iconList[item.categoria]}
+                        size={30}
+                        color="red"
+                      />
                     ) : (
                       <Icon
                         name={iconList[item.tipo]}
@@ -168,13 +177,19 @@ const Movimientos = ({ navigation }) => {
                       />
                     )}
                     <ListItem.Content>
-                      <ListItem.Title>{item.operacion}</ListItem.Title>
+                      <ListItem.Title>
+                        {item.categoria[0].toUpperCase() +
+                          operacion.substring(1)}
+                      </ListItem.Title>
                       <ListItem.Subtitle>
                         {new Date(item.fecha).toLocaleDateString()}
                       </ListItem.Subtitle>
                     </ListItem.Content>
                     <Text style={{ marginRight: 3 }}>
-                      {item.tipo == "Tsaliente"
+                      {item.categoria == "Tsaliente" ||
+                      item.operacion == "compra" ||
+                      item.operacion == "servicios" ||
+                      item.operacion == "servicio"
                         ? `- $ ${formatNumber(item.monto)}`
                         : `$ ${formatNumber(item.monto)}`}
                     </Text>
