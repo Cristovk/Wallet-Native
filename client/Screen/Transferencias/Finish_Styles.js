@@ -36,15 +36,19 @@ const style = StyleSheet.create({
   input:{
     marginVertical: 3,
     height: 40,
-    width: "100%",
+    width: "50%",
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    textAlign: "center"
+    textAlign: "center",
+    borderWidth: 1,
+    borderRadius: 10
   },input1:{
     marginVertical: 3,
-    height:70,
-    width: "100%",
+    height:50,
+    width: "60%",
+    borderWidth: 1,
+    borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
@@ -59,28 +63,41 @@ const style = StyleSheet.create({
     borderTopStartRadius: 15,
     borderTopEndRadius: 15,
   },
+  tituloSaldo: {
+    fontWeight: "bold",
+    fontSize: 20,
+    paddingBottom: 10,
+    marginBottom: 10,
+  },
+  saldo: {
+    fontWeight: "bold",
+    fontSize: 30,
+    paddingBottom: 10,
+    marginBottom: 10,
+  },
   monto: {
     alignContent: "center",
-    height: 40,
     alignItems: "center",
-    borderRadius: 15,
   },
   text:{
     color: "white",
     marginVertical: 15,
     textAlign: 'center',
     height: 40,
+    fontSize: 25
   },
   botonContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    margin:70,
   },
-  boton: {
-    marginTop: 10,
-    backgroundColor: "#FC7029",
-    padding: 15,
-    borderRadius: 8,
+  boton: {  flexDirection:"row",
+              borderRadius: 10,
+             width: 120,
+              marginTop: 10,
+              padding: 15,
+              justifyContent: "center"
   },
   error: {
     color: "red",
@@ -124,8 +141,8 @@ const style = StyleSheet.create({
     padding:5
   },
   che:{
-    flex: 1,
-    flexDirection: "row"
+    flexDirection: "column",
+    justifyContent: "space-between"
   }
   
 });
