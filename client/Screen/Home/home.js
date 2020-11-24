@@ -25,7 +25,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
-  LogBox.ignoreAllLogs();
+  // LogBox.ignoreAllLogs();
   const dispatch = useDispatch();
   const [saldo, setSaldo] = useState(0);
   const [movements, setMovements] = useState([]);
