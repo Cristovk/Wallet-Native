@@ -38,10 +38,10 @@ const Perfil = (props) => {
 
         <View style={styles.contenedortitulos}>
           <Text
-            style={titulo1 ? { ...styles.itemseleccionado, color: dark ? bg : text, borderColor: dark ? "grey" : secondary } : { ...styles.itemtitulos, color: secondary }}
+            style={titulo1 ? { ...styles.itemseleccionado, color: dark ? secondary : text, borderColor: dark ? "grey" : secondary } : { ...styles.itemtitulos, color: dark ? "grey" : secondary }}
             onPress={() => { setTitulos({ titulo1: true, titulo2: false }); setActual('transferencia') }}>Por transferencia</Text>
           <Text
-            style={titulo2 ? { ...styles.itemseleccionado, color: dark ? bg : text, borderColor: dark ? "grey" : secondary } : { ...styles.itemtitulos, color: secondary }}
+            style={titulo2 ? { ...styles.itemseleccionado, color: dark ? secondary : text, borderColor: dark ? "grey" : secondary } : { ...styles.itemtitulos, color: dark ? "grey" : secondary }}
             onPress={() => { setTitulos({ titulo1: false, titulo2: true }); setActual('efectivo') }}>En efectivo</Text>
         </View>
 
