@@ -62,18 +62,22 @@ const Movimientos = ({ navigation }) => {
     dispatch(getWeekMovement(movements.allMovements));
     dispatch(getMonthMovements(movements.allMovements));
   }, [isFocused, selectedIndex]);
-
+  console.log("movements", movements);
   useEffect(() => {
     if (selectedIndex == 0) {
-      movements.length === 0
+      movements.dayMovements.length === 0
         ? setList([null])
         : setList(movements.dayMovements);
     }
     if (selectedIndex == 1) {
-      setList(movements.weekMovements);
+      movements.weekMovements.length === 0
+        ? setList([null])
+        : setList(movements.weekMovements);
     }
     if (selectedIndex == 2) {
-      setList(movements.monthMovements);
+      movements.monthMovements.length === 0
+        ? setList([null])
+        : setList(movements.monthMovements);
     }
   }, [selectedIndex, isFocused, movements]);
 

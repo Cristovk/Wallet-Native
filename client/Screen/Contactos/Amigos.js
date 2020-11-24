@@ -12,133 +12,181 @@ import { ListItem, Avatar, Icon, ThemeProvider } from "react-native-elements";
 import * as Contacts from "expo-contacts";
 import { storage, auth } from "../../../firebase";
 import { useSelector, useDispatch } from "react-redux";
-import { addContact, getContacts } from '../../Redux/Contacts'
+import { addContact, getContacts } from "../../Redux/Contacts";
 
 const Amigos = ({ navigation }) => {
-  // const onlyContacts = [...new Set(contactsRedux)] 
+  // const onlyContacts = [...new Set(contactsRedux)]
 
   const user = useSelector((store) => store.user);
-  const contactos = useSelector((store) => store.contacts)
+  const contactos = useSelector((store) => store.contacts);
   const [contacts, setContacts] = useState(contactos);
-  const dispatch = useDispatch()
-  const { text, bg, dark, primary, secondary } = useSelector((store) => store.color);
+  const dispatch = useDispatch();
+  const { text, bg, dark, primary, secondary } = useSelector(
+    (store) => store.color
+  );
 
   // Función del modal para los detalles
   const [modal, setModal] = useState(false);
   const [index, setIndex] = useState("");
   const toggle = () => {
     setModal(!modal);
-    if (index)
-      setIndex("")
-  }
-
+    if (index) setIndex("");
+  };
 
   // const contactsRedux = async () => {
   //   let id = auth.currentUser.uid
   //   await dispatch(addContact(id))
-  //   await dispatch(getContacts(id)) 
+  //   await dispatch(getContacts(id))
   // };
-  
+
   useEffect(() => {
-    console.log(user)
+    console.log(user);
   }, []);
 
   const requestMoney = async (phone) => {
     // await Linking.openURL("sms:+5493517733375?body=otro");
-    await Linking.openURL(`https://wa.me/${phone}?text=Hola, necesitooooooo plataaaa! `)
+    await Linking.openURL(
+      `https://wa.me/${phone}?text=Hola, te comparto mi CVU de MoonBank para la transferencia,\nSaludos y gracias.\n\n*${user.cvu}*`
+    );
   };
 
   return (
-    <View style={{backgroundColor: bg, height:"100%"}}>
-    <View style={{ height: 50, borderRadius: 10, backgroundColor: primary, marginBottom: -15 }} >
-        <View style={{ alignSelf: "center", width: 200, borderStyle: "solid", borderColor: bg, borderWidth: 3, marginTop: 10, borderRadius: 5 }}></View>
-      </View>
-    <View style={{backgroundColor: primary, height:"100%"}}>
-    <ScrollView >
-    
-
-        {contactos[0] &&
-          contactos.map((l, i) => (
-            <ListItem key={i} bottomDivider containerStyle={{backgroundColor:primary}}>
-              <Avatar rounded source={{ uri: l.imagen }} />
-              <ListItem.Content>
-                <ListItem.Title style={{ color: !dark ? text : "black", fontSize: 20 }}>
-                  {l.name}
-                </ListItem.Title>
-                <ListItem.Subtitle style={{color: !dark ? secondary : "black"}}>MoonBank</ListItem.Subtitle>
-              </ListItem.Content>
-              <Icon
-                name="ios-information-circle"
-                type="ionicon"
-                onPress={() => {
-                  setIndex(l);
-                  toggle();
-                }}
-              />
-              {l.telefono !== "--" && (
-                <Icon
-                  name="ios-hand"
-                  type="ionicon"
-                  onPress={() => requestMoney(l.phone)}
-                />
-              )}
-              <Icon
-                name="ios-send"
-                type="ionicon"
-                onPress={() =>
-                  navigation.navigate("Finish",  {
-                    receiver: {apellido: l.lastName, nombre: l.name, cvu: l.cvu, dni: l.dni, telefono:  l.phone},
-                    dato: {receivercvu: l.cvu, senderId:user.user.id},
-                  }
-                  )
-                }
-              />
-            </ListItem>
-          ))}
-    
-      {/* ----------MODAL--------- */}
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modal}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
+    <View style={{ backgroundColor: bg, height: "100%" }}>
+      <View
+        style={{
+          height: 50,
+          borderRadius: 10,
+          backgroundColor: primary,
+          marginBottom: -15,
         }}
       >
-        {index && (
-          <View style={styles.centeredView}>
-            <View style={[styles.modalView, {backgroundColor: primary}]}>
-              <View>
-                <ListItem bottomDivider style={{ width: 200 }} containerStyle={{backgroundColor:primary}}>
-                  <Avatar
-                    size="medium"
-                    rounded
-                    source={{ uri:index.imagen }}
+        <View
+          style={{
+            alignSelf: "center",
+            width: 200,
+            borderStyle: "solid",
+            borderColor: bg,
+            borderWidth: 3,
+            marginTop: 10,
+            borderRadius: 5,
+          }}
+        ></View>
+      </View>
+      <View style={{ backgroundColor: primary, height: "100%" }}>
+        <ScrollView>
+          {contactos[0] &&
+            contactos.map((l, i) => (
+              <ListItem
+                key={i}
+                bottomDivider
+                containerStyle={{ backgroundColor: primary }}
+              >
+                <Avatar rounded source={{ uri: l.imagen }} />
+                <ListItem.Content>
+                  <ListItem.Title
+                    style={{ color: !dark ? text : "black", fontSize: 20 }}
+                  >
+                    {l.name}
+                  </ListItem.Title>
+                  <ListItem.Subtitle
+                    style={{ color: !dark ? secondary : "black" }}
+                  >
+                    MoonBank
+                  </ListItem.Subtitle>
+                </ListItem.Content>
+                <Icon
+                  name="ios-information-circle"
+                  type="ionicon"
+                  onPress={() => {
+                    setIndex(l);
+                    toggle();
+                  }}
+                />
+                {l.telefono !== "--" && (
+                  <Icon
+                    name="ios-hand"
+                    type="ionicon"
+                    onPress={() => requestMoney(l.phone)}
                   />
-                  <ListItem.Content >
-                    <ListItem.Title style={{fontSize:20}}>{index.lastname ? index.name + " " + index.lastname : index.name}</ListItem.Title>
-                    <ListItem.Subtitle>
-                      MoonBank
-                    </ListItem.Subtitle>
-                  </ListItem.Content>
-                </ListItem>
-              </View>
-              <View style={{ paddingTop: 10, paddingBottom: 10 }}>
-                {/* <Text>Alias: {contactos[index].alias}</Text>
+                )}
+                <Icon
+                  name="ios-send"
+                  type="ionicon"
+                  onPress={() =>
+                    navigation.navigate("Finish", {
+                      receiver: {
+                        apellido: l.lastName,
+                        nombre: l.name,
+                        cvu: l.cvu,
+                        dni: l.dni,
+                        telefono: l.phone,
+                      },
+                      dato: { receivercvu: l.cvu, senderId: user.user.id },
+                    })
+                  }
+                />
+              </ListItem>
+            ))}
+
+          {/* ----------MODAL--------- */}
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={modal}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+            }}
+          >
+            {index && (
+              <View style={styles.centeredView}>
+                <View style={[styles.modalView, { backgroundColor: primary }]}>
+                  <View>
+                    <ListItem
+                      bottomDivider
+                      style={{ width: 200 }}
+                      containerStyle={{ backgroundColor: primary }}
+                    >
+                      <Avatar
+                        size="medium"
+                        rounded
+                        source={{ uri: index.imagen }}
+                      />
+                      <ListItem.Content>
+                        <ListItem.Title style={{ fontSize: 20 }}>
+                          {index.lastname
+                            ? index.name + " " + index.lastname
+                            : index.name}
+                        </ListItem.Title>
+                        <ListItem.Subtitle>MoonBank</ListItem.Subtitle>
+                      </ListItem.Content>
+                    </ListItem>
+                  </View>
+                  <View style={{ paddingTop: 10, paddingBottom: 10 }}>
+                    {/* <Text>Alias: {contactos[index].alias}</Text>
                 <Text>CBU: {contactos[index].cbu}</Text>
                 <Text>CVU: {contactos[index].cvu}</Text> */}
-                <Text style={{fontSize:15}}>Telefono: {index.phone}</Text>
+                    <Text style={{ fontSize: 15 }}>
+                      Telefono: {index.phone}
+                    </Text>
+                  </View>
+                  <ListItem
+                    topDivider
+                    containerStyle={{ backgroundColor: primary }}
+                  >
+                    <Icon
+                      onPress={toggle}
+                      name="arrow-left"
+                      type="fontisto"
+                      color={!dark ? text : secondary}
+                    />
+                    {/* <Icon onPress={toggle} name="trash" type="fontisto" /> */}
+                  </ListItem>
+                </View>
               </View>
-              <ListItem topDivider containerStyle={{backgroundColor:primary}}>
-                <Icon onPress={toggle} name="arrow-left" type="fontisto" color={!dark ? text : secondary} />
-                {/* <Icon onPress={toggle} name="trash" type="fontisto" /> */}
-              </ListItem>
-            </View>
-          </View>
-        )}
-      </Modal>
-    </ScrollView>
-    </View>
+            )}
+          </Modal>
+        </ScrollView>
+      </View>
     </View>
   );
 };
