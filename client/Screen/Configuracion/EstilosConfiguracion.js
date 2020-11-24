@@ -65,6 +65,7 @@ const style = StyleSheet.create({
     borderRadius: 100,
   },
   itemAjustesDark: {
+    marginTop: 15,
     backgroundColor: grey,
     flexDirection: 'row',
     justifyContent: 'space-between',

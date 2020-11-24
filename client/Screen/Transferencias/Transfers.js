@@ -17,6 +17,7 @@ import { storage } from "../../../firebase";
 import { saveTransfers } from "../../Redux/movements";
 import botonStyle from "../../Global-Styles/BotonGrande";
 import { heightPercentageToDP } from "react-native-responsive-screen";
+import viewStyle from "../../Global-Styles/ViewContainer";
 
 /* ========================= STATES ============================ */
 const Transfers = ({ navigation }) => {
@@ -83,26 +84,39 @@ const Transfers = ({ navigation }) => {
   }
   /* ====================== RENDERING ========================== */
   return (
-    <View>
-      <View style={{ backgroundColor: bg }}>
+    <View style={{ backgroundColor: bg }}>
+      <View
+        style={{ backgroundColor: bg, height: heightPercentageToDP("100%") }}
+      >
         {transfers.length === 0 ? (
           <View style={{ marginTop: 150 }}>
             <ActivityIndicator size="large" color={secondary} />
           </View>
         ) : transfers[0] == null ? (
-          <Text
-            style={{
-              textAlign: "center",
-              textAlignVertical: "auto",
-              fontSize: 24,
-              padding: 25,
-              color: secondary,
-            }}
-          >
-            {
-              "Ups!\nAun no tenes transferencias!\nComparti tu CVU para recibirlas\n😉"
-            }
-          </Text>
+          <View>
+            <Text
+              style={{
+                textAlign: "center",
+                textAlignVertical: "auto",
+                fontSize: 24,
+                padding: 25,
+                color: secondary,
+              }}
+            >
+              {
+                "Ups!\nAun no tenes transferencias!\nComparti tu CVU para recibirlas\n😉"
+              }
+            </Text>
+            <View
+              style={[
+                {
+                  backgroundColor: primary,
+                  height: heightPercentageToDP("72%"),
+                },
+                viewStyle.container,
+              ]}
+            ></View>
+          </View>
         ) : (
           <ScrollView
             style={[{ backgroundColor: primary }, styles.background2]}

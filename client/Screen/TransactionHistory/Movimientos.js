@@ -131,64 +131,65 @@ const Movimientos = ({ navigation }) => {
             </Text>
           </View>
         ) : (
-          <ScrollView style={{ maxHeight: windowHeight }}>
-            <FlatList
-              data={list}
-              keyExtractor={(mov) => mov.id}
-              style={{ marginVertical: 15 }}
-              renderItem={({ item }) => {
-                return (
-                  <ListItem
-                    key={item.id}
-                    onPress={() =>
-                      navigation.navigate("Detalle", {
-                        fecha: item.fecha,
-                        monto: item.monto,
-                        hacia: item.hacia,
-                        desde: item.desde,
-                        estado: item.estado,
-                        categoria: item.categoria,
-                        tipo: item.tipo,
-                        motivo: item.motivo,
-                        operacion: item.operacion,
-                        estado: item.estado,
-                        empresa: item.empresa,
-                        sender: item.sender,
-                        receiver: item.receiver,
-                      })
-                    }
-                  >
-                    {item.tipo == "Tsaliente" ? (
-                      <Icon name={iconList[item.tipo]} size={30} color="red" />
-                    ) : (
-                      <Icon
-                        name={iconList[item.tipo]}
-                        size={30}
-                        color="green"
-                      />
-                    )}
-                    <ListItem.Content>
-                      <ListItem.Title>{item.operacion}</ListItem.Title>
-                      <ListItem.Subtitle>
-                        {new Date(item.fecha).toLocaleDateString()}
-                      </ListItem.Subtitle>
-                    </ListItem.Content>
-                    <Text style={{ marginRight: 3 }}>
-                      {item.tipo == "Tsaliente"
-                        ? `- $ ${formatNumber(item.monto)}`
-                        : `$ ${formatNumber(item.monto)}`}
-                    </Text>
-                    <ListItem.Chevron
-                      name="chevron-right"
-                      type="font-awesome"
-                      color="black"
-                    />
-                  </ListItem>
-                );
-              }}
-            ></FlatList>
-          </ScrollView>
-        )}
+              <ScrollView style={{ maxHeight: windowHeight }}>
+                <FlatList
+                  data={list}
+                  keyExtractor={(mov) => mov.id}
+                  style={{ marginVertical: 15 }}
+                  renderItem={({ item }) => {
+                    return (
+                      <ListItem
+                        key={item.id}
+                        containerStyle={{ backgroundColor: primary }}
+                        onPress={() =>
+                          navigation.navigate("Detalle", {
+                            fecha: item.fecha,
+                            monto: item.monto,
+                            hacia: item.hacia,
+                            desde: item.desde,
+                            estado: item.estado,
+                            categoria: item.categoria,
+                            tipo: item.tipo,
+                            motivo: item.motivo,
+                            operacion: item.operacion,
+                            estado: item.estado,
+                            empresa: item.empresa,
+                            sender: item.sender,
+                            receiver: item.receiver,
+                          })
+                        }
+                      >
+                        {item.tipo == "Tsaliente" ? (
+                          <Icon name={iconList[item.tipo]} size={30} color="red" />
+                        ) : (
+                            <Icon
+                              name={iconList[item.tipo]}
+                              size={30}
+                              color="green"
+                            />
+                          )}
+                        <ListItem.Content>
+                          <ListItem.Title>{item.operacion}</ListItem.Title>
+                          <ListItem.Subtitle>
+                            {new Date(item.fecha).toLocaleDateString()}
+                          </ListItem.Subtitle>
+                        </ListItem.Content>
+                        <Text style={{ marginRight: 3 }}>
+                          {item.tipo == "Tsaliente"
+                            ? `- $ ${formatNumber(item.monto)}`
+                            : `$ ${formatNumber(item.monto)}`}
+                        </Text>
+                        <ListItem.Chevron
+                          name="chevron-right"
+                          type="font-awesome"
+                          color="black"
+                        />
+                      </ListItem>
+                    );
+                  }}
+                ></FlatList>
+              </ScrollView>
+            )}
       </View>
     </ScrollView>
   );
