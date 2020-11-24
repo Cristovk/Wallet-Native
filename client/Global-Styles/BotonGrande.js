@@ -9,7 +9,7 @@ const style = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     position: "absolute",
-    top: heightPercentageToDP("72%"),
+    //  top: heightPercentageToDP("72%"),
   },
   boton: {
     width: 170,
