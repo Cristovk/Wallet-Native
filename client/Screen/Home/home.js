@@ -22,6 +22,9 @@ import {
 import { useIsFocused } from "@react-navigation/native";
 import { auth, storage } from "../../../firebase";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import styleBoton from '../../Global-Styles/BotonGrande'
+import { widthPercentageToDP, heightPercentageToDP } from "react-native-responsive-screen"
+
 
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
@@ -346,17 +349,14 @@ const Home = ({ navigation }) => {
                     );
                   }}
                 ></FlatList>
-                <Button
-                  buttonStyle={{
-                    marginBottom: 40,
-                    backgroundColor: secondary,
-                    borderRadius: 10,
-                    marginHorizontal: 75,
-                    color: primary,
-                  }}
-                  title="Ver todos los movimientos"
-                  onPress={() => navigation.navigate("Movimientos")}
-                />
+                <View style={styleBoton.container}>
+                  <TouchableOpacity
+                    style={[{ backgroundColor: secondary, top: heightPercentageToDP("55%") }, styleBoton.boton]}
+                    onPress={() => navigation.navigate("Movimientos")}
+                  >
+                    <Text style={[{ color: text }, styleBoton.texto]}>Ver todos los Movimientos</Text>
+                  </TouchableOpacity>
+                </View>
               </ScrollView>
             )}
       </View>
