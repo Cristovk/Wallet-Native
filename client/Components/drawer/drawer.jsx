@@ -77,6 +77,7 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
       { text: 'Cancelar', onPress: () => navigation.goBack() }]
     )
   }
+  //camand10sa@gmail.com
   // LogBox.ignoreAllLogs()
 
   return (

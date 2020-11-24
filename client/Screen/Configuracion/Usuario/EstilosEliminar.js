@@ -1,51 +1,61 @@
 import { StyleSheet } from 'react-native'
+import { black, blue, white, grey } from '../../../Global-Styles/colores2'
 
 
 const style = StyleSheet.create({
   general: {
+    backgroundColor: blue,
+    position: 'absolute',
     width: '100%',
+    height: '100%',
     top: 0,
     left: 0,
-    position: 'absolute',
-    height: '100%',
-    backgroundColor: '#fff'
   },
 
   titulo: {
-    backgroundColor: '#02072f',
+    backgroundColor: white,
     flexDirection: 'row',
-    padding: 5,
     alignItems: 'center',
+    justifyContent: "center",
     marginBottom: 10,
-    borderTopColor: '#fff',
-    borderTopWidth: 1
+
   },
   subtitulo: {
-    color: '#fff',
-    marginLeft: 15
+    color: black,
+    marginLeft: 15,
+    fontSize: 17,
+    fontWeight: "bold",
+    shadowColor: black,
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 3.27,
+
+    elevation: 3,
+    borderRadius: 30
+
   },
   contCuadro: {
     flexDirection: 'row',
     justifyContent: 'center'
   },
   cuadro: {
-    width: '95%',
-    borderColor: '#02072f',
-    borderWidth: 1,
-    borderRadius: 4,
-    padding: 10,
-    textAlign: 'center',
-    marginTop: 130
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 90
   },
   titEli: {
     fontWeight: "600",
     margin: 10,
-    color: '#02072f'
+    color: black
   },
   input: {
     borderBottomColor: '#ccc',
     borderBottomWidth: 1,
-    margin: 10,
+    marginVertical: 30,
     padding: 5,
     backgroundColor: 'transparent',
     color: '#000'
@@ -84,18 +94,15 @@ const style = StyleSheet.create({
     borderRadius: 3
   },
   cuadroDark: {
-    width: '95%',
-    borderColor: '#fff',
-    borderWidth: 1,
-    borderRadius: 4,
-    padding: 10,
-    textAlign: 'center',
-    marginTop: 130
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 90
   },
   inputDark: {
-    borderBottomColor: '#fff',
+    borderBottomColor: "grey",
     borderBottomWidth: 1,
-    margin: 10,
+    marginVertical: 30,
     padding: 5,
     backgroundColor: 'transparent',
     color: 'grey'
@@ -103,10 +110,41 @@ const style = StyleSheet.create({
   titEliDark: {
     fontWeight: "600",
     margin: 10,
-    color: '#fff'
+    color: black
   },
+  generalDark: {
+    backgroundColor: black,
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    top: 0,
+    left: 0,
+  },
+  tituloDark: {
+    backgroundColor: grey,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: "center",
+    marginBottom: 10,
 
+  },
+  subtituloDark: {
+    color: black,
+    marginLeft: 15,
+    fontSize: 17,
+    fontWeight: "bold",
+    shadowColor: black,
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 3.27,
 
+    elevation: 3,
+    borderRadius: 30
+
+  },
 })
 
 export default style;

@@ -7,13 +7,13 @@ import { TextInput, Title } from 'react-native-paper'
 import style from './pagosEstilos'
 import { useSelector } from 'react-redux';
 import styleView from '../../Global-Styles/ViewContainer'
-import {widthPercentageToDP,heightPercentageToDP} from "react-native-responsive-screen"
+import { widthPercentageToDP, heightPercentageToDP } from "react-native-responsive-screen"
 
 const Pagos = ({ navigation }) => {
 
   const [state, setState] = useState(false)
   const [nombre, setNombre] = useState("")
-  const { primary, secundary, text, bg, dark } = useSelector(store => store.color)
+  const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
 
 
   const iconList = {
@@ -48,53 +48,62 @@ const Pagos = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1, backgroundColor: bg }}>
-      <View style= {{height:heightPercentageToDP("100%"), backgroundColor:primary, borderTopLeftRadius: 20,borderTopRightRadius:20,marginTop:25}}>
-      <View style={[{
-        backgroundColor: primary, borderTopLeftRadius: 20,borderTopRightRadius:20
-      }]}>
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          style={{ marginTop: 15 }}
-        >
-          {nombres && nombres.map(x =>
-            <View key={x} style={{ width: 105, justifyContent: "flex-start", alignItems: "center", marginEnd: 15, marginBottom:10 }}>
-              <TouchableOpacity
-                style={{ justifyContent: "center", alignItems: "center" }}
-                onPress={() => cambioEstado(x)}
-              >
-                <Icon
-                  name={iconList[x]}
-                  size={30}
-                  color="#02072F"
-                />
-                <Text>{x} </Text>
-              </TouchableOpacity>
-            </View>
-          )
-          }
-        </ScrollView>
-
-        <ScrollView style ={{}} >
-          {state && nombres && servicios[nombre].map(x =>
-            <ListItem key={x} style={style.listaContenedor}>
-              <ListItem.Chevron />
-              <ListItem.Content style={style.lista}>
-                <ListItem.Title>{x}</ListItem.Title>
+      <View style={{ height: heightPercentageToDP("100%"), backgroundColor: primary, borderTopLeftRadius: 20, borderTopRightRadius: 20, marginTop: 25 }}>
+        <View style={[{
+          backgroundColor: primary, borderTopLeftRadius: 20, borderTopRightRadius: 20
+        }]}>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            style={{ marginTop: 15 }}
+          >
+            {nombres && nombres.map(x =>
+              <View key={x} style={{ width: 105, justifyContent: "flex-start", alignItems: "center", marginEnd: 15, marginBottom: 10 }}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('PagoServicios', {
-                    title: x,
-                    servicio: nombre
-                  })}
+                  style={{ justifyContent: "center", alignItems: "center" }}
+                  onPress={() => cambioEstado(x)}
                 >
-                  <Text>Pagar</Text>
+                  <Icon
+                    name={iconList[x]}
+                    size={30}
+                    color={dark ? bg : text}
+                  />
+                  <Text>{x} </Text>
                 </TouchableOpacity>
-              </ListItem.Content>
-            </ListItem>
-          )}
-        </ScrollView>
-      </View>
-      {/* <View style={style.qrContainer} >
+              </View>
+            )
+            }
+          </ScrollView>
+
+          <ScrollView  >
+            {state && nombres && servicios[nombre].map(x =>
+              <ListItem key={x}
+                style={[{ borderBottomWidth: 1, borderBottomColor: dark ? "grey" : secondary }, style.listaContenedor]}
+                containerStyle={{ backgroundColor: primary }}
+              >
+                <ListItem.Chevron
+                  color={dark ? bg : secondary}
+                />
+                <ListItem.Content style={style.lista}>
+                  <ListItem.Title>{x}</ListItem.Title>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('PagoServicios', {
+                      title: x,
+                      servicio: nombre
+                    })}
+                  >
+                    <Icon
+                      name="file-invoice-dollar"
+                      size={23}
+                      color={dark ? bg : text}
+                    />
+                  </TouchableOpacity>
+                </ListItem.Content>
+              </ListItem>
+            )}
+          </ScrollView>
+        </View>
+        {/* <View style={style.qrContainer} >
           <TouchableOpacity
             onPress={() => navigation.navigate("Home")}
             style={style.qr}
@@ -107,7 +116,7 @@ const Pagos = ({ navigation }) => {
             />
           </TouchableOpacity>
         </View> */}
-      {/* </View> */}
+        {/* </View> */}
       </View>
     </View>
   )

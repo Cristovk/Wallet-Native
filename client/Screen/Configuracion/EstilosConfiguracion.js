@@ -4,13 +4,14 @@ import { black, blue, white, grey } from '../../Global-Styles/colores2'
 const style = StyleSheet.create({
 
   itemAjustes: {
+    marginTop: 15,
     backgroundColor: white,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 11,
-    borderColor: grey,
-    borderWidth: 1
+    borderBottomColor: grey,
+    borderBottomWidth: 1,
   },
   subitemAjustes: {
     flexDirection: 'row',
@@ -45,7 +46,7 @@ const style = StyleSheet.create({
 
   general: {
 
-    backgroundColor: white,
+    backgroundColor: blue,
     height: '100%',
 
   },
@@ -56,7 +57,7 @@ const style = StyleSheet.create({
   contIconoDark: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: grey,
+    backgroundColor: black,
     width: 30,
     height: 30,
     alignSelf: 'center',
@@ -64,24 +65,24 @@ const style = StyleSheet.create({
     borderRadius: 100,
   },
   itemAjustesDark: {
-    backgroundColor: black,
+    backgroundColor: grey,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 11,
-    borderBottomColor: grey,
+    borderBottomColor: "grey",
     borderBottomWidth: 1,
   },
   nombreSubitemDark: {
     fontWeight: '600',
     fontSize: 17,
-    color: grey
+    color: black
   },
   letraOscura: {
     color: black,
   },
   letraClara: {
-    color: grey
+    color: black
   }
 
 })
