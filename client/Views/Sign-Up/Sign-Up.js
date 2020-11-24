@@ -13,6 +13,7 @@ import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { addUser, saveData } from "../../Redux/User";
 import { useDispatch } from "react-redux";
 import { LogBox } from "react-native";
+import { storage } from "../../../firebase";
 
 Dimensions.get("window").width;
 Dimensions.get("window").height;
@@ -68,6 +69,15 @@ const SignUp = ({ navigation }) => {
     let emptyYear = "";
     let invalidYearFormat = "";
 
+      //comprobar si el mail existe
+    const emailValido = ((email) => { 
+             let eml = storage.collection('Users').where('email', '==', email);
+              eml.get().then(querySnapshot => {
+                if(querySnapshot.size >= 0) return true;                
+              }) 
+            });
+  
+
     if (!name) {
       emptyName = "El campo Nombre(s) es necesario";
     }
@@ -78,7 +88,12 @@ const SignUp = ({ navigation }) => {
       emptyEmail = "El campo Email es necesario";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       invalidEmailFormat = "Formato de email inválido";
+    }else if (emailValido()){
+      emailExist = "el email ya esta registrado";
+
     }
+
+    
     if (!day) {
       emptyDay = "El campo Día es necesario";
     } else if (day < 1 || day > 31 || isNaN(day)) {
@@ -182,6 +197,9 @@ const SignUp = ({ navigation }) => {
       ) : null}
       {Err.invalidEmailFormat ? (
         <Text style={styles.error}>{Err.invalidEmailFormat}</Text>
+      ) : null}
+      {Err.emailExist ? (
+        <Text style={styles.error}>{Err.emailExist}</Text>
       ) : null}
       <Text style={styles.label}>Cumpleaños</Text>
       <View style={[styles.inputs, styles.cumple]}>

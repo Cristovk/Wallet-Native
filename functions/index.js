@@ -17,11 +17,11 @@ admin.initializeApp({
   databaseURL: "https://henrybankfire.firebaseio.com",
 });
 
-//llamado a cors
+//llamado a cors y use
 const cors = require('cors');
 ex.use( cors ( { origin: true}));
 ex.use(express.urlencoded({ extended: true })); 
-
+ex.use(express.json());
 
 //var port = process.env.PORT || 8080;
 
@@ -73,13 +73,10 @@ ex.get('/api/users', async (req, res) => {
   snapshot.forEach(doc => {
     let id = doc.id;
     let data = doc.data();
-
     users.push({id, ...data});
 
   });
     return res.status(200).send(JSON.stringify(users));
-
-
       }catch(error){
         
         console.log(error);
@@ -89,53 +86,125 @@ ex.get('/api/users', async (req, res) => {
   });
 
 
-//traer datos de un usuario especifico
+//traer datos de un usuario especifico via CVU
+
 
 ex.get('/api/users/cvu/:cvu', async (req, res) =>{
-  
-      try{
-        let {cvu} = req.params;
-        const collect = DBS.collection('Users').where('cvu', '==', `${cvu}`);
 
-        let querySnapshot = await  collect.get();
-
-              console.log(querySnapshot);
-              querySnapshot.forEach(documentSnapshot =>{
-                let data = documentSnapshot.data();
-                res.sendStatus(403);
+          const cvu = req.params.cvu;
+         
+          const query =  DBS.collection('Users').where('cvu', '==', cvu);
+                      console.log(query)
           
-              return res.status(200).send(JSON.stringify({...data}));
-          
-
-        })
-      }catch(error){ 
-          console.log(error)
-         return res.status(500).send(error, 'El Cvu no se encontro');  
-        }
+          const  querySnapshot = await query.get();
+          console.log(querySnapshot)
+          if(querySnapshot.size > 0 ){
+            return res.status(200).json(querySnapshot.docs[0].data());
+            
+          }
+          else {
+            return res.status(400).json({status: 'not found'});
+          }
 
     });
-
-
-  
-
-
 
   // traer usuario por id
 
   ex.get('/api/users/:id', async (req, res) =>{
-    try{
-    const snapshot = await DBS.collection('Users').doc(req.params.id).get();
-  
-    const userID = snapshot.id;
-    const userData = snapshot.data();
     
-    res.status(200).send(JSON.stringify({id: userID, ...userData}));
+      try {
+        const Id = request.params.id;
     
-    }catch(error){
-      res.status(500).send(error, 'Usuario no encontrado');
-    }
+        if (!Id) throw new Error('ID is required');
+    
+        const query = await DBS.collection('Users').doc(Id).get();
+    
+        if (!query.exists){
+            throw new Error('Fight doesnt exist.')
+        }
+    
+        res.status(200).json({
+          id: query.id,
+          data: query.data()
+        });
+    
+      } catch(error){
+    
+        res.status(500).send(error);
+    
+      }
+    
   });
 
+
+
+
+
+
+
+
+
+  
+// post para traferencias desde otra app
+
+  ex.post('/api/users', async (req, res) =>  {
+   
+  const {amount, senderCVU, senderName, receiverCVU, reason} = req.body
+ 
+  
+ if(amount && senderCVU && receiverCVU && senderCVU && senderName){
+
+  //Postman manda los numeros como string idk
+  const parsed = parseFloat(amount)
+  const searchReceiverId = await DBS.collection('Directions').doc('Cvu').collection('listaDeCvu').doc(receiverCVU).get();
+
+  
+  if(!searchReceiverId.data()) return res.json({cvu: "No encontre el cvu de destino"}).status(400)
+  let receiverId = await searchReceiverId.data().userId
+
+
+  //Wallet del usuario que recibe
+
+  const receiverWallet = await DBS.collection('Users').doc(receiverCVU).collection("Wallet")
+                                .doc(receiverCVU).get();
+
+  
+  //Saldo del usuario que recibe
+  const  receiverCurrentMoney = await receiverWallet.data().saldo
+  
+  //Nombre del usuario que recibe
+
+  const rName = await DBS.collection('Users').doc(receiverId).get()
+
+ 
+  const receiverName = await rName.data().name
+  
+        //Se la damos al que recibe
+        const addToReceiverWallet = await DBS.collection('Users').doc(receiverId).collection("Wallet")
+                              .doc(receiverCVU).set({saldo:receiverCurrentMoney + parsed})
+          
+        //Definimos una fecha para que sea exactamente la misma en las dos
+        //Despues hay que pasar de unix a algo normal de alguna forma
+          let fecha = Date.now()
+      
+      let transferenciaDesdeOtroUsuario = {
+        desde: senderCVU,
+        sender: senderName,
+        fecha,
+        operacion: "transferencia",
+        categoria: "Tentrante",
+        motivo: reason || "Sin especificar",
+        monto: parsed,
+        estado: "Completada"
+        
+      }
+
+      res.json({transferencia: transferenciaDesdeOtroUsuario}).status(200)
+      
+}else{
+  res.json({Error: "enviame todo o te volves jugador de lol", Datos:["amount", "senderId", "receivercvu", "motivo"]}).status(400)
+}
+})
 
 
 //----------------------------**------------------------ 
