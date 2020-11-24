@@ -17,7 +17,6 @@ const Pin = ({ navigation }) => {
   // const cerrar = async () => {
   //   await AsyncStorage.removeItem("Huella")
   //   await AsyncStorage.removeItem("Pin")
-
   // }
   // cerrar()
 

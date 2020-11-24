@@ -61,12 +61,9 @@ const style = StyleSheet.create({
   },
   monto: {
     alignContent: "center",
-    marginTop: 2,
-    backgroundColor: "#02072F",
-    height: 60,
+    height: 40,
     alignItems: "center",
-    borderBottomRightRadius: 15,
-    borderBottomLeftRadius: 15,
+    borderRadius: 15,
   },
   text:{
     color: "white",

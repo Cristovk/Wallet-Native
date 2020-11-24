@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
      textAlign:'center',
      padding:5,
      position:'absolute',
-     top:'0',
+     top:0,
      width:'100%',
      fontSize:18
    }

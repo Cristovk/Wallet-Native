@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Icon } from "react-native";
 import { transferir } from "../../Redux/movements";
 import { useDispatch, useSelector } from "react-redux";
 import { saveSaldo } from "../../Redux/movements";
@@ -20,6 +20,7 @@ const Finish = ({ navigation, route }) => {
   }); 
   const dispatch = useDispatch();
   const movements = useSelector((store) => store.movementsReducer);
+  const {text, primary, secondary, dark, bg} = useSelector(store => store.color)
   const user = useSelector((store) => store.user.user);
   const [checked, setChecked] = useState(false);
   useEffect(() => {
@@ -58,9 +59,13 @@ const Finish = ({ navigation, route }) => {
   };
   
   return (
-    <View>
+    <View style={{backgroundColor: bg, height:"100%"}}>
+    <View style={{ height: 50, borderRadius: 10, backgroundColor: primary, marginBottom: -15 }} >
+       
+      </View>
+      <View style={{backgroundColor: primary, height:"100%"}}>
       <View>
-        <View style={style.monto}>
+        <View style={[style.monto, {backgroundColor: bg}]}>
           <Text h4 style={style.text}>
             Monto
           </Text>
@@ -75,7 +80,7 @@ const Finish = ({ navigation, route }) => {
         />
       </View>
       <View>
-        <View style={style.monto}>
+        <View style={[style.monto, {backgroundColor: bg}]}>
           <Text h4 style={style.text}>
             Motivo
           </Text>
@@ -106,16 +111,30 @@ const Finish = ({ navigation, route }) => {
          />
         <View style={[style.botonContainer, { marginBottom: 15 }]}>
           <TouchableOpacity
-            style={style.boton}
+            style={{
+              marginBottom: 40,
+              backgroundColor:secondary,
+              borderRadius: 10,
+              marginHorizontal: 75,
+              color: primary,
+              marginTop: 10,
+              padding: 15,
+            }}
             onPress={() => {
               handleSubmit();
             }}
             disabled={transferencia.amount.length <= 0 ? true : false}
           >
             <Text style={{ fontWeight: "bold", fontSize: 15 }}>Enviar</Text>
+            {/* <Icon
+                name="ios-send"
+                type="ionicon"
+              /> */}
           </TouchableOpacity>
+          
         </View>
         </View>
+      </View>
       </View>
       
   );
