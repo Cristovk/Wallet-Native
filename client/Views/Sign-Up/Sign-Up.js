@@ -68,6 +68,16 @@ const SignUp = ({ navigation }) => {
     let emptyYear = "";
     let invalidYearFormat = "";
 
+      //comprobar si el mail existe
+    const emailValido = ((email) => { 
+             let eml = storage.collection('Users').where('email', '==', email);
+              eml.get().then(querySnapshot => {
+                if(querySnapshot.size >= 0) return true;                
+              }) 
+              return false
+            });
+  
+
     if (!name) {
       emptyName = "El campo Nombre(s) es necesario";
     }
@@ -76,8 +86,11 @@ const SignUp = ({ navigation }) => {
     }
     if (!email) {
       emptyEmail = "El campo Email es necesario";
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      invalidEmailFormat = "Formato de email inválido";
+    } else if (!/\S+@\S+\.\S+/.test(email) && emailValido(email)) {
+      invalidEmailFormat = "Formato de email inválido o ya registrado";
+    }else if (emailValido(email)){
+      emailExist = "el email ya esta registrado";
+
     }
     if (!day) {
       emptyDay = "El campo Día es necesario";
@@ -183,6 +196,7 @@ const SignUp = ({ navigation }) => {
       {Err.invalidEmailFormat ? (
         <Text style={styles.error}>{Err.invalidEmailFormat}</Text>
       ) : null}
+     
       <Text style={styles.label}>Cumpleaños</Text>
       <View style={[styles.inputs, styles.cumple]}>
         <TextInput
