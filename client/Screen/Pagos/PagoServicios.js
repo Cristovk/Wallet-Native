@@ -24,7 +24,6 @@ const PagoServicios = ({ navigation, route }) => {
   const [err, setErr] = useState("");
 
   const handleSubmit = async () => {
-    console.log("entrooooooooooo");
     if (!precio) {
       setErr("Necesita ingresar un monto para continuar");
     } else if (precio > saldo) {
