@@ -25,28 +25,32 @@ const PagoServicios = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false);
   const [precio, setPrecio] = useState("");
   const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
-
+  const [err, setErr] = useState("")
 
   const handleSubmit = async () => {
-    setLoading(!loading);
-    const id = await auth.currentUser.uid;
-    const data = {
-      userId: id,
-      amount: precio,
-      categoria: servicio,
-      empresa: title,
-      operacion: "servicio",
-    };
-    pagoServicio(data).then((resp) => {
+    if (!precio) {
+      setErr("Necesita ingresar un monto para continuar")
+    } else {
       setLoading(!loading);
-      navigation.navigate("PagoConfirm", {
-        title: title,
+      const id = await auth.currentUser.uid;
+      const data = {
+        userId: id,
         amount: precio,
         categoria: servicio,
+        empresa: title,
         operacion: "servicio",
-        loading: loading,
+      };
+      pagoServicio(data).then((resp) => {
+        setLoading(!loading);
+        navigation.navigate("PagoConfirm", {
+          title: title,
+          amount: precio,
+          categoria: servicio,
+          operacion: "servicio",
+          loading: loading,
+        });
       });
-    });
+    }
   };
 
   return !loading ? (
@@ -100,6 +104,7 @@ const PagoServicios = ({ navigation, route }) => {
             </ListItem.Content>
           </ListItem>
         </View>
+        {err ? <Text style={{ color: "red" }}>{err}</Text> : null}
         <View style={styleBoton.container}>
           <TouchableOpacity
             style={[{ backgroundColor: secondary }, styleBoton.boton]}
