@@ -24,7 +24,7 @@ export default function App() {
     },
   };
 
-  LogBox.ignoreAllLogs();
+  // LogBox.ignoreAllLogs();
 
   return (
     /* para agregar mas pantallas */
