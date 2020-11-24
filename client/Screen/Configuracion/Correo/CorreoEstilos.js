@@ -48,7 +48,7 @@ const style = StyleSheet.create({
     padding: 5,
     marginBottom: 8,
     color: 'grey',
-    marginTop: 35,
+    marginTop: 40,
 
   },
   btnGuardar: {
@@ -106,7 +106,7 @@ const style = StyleSheet.create({
     padding: 5,
     marginBottom: 8,
     color: 'grey',
-    marginTop: 35,
+    marginTop: 40,
 
   }
 });

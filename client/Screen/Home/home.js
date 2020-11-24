@@ -200,7 +200,7 @@ const Home = ({ navigation }) => {
                   textAlign: "center",
                   fontSize: 22,
                   paddingVertical: 15,
-                  color: white,
+                  color: primary,
                 }}
               >
                 Bienvenido a MoonBank! 🤗
@@ -208,7 +208,7 @@ const Home = ({ navigation }) => {
               <Text
                 style={{
                   textAlign: "center",
-                  color: white,
+                  color: primary,
                 }}
               >
                 {" "}
@@ -217,7 +217,7 @@ const Home = ({ navigation }) => {
               <Text
                 style={{
                   textAlign: "center",
-                  color: white,
+                  color: primary,
                 }}
               >
                 Recargá tu billetera
@@ -225,11 +225,11 @@ const Home = ({ navigation }) => {
               <Text
                 style={{
                   textAlign: "center",
-                  color: white,
+                  color: primary,
                 }}
                 style={{
                   textAlign: "center",
-                  color: white,
+                  color: primary,
                 }}
               >
                 O mejor aun!
@@ -237,7 +237,7 @@ const Home = ({ navigation }) => {
               <Text
                 style={{
                   textAlign: "center",
-                  color: white,
+                  color: primary,
                 }}
               >
                 Comparti tu CVU para recibir transferencias 😉
@@ -299,7 +299,7 @@ const Home = ({ navigation }) => {
                       backgroundColor: primary,
                     }}
                     style={[
-                      { borderBottomColor: secondary },
+                      { borderBottomColor: dark ? "grey" : secondary },
                       style.listaContenedor,
                     ]}
                     onPress={() =>

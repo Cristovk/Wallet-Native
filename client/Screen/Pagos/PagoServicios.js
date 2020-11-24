@@ -140,7 +140,6 @@ const PagoServicios = ({ navigation, route }) => {
             style={[
               {
                 backgroundColor: secondary,
-                // top: "55%",
                 top: heightPercentageToDP("55%"),
               },
               styleBoton.boton,

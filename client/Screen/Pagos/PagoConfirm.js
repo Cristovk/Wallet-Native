@@ -20,44 +20,46 @@ const PagoConfirm = ({ navigation, route }) => {
 
   return (
     <ScrollView style={{ backgroundColor: bg }}>
-      <View style={style.tituloContainer} >
-        <Icon
-          name="arrow-left"
-          type="fontisto"
-          size={30}
-          color={primary}
-          onPress={() => navigation.navigate("Home")}
-        />
-        <Text style={[{ color: primary }, style.titulo]}>Confirmación</Text>
-      </View>
       <View style={{ height: heightPercentageToDP("100%"), backgroundColor: primary, borderTopLeftRadius: 20, borderTopRightRadius: 20 }}>
         <View style={style.tituloContainer}>
           <Text style={style.titulo}>Pago Confirmado</Text>
         </View>
         <View style={style.listaContenedor}>
-          <ListItem style={style.lista}>
-            <ListItem.Chevron />
+          <ListItem containerStyle={{ backgroundColor: primary }}
+            style={[{ borderBottomColor: dark ? "grey" : secondary }, style.lista]}>
+            <ListItem.Chevron
+              color={dark ? bg : secondary}
+            />
             <ListItem.Content>
               <ListItem.Title>Pagado a:</ListItem.Title>
               <ListItem.Subtitle>{route.params.title}</ListItem.Subtitle>
             </ListItem.Content>
           </ListItem>
-          <ListItem style={style.lista}>
-            <ListItem.Chevron />
+          <ListItem containerStyle={{ backgroundColor: primary }}
+            style={[{ borderBottomColor: dark ? "grey" : secondary }, style.lista]}>
+            <ListItem.Chevron
+              color={dark ? bg : secondary}
+            />
             <ListItem.Content>
               <ListItem.Title>Monto de: </ListItem.Title>
               <ListItem.Subtitle>{route.params.amount} </ListItem.Subtitle>
             </ListItem.Content>
           </ListItem>
-          <ListItem style={style.lista}>
-            <ListItem.Chevron />
+          <ListItem containerStyle={{ backgroundColor: primary }}
+            style={[{ borderBottomColor: dark ? "grey" : secondary }, style.lista]}>
+            <ListItem.Chevron
+              color={dark ? bg : secondary}
+            />
             <ListItem.Content>
               <ListItem.Title>Categoría: </ListItem.Title>
               <ListItem.Subtitle>{route.params.categoria}</ListItem.Subtitle>
             </ListItem.Content>
           </ListItem>
-          <ListItem style={style.lista}>
-            <ListItem.Chevron />
+          <ListItem containerStyle={{ backgroundColor: primary }}
+            style={[{ borderBottomColor: dark ? "grey" : secondary }, style.lista]}>
+            <ListItem.Chevron
+              color={dark ? bg : secondary}
+            />
             <ListItem.Content>
               <ListItem.Title>Operación de tipo: </ListItem.Title>
               <ListItem.Subtitle>{route.params.operacion}</ListItem.Subtitle>
@@ -66,14 +68,6 @@ const PagoConfirm = ({ navigation, route }) => {
         </View>
         <View style={{ marginBottom: 70 }}>
           <Icon name="check" type="fontisto" color="green" size={70} />
-        </View>
-        <View style={styles.botonContainer}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Home")}
-            style={styles.boton}
-          >
-            <Text style={styles.textBoton}>Volver al home</Text>
-          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>

@@ -2,11 +2,15 @@ import React from "react";
 import { View, Text, TextInput, TouchableOpacity, Linking } from "react-native";
 import styles from "./estilosTransferencia";
 import * as SMS from "expo-sms";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
+import botonStyle from "../../../Global-Styles/BotonGrande";
+import { heightPercentageToDP } from "react-native-responsive-screen";
 
 const Transferencia = ({ color }) => {
-  //   var selector = document.createRange();
-
+  const { text, primary, secondary, dark, bg } = useSelector(
+    (store) => store.color
+  );
   const user = useSelector((state) => state.user.user);
   const shareCVUbySMS = async () => {
     try {
@@ -33,53 +37,40 @@ const Transferencia = ({ color }) => {
     }
   };
   return (
-    <View>
-      <Text style={{ ...styles.titulotransferencia, color: color.text }}>
+    <View style={{ backgroundColor: primary }}>
+      <Text style={{ ...styles.titulotransferencia, color: dark ? bg : text }}>
         Desde cualquier cuenta
       </Text>
-      <Text style={styles.parrafo}>
-        Transferís a tu DNI desde una cuenta bancaria o billetera virtual de 07
-        a 00 hs, y se acredita en el momento.
-      </Text>
+      <View style={{ marginTop: 20 }}>
+        <Text style={styles.parrafo}>
+          Transferí a tu cuenta MoonBank desde una cuenta bancaria o billetera
+          virtual de 07 a 00 hs, y se acredita en el momento.
+        </Text>
+      </View>
       <View style={styles.alerta}>
-        <Text style={{ ...styles.textobanco, color: color.text }}>
-          Los cajeros automáticos todavía no permiten transferir a un DNI.
+        <Text style={{ ...styles.textobanco, color: dark ? bg : text }}>
+          Los cajeros automáticos todavía no permiten transferir a tu cuenta.
         </Text>
       </View>
       <View style={styles.continputs}>
         <View style={styles.grupoformulario}>
-          <Text
-            style={{ ...styles.label, color: color.dark ? color.s : "grey" }}
-          >
+          <Text style={{ ...styles.label, color: dark ? secondary : "grey" }}>
             CVU
           </Text>
-          <TextInput
+          <Text
             style={{
               ...styles.inputtransferencia,
-              color: color.dark ? color.text : "grey",
+              color: dark ? bg : "grey",
+              borderBottomColor: dark ? "grey" : secondary,
             }}
-            value="0000000984045"
-          />
+          >
+            {user.cvu}
+          </Text>
         </View>
       </View>
-
-      {/* <View style={styles.continputs}>
-        <View style={styles.grupoformulario}>
-          <Text
-            style={{ ...styles.label, color: color.dark ? color.s : "grey" }}
-          >
-            Alias
-          </Text>
-          <TextInput
-            style={{
-              ...styles.inputtransferencia,
-              color: color.dark ? color.text : "grey",
-            }}
-            value="ANDRES.QUIQUEAPP"
-          />
-        </View>
-      </View> */}
-      <View>
+      <View
+        style={[{ top: heightPercentageToDP("55%") }, botonStyle.container]}
+      >
         <TouchableOpacity
           onPress={shareCVUbySMS}
           style={{

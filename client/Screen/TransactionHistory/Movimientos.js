@@ -103,7 +103,6 @@ const Movimientos = ({ navigation }) => {
               },
               shadowOpacity: 0.34,
               shadowRadius: 6.27,
-
               elevation: 10,
             }}
             buttons={buttons}

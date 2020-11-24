@@ -155,15 +155,11 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
               </ListItem>
             </ScrollView>
           </View>
-          <View style={styleBoton.container}>
+          <View
+            style={[{ top: heightPercentageToDP("55%") }, styleBoton.container]}
+          >
             <TouchableOpacity
-              style={[
-                {
-                  backgroundColor: secondary,
-                  top: heightPercentageToDP("72%"),
-                },
-                styleBoton.boton,
-              ]}
+              style={[{ backgroundColor: secondary }, styleBoton.boton]}
               onPress={() => generateInvoice(title, amount, icon)}
               icon={{
                 name: "receipt",
@@ -196,42 +192,101 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
               color={primary}
             />
           </View>
-          <View style={{ marginTop: 20 }}>
-            <Text style={{ color: primary, fontSize: 20 }}>
-              {tipo === "recarga"
-                ? "Recarga desde " + " " + empresa
-                : "Gasto de" + " " + oparation}
-            </Text>
-          </View>
-          <View style={{ marginTop: 15 }}>
-            <Text style={{ color: primary, fontSize: 20 }}>{`$ ${formatNumber(
-              monto
-            )}`}</Text>
-          </View>
-        </View>
-        <View
-          style={{
-            height: heightPercentageToDP("100%"),
-            backgroundColor: primary,
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-            marginTop: 25,
-          }}
-        >
-          <View style={{ marginTop: 15 }}>
-            <ScrollView>
-              <ListItem
-                containerStyle={{
-                  backgroundColor: primary,
-                  borderBottomColor: dark ? "grey" : secondary,
-                  borderBottomWidth: 1,
+          <View
+            style={{
+              height: heightPercentageToDP("100%"),
+              backgroundColor: primary,
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+              marginTop: 25,
+            }}
+          >
+            <View style={{ marginTop: 15 }}>
+              <ScrollView>
+                <ListItem
+                  containerStyle={{
+                    backgroundColor: primary,
+                    borderBottomColor: dark ? "grey" : secondary,
+                    borderBottomWidth: 1,
+                  }}
+                >
+                  <ListItem.Content>
+                    <ListItem.Title>{"Operacion"}</ListItem.Title>
+                  </ListItem.Content>
+                  <Text>{tipo === "recarga" ? empresa : oparation}</Text>
+                </ListItem>
+                <ListItem
+                  containerStyle={{
+                    backgroundColor: primary,
+                    borderBottomColor: dark ? "grey" : secondary,
+                    borderBottomWidth: 1,
+                  }}
+                >
+                  <ListItem.Content>
+                    <ListItem.Title>
+                      {tipo === "recarga" ? "Empresa" : "Categoria"}
+                    </ListItem.Title>
+                  </ListItem.Content>
+                  <Text>{tipo === "recarga" ? empresa : type}</Text>
+                </ListItem>
+                <ListItem
+                  containerStyle={{
+                    backgroundColor: primary,
+                    borderBottomColor: dark ? "grey" : secondary,
+                    borderBottomWidth: 1,
+                  }}
+                >
+                  <ListItem.Content>
+                    <ListItem.Title>{"Estado"}</ListItem.Title>
+                  </ListItem.Content>
+                  <Text>{estado}</Text>
+                </ListItem>
+                <ListItem
+                  containerStyle={{
+                    backgroundColor: primary,
+                    borderBottomColor: dark ? "grey" : secondary,
+                    borderBottomWidth: 1,
+                  }}
+                >
+                  <ListItem.Content>
+                    <ListItem.Title>{"Fecha"}</ListItem.Title>
+                  </ListItem.Content>
+                  <Text>{date}</Text>
+                </ListItem>
+                <ListItem
+                  containerStyle={{
+                    backgroundColor: primary,
+                    borderBottomColor: dark ? "grey" : secondary,
+                    borderBottomWidth: 1,
+                  }}
+                >
+                  <ListItem.Content>
+                    <ListItem.Title>{"Hora"}</ListItem.Title>
+                  </ListItem.Content>
+                  <Text>{time}</Text>
+                </ListItem>
+              </ScrollView>
+            </View>
+            <View
+              style={[
+                { top: heightPercentageToDP("55%") },
+                styleBoton.container,
+              ]}
+            >
+              <TouchableOpacity
+                style={[{ backgroundColor: secondary }, styleBoton.boton]}
+                onPress={() => generateInvoice(title, amount, icon)}
+                icon={{
+                  name: "receipt",
+                  size: 20,
+                  color: text,
                 }}
               >
                 <ListItem.Content>
                   <ListItem.Title>{"Operacion"}</ListItem.Title>
                 </ListItem.Content>
                 <Text>{tipo === "recarga" ? empresa : oparation}</Text>
-              </ListItem>
+              </TouchableOpacity>
               <ListItem
                 containerStyle={{
                   backgroundColor: primary,
