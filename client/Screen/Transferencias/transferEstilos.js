@@ -3,7 +3,7 @@ import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 
 const style = StyleSheet.create({
   container: {
-    height: 100,
+    height: "100%",
     flex: 1,
   },
   barraSuperior: {
@@ -33,26 +33,19 @@ const style = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  lista: {
-    flexDirection: "column",
-    justifyContent: "space-between",
-    marginBottom: 15,
-    marginHorizontal: 25,
-    borderRadius: 10,
-  },
   input: {
     marginVertical: 3,
     height: 40,
-    width: 100,
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
+    width: "100%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
     textAlign: "center",
+    marginTop: 40
   },
   cvu: {
     alignContent: "center",
     marginTop: 2,
-    backgroundColor: "#02072F",
     height: 60,
     alignItems: "center",
     borderTopStartRadius: 15,
@@ -70,19 +63,8 @@ const style = StyleSheet.create({
   text: {
     color: "white",
     marginVertical: 15,
-    textAlign: "center",
+    textAlign: 'center',
     height: 40,
-  },
-  botonContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  boton: {
-    marginTop: 10,
-    backgroundColor: "#FC7029",
-    padding: 15,
-    borderRadius: 8,
   },
   error: {
     color: "red",
@@ -104,7 +86,7 @@ const style = StyleSheet.create({
   error: {
     backgroundColor: "red",
     color: "#fff",
-    width: 95,
+    width: "95%",
     padding: 2,
     borderRadius: 2,
     textAlign: "center",
@@ -120,11 +102,11 @@ const style = StyleSheet.create({
     paddingHorizontal: 15,
   },
   spinner: {
-    width: 100,
-    flexDirection: "row",
-    justifyContent: "center",
-    padding: 5,
-  },
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 5
+  }
 });
 
 export default style;

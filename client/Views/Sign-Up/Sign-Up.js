@@ -12,12 +12,14 @@ import { styles } from "./Sing-Up-Styles";
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { addUser, saveData } from "../../Redux/User";
 import { useDispatch } from "react-redux";
+import { LogBox } from "react-native";
 
 Dimensions.get("window").width;
 Dimensions.get("window").height;
 /* ======================================= STATE ================================================ */
 
 const SignUp = ({ navigation }) => {
+  // LogBox.ignoreAllLogs();
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
@@ -41,9 +43,6 @@ const SignUp = ({ navigation }) => {
 
   let newDate = new Date(year, month - 1, day + 1);
   let actualYear = new Date().getFullYear();
-
-  // console.log("NEWDATE", newDate);
-  // console.log("BIRTHDAY", birthday);
 
   const validateForm = () => {
     setErr({
@@ -131,7 +130,6 @@ const SignUp = ({ navigation }) => {
   };
 
   const handleOnPress = () => {
-    // console.log("info", info);
     const valid = validateForm();
     if (valid) {
       dispatch(addUser("email", email));

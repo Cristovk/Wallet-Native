@@ -1,6 +1,4 @@
 /* ========================= IMPORTATIONS ======================== */
-import { move } from "react-native-redash";
-import db, { auth, functions, storage } from "../../firebase";
 const Axios = require("axios");
 
 /* ========================= CONSTANTS ============================ */
@@ -44,7 +42,6 @@ export default function movementsReducer(state = initialState, action) {
       };
     case SAVE_CVU:
       let CVU = action.payload;
-      console.log("CVU redux", CVU);
       return {
         ...state,
         CVU: CVU,
@@ -115,14 +112,14 @@ export const getDayMovements = (allMovements) => (dispatch) => {
     año: today.getFullYear(),
   };
   let todayMovements =
-    allMovements && allMovements.length
-      ? allMovements.filter(
+    allMovements[0] == null
+      ? []
+      : allMovements.filter(
           (m) =>
             formatingdate(m.fecha).dia === aujourdui.dia &&
             formatingdate(m.fecha).mes === aujourdui.mes &&
             formatingdate(m.fecha).año === aujourdui.año
-        )
-      : [];
+        );
   dispatch({
     type: GET_DAY_MOV,
     payload: todayMovements,
@@ -159,6 +156,15 @@ export const saveTransfers = (transfers) => (dispatch) => {
 export const transferir = async (data) => {
   return Axios.post(
     "https://us-central1-henrybankfire.cloudfunctions.net/sendMoney",
+    data
+  )
+    .then((x) => x.data)
+    .catch((err) => console.log(err));
+};
+
+export const pagoServicio = async (data) => {
+  return Axios.post(
+    "https://us-central1-henrybankfire.cloudfunctions.net/addPurchase",
     data
   )
     .then((x) => x.data)
