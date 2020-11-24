@@ -19,7 +19,7 @@ export function MyDrowner({ navigation, route }) {
   const { status } = route.params
   const dispatch = useDispatch()
   const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
-  LogBox.ignoreAllLogs()
+  // LogBox.ignoreAllLogs()
   useEffect(() => {
     if (status) {
 
@@ -77,7 +77,8 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
       { text: 'Cancelar', onPress: () => navigation.goBack() }]
     )
   }
-  LogBox.ignoreAllLogs()
+  //camand10sa@gmail.com
+  // LogBox.ignoreAllLogs()
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>
