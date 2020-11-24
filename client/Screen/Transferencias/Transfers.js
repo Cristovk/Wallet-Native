@@ -91,7 +91,7 @@ const Transfers = ({ navigation }) => {
                     containerStyle={{
                       backgroundColor: primary
                     }}
-                    style={[{ borderBottomColor: secondary }, styles.listaContenedor]}
+                    style={[{ borderBottomColor: dark ? "grey" : secondary }, styles.listaContenedor]}
                     onPress={() =>
                       navigation.navigate("Detalle", {
                         estado: item.estado,

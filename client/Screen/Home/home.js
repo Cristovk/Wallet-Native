@@ -50,7 +50,7 @@ const Home = ({ navigation }) => {
   };
 
 
-  const { primary, bg, secondary, text } = useSelector(store => store.color)
+  const { primary, bg, secondary, text, dark } = useSelector(store => store.color)
 
   /* ======================= FUNCTIONS ========================== */
   const getSaldo = async () => {
@@ -221,7 +221,7 @@ const Home = ({ navigation }) => {
                   containerStyle={{
                     backgroundColor: primary
                   }}
-                  style={[{ borderBottomColor: secondary }, style.listaContenedor]}
+                  style={[{ borderBottomColor: dark ? "grey" : secondary }, style.listaContenedor]}
                   onPress={() =>
                     navigation.navigate("Detalle", {
                       fecha: item.fecha,
