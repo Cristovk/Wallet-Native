@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { darkMode } from "../../Redux/Estilos";
 import AsyncStorage from '@react-native-community/async-storage'
 import { auth, storage } from "../../../firebase";
-
+import viewStyle from '../../Global-Styles/ViewContainer'
 
 const Configuracion = ({ navigation, route }) => {
 
@@ -22,7 +22,7 @@ const Configuracion = ({ navigation, route }) => {
   const [passwordchange, setPasswordChange] = useState(false);
   const [emailchange, setEmailChange] = useState(false);
   const [deleteuser, setDeleteUser] = useState(false);
-  const iconColor = dark ? bg : secondary;
+  const iconColor = dark ? primary : secondary;
 
 
   const user = useSelector(store => store.user.user)
@@ -78,191 +78,171 @@ const Configuracion = ({ navigation, route }) => {
   return (
     <ScrollView style={dark ? styles.generalOscuro : styles.general}>
 
-      <View>
-        <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
-          <View style={styles.subitemAjustes}>
-            <View style={dark ? styles.contIconoDark : styles.contIcono}>
-              <Icon
-                size={20}
-                name="night-clear"
-                type="fontisto"
-                color={iconColor}
+      <View style={[{ backgroundColor: primary, marginTop: 25 }, viewStyle.container]}>
+        <View style={{ marginTop: 25 }}>
+          <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
+            <View style={styles.subitemAjustes}>
+              <View style={dark ? styles.contIconoDark : styles.contIcono}>
+                <Icon
+                  size={20}
+                  name="night-clear"
+                  type="fontisto"
+                  color={iconColor}
+                />
+              </View>
+
+              <View style={styles.textoSubitem}>
+                <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>Modo</Text>
+                <Text style={dark ? styles.letraClara : styles.letraOscura}>Activa el modo oscuro</Text>
+              </View>
+            </View>
+            <View style={styles.interruptor}>
+              <Switch
+                trackColor={{ false: dark ? primary : secondary, true: dark ? secondary : bg }}
+                thumbColor={dark ? primary : secondary}
+                value={dark}
+                onValueChange={() => {
+                  setApp(!dark);
+                  dispatch(darkMode(dark));
+
+
+                }}
               />
             </View>
-
-            <View style={styles.textoSubitem}>
-              <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>Modo</Text>
-              <Text style={dark ? styles.letraClara : styles.letraOscura}>Activa el modo oscuro</Text>
-            </View>
-          </View>
-          <View style={styles.interruptor}>
-            <Switch
-              trackColor={{ false: dark ? primary : secondary, true: dark ? secondary : bg }}
-              thumbColor={dark ? primary : secondary}
-              value={dark}
-              onValueChange={() => {
-                setApp(!dark);
-                dispatch(darkMode(dark));
-
-
-              }}
-            />
-          </View>
-        </View>
-
-        <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
-          <View style={styles.subitemAjustes}>
-            <View style={dark ? styles.contIconoDark : styles.contIcono}>
-              <Icon size={20} name="lock" type="font-awesome" color={iconColor} />
-            </View>
-
-            <View style={styles.textoSubitem}>
-              <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>Contraseña</Text>
-              <Text style={dark ? styles.letraClara : styles.letraOscura}>Cambia tu contraseña</Text>
-            </View>
           </View>
 
-          <View style={[dark ? styles.contIconoDark : styles.contIcono, styles.flecha]} >
-            <Icon
-              size={14}
-              name="chevron-right"
-              type="font-awesome"
-              color={iconColor}
-              onPress={() => setPasswordChange(true)}
-            />
-          </View>
+          <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
+            <View style={styles.subitemAjustes}>
+              <View style={dark ? styles.contIconoDark : styles.contIcono}>
+                <Icon
+                  name="fingerprint"
+                  type="material"
+                  size={20}
+                  color={iconColor}
+                />
+              </View>
 
-
-        </View>
-
-        <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
-          <View style={styles.subitemAjustes}>
-            <View style={dark ? styles.contIconoDark : styles.contIcono}>
-              <Icon
-                size={16}
-                name="envelope"
-                type="font-awesome"
-                color={iconColor}
-              />
-            </View>
-
-            <View style={styles.textoSubitem}>
-              <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>Correo</Text>
-              <Text style={dark ? styles.letraClara : styles.letraOscura}>Cambia tu correo</Text>
-            </View>
-          </View>
-          <View style={[dark ? styles.contIconoDark : styles.contIcono, styles.flecha]} >
-            <Icon
-              size={14}
-              name="chevron-right"
-              type="font-awesome"
-              color={iconColor}
-              onPress={() => setEmailChange(true)}
-            />
-          </View>
-        </View>
-
-        <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
-          <View style={styles.subitemAjustes}>
-            <View style={dark ? styles.contIconoDark : styles.contIcono}>
-              <Icon
-                size={20}
-                name="microphone"
-                type="font-awesome"
-                color={iconColor}
-              />
-            </View>
-
-            <View style={styles.textoSubitem}>
-              <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>Reconocimiento</Text>
-              <Text style={dark ? styles.letraClara : styles.letraOscura}>Voz</Text>
-            </View>
-          </View>
-          <View style={[dark ? styles.contIconoDark : styles.contIcono, styles.flecha]} >
-            <Icon
-              size={14}
-              name="chevron-right"
-              type="font-awesome"
-              color={iconColor}
-            />
-          </View>
-        </View>
-
-        <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
-          <View style={styles.subitemAjustes}>
-            <View style={dark ? styles.contIconoDark : styles.contIcono}>
-              <Icon
-                name="fingerprint"
-                type="material"
-                size={20}
-                color={iconColor}
-              />
-            </View>
-
-            <View style={styles.textoSubitem}>
-              <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>
-                Ingreso con Huella :
+              <View style={styles.textoSubitem}>
+                <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>
+                  Ingreso con Huella :
                 </Text>
+              </View>
+            </View>
+            <View style={styles.interruptor}>
+              <Switch
+                trackColor={{ false: dark ? bg : secondary, true: dark ? secondary : bg }}
+                thumbColor={dark ? primary : secondary}
+                value={huella}
+                onValueChange={() => {
+                  setHuella(!huella);
+                  usarHuella()
+                }}
+              />
             </View>
           </View>
-          <View style={styles.interruptor}>
-            <Switch
-              trackColor={{ false: dark ? primary : secondary, true: dark ? secondary : bg }}
-              thumbColor={dark ? primary : secondary}
-              value={huella}
-              onValueChange={() => {
-                setHuella(!huella);
-                usarHuella()
-              }}
-            />
-          </View>
-        </View>
 
-        <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
-          <View style={styles.subitemAjustes}>
-            <View style={dark ? styles.contIconoDark : styles.contIcono}>
+          <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
+            <View style={styles.subitemAjustes}>
+              <View style={dark ? styles.contIconoDark : styles.contIcono}>
+                <Icon size={20} name="lock" type="font-awesome" color={iconColor} />
+              </View>
+
+
+
+              <View style={styles.textoSubitem}>
+                <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>Contraseña</Text>
+                <Text style={dark ? styles.letraClara : styles.letraOscura}>Cambia tu contraseña</Text>
+              </View>
+            </View>
+
+            <View style={[dark ? styles.contIconoDark : styles.contIcono, styles.flecha]} >
               <Icon
-                name="credit-card"
+                size={14}
+                name="chevron-right"
                 type="font-awesome"
-                size={18}
                 color={iconColor}
+                onPress={() => setPasswordChange(true)}
               />
             </View>
 
-            <View style={styles.textoSubitem}>
-              <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>Seguridad</Text>
-              <Text style={dark ? styles.letraClara : styles.letraOscura}>Usá tu huella en transacciones</Text>
-            </View>
-          </View>
-          <View style={[dark ? styles.contIconoDark : styles.contIcono, styles.flecha]} >
-            <Icon
-              size={14}
-              name="chevron-right"
-              type="font-awesome"
-              color={iconColor}
-            />
-          </View>
-        </View>
 
-        <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
-          <View style={styles.subitemAjustes}>
-            <View style={dark ? styles.contIconoDark : styles.contIcono}>
-              <Icon name="trash" type="font-awesome" size={20} color={iconColor} />
-            </View>
+          </View>
 
-            <View style={styles.textoSubitem}>
-              <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>Cuenta</Text>
-              <Text style={dark ? styles.letraClara : styles.letraOscura}>Eliminá tu cuenta</Text>
+          <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
+            <View style={styles.subitemAjustes}>
+              <View style={dark ? styles.contIconoDark : styles.contIcono}>
+                <Icon
+                  size={16}
+                  name="envelope"
+                  type="font-awesome"
+                  color={iconColor}
+                />
+              </View>
+
+              <View style={styles.textoSubitem}>
+                <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>Correo</Text>
+                <Text style={dark ? styles.letraClara : styles.letraOscura}>Cambia tu correo</Text>
+              </View>
+            </View>
+            <View style={[dark ? styles.contIconoDark : styles.contIcono, styles.flecha]} >
+              <Icon
+                size={14}
+                name="chevron-right"
+                type="font-awesome"
+                color={iconColor}
+                onPress={() => setEmailChange(true)}
+              />
             </View>
           </View>
-          <View style={[dark ? styles.contIconoDark : styles.contIcono, styles.flecha]} >
-            <Icon
-              size={14}
-              name="chevron-right"
-              type="font-awesome"
-              color={iconColor}
-              onPress={() => setDeleteUser(true)}
-            />
+
+
+
+          <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
+            <View style={styles.subitemAjustes}>
+              <View style={dark ? styles.contIconoDark : styles.contIcono}>
+                <Icon
+                  name="credit-card"
+                  type="font-awesome"
+                  size={18}
+                  color={iconColor}
+                />
+              </View>
+
+              <View style={styles.textoSubitem}>
+                <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>Seguridad</Text>
+                <Text style={dark ? styles.letraClara : styles.letraOscura}>Usá tu huella en transacciones</Text>
+              </View>
+            </View>
+            <View style={[dark ? styles.contIconoDark : styles.contIcono, styles.flecha]} >
+              <Icon
+                size={14}
+                name="chevron-right"
+                type="font-awesome"
+                color={iconColor}
+              />
+            </View>
+          </View>
+
+          <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
+            <View style={styles.subitemAjustes}>
+              <View style={dark ? styles.contIconoDark : styles.contIcono}>
+                <Icon name="trash" type="font-awesome" size={20} color={iconColor} />
+              </View>
+
+              <View style={styles.textoSubitem}>
+                <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>Cuenta</Text>
+                <Text style={dark ? styles.letraClara : styles.letraOscura}>Eliminá tu cuenta</Text>
+              </View>
+            </View>
+            <View style={[dark ? styles.contIconoDark : styles.contIcono, styles.flecha]} >
+              <Icon
+                size={14}
+                name="chevron-right"
+                type="font-awesome"
+                color={iconColor}
+                onPress={() => setDeleteUser(true)}
+              />
+            </View>
           </View>
         </View>
       </View>
