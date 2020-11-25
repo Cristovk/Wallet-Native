@@ -109,7 +109,7 @@ const AddCard = (props) => {
               <Button
                 onPress={addAgain}
                 buttonStyle={[styles.blueButton]}
-                title="¿Añadis otra?"
+                title="Añadir otra"
               />
               </View>
             </View>
