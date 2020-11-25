@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   itemtitulos: {
-    width: "33%",
+    width: "33.3%",
     textAlign: "center",
     padding: 5,
     borderColor: "transparent",
