@@ -30,7 +30,8 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     categoria,
     sender,
     receiver,
-    desde
+    desde,
+    card
   } = route.params;
   console.log(route.params)
   const iconList = {
@@ -78,7 +79,9 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
                   console.log(operacion),
                 operacion === "transferencia" ?(categoria === "Tentrante" ? `${sender} te envió` : `Le enviaste a ${receiver}`):
                 operacion === "recarga" ?(categoria === "recarga" ? `Recargaste en ${empresa}` : `Recargaste usando ${empresa}`):
-                operacion ==="compra" ? `Compraste en ${empresa}` : `Exploto todo :D`  
+                operacion === "servicio" ? (`Pagaste a ${empresa}`) :
+                operacion ==="compra" ? (`Compraste en ${empresa}`): 
+                `Exploto todo :D`
                }</Text>
               </View>
          
@@ -97,7 +100,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
             marginTop: 25,
           }}
         >
-         {detalle(fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver,desde)}
+         {detalle(fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver,desde, card)}
                            
           <View
             style={[{ top: heightPercentageToDP("55%") }, styleBoton.container]}

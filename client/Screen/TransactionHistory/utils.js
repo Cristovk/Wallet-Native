@@ -15,7 +15,7 @@ function formatNumber(num) {
 }
 
 
-export const detalle = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver, desde) => {
+export const detalle = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver, desde, card) => {
   const { primary, secondary, bg, text, dark } = useSelector(
     (store) => store.color
   );
@@ -26,6 +26,7 @@ export const detalle = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,c
   });
   const Operacion = operacion ? operacion[0].toUpperCase() + operacion.substring(1) : null;
   if(operacion === "recarga"){
+
     return  (
     <View style={{ marginTop: 15 }}>
       <ScrollView>
@@ -75,7 +76,7 @@ export const detalle = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,c
       <ListItem.Content>
         <ListItem.Title>{categoria=== "recarga" ? "Lugar de recarga" : "Tarjeta"}</ListItem.Title>
       </ListItem.Content>
-      <Text>{empresa}</Text>
+      <Text>{empresa+" "+card}</Text>
     </ListItem> 
       <ListItem
         containerStyle={{
@@ -101,6 +102,18 @@ export const detalle = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,c
     </ListItem.Content>
     <Text>{time}</Text>
   </ListItem>
+  <ListItem
+    containerStyle={{
+      backgroundColor: primary,
+      borderBottomColor: dark ? "grey" : secondary,
+      borderBottomWidth: 1,
+    }}
+  >
+  <ListItem.Content>
+    <ListItem.Title>{"Monto"}</ListItem.Title>
+  </ListItem.Content>
+  <Text>{`$ ${monto}`}</Text>
+</ListItem>
   </ScrollView>
   </View>)
   }
@@ -180,10 +193,181 @@ export const detalle = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,c
     </ListItem.Content>
     <Text>{time}</Text>
   </ListItem>
+  <ListItem
+    containerStyle={{
+      backgroundColor: primary,
+      borderBottomColor: dark ? "grey" : secondary,
+      borderBottomWidth: 1,
+    }}
+  >
+  <ListItem.Content>
+    <ListItem.Title>{"Monto"}</ListItem.Title>
+  </ListItem.Content>
+  <Text>{`$ ${monto}`}</Text>
+</ListItem>
   </ScrollView>
   </View>
   )
   }
+  if(operacion=== "compra"){
+    return (
+    <View style={{ marginTop: 15 }}>
+    <ScrollView>
+      <ListItem
+    containerStyle={{
+      backgroundColor: primary,
+      borderBottomColor: dark ? "grey" : secondary,
+      borderBottomWidth: 1,
+    }}
+  >
+  <ListItem.Content>
+      <ListItem.Title>{"Operacion"}</ListItem.Title>
+    </ListItem.Content>
+    <Text>{Operacion}</Text>
+  </ListItem>
+    <ListItem
+    containerStyle={{
+      backgroundColor: primary,
+      borderBottomColor: dark ? "grey" : secondary,
+      borderBottomWidth: 1,
+    }}
+  >
+    <ListItem.Content>
+      <ListItem.Title>{"Estado"}</ListItem.Title>
+    </ListItem.Content>
+    <Text>{estado}</Text>
+  </ListItem>
+  <ListItem
+    containerStyle={{
+      backgroundColor: primary,
+      borderBottomColor: dark ? "grey" : secondary,
+      borderBottomWidth: 1,
+    }}
+  >
+    
+    <ListItem.Content>
+      <ListItem.Title>{"Lugar de compra"}</ListItem.Title>
+    </ListItem.Content>
+    <Text>{empresa}</Text>
+  </ListItem> 
+    <ListItem
+      containerStyle={{
+        backgroundColor: primary,
+        borderBottomColor: dark ? "grey" : secondary,
+        borderBottomWidth: 1,
+      }}
+    >
+    <ListItem.Content>
+      <ListItem.Title>{"Fecha"}</ListItem.Title>
+    </ListItem.Content>
+    <Text>{date}</Text>
+  </ListItem>
+  <ListItem
+    containerStyle={{
+      backgroundColor: primary,
+      borderBottomColor: dark ? "grey" : secondary,
+      borderBottomWidth: 1,
+    }}
+  >
+  <ListItem.Content>
+    <ListItem.Title>{"Hora"}</ListItem.Title>
+  </ListItem.Content>
+  <Text>{time}</Text>
+</ListItem>
+<ListItem
+    containerStyle={{
+      backgroundColor: primary,
+      borderBottomColor: dark ? "grey" : secondary,
+      borderBottomWidth: 1,
+    }}
+  >
+  <ListItem.Content>
+    <ListItem.Title>{"Monto"}</ListItem.Title>
+  </ListItem.Content>
+  <Text>{`$ ${monto}`}</Text>
+</ListItem>
+</ScrollView>
+</View>)
+  }
+if(operacion === "servicio"){
+  return (
+  <View style={{ marginTop: 15 }}>
+    <ScrollView>
+      <ListItem
+    containerStyle={{
+      backgroundColor: primary,
+      borderBottomColor: dark ? "grey" : secondary,
+      borderBottomWidth: 1,
+    }}
+  >
+  <ListItem.Content>
+      <ListItem.Title>{"Operacion"}</ListItem.Title>
+    </ListItem.Content>
+    <Text>{Operacion}</Text>
+  </ListItem>
+    <ListItem
+    containerStyle={{
+      backgroundColor: primary,
+      borderBottomColor: dark ? "grey" : secondary,
+      borderBottomWidth: 1,
+    }}
+  >
+    <ListItem.Content>
+      <ListItem.Title>{"Tipo de servicio"}</ListItem.Title>
+    </ListItem.Content>
+    <Text>{categoria}</Text>
+  </ListItem>
+    <ListItem
+    containerStyle={{
+      backgroundColor: primary,
+      borderBottomColor: dark ? "grey" : secondary,
+      borderBottomWidth: 1,
+    }}
+  >
+    <ListItem.Content>
+      <ListItem.Title>{"Estado"}</ListItem.Title>
+    </ListItem.Content>
+    <Text>{estado}</Text>
+  </ListItem>
+  <ListItem
+    containerStyle={{
+      backgroundColor: primary,
+      borderBottomColor: dark ? "grey" : secondary,
+      borderBottomWidth: 1,
+    }}
+  >
+    <ListItem.Content>
+      <ListItem.Title>{"Fecha"}</ListItem.Title>
+    </ListItem.Content>
+    <Text>{date}</Text>
+  </ListItem>
+  <ListItem
+    containerStyle={{
+      backgroundColor: primary,
+      borderBottomColor: dark ? "grey" : secondary,
+      borderBottomWidth: 1,
+    }}
+  >
+  <ListItem.Content>
+    <ListItem.Title>{"Hora"}</ListItem.Title>
+  </ListItem.Content>
+  <Text>{time}</Text>
+</ListItem>
+<ListItem
+    containerStyle={{
+      backgroundColor: primary,
+      borderBottomColor: dark ? "grey" : secondary,
+      borderBottomWidth: 1,
+    }}
+  >
+  <ListItem.Content>
+    <ListItem.Title>{"Monto"}</ListItem.Title>
+  </ListItem.Content>
+  <Text>{`$ ${monto}`}</Text>
+</ListItem>
+</ScrollView>
+</View>)
+}
 }
 
 

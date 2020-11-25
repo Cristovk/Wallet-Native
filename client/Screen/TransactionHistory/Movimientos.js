@@ -162,6 +162,7 @@ const Movimientos = ({ navigation }) => {
                             empresa: item.empresa,
                             sender: item.sender,
                             receiver: item.receiver,
+                            card: item.card
                           })
                         }
                       >
