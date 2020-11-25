@@ -6,8 +6,9 @@ import {
   Image,
   TextInput,
   ScrollView,
+  TouchableOpacity
 } from "react-native";
-import { Button } from "react-native-elements";
+import { Icon,Button } from "react-native-elements";
 import { styles } from "./Sing-Up-Styles";
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { addUser, saveData } from "../../Redux/User";
@@ -90,7 +91,7 @@ const SignUp = ({ navigation }) => {
       emptyName = "El campo Nombre(s) es necesario";
     }
     if (!lastname) {
-      emptyLastname = "El campo Appellido(s) es necesario";
+      emptyLastname = "El campo Apellido(s) es necesario";
     }
     if (!email) {
       emptyEmail = "El campo Email es necesario";
@@ -98,11 +99,11 @@ const SignUp = ({ navigation }) => {
       invalidEmailFormat = "Formato de email inválido o ya registrado";
      } 
       else if (emailValido(email)){
-      emailExist = "el email ya esta registrado";
+      emailExist = "El email ya está registrado";
     }
     
     if (!day) {
-      emptyDay = "El campo Día es necesario";
+      emptyDay = "El campo día es necesario";
     } else if (day < 1 || day > 31 || isNaN(day)) {
       invalidDayFormat = "Escoja un número entre 1 y 31";
     } else if (!month) {
@@ -163,60 +164,106 @@ const SignUp = ({ navigation }) => {
   
   };
 
-  return (
+  const iconColor='grey';
+  const placeholderColor='grey';
+
+    return (
     <ScrollView style={styles.container}>
       <View style={styles.centered}>
         <Image
           style={[styles.icon]}
-          source={require("../../../assets/icon.png")}
+          source={require("../../../assets/sinfondo.png")}
         />
       </View>
-      <Text style={styles.label}>Nombre/s</Text>
-      <TextInput
-        style={[styles.inputs]}
-        onChangeText={(text) => setName(text)}
-        value={name}
-        placeholder="John"
-        placeholderTextColor={darkBlue}
-        textContentType="name"
-      />
+
+      <View style={styles.formGroup}>
+        <View style={styles.subgroup}>
+          <View style={styles.contIcono}>
+            <Icon
+              size={16}
+              name="user"
+              type="font-awesome"
+              color={iconColor}
+            />
+          </View>
+          <Text style={styles.label}>Nombres</Text>
+          <TextInput
+            style={[styles.inputs, { paddingLeft: 23 }]}
+            onChangeText={(text) => setName(text)}
+            value={name}
+            placeholder="John"
+            placeholderTextColor={placeholderColor}
+            textContentType="name"
+          />
+        </View>
+      </View>
+
       {Err.emptyName ? <Text style={styles.error}>{Err.emptyName}</Text> : null}
-      <Text style={styles.label}>Apellido/s</Text>
-      <TextInput
-        style={[styles.inputs]}
-        onChangeText={(text) => setLastname(text)}
-        value={lastname}
-        placeholder="Doe"
-        placeholderTextColor={darkBlue}
-        textContentType="familyName"
-      />
+
+      <View style={styles.formGroup}>
+        <View style={styles.subgroup}>
+          <View style={[styles.contIcono]}>
+            <Icon
+              size={16}
+              name="user"
+              type="font-awesome"
+              color={iconColor}
+            />
+          </View>
+          <Text style={styles.label}>Apellidos</Text>
+          <TextInput
+            style={[styles.inputs, { paddingLeft: 23 }]}
+            onChangeText={(text) => setLastname(text)}
+            value={lastname}
+            placeholder="Doe"
+            placeholderTextColor={placeholderColor}
+            textContentType="familyName"
+          />
+        </View>
+      </View>
+
       {Err.emptyLastname ? (
         <Text style={styles.error}>{Err.emptyLastname}</Text>
       ) : null}
-      <Text style={styles.label}>Email</Text>
-      <TextInput
-        style={[styles.inputs]}
-        onChangeText={(text) => setEmail(text)}
-        value={email}
-        placeholder="johndoe@emailserver.com"
-        placeholderTextColor={darkBlue}
-        textContentType="emailAddress"
-      />
+
+      <View style={styles.formGroup}>
+        <View style={styles.subgroup}>
+          <View style={styles.contIcono}>
+            <Icon
+              size={16}
+              name="envelope"
+              type="font-awesome"
+              color={iconColor}
+            />
+          </View>
+          <Text style={styles.label}>Email</Text>
+          <TextInput
+             style={[styles.inputs, { paddingLeft: 26 }]}
+            onChangeText={(text) => setEmail(text)}
+            value={email}
+            placeholder="johndoe@emailserver.com"
+            placeholderTextColor={placeholderColor}
+            textContentType="emailAddress"
+          />
+        </View>
+      </View>
+
       {Err.emptyEmail ? (
         <Text style={styles.error}>{Err.emptyEmail}</Text>
       ) : null}
       {Err.invalidEmailFormat ? (
         <Text style={styles.error}>{Err.invalidEmailFormat}</Text>
       ) : null}
-     {Err.emailExist ? (
+      {Err.emailExist ? (
         <Text style={styles.error}>{Err.emailExist}</Text>
-     ) : null}
-     
+     ) : null} 
+
+
       <Text style={styles.label}>Cumpleaños</Text>
       <View style={[styles.inputs, styles.cumple]}>
         <TextInput
           placeholder="Día"
-          placeholderTextColor="black"
+          placeholderTextColor={placeholderColor}
           onChangeText={(d) => setDay(d)}
           style={[styles.date]}
           maxLength={2}
@@ -224,7 +271,7 @@ const SignUp = ({ navigation }) => {
         <View style={styles.verticalSeparator}></View>
         <TextInput
           placeholder="Mes"
-          placeholderTextColor="black"
+          placeholderTextColor={placeholderColor}
           onChangeText={(m) => setMonth(m)}
           style={[styles.date]}
           maxLength={2}
@@ -232,7 +279,7 @@ const SignUp = ({ navigation }) => {
         <View style={styles.verticalSeparator}></View>
         <TextInput
           placeholder="Año"
-          placeholderTextColor="black"
+          placeholderTextColor={placeholderColor}
           onChangeText={(y) => setYear(y)}
           style={[styles.date]}
           maxLength={4}
@@ -252,21 +299,17 @@ const SignUp = ({ navigation }) => {
       {Err.invalidYearFormat ? (
         <Text style={styles.error}>{Err.invalidYearFormat}</Text>
       ) : null}
-      <View>
-        <Button
-          buttonStyle={styles.orangeButton}
-          title="Anterior"
-          color={orange}
-          onPress={() => navigation.navigate("Login")}
-        />
-        <View style={styles.separator}></View>
-        <Button
-          buttonStyle={styles.darkBlueButton}
-          title="Siguiente"
-          color={darkBlue}
-          onPress={() => handleOnPress()}
-        />
-      </View>
+     
+
+      <View style={[styles.button, styles.box]}>
+           <TouchableOpacity style={[styles.btnEnviar,styles.siguiente]} onPress={() => handleOnPress()}>
+                <Text style={styles.textoBtn}>SIGUIENTE</Text>
+              </TouchableOpacity>
+           <View style={styles.separator}></View>
+              <TouchableOpacity style={[styles.btnEnviar,styles.anterior]} onPress={() => navigation.navigate("Login")}>
+            <Text style={styles.textoBtn}>ANTERIOR</Text>
+              </TouchableOpacity>
+         </View>
     </ScrollView>
   );
 };

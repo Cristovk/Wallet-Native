@@ -138,7 +138,7 @@ const upPassword = (value) => {
   //   }
   // }
 
-
+  const iconColor='grey';
 
    return (
     <View style={styles.container} >
@@ -148,7 +148,6 @@ const upPassword = (value) => {
       <View>
       <Image
         style={styles.logo}
-        
         source={require('../../../assets/sinfondo.png')}
       />
       </View>
@@ -156,9 +155,6 @@ const upPassword = (value) => {
     </View>
 
     <View style={styles.menu}>
-
-    
-
     <View style={styles.general}>
       <View style={styles.contInput}>
         <View style={styles.contIcono}>
@@ -166,18 +162,18 @@ const upPassword = (value) => {
             size={16}
             name="envelope"
             type="font-awesome"
-            color="#1c2383"
+            color={iconColor}
             onPress={() => changeImage()}
           />
         </View>
         <TextInput 
         style={styles.inputPrueba} 
-        onFocus={()=>upEmail(-14)}
+        onFocus={()=>upEmail(-20)}
         onBlur={()=>{if(!email){upEmail(0)}}} 
         onChangeText={(value) => handleChange("email", value)}
         />
         <Animated.Text
-         style={[styles.inicial, { transform: [{ translateY: subirEmail }],color:'#1c2383' }]}
+         style={[styles.inicial, { transform: [{ translateY: subirEmail }]}]}
         >
           Email
         </Animated.Text>
@@ -193,20 +189,20 @@ const upPassword = (value) => {
             size={20}
             name="lock"
             type="font-awesome"
-            color="#1c2383"
+            color={iconColor}
             onPress={() => changeImage()}
           />
         </View>
         <TextInput 
         style={styles.inputPrueba} 
         secureTextEntry={hide}
-        onFocus={() => upPassword(-14)} 
+        onFocus={() => upPassword(-20)} 
         onBlur={()=>{if(!password){upPassword(0)}}} 
         onChangeText={(value) => handleChange('password', value)}
 
         />
         <Animated.Text
-         style={[styles.inicial, { transform: [{ translateY: subirPassword }],color:'#1c2383' }]}
+         style={[styles.inicial, { transform: [{ translateY: subirPassword }] }]}
         >
           Password
         </Animated.Text>
@@ -217,7 +213,7 @@ const upPassword = (value) => {
             secureTextEntry={hide}
             name={nameIcon}
             type="font-awesome"
-            color="#1c2383"
+            color={iconColor}
             onPress={() => setHide(!hide)}
 
           />
