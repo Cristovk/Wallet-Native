@@ -286,7 +286,7 @@ const Home = ({ navigation }) => {
                         hacia: item.hacia,
                         desde: item.desde,
                         estado: item.estado,
-                        tipo: item.tipo,
+                        categoria: item.categoria,
                         motivo: item.motivo,
                         operacion: item.operacion,
                         estado: item.estado,
