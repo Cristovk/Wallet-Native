@@ -21,7 +21,6 @@ const Transferencias = ({ navigation }) => {
 
   const dispatch = useDispatch();
   const movements = useSelector((store) => store.movementsReducer);
-  console.log("movimientos", movements);
   useEffect(() => {
     dispatch(getSaldo());
   }, []);
@@ -54,9 +53,6 @@ const Transferencias = ({ navigation }) => {
       .doc(dato.receivercvu.toString())
       .get();
     let resultado = query.data();
-    console.log("dato", dato.receivercvu);
-    console.log("Resultado", resultado);
-
     return resultado ? resultado.userId : null;
   };
   const handleSubmit = async () => {

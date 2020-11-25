@@ -1,10 +1,19 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, Image, Text, ScrollView } from "react-native";
+import {
+  View,
+  TextInput,
+  Button,
+  Image,
+  Text,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import { styles } from "./Sing-Up-Styles";
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { saveData } from "../../Redux/User";
 import { useDispatch } from "react-redux";
-
+import Icon from "react-native-vector-icons/FontAwesome";
 const SignUp1 = ({ navigation }) => {
   const dispatch = useDispatch();
   const [phone, setPhone] = useState("");
@@ -84,58 +93,83 @@ const SignUp1 = ({ navigation }) => {
     }
   };
 
+  const alto = Dimensions.get("window").height ;
+
+  const iconColor='grey';
+  const placeholderColor='grey';
+
   return (
-    <ScrollView>
-      <View style={styles.container}>
+    <ScrollView style={{ height: "100%"}}>
+      <View style={[styles.container, { height: alto }]}>
         <View style={styles.centered}>
           <Image
             style={[styles.icon]}
-            source={require("../../../assets/icon.png")}
+            source={require("../../../assets/sinfondo.png")}
           />
         </View>
-        <Text style={styles.label}>Teléfono</Text>
-        <TextInput
-          style={[styles.inputs]}
-          onChangeText={(text) => setPhone(text)}
-          value={phone}
-          placeholder="+5491123456789"
-          placeholderTextColor={grey}
-          textContentType="telephoneNumber"
-        />
-        <Text style={styles.label}>DNI</Text>
-        <TextInput
-          style={[styles.inputs]}
-          onChangeText={(text) => setDNI(text)}
-          value={DNI}
-          placeholder="12.345.678"
-          placeholderTextColor={grey}
-        />
+
+        <View style={styles.formGroup}>
+          <View style={styles.subgroup}>
+            <View style={styles.contIcono}>
+              <Icon
+                size={16}
+                name="phone"
+                type="font-awesome"
+                color={iconColor}
+              />
+            </View>
+
+            <Text style={styles.label}>Teléfono</Text>
+            <TextInput
+              style={[styles.inputs,{paddingLeft:25}]}
+              onChangeText={(text) => setPhone(text)}
+              value={phone}
+              placeholder="+5491123456789"
+              placeholderTextColor={placeholderColor}
+              textContentType="telephoneNumber"
+            />
+          </View>
+        </View>
+
+        <View style={styles.formGroup}>
+          <View style={styles.subgroup}>
+            <View style={styles.contIcono}>
+              <Icon
+                size={16}
+                name="address-card"
+                type="font-awesome"
+                color={iconColor}
+              />
+            </View>
+
+            <Text style={styles.label}>DNI</Text>
+            <TextInput
+              style={[styles.inputs, { paddingLeft: 27 }]}
+              onChangeText={(text) => setDNI(text)}
+              value={DNI}
+              placeholder="12.345.678"
+              placeholderTextColor={placeholderColor}
+            />
+          </View>
+        </View>
+
         {Err.emptyDNI ? <Text style={styles.error}>{Err.emptyDNI}</Text> : null}
         {Err.invalidDNIFormat ? (
           <Text style={styles.error}>{Err.invalidDNIFormat}</Text>
         ) : null}
-        {/* <Text style={styles.label}>CUIL</Text>
-        <TextInput
-          style={styles.inputs}
-          onChangeText={text => setCUIL(text)}
-          value={CUIL}
-          placeholder='00-12345678-9'
-          placeholderTextColor={grey}
-        />
-        {Err.emptyCUIL ? (<Text style={styles.error}>{Err.emptyCUIL}</Text>) : null}
-        {Err.invalidCUILFormat ? (<Text style={styles.error}>{Err.invalidCUILFormat}</Text>) : null} */}
+
         <View style={[styles.button, styles.box]}>
-          <Button
-            title="Anterior"
-            color={orange}
-            onPress={() => navigation.navigate("SignUp")}
-          />
+  
+          <TouchableOpacity style={[styles.btnEnviar,styles.siguiente]} onPress={() => handleOnPress()}>
+              <Text style={styles.textoBtn}>SIGUIENTE</Text>
+            </TouchableOpacity>
+
           <View style={styles.separator}></View>
-          <Button
-            title="Siguiente"
-            color={darkBlue}
-            onPress={() => handleOnPress()}
-          />
+         
+            <TouchableOpacity style={[styles.btnEnviar,styles.anterior]} onPress={() => navigation.navigate("SignUp")}>
+              <Text style={styles.textoBtn}>ANTERIOR</Text>
+            </TouchableOpacity>
+         
         </View>
       </View>
     </ScrollView>
