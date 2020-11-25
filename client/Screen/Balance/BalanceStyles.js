@@ -21,12 +21,13 @@ const style = StyleSheet.create({
   grafico: {
     height: 300,
     flexDirection: "column",
-    marginTop: 25
+    marginTop: 25,
+    marginLeft: 10 
   },
   contenedor: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop: 25
+    marginTop: 25 
   },
   letraButton: {
     fontWeight: "bold",
