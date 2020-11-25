@@ -4,6 +4,7 @@ import styles from "./estilosTransferencia";
 import * as SMS from "expo-sms";
 import { useSelector } from "react-redux";
 import botonStyle from "../../../Global-Styles/BotonGrande";
+
 import { heightPercentageToDP } from "react-native-responsive-screen";
 
 const Transferencia = ({ color }) => {
@@ -67,17 +68,32 @@ const Transferencia = ({ color }) => {
           </Text>
         </View>
       </View>
+      <View style={{ marginTop: 25 }}>
+        <Text>Compartir mi CVU:</Text>
+      </View>
       <View
-        style={[
-          { top: heightPercentageToDP("55%") } /* botonStyle.container */,
-        ]}
-      ></View>
+      >
+
+
+        <View style={[{ marginTop: 40 }, botonStyle.container]}>
+          <TouchableOpacity style={[{ backgroundColor: dark ? bg : bg }, botonStyle.boton]} onPress={shareCVUbyWApp}>
+            <Text style={[{ color: dark ? primary : secondary }, botonStyle.texto]} >Vía WhatsApp</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={[{ marginTop: 20 }, botonStyle.container]}>
+          <TouchableOpacity style={[{ backgroundColor: dark ? primary : secondary }, botonStyle.boton]} onPress={shareCVUbySMS}>
+            <Text style={[{ color: dark ? bg : text }, botonStyle.texto]} >Vía SMS</Text>
+          </TouchableOpacity>
+        </View>
+
+      </View>
+      {/* 
       <TouchableOpacity
-        onPress={shareCVUbySMS}
-        // style={{
-        //   // ...styles.btncompartir,
-        //   borderColor: color.dark ? color.s : color.p,
-        // }}
+        
+      // style={{
+      //   // ...styles.btncompartir,
+      //   borderColor: color.dark ? color.s : color.p,
+      // }}
       >
         <Text
         // style={{
@@ -89,11 +105,11 @@ const Transferencia = ({ color }) => {
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={shareCVUbyWApp}
-        // style={{
-        //   //   ...styles.btncompartir,
-        //   borderColor: color.dark ? color.s : color.p,
-        // }}
+       
+      // style={{
+      //   //   ...styles.btncompartir,
+      //   borderColor: color.dark ? color.s : color.p,
+      // }}
       >
         <Text
         // style={{
@@ -103,7 +119,7 @@ const Transferencia = ({ color }) => {
         >
           Compartir CVU vía WApp
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

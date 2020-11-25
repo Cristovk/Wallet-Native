@@ -28,7 +28,7 @@ import { darkBlue, orange, white } from "../../Global-Styles/colors";
 
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
-  LogBox.ignoreAllLogs();
+  // LogBox.ignoreAllLogs();
   const dispatch = useDispatch();
   const [saldo, setSaldo] = useState(0);
   const [movements, setMovements] = useState([]);
@@ -283,6 +283,7 @@ const Home = ({ navigation }) => {
                             empresa: item.empresa,
                             sender: item.sender,
                             receiver: item.receiver,
+                            categoria: item.categoria
                           })
                         }
                       >

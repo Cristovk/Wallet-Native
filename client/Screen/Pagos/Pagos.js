@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, ScrollView, Button, Image, StyleSheet, TouchableOpacity, Alert, SectionList, FlatList } from 'react-native'
 import { ListItem, } from 'react-native-elements'
 import Icon from "react-native-vector-icons/FontAwesome5";
@@ -14,6 +14,7 @@ const Pagos = ({ navigation }) => {
   const [state, setState] = useState(false)
   const [nombre, setNombre] = useState("")
   const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
+  const [actual, setActual] = useState('Entretenimiento')
 
 
   const iconList = {
