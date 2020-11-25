@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { View, TouchableOpacity, SafeAreaView, Switch, LogBox, Alert, BackHandler } from 'react-native';
 import { Icon, ListItem } from 'react-native-elements'
@@ -28,7 +28,6 @@ export function MyDrowner({ navigation, route }) {
     };
   }, [])
 
-
   const user = useSelector(store => store.user.user)
 
   const save = async () => {
@@ -55,35 +54,35 @@ export function MyDrowner({ navigation, route }) {
 }
 
 // Esta función nos permite configurar el drawer según lo que queremos mostrar (requerido en la línea 15)
-export function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, dark, dispatch }) {
+function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, dark, dispatch }) {
 
   const cerrar = async () => {
-    await AsyncStorage.removeItem('Metodo');
-
+    await AsyncStorage.removeItem('Metodo')
   }
+
 
 
   const setApp = route.params.darker
   const handleLogOut = () => {
-    cerrar();
-    setTimeout(() => {
-      navigation.navigate("Splash", { usuario2: false });
-    }, 3000);
+    dispatch(deleteAll())
+    cerrar()
+    Alert.alert('Sesión Cerrada', 'Te esperamos pronto',
+      [{ text: 'Ok', onPress: () => navigation.navigate('Splash', { usuario2: false }) }]
+    )
   }
 
-
-  // const confirmCerrar = () => {
-  //   Alert.alert('Cerrar Sesión', '¿Estás Seguro?',
-  //     [{ text: 'Si, cerrar', onPress: () => handleLogOut() },
-  //     { text: 'Cancelar', onPress: () => navigation.goBack() }]
-  //   )
-  // }
+  const confirmCerrar = () => {
+    Alert.alert('Cerrar Sesión', '¿Estás Seguro?',
+      [{ text: 'Si, cerrar', onPress: () => handleLogOut() },
+      { text: 'Cancelar', onPress: () => navigation.goBack() }]
+    )
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>
       <View>
         <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }} onPress={() => navigation.navigate('HomeScreen', { screen: 'Recargas' })} >
-          <Icon name='wallet' type='fontisto' color={dark ? text : bg} />
+          <Icon name='ios-log-out' type='ionicon' color={dark ? text : bg} />
           <ListItem.Content>
             <ListItem.Title style={{ color: dark ? text : bg }}>Recargar</ListItem.Title>
           </ListItem.Content>
@@ -149,7 +148,7 @@ export function CustomDrawerContent({ navigation, text, bg, primary, secondary, 
 
         </ListItem>
         <ListItem topDivider containerStyle={{ backgroundColor: 'transparent' }}
-          onPress={handleLogOut}>
+          onPress={confirmCerrar}>
           <Icon name='ios-log-out' type='ionicon' color={dark ? text : bg} />
           <ListItem.Content>
             <ListItem.Title style={{ color: dark ? text : bg }}>Cerrar sesión</ListItem.Title>
@@ -157,7 +156,6 @@ export function CustomDrawerContent({ navigation, text, bg, primary, secondary, 
           <ListItem.Chevron />
         </ListItem>
       </View>
-
     </SafeAreaView>
   )
 }
