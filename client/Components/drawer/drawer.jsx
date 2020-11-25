@@ -94,7 +94,7 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
           onPress={() => navigation.navigate('HomeScreen', { screen: 'MoonCard' })}>
           <Icon name='credit-card' type='fontisto' color={dark ? text : bg} />
           <ListItem.Content>
-            <ListItem.Title style={{ color: text }}>MoonCard</ListItem.Title>
+            <ListItem.Title style={{ color: dark ? text : bg  }}>MoonCard</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
@@ -118,7 +118,7 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
           onPress={() => navigation.navigate('HomeScreen', { screen: 'Tarjetas' })}>
           <Icon name='wallet' type='fontisto' color={dark ? text : bg} />
           <ListItem.Content>
-            <ListItem.Title style={{ color: text }}>Tarjetas</ListItem.Title>
+            <ListItem.Title style={{color: dark ? text : bg }}>Tarjetas</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
