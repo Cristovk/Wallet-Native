@@ -44,6 +44,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     Tsaliente: "arrow-circle-up",
     Tentrante: "arrow-circle-down",
     recarga: "wallet",
+    Transferencia: "money-bill-wave",
   };
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -337,7 +338,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
                 </ListItem.Content>
                 <Text>{time}</Text>
               </ListItem>
-            </ScrollView>
+            </View>
           </View>
           <View style={styleBoton.container}>
             <TouchableOpacity
