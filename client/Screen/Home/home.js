@@ -289,7 +289,6 @@ const Home = ({ navigation }) => {
                         empresa: item.empresa,
                         sender: item.sender,
                         receiver: item.receiver,
-                        card: item.card,
                         categoria: item.categoria,
                       })
                     }
@@ -336,7 +335,7 @@ const Home = ({ navigation }) => {
                 );
               }}
             ></FlatList>
-            <View style={[{ marginBottom: 20 }, styleBoton.container]}>
+            <View style={[{ marginBottom: 30 }, styleBoton.container]}>
               <TouchableOpacity
                 style={[
                   { backgroundColor: secondary, marginBottom: 25 },

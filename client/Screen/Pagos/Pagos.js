@@ -83,7 +83,6 @@ const Pagos = ({ navigation }) => {
         >
           <ScrollView
             horizontal={true}
-            showsHorizontalScrollIndicator={false}
             style={{ marginTop: 15 }}
           >
             {nombres &&
@@ -99,23 +98,24 @@ const Pagos = ({ navigation }) => {
                   }}
                 >
                   <TouchableOpacity
-                    style={
-                      actual === x
-                        ? {
-                            justifyContent: "center",
-                            alignItems: "center",
-                            borderBottomColor: dark ? "grey" : secondary,
-                            borderBottomWidth: 1,
-                          }
-                        : { justifyContent: "center", alignItems: "center" }
-                    }
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center"
+                    }}
                     onPress={() => cambioEstado(x)}
                   >
-                    <Icon
-                      name={iconList[x]}
-                      size={30}
-                      color={dark ? bg : text}
-                    />
+                    {actual === x ?
+                      <Icon
+                        name={iconList[x]}
+                        size={30}
+                        color={dark ? secondary : bg}
+                      /> :
+                      <Icon
+                        name={iconList[x]}
+                        size={30}
+                        color={dark ? bg : text}
+                      />
+                    }
                     <Text>{x} </Text>
                   </TouchableOpacity>
                 </View>
@@ -148,54 +148,53 @@ const Pagos = ({ navigation }) => {
                       }
                     >
                       <Icon
-                        name={iconList[x]}
+                        name="file-invoice-dollar"
                         size={30}
                         color={dark ? bg : text}
                       />
-                      <Text>{x} </Text>
                     </TouchableOpacity>
                   </ListItem.Content>
                 </ListItem>
               ))}
             </ScrollView>
           ) : (
-            <ScrollView>
-              {state &&
-                nombres &&
-                servicios[actual].map((x) => (
-                  <ListItem
-                    key={x}
-                    style={[
-                      {
-                        borderBottomWidth: 1,
-                        borderBottomColor: dark ? "grey" : secondary,
-                      },
-                      style.listaContenedor,
-                    ]}
-                    containerStyle={{ backgroundColor: primary }}
-                  >
-                    <ListItem.Chevron color={dark ? bg : secondary} />
-                    <ListItem.Content style={style.lista}>
-                      <ListItem.Title>{x}</ListItem.Title>
-                      <TouchableOpacity
-                        onPress={() =>
-                          navigation.navigate("PagoServicios", {
-                            title: x,
-                            servicio: actual,
-                          })
-                        }
-                      >
-                        <Icon
-                          name="file-invoice-dollar"
-                          size={23}
-                          color={dark ? bg : text}
-                        />
-                      </TouchableOpacity>
-                    </ListItem.Content>
-                  </ListItem>
-                ))}
-            </ScrollView>
-          )}
+              <ScrollView>
+                {state &&
+                  nombres &&
+                  servicios[actual].map((x) => (
+                    <ListItem
+                      key={x}
+                      style={[
+                        {
+                          borderBottomWidth: 1,
+                          borderBottomColor: dark ? "grey" : secondary,
+                        },
+                        style.listaContenedor,
+                      ]}
+                      containerStyle={{ backgroundColor: primary }}
+                    >
+                      <ListItem.Chevron color={dark ? bg : secondary} />
+                      <ListItem.Content style={style.lista}>
+                        <ListItem.Title>{x}</ListItem.Title>
+                        <TouchableOpacity
+                          onPress={() =>
+                            navigation.navigate("PagoServicios", {
+                              title: x,
+                              servicio: actual,
+                            })
+                          }
+                        >
+                          <Icon
+                            name="file-invoice-dollar"
+                            size={23}
+                            color={dark ? bg : text}
+                          />
+                        </TouchableOpacity>
+                      </ListItem.Content>
+                    </ListItem>
+                  ))}
+              </ScrollView>
+            )}
         </View>
         {/* <View style={style.qrContainer} >
           <TouchableOpacity

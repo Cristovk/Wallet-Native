@@ -22,7 +22,6 @@ export function MyDrowner({ navigation, route }) {
   // LogBox.ignoreAllLogs()
   useEffect(() => {
     if (status) {
-
       let id = auth.currentUser.uid
       dispatch(addContact(id))
     };
@@ -82,7 +81,7 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
     <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>
       <View>
         <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }} onPress={() => navigation.navigate('HomeScreen', { screen: 'Recargas' })} >
-          <Icon name='ios-log-out' type='ionicon' color={dark ? text : bg} />
+          <Icon name='wallet' type='fontisto' color={dark ? text : bg} />
           <ListItem.Content>
             <ListItem.Title style={{ color: dark ? text : bg }}>Recargar</ListItem.Title>
           </ListItem.Content>
@@ -90,11 +89,11 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
         </ListItem>
       </View>
       <View>
-      <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }}
+        <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }}
           onPress={() => navigation.navigate('HomeScreen', { screen: 'MoonCard' })}>
           <Icon name='credit-card' type='fontisto' color={dark ? text : bg} />
           <ListItem.Content>
-            <ListItem.Title style={{ color: dark ? text : bg  }}>MoonCard</ListItem.Title>
+            <ListItem.Title style={{ color: dark ? text : bg }}>MoonCard</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
@@ -118,7 +117,7 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
           onPress={() => navigation.navigate('HomeScreen', { screen: 'Tarjetas' })}>
           <Icon name='wallet' type='fontisto' color={dark ? text : bg} />
           <ListItem.Content>
-            <ListItem.Title style={{color: dark ? text : bg }}>Tarjetas</ListItem.Title>
+            <ListItem.Title style={{ color: dark ? text : bg }}>Tarjetas</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>

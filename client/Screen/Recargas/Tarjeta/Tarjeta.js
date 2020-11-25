@@ -19,6 +19,8 @@ import { TextInput } from "react-native-paper";
 import styles from "../Transferencia/estilosTransferencia";
 import Axios from "axios";
 import { auth, storage } from "../../../../firebase";
+import { widthPercentageToDP, heightPercentageToDP } from "react-native-responsive-screen"
+import botonStyle from '../../../Global-Styles/BotonGrande'
 
 /* ============================ STATES ============================ */
 const Tarjeta = (props) => {
@@ -117,35 +119,35 @@ const Tarjeta = (props) => {
             </Text>
           </View>
         ) : (
-          <FlatList
-            horizontal={true}
-            keyExtractor={(card) => card.id}
-            data={cards}
-            renderItem={({ item }) => {
-              return (
-                <TouchableOpacity
-                  style={{
-                    marginVertical: 15,
-                  }}
-                  onPress={() => {
-                    setCardNumber(item.number);
-                    setCardType(item.type);
-                    setQuestionModal(!questionModal);
-                  }}
-                >
-                  <CardView
-                    name={item.name}
-                    focused="number"
-                    brand={item.type}
-                    number={item.number}
-                    expiry={item.expiry}
-                    scale={0.9}
-                  />
-                </TouchableOpacity>
-              );
-            }}
-          ></FlatList>
-        )}
+              <FlatList
+                horizontal={true}
+                keyExtractor={(card) => card.id}
+                data={cards}
+                renderItem={({ item }) => {
+                  return (
+                    <TouchableOpacity
+                      style={{
+                        marginVertical: 15,
+                      }}
+                      onPress={() => {
+                        setCardNumber(item.number);
+                        setCardType(item.type);
+                        setQuestionModal(!questionModal);
+                      }}
+                    >
+                      <CardView
+                        name={item.name}
+                        focused="number"
+                        brand={item.type}
+                        number={item.number}
+                        expiry={item.expiry}
+                        scale={0.9}
+                      />
+                    </TouchableOpacity>
+                  );
+                }}
+              ></FlatList>
+            )}
       </View>
       <View>
         {charged ? (
@@ -174,32 +176,47 @@ const Tarjeta = (props) => {
             animationType="fade"
             ModalComponent={Modal}
           >
-            <Text style={[style.title, { marginVertical: 30 }]}>
-              {`El monto a recargar será debitado de su tarjeta ${
-                cardType
-                  ? cardType[0].toUpperCase() + cardType.substring(1)
-                  : null
-              } número ${cardNumber}`}
-            </Text>
-            <TextInput
-              textAlign="center"
-              placeholder="$ 1,000,000"
-              style={{ marginHorizontal: 35 }}
-              onChangeText={($) => setMonto($)}
-              keyboardType="numeric"
-            />
-            <View style={style.rowButtons}>
-              <Button
-                onPress={() => sendData()}
-                title="Recargar"
-                disabled={monto === 0}
-                buttonStyle={style.orangeButton}
-              />
-              <Button
-                onPress={() => setQuestionModal(!questionModal)}
-                title="Volver"
-                buttonStyle={style.darkBlueButton}
-              />
+            <View style={{ backgroundColor: bg, height: heightPercentageToDP("100%") }}>
+              <View style={[{ backgroundColor: primary, marginTop: 60, height: heightPercentageToDP("100%") }, styleView.container]}>
+                <Text style={[style.title, { marginVertical: 30 }]}>
+                  El monto a recargar será debitado de:
+                </Text>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                  <Text style={{ marginVertical: 20, fontSize: 20, marginHorizontal: 15 }}>
+                    Tarjeta:
+                </Text>
+                  <Text style={{ fontSize: 20, marginHorizontal: 15 }}>
+                    {cardType
+                      ? cardType[0].toUpperCase() + cardType.substring(1)
+                      : null}
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                  <Text style={{ marginBottom: 40, fontSize: 20, marginHorizontal: 15 }}>
+                    Número:
+                </Text>
+                  <Text style={{ marginBottom: 40, fontSize: 17, marginHorizontal: 15 }}>
+                    {cardNumber}
+                  </Text>
+                </View>
+                <TextInput
+                  textAlign="center"
+                  placeholder="$ 1,000,000"
+                  style={{ marginHorizontal: 35, borderRadius: 10 }}
+                  onChangeText={($) => setMonto($)}
+                  keyboardType="numeric"
+                />
+                <View style={[{ marginTop: 40 }, botonStyle.container]}>
+                  <TouchableOpacity style={[{ backgroundColor: dark ? bg : bg }, botonStyle.boton]} onPress={() => sendData()}>
+                    <Text style={[{ color: dark ? primary : secondary }, botonStyle.texto]} >Recargar</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={[{ marginTop: 20 }, botonStyle.container]}>
+                  <TouchableOpacity style={[{ backgroundColor: dark ? secondary : secondary }, botonStyle.boton]} onPress={() => setQuestionModal(!questionModal)}>
+                    <Text style={[{ color: dark ? primary : text }, botonStyle.texto]} >Volver</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
           </Modal>
         ) : loading ? (
@@ -208,22 +225,40 @@ const Tarjeta = (props) => {
             animationType="fade"
             ModalComponent={Modal}
           >
-            <Text style={[style.title, { marginVertical: 30 }]}>
-              {`El monto a recargar será debitado de su tarjeta ${
-                cardType
-                  ? cardType[0].toUpperCase() + cardType.substring(1)
-                  : null
-              } número ${cardNumber}`}
-            </Text>
-            <TextInput
-              textAlign="center"
-              placeholder="$ 1,000,000"
-              style={{ marginHorizontal: 35 }}
-              onChangeText={($) => setMonto($)}
-              keyboardType="numeric"
-            />
-            <View style={{ marginVertical: 30 }}>
-              <ActivityIndicator size="large" color={bg} />
+            <View style={{ backgroundColor: bg, height: heightPercentageToDP("100%") }}>
+              <View style={[{ backgroundColor: primary, marginTop: 60, height: heightPercentageToDP("100%") }, styleView.container]}>
+                <Text style={[style.title, { marginVertical: 30 }]}>
+                  El monto a recargar será debitado de:
+              </Text>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                  <Text style={{ marginVertical: 20, fontSize: 20, marginHorizontal: 15 }}>
+                    Tarjeta:
+              </Text>
+                  <Text style={{ fontSize: 20, marginHorizontal: 15 }}>
+                    {cardType
+                      ? cardType[0].toUpperCase() + cardType.substring(1)
+                      : null}
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                  <Text style={{ marginBottom: 40, fontSize: 20, marginHorizontal: 15 }}>
+                    Número:
+              </Text>
+                  <Text style={{ marginBottom: 40, fontSize: 17, marginHorizontal: 15 }}>
+                    {cardNumber}
+                  </Text>
+                </View>
+                <TextInput
+                  textAlign="center"
+                  placeholder="$ 1,000,000"
+                  style={{ marginHorizontal: 35, borderRadius: 10 }}
+                  onChangeText={($) => setMonto($)}
+                  keyboardType="numeric"
+                />
+                <View style={{ marginVertical: 30 }}>
+                  <ActivityIndicator size="large" color={bg} />
+                </View>
+              </View>
             </View>
           </Modal>
         ) : null}

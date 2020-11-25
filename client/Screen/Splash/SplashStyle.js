@@ -8,7 +8,10 @@ const style = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    marginBottom: 25
+    marginBottom: 25,
+    maxHeight: 250,
+    maxWidth: 250
+
   }
 });
 
