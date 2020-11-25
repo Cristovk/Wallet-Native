@@ -4,23 +4,29 @@ import { ListItem, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useSelector } from "react-redux";
 import { generateInvoice } from "./utils";
-import { heightPercentageToDP } from "react-native-responsive-screen";
+import styleView from "../../Global-Styles/ViewContainer";
+import {
+  widthPercentageToDP,
+  heightPercentageToDP,
+} from "react-native-responsive-screen";
 import { ScrollView } from "react-native-gesture-handler";
 import { TouchableOpacity } from "react-native";
 import styleBoton from "../../Global-Styles/BotonGrande";
+import { color } from "react-native-reanimated";
 
 const DetalleDeTransaccion = ({ route, navigation }) => {
   const {
     fecha,
     monto,
     tipo,
+    hacia,
     motivo,
     estado,
     operacion,
     empresa,
+    desde,
     sender,
     receiver,
-    categoria,
   } = route.params;
   const oparation = operacion
     ? operacion[0].toUpperCase() + operacion.substring(1)
@@ -30,20 +36,15 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     panaderia: "cookie",
     almacen: "shopping-basket",
     videojuegos: "gamepad",
-    Entretenimiento: "play-circle",
+    entretenimiento: "play-circle",
     transporte: "bus-alt",
     gasolinera: "gas-pump",
     jet: "fighter-jet",
     farmacia: "first-aid",
-    servicios: "file-invoice-dollar",
+    Servicio: "file-invoice-dollar",
     Tsaliente: "arrow-circle-up",
     Tentrante: "arrow-circle-down",
     recarga: "wallet",
-    Agua: "tint",
-    Telefono: "phone",
-    Gas: "burn",
-    Electricidad: "bolt",
-    Internet: "wifi",
   };
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -58,7 +59,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     (store) => store.color
   );
 
-  return categoria === "Tsaliente" || categoria === "Tentrante" ? (
+  return tipo === "Tsaliente" || tipo === "Tentrante" ? (
     <View style={{ backgroundColor: bg }}>
       <View>
         <View
@@ -69,7 +70,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           }}
         >
           <View>
-            <Icon name={iconList[categoria]} size={50} color={primary} />
+            <Icon name={iconList[tipo]} size={50} color={primary} />
           </View>
           <View style={{ marginTop: 20 }}>
             <Text style={{ color: primary, fontSize: 20 }}>
@@ -187,9 +188,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
         >
           <View>
             <Icon
-              name={
-                tipo === "recarga" ? iconList[categoria] : iconList[oparation]
-              }
+              name={tipo === "recarga" ? iconList[tipo] : iconList[oparation]}
               size={50}
               color={primary}
             />
