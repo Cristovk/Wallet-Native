@@ -23,7 +23,7 @@ import viewStyle from "../../Global-Styles/ViewContainer";
 import { darkBlue, orange, white } from "../../Global-Styles/colors";
 
 const Movimientos = ({ navigation }) => {
-  LogBox.ignoreAllLogs();
+  // LogBox.ignoreAllLogs();
   const windowHeight = Dimensions.get("window").height;
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [list, setList] = useState([]);
@@ -139,76 +139,76 @@ const Movimientos = ({ navigation }) => {
             </Text>
           </View>
         ) : (
-          <ScrollView style={{ maxHeight: windowHeight }}>
-            <FlatList
-              data={list}
-              keyExtractor={(mov) => mov.id}
-              style={{ marginVertical: 15 }}
-              renderItem={({ item }) => {
-                return (
-                  <ListItem
-                    key={item.id}
-                    onPress={() =>
-                      navigation.navigate("Detalle", {
-                        fecha: item.fecha,
-                        monto: item.monto,
-                        hacia: item.hacia,
-                        desde: item.desde,
-                        estado: item.estado,
-                        categoria: item.categoria,
-                        motivo: item.motivo,
-                        operacion: item.operacion,
-                        estado: item.estado,
-                        empresa: item.empresa,
-                        sender: item.sender,
-                        receiver: item.receiver,
-                      })
-                    }
-                  >
-                    {item.categoria == "Tsaliente" ||
-                    item.operacion == "compra" ||
-                    item.operacion == "servicios" ||
-                    item.operacion == "servicio" ? (
-                      <Icon
-                        name={iconList[item.categoria]}
-                        size={30}
-                        color="red"
-                      />
-                    ) : (
-                      <Icon
-                        name={iconList[item.categoria]}
-                        size={30}
-                        color="green"
-                      />
-                    )}
-                    <ListItem.Content>
-                      <ListItem.Title>
-                        {item.categoria[0].toUpperCase() +
-                          item.categoria.substring(1)}
-                      </ListItem.Title>
-                      <ListItem.Subtitle>
-                        {new Date(item.fecha).toLocaleDateString()}
-                      </ListItem.Subtitle>
-                    </ListItem.Content>
-                    <Text style={{ marginRight: 3 }}>
-                      {item.categoria == "Tsaliente" ||
-                      item.operacion == "compra" ||
-                      item.operacion == "servicios" ||
-                      item.operacion == "servicio"
-                        ? `- $ ${formatNumber(item.monto)}`
-                        : `$ ${formatNumber(item.monto)}`}
-                    </Text>
-                    <ListItem.Chevron
-                      name="chevron-right"
-                      type="font-awesome"
-                      color="black"
-                    />
-                  </ListItem>
-                );
-              }}
-            ></FlatList>
-          </ScrollView>
-        )}
+              <ScrollView style={{ maxHeight: windowHeight }}>
+                <FlatList
+                  data={list}
+                  keyExtractor={(mov) => mov.id}
+                  style={{ marginVertical: 15 }}
+                  renderItem={({ item }) => {
+                    return (
+                      <ListItem
+                        key={item.id}
+                        onPress={() =>
+                          navigation.navigate("Detalle", {
+                            fecha: item.fecha,
+                            monto: item.monto,
+                            hacia: item.hacia,
+                            desde: item.desde,
+                            estado: item.estado,
+                            categoria: item.categoria,
+                            motivo: item.motivo,
+                            operacion: item.operacion,
+                            estado: item.estado,
+                            empresa: item.empresa,
+                            sender: item.sender,
+                            receiver: item.receiver,
+                          })
+                        }
+                      >
+                        {item.categoria == "Tsaliente" ||
+                          item.operacion == "compra" ||
+                          item.operacion == "servicios" ||
+                          item.operacion == "servicio" ? (
+                            <Icon
+                              name={iconList[item.categoria]}
+                              size={30}
+                              color="red"
+                            />
+                          ) : (
+                            <Icon
+                              name={iconList[item.categoria]}
+                              size={30}
+                              color="green"
+                            />
+                          )}
+                        <ListItem.Content>
+                          <ListItem.Title>
+                            {item.categoria[0].toUpperCase() +
+                              item.categoria.substring(1)}
+                          </ListItem.Title>
+                          <ListItem.Subtitle>
+                            {new Date(item.fecha).toLocaleDateString()}
+                          </ListItem.Subtitle>
+                        </ListItem.Content>
+                        <Text style={{ marginRight: 3 }}>
+                          {item.categoria == "Tsaliente" ||
+                            item.operacion == "compra" ||
+                            item.operacion == "servicios" ||
+                            item.operacion == "servicio"
+                            ? `- $ ${formatNumber(item.monto)}`
+                            : `$ ${formatNumber(item.monto)}`}
+                        </Text>
+                        <ListItem.Chevron
+                          name="chevron-right"
+                          type="font-awesome"
+                          color="black"
+                        />
+                      </ListItem>
+                    );
+                  }}
+                ></FlatList>
+              </ScrollView>
+            )}
       </View>
     </ScrollView>
   );

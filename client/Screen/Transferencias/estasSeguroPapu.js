@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSaldo } from "../../Redux/movements";
 
 const Transferencias = ({ navigation }) => {
-  LogBox.ignoreAllLogs();
+  // LogBox.ignoreAllLogs();
 
   const dispatch = useDispatch();
   const movements = useSelector((store) => store.movementsReducer);

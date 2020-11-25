@@ -76,7 +76,7 @@ const Transferencias = ({ navigation }) => {
         />
         {spinner && (
           <View style={style.spinner}>
-            <ActivityIndicator size="small" color="#fff" />
+            <ActivityIndicator size="small" color={bg} />
           </View>
         )}
         {error && (
@@ -95,6 +95,7 @@ const Transferencias = ({ navigation }) => {
             >
               <Text style={{ fontSize: 15, color: text }}>Continuar</Text>
             </TouchableOpacity>
+
           </View>
         )}
       </View>

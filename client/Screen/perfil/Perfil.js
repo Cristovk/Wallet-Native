@@ -61,7 +61,7 @@ const Perfil = (props) => {
     props.userLog();
   }, []);
 
-  LogBox.ignoreAllLogs();
+  // LogBox.ignoreAllLogs();
 
   return (
     <ScrollView style={{ backgroundColor: bg }}>

@@ -8,20 +8,20 @@ import {
   ScrollView,
   TouchableOpacity
 } from "react-native";
-import { Icon,Button } from "react-native-elements";
+import { Icon, Button } from "react-native-elements";
 import { styles } from "./Sing-Up-Styles";
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { addUser, saveData } from "../../Redux/User";
 import { useDispatch } from "react-redux";
 //import { LogBox } from "react-native";
-import {storage} from "../../../firebase.js";
+import { storage } from "../../../firebase.js";
 
 Dimensions.get("window").width;
 Dimensions.get("window").height;
 /* ======================================= STATE ================================================ */
 
 const SignUp = ({ navigation }) => {
-  LogBox.ignoreAllLogs();
+  // LogBox.ignoreAllLogs();
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
@@ -43,16 +43,16 @@ const SignUp = ({ navigation }) => {
     emptyYear: "",
     invalidYearFormat: "",
   });
-  const emailValido = (async (email) => { 
+  const emailValido = (async (email) => {
     const query = await storage.collection('Users').where('email', '==', email).get()
-            
-       if(query.empty) {
-         console.log('No existen mail iguales'); 
-        return false;
-        } 
-        return true;               
-     
-   });
+
+    if (query.empty) {
+      console.log('No existen mail iguales');
+      return false;
+    }
+    return true;
+
+  });
 
   let newDate = new Date(year, month - 1, day + 1);
   let actualYear = new Date().getFullYear();
@@ -75,7 +75,7 @@ const SignUp = ({ navigation }) => {
     let emptyLastname = "";
     let emptyEmail = "";
     let invalidEmailFormat = "";
-    let  emailExist = "";
+    let emailExist = "";
     let emptyDay = "";
     let invalidDayFormat = "";
     let emptyMonth = "";
@@ -83,9 +83,9 @@ const SignUp = ({ navigation }) => {
     let emptyYear = "";
     let invalidYearFormat = "";
 
-      //comprobar si el mail existe
-   
-  
+    //comprobar si el mail existe
+
+
 
     if (!name) {
       emptyName = "El campo Nombre(s) es necesario";
@@ -97,11 +97,11 @@ const SignUp = ({ navigation }) => {
       emptyEmail = "El campo Email es necesario";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       invalidEmailFormat = "Formato de email inválido o ya registrado";
-     } 
-      else if (emailValido(email)){
+    }
+    else if (emailValido(email)) {
       emailExist = "El email ya está registrado";
     }
-    
+
     if (!day) {
       emptyDay = "El campo día es necesario";
     } else if (day < 1 || day > 31 || isNaN(day)) {
@@ -113,9 +113,8 @@ const SignUp = ({ navigation }) => {
     } else if (!year) {
       emptyYear = "El campo Año es necesario";
     } else if (year < actualYear - 100 || year > actualYear || isNaN(year)) {
-      invalidYearFormat = `Elija un año entre ${
-        actualYear - 100
-      } y ${actualYear}`;
+      invalidYearFormat = `Elija un año entre ${actualYear - 100
+        } y ${actualYear}`;
     }
     if (
       emptyName ||
@@ -155,19 +154,19 @@ const SignUp = ({ navigation }) => {
   };
 
   const handleOnPress = () => {
-    const valid = validateForm()   
-      if (valid) {
+    const valid = validateForm()
+    if (valid) {
       dispatch(addUser("email", email));
       dispatch(saveData(info));
       navigation.navigate("SignUp1");
     }
-  
+
   };
 
-  const iconColor='grey';
-  const placeholderColor='grey';
+  const iconColor = 'grey';
+  const placeholderColor = 'grey';
 
-    return (
+  return (
     <ScrollView style={styles.container}>
       <View style={styles.centered}>
         <Image
@@ -238,7 +237,7 @@ const SignUp = ({ navigation }) => {
           </View>
           <Text style={styles.label}>Email</Text>
           <TextInput
-             style={[styles.inputs, { paddingLeft: 26 }]}
+            style={[styles.inputs, { paddingLeft: 26 }]}
             onChangeText={(text) => setEmail(text)}
             value={email}
             placeholder="johndoe@emailserver.com"
@@ -256,7 +255,7 @@ const SignUp = ({ navigation }) => {
       ) : null}
       {Err.emailExist ? (
         <Text style={styles.error}>{Err.emailExist}</Text>
-     ) : null} 
+      ) : null}
 
 
       <Text style={styles.label}>Cumpleaños</Text>
@@ -299,17 +298,17 @@ const SignUp = ({ navigation }) => {
       {Err.invalidYearFormat ? (
         <Text style={styles.error}>{Err.invalidYearFormat}</Text>
       ) : null}
-     
+
 
       <View style={[styles.button, styles.box]}>
-           <TouchableOpacity style={[styles.btnEnviar,styles.siguiente]} onPress={() => handleOnPress()}>
-                <Text style={styles.textoBtn}>SIGUIENTE</Text>
-              </TouchableOpacity>
-           <View style={styles.separator}></View>
-              <TouchableOpacity style={[styles.btnEnviar,styles.anterior]} onPress={() => navigation.navigate("Login")}>
-            <Text style={styles.textoBtn}>ANTERIOR</Text>
-              </TouchableOpacity>
-         </View>
+        <TouchableOpacity style={[styles.btnEnviar, styles.siguiente]} onPress={() => handleOnPress()}>
+          <Text style={styles.textoBtn}>SIGUIENTE</Text>
+        </TouchableOpacity>
+        <View style={styles.separator}></View>
+        <TouchableOpacity style={[styles.btnEnviar, styles.anterior]} onPress={() => navigation.navigate("Login")}>
+          <Text style={styles.textoBtn}>ANTERIOR</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };

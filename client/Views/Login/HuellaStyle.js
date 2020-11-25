@@ -1,12 +1,20 @@
 import { StyleSheet } from 'react-native'
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { darkBlue, white } from '../../Global-Styles/colors';
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-
+    justifyContent: 'flex-end',
+    
+  },
+  containerTwo: {
+    width: "100%",
+    height: heightPercentageToDP("60%"),
+    borderTopLeftRadius:15,
+    borderTopRightRadius:15
   },
   title: {
     marginBottom: 40,
@@ -19,15 +27,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     alignItems: "center",
     justifyContent: "center"
-  },
-  containerTwo: {
-    borderWidth: 2,
-    width: 360,
-    height: 300,
-    justifyContent: "center",
-    textAlign: "center",
-    borderRadius: 15
-  },
+ },
   boton: {
     width: 130,
     height: 50,
