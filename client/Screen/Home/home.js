@@ -289,6 +289,7 @@ const Home = ({ navigation }) => {
                         empresa: item.empresa,
                         sender: item.sender,
                         receiver: item.receiver,
+                        card: item.card,
                         categoria: item.categoria,
                       })
                     }

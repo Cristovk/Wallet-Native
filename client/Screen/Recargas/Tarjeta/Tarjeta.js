@@ -22,7 +22,7 @@ import { auth, storage } from "../../../../firebase";
 
 /* ============================ STATES ============================ */
 const Tarjeta = (props) => {
-  LogBox.ignoreAllLogs();
+  // LogBox.ignoreAllLogs();
   const [questionModal, setQuestionModal] = useState(false);
   const [cards, setCards] = useState([]);
   const [monto, setMonto] = useState(0);
@@ -54,6 +54,20 @@ const Tarjeta = (props) => {
     getPin();
   }, []);
 
+  const hideCreditcardNumbers = (string) => {
+    var newStr = "";
+    for (let i = 0; i < string.length; i++) {
+      if (string[i] === " ") {
+        newStr += " ";
+      } else if (i < string.length - 5) {
+        newStr += string[i].replace(string[i], "*");
+      } else {
+        newStr += string[i];
+      }
+    }
+    return newStr;
+  };
+
   const sendData = () => {
     setLoading(true);
     Axios.post(
@@ -62,6 +76,7 @@ const Tarjeta = (props) => {
         pin: pin,
         amount: monto,
         empresa: cardType,
+        card: hideCreditcardNumbers(cardNumber),
       }
     )
       .then(() => {

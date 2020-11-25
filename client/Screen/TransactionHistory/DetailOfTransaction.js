@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { ListItem, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useSelector } from "react-redux";
-import { generateInvoice, detalle} from "./utils";
+import { generateInvoice, detalle } from "./utils";
 import styleView from "../../Global-Styles/ViewContainer";
 import {
   widthPercentageToDP,
@@ -31,7 +31,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     sender,
     receiver,
     desde,
-    card
+    card,
   } = route.params;
   const iconList = {
     panaderia: "cookie",
@@ -53,13 +53,12 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     Internet: "wifi",
     "recarga con tarjeta": "credit-card",
   };
-  
+
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
- 
 
-  return(
+  return (
     <View style={{ backgroundColor: bg }}>
       <View>
         <View
@@ -72,17 +71,25 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <View>
             <Icon name={iconList[categoria]} size={50} color={primary} />
           </View>
-          
+
           <View style={{ marginTop: 20 }}>
-                <Text style={{ color: primary, fontSize: 20 }}>{
-                operacion === "transferencia" ?(categoria === "Tentrante" ? `${sender} te envió` : `Le enviaste a ${receiver}`):
-                operacion === "recarga" ?(categoria === "recarga" ? `Recargaste en ${empresa}` : `Recargaste usando ${empresa}`):
-                operacion === "servicio" ? (`Pagaste a ${empresa}`) :
-                operacion ==="compra" ? (`Compraste en ${empresa}`): 
-                `Exploto todo :D`
-               }</Text>
-              </View>
-         
+            <Text style={{ color: primary, fontSize: 20 }}>
+              {operacion === "transferencia"
+                ? categoria === "Tentrante"
+                  ? `${sender} te envió`
+                  : `Le enviaste a ${receiver}`
+                : operacion === "recarga"
+                ? categoria === "recarga"
+                  ? `Recargaste en ${empresa}`
+                  : `Recargaste usando ${empresa}`
+                : operacion === "servicio"
+                ? `Pagaste a ${empresa}`
+                : operacion === "compra"
+                ? `Compraste en ${empresa}`
+                : `Exploto todo :D`}
+            </Text>
+          </View>
+
           <View style={{ marginTop: 5 }}>
             <Text style={{ color: primary, fontSize: 20 }}>{`$ ${formatNumber(
               monto
@@ -98,14 +105,28 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
             marginTop: 25,
           }}
         >
-         {detalle(fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver,desde, card)}
-                           
+          {detalle(
+            fecha,
+            monto,
+            tipo,
+            hacia,
+            motivo,
+            estado,
+            operacion,
+            empresa,
+            categoria,
+            sender,
+            receiver,
+            desde,
+            card
+          )}
+
           <View
             style={[{ top: heightPercentageToDP("55%") }, styleBoton.container]}
           >
             <TouchableOpacity
               style={[{ backgroundColor: secondary }, styleBoton.boton]}
-              onPress={() => generateInvoice( )}
+              onPress={() => generateInvoice()}
               icon={{
                 name: "receipt",
                 size: 20,
@@ -120,7 +141,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
         </View>
       </View>
     </View>
-  ) 
+  );
 };
 
 export default DetalleDeTransaccion;
