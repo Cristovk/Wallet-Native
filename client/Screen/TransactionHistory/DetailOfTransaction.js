@@ -24,7 +24,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     estado,
     operacion,
     empresa,
-    desde,
+    categoria,
     sender,
     receiver,
   } = route.params;
@@ -36,7 +36,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     panaderia: "cookie",
     almacen: "shopping-basket",
     videojuegos: "gamepad",
-    entretenimiento: "play-circle",
+    Entretenimiento: "play-circle",
     transporte: "bus-alt",
     gasolinera: "gas-pump",
     jet: "fighter-jet",
@@ -45,6 +45,11 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     Tsaliente: "arrow-circle-up",
     Tentrante: "arrow-circle-down",
     recarga: "wallet",
+    Agua: "tint",
+    Telefono: "phone",
+    Gas: "burn",
+    Electricidad: "bolt",
+    Internet: "wifi",
   };
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -59,7 +64,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     (store) => store.color
   );
 
-  return tipo === "Tsaliente" || tipo === "Tentrante" ? (
+  return categoria === "Tsaliente" || categoria === "Tentrante" ? (
     <View style={{ backgroundColor: bg }}>
       <View>
         <View
@@ -70,7 +75,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           }}
         >
           <View>
-            <Icon name={iconList[tipo]} size={50} color={primary} />
+            <Icon name={iconList[categoria]} size={50} color={primary} />
           </View>
           <View style={{ marginTop: 20 }}>
             <Text style={{ color: primary, fontSize: 20 }}>
@@ -188,15 +193,21 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
         >
           <View>
             <Icon
-              name={tipo === "recarga" ? iconList[tipo] : iconList[oparation]}
+              name={
+                categoria === "recarga"
+                  ? iconList[categoria]
+                  : iconList[oparation]
+              }
               size={50}
               color={primary}
             />
           </View>
           <View style={{ marginTop: 20 }}>
             <Text style={{ color: primary, fontSize: 20 }}>
-              {tipo === "recarga"
+              {categoria === "recarga"
                 ? "Recarga desde " + " " + empresa
+                : operacion == "servicio"
+                ? empresa
                 : "Gasto de" + " " + oparation}
             </Text>
           </View>
@@ -227,7 +238,11 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
                 <ListItem.Content>
                   <ListItem.Title>{"Operacion"}</ListItem.Title>
                 </ListItem.Content>
-                <Text>{tipo === "recarga" ? empresa : oparation}</Text>
+                <Text>
+                  {categoria === "recarga"
+                    ? "Recarga de saldo"
+                    : `Pago de ${oparation}`}
+                </Text>
               </ListItem>
               <ListItem
                 containerStyle={{
@@ -238,10 +253,18 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
               >
                 <ListItem.Content>
                   <ListItem.Title>
-                    {tipo === "recarga" ? "Empresa" : "Categoria"}
+                    {categoria === "recarga" ? "Empresa" : "Categoria"}
                   </ListItem.Title>
                 </ListItem.Content>
-                <Text>{tipo === "recarga" ? empresa : type}</Text>
+                <Text>
+                  {categoria === "recarga"
+                    ? empresa
+                    : operacion === "servicio" && categoria == "Telefono"
+                    ? "Telefonía"
+                    : operacion === "servicio"
+                    ? categoria
+                    : null}
+                </Text>
               </ListItem>
               <ListItem
                 containerStyle={{
