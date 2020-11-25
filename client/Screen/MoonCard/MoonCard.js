@@ -90,7 +90,7 @@ function MoonCard({ props }) {
           marginTop: 50,
           alignItems: "center"
         }, botonStyle.container]}>
-          <TouchableOpacity onPress={copyToClipboard}
+          <TouchableOpacity onPress={() => navigation.navigate("Recargas")}
             style={[botonStyle.boton, { backgroundColor: dark ? primary : secondary }]}>
             <Text style={{ padding: 15, fontSize: 18, color: dark ? bg : text }}>Recargar</Text>
           </TouchableOpacity>

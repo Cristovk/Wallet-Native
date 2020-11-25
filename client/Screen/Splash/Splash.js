@@ -3,7 +3,7 @@ import {
   View,
   Text,
   ScrollView,
-  Button,
+  Button, 
   Image,
   StyleSheet,
   TouchableOpacity,
@@ -59,7 +59,7 @@ const Splash = ({ navigation, route }) => {
   return (
     <View style={[{ backgroundColor: primary }, style.container]}>
       <View style={style.logo}>
-        <Image source={require("../../src/logo.png")} />
+        <Text source={{color: '#1C2383', fontsize: 150 }} >Bienvenido</Text>
       </View>
       <ActivityIndicator color={bg} size="large" />
     </View>
