@@ -24,11 +24,11 @@ import { useIsFocused } from "@react-navigation/native";
 import { auth, storage } from "../../../firebase";
 import styleBoton from '../../Global-Styles/BotonGrande'
 import { widthPercentageToDP, heightPercentageToDP } from "react-native-responsive-screen"
-
+import { darkBlue, orange, white } from "../../Global-Styles/colors";
 
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
   const dispatch = useDispatch();
   const [saldo, setSaldo] = useState(0);
   const [movements, setMovements] = useState([]);
@@ -39,7 +39,7 @@ const Home = ({ navigation }) => {
     panaderia: "cookie",
     almacen: "shopping-basket",
     videojuegos: "gamepad",
-    entretenimiento: "play-circle",
+    Entretenimiento: "play-circle",
     transporte: "bus-alt",
     gasolinera: "gas-pump",
     jet: "fighter-jet",
@@ -48,10 +48,16 @@ const Home = ({ navigation }) => {
     Tsaliente: "arrow-circle-up",
     Tentrante: "arrow-circle-down",
     recarga: "wallet",
+    Agua: "tint",
+    Telefono: "phone",
+    Gas: "burn",
+    Electricidad: "bolt",
+    Internet: "wifi",
   };
 
-
-  const { primary, bg, secondary, text, dark } = useSelector(store => store.color)
+  const { primary, bg, secondary, text, dark } = useSelector(
+    (store) => store.color
+  );
 
   /* ======================= FUNCTIONS ========================== */
   const getSaldo = async () => {
@@ -280,11 +286,18 @@ const Home = ({ navigation }) => {
                           })
                         }
                       >
-                        {item.tipo == "Tsaliente" ? (
-                          <Icon name={iconList[item.tipo]} size={30} color="red" />
-                        ) : (
+                        {item.categoria == "Tsaliente" ||
+                          item.operacion == "compra" ||
+                          item.operacion == "servicios" ||
+                          item.operacion == "servicio" ? (
                             <Icon
-                              name={iconList[item.tipo]}
+                              name={iconList[item.categoria]}
+                              size={30}
+                              color="red"
+                            />
+                          ) : (
+                            <Icon
+                              name={iconList[item.categoria]}
                               size={30}
                               color="green"
                             />
@@ -296,7 +309,10 @@ const Home = ({ navigation }) => {
                           </ListItem.Subtitle>
                         </ListItem.Content>
                         <Text style={{ marginRight: 3 }}>
-                          {item.tipo == "Tsaliente"
+                          {item.categoria == "Tsaliente" ||
+                            item.operacion == "compra" ||
+                            item.operacion == "servicios" ||
+                            item.operacion == "servicio"
                             ? `- $ ${formatNumber(item.monto)}`
                             : `$ ${formatNumber(item.monto)}`}
                         </Text>
@@ -309,7 +325,7 @@ const Home = ({ navigation }) => {
                     );
                   }}
                 ></FlatList>
-                <View style={styleBoton.container}>
+                <View style={[{ marginBottom: 20 }, styleBoton.container]}>
                   <TouchableOpacity
                     style={[{ backgroundColor: secondary, marginBottom: 25 }, styleBoton.boton]}
                     onPress={() => navigation.navigate("Movimientos")}

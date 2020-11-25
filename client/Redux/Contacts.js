@@ -94,26 +94,8 @@ export const getContacts = (id) => async (dispatch) => {
       payload: array,
     });
   } catch (err) {
-    console.log("------------------------------>", err);
+    console.log("------->", err);
   }
-  /* .then(res => {
-        let arr = []
-            res.forEach(doc => {
-                console.log("data.........", doc.data())
-                let datoNum = doc.data()
-                console.log("DatoNum-----------------------------",datoNum)
-                arr.push(datoNum)
-                
-            });
-        console.log('-------arr',arr)
-        dispatch({
-            type: GET_CONTACT,
-            payload: arr
-        })
-    })
-    .catch(err => {
-        console.log(err)
-    }) */
 };
 
 export const deleteAll = () => (dispatch) => {

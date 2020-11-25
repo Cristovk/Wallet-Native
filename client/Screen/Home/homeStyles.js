@@ -1,14 +1,16 @@
 import { StyleSheet } from "react-native";
-import { widthPercentageToDP, heightPercentageToDP } from "react-native-responsive-screen"
-
-
+import {
+  widthPercentageToDP,
+  heightPercentageToDP,
+} from "react-native-responsive-screen";
 
 const style = StyleSheet.create({
   background: {
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
-    height: heightPercentageToDP("60%")
-  }, background2: {
+    height: heightPercentageToDP("60%"),
+  },
+  background2: {
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
     marginTop: 25,
@@ -16,6 +18,7 @@ const style = StyleSheet.create({
   },
   balance: {
     height: 170,
+    marginTop: 30,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -42,7 +45,7 @@ const style = StyleSheet.create({
   },
   listaContenedor: {
     marginBottom: 2,
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
   },
   lista: {
     marginBottom: 10,

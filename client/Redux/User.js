@@ -1,12 +1,11 @@
 import { storage, auth } from "../../firebase";
 
 // CONSTANTS
-const REGISTER_USER = 'REGISTER_USER';
-const SAVE_USER_DATA = 'SAVE_USER_DATA';
+const REGISTER_USER = "REGISTER_USER";
+const SAVE_USER_DATA = "SAVE_USER_DATA";
 const LOGEADO = "LOGEADO";
 const MODIFICA_USUARIO = "MODIFICA_USUARIO";
 const CHANGE_LOGIN_METHOD = "CHANGE_LOGIN_METHOD";
-
 
 // STATE
 const initialState = {
@@ -23,7 +22,7 @@ const initialState = {
     phone: "",
     dni: "",
     cuil: "",
-    cvu: ""
+    cvu: "",
   },
   user: [],
   security: {
@@ -55,22 +54,21 @@ export default function userReducer(state = initialState, action) {
     case LOGEADO:
       return {
         ...state,
-        user: action.payload
-      }
+        user: action.payload,
+      };
     case MODIFICA_USUARIO:
       return {
         ...state,
-        user: action.payload
-      }
+        user: action.payload,
+      };
     case CHANGE_LOGIN_METHOD:
       return {
         ...state,
         security: {
           ...state.security,
-          fingerPrint: action.payload
-        }
-      }
-
+          fingerPrint: action.payload,
+        },
+      };
 
     default:
       return {
@@ -108,84 +106,52 @@ export const saveData = (obj) => (dispatch) => {
 export const userLog = () => async (dispatch) => {
   if (await auth.currentUser) {
     const id = await auth.currentUser.uid;
-    const consulta = storage.collection('Users').doc(id) //Con esto consulto en la base de datos para que me traiga el documento segun el id que le estoy pasando
-    const doc = await consulta.get() // como la respuesta debe ser asincrona, ponemos el await y le damos el metodo get, para que nos traiga esos datos.
-      .then(resp => {
+    const consulta = storage.collection("Users").doc(id); //Con esto consulto en la base de datos para que me traiga el documento segun el id que le estoy pasando
+    const doc = await consulta
+      .get() // como la respuesta debe ser asincrona, ponemos el await y le damos el metodo get, para que nos traiga esos datos.
+      .then((resp) => {
         dispatch({
           type: LOGEADO,
-          payload: resp.data()
-        })
-      })
+          payload: resp.data(),
+        });
+      });
   }
-}
+};
 
-export const updateUser = (data) => (dispatch) => {
-  /* dispatch({
-    type:MODIFICA_USUARIO,
-    payload: data
-  }) */
-  // const id = auth.currentUser.uid
-  // console.log("props---------------------", props)
-  // console.log("imagen.....................",imagen)
-  // const consulta = storage.collection('Users').doc(id)
-  // consulta.set({
-  //   name: name,
-  //   lastName: lastName,
-  //   phone: phone,
-  //   dni: dni,
-  //   cuil: cuil,
-  //   imagen: imagen
-  // })
-  // .then(resp => {
-
-  //   dispatch({
-  //     type: MODIFICA_USUARIO,
-  //     payload: {
-  //       name: name,
-  //       lastName: lastName,
-  //       phone: phone,
-  //       dni: dni,
-  //       cuil: cuil,
-  //       imagen: imagen,
-  //     }
-  //   })
-  // })
-
-}
+export const updateUser = (data) => (dispatch) => {};
 
 export const ResetPass = async (email) => {
-  await auth.sendPasswordResetEmail(email)
-}
+  await auth.sendPasswordResetEmail(email);
+};
 
 export const ModificarEmail = async (email) => {
   if (await auth.currentUser) {
-    await auth.currentUser.updateEmail(email)
+    await auth.currentUser
+      .updateEmail(email)
       .then(() => {
-        auth.currentUser.sendEmailVerification()
+        auth.currentUser.sendEmailVerification();
       })
-      .catch(err => {
-        console.log(err)
-      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
-}
+};
 
 export const ModificarPassword = async (password) => {
   if (await auth.currentUser) {
-    await auth.currentUser.updatePassword(password)
+    await auth.currentUser.updatePassword(password);
   }
-}
+};
 
 export const deleteUsuario = async (id) => {
-
-  const consulta = storage.collection('Users').doc(id);
-  await consulta.delete()
-  auth.currentUser.delete()
-}
+  const consulta = storage.collection("Users").doc(id);
+  await consulta.delete();
+  auth.currentUser.delete();
+};
 
 export const changeLoginMethod = (bool) => (dispatch) => {
   dispatch({
     type: CHANGE_LOGIN_METHOD,
-    payload: bool
-  })
-}
-
+    payload: bool,
+  });
+};

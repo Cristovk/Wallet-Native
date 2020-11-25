@@ -77,7 +77,6 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
       { text: 'Cancelar', onPress: () => navigation.goBack() }]
     )
   }
-  // LogBox.ignoreAllLogs()
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>

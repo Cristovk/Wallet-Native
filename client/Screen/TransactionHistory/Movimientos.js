@@ -38,7 +38,7 @@ const Movimientos = ({ navigation }) => {
     panaderia: "cookie",
     almacen: "shopping-basket",
     videojuegos: "gamepad",
-    entretenimiento: "play-circle",
+    Entretenimiento: "play-circle",
     transporte: "bus-alt",
     gasolinera: "gas-pump",
     jet: "fighter-jet",
@@ -47,7 +47,13 @@ const Movimientos = ({ navigation }) => {
     Tsaliente: "arrow-circle-up",
     Tentrante: "arrow-circle-down",
     recarga: "wallet",
+    Agua: "tint",
+    Telefono: "phone",
+    Gas: "burn",
+    Electricidad: "bolt",
+    Internet: "wifi",
   };
+
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
@@ -56,18 +62,21 @@ const Movimientos = ({ navigation }) => {
     dispatch(getWeekMovement(movements.allMovements));
     dispatch(getMonthMovements(movements.allMovements));
   }, [isFocused, selectedIndex]);
-
   useEffect(() => {
     if (selectedIndex == 0) {
-      movements.length === 0
+      movements.dayMovements.length === 0
         ? setList([null])
         : setList(movements.dayMovements);
     }
     if (selectedIndex == 1) {
-      setList(movements.weekMovements);
+      movements.weekMovements.length === 0
+        ? setList([null])
+        : setList(movements.weekMovements);
     }
     if (selectedIndex == 2) {
-      setList(movements.monthMovements);
+      movements.monthMovements.length === 0
+        ? setList([null])
+        : setList(movements.monthMovements);
     }
   }, [selectedIndex, isFocused, movements]);
 
@@ -93,7 +102,6 @@ const Movimientos = ({ navigation }) => {
               },
               shadowOpacity: 0.34,
               shadowRadius: 6.27,
-
               elevation: 10,
             }}
             buttons={buttons}
@@ -105,7 +113,7 @@ const Movimientos = ({ navigation }) => {
         </View>
         {list.length === 0 ? (
           <View style={{ marginTop: 100 }}>
-            <ActivityIndicator size="large" color={darkBlue} />
+            <ActivityIndicator size="large" color={secondary} />
           </View>
         ) : list[0] == null ? (
           <View
@@ -140,7 +148,6 @@ const Movimientos = ({ navigation }) => {
                     return (
                       <ListItem
                         key={item.id}
-                        containerStyle={{ backgroundColor: primary }}
                         onPress={() =>
                           navigation.navigate("Detalle", {
                             fecha: item.fecha,
@@ -149,7 +156,6 @@ const Movimientos = ({ navigation }) => {
                             desde: item.desde,
                             estado: item.estado,
                             categoria: item.categoria,
-                            tipo: item.tipo,
                             motivo: item.motivo,
                             operacion: item.operacion,
                             estado: item.estado,
@@ -159,23 +165,36 @@ const Movimientos = ({ navigation }) => {
                           })
                         }
                       >
-                        {item.tipo == "Tsaliente" ? (
-                          <Icon name={iconList[item.tipo]} size={30} color="red" />
-                        ) : (
+                        {item.categoria == "Tsaliente" ||
+                          item.operacion == "compra" ||
+                          item.operacion == "servicios" ||
+                          item.operacion == "servicio" ? (
                             <Icon
-                              name={iconList[item.tipo]}
+                              name={iconList[item.categoria]}
+                              size={30}
+                              color="red"
+                            />
+                          ) : (
+                            <Icon
+                              name={iconList[item.categoria]}
                               size={30}
                               color="green"
                             />
                           )}
                         <ListItem.Content>
-                          <ListItem.Title>{item.operacion}</ListItem.Title>
+                          <ListItem.Title>
+                            {item.categoria[0].toUpperCase() +
+                              item.categoria.substring(1)}
+                          </ListItem.Title>
                           <ListItem.Subtitle>
                             {new Date(item.fecha).toLocaleDateString()}
                           </ListItem.Subtitle>
                         </ListItem.Content>
                         <Text style={{ marginRight: 3 }}>
-                          {item.tipo == "Tsaliente"
+                          {item.categoria == "Tsaliente" ||
+                            item.operacion == "compra" ||
+                            item.operacion == "servicios" ||
+                            item.operacion == "servicio"
                             ? `- $ ${formatNumber(item.monto)}`
                             : `$ ${formatNumber(item.monto)}`}
                         </Text>

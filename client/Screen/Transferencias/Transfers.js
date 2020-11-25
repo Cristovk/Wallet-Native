@@ -16,8 +16,8 @@ import { ListItem } from "react-native-elements";
 import { storage } from "../../../firebase";
 import { saveTransfers } from "../../Redux/movements";
 import botonStyle from "../../Global-Styles/BotonGrande";
-import { heightPercentageToDP } from "react-native-responsive-screen"
-import viewStyle from '../../Global-Styles/ViewContainer'
+import { heightPercentageToDP } from "react-native-responsive-screen";
+import viewStyle from "../../Global-Styles/ViewContainer";
 
 /* ========================= STATES ============================ */
 const Transfers = ({ navigation }) => {
@@ -51,7 +51,7 @@ const Transfers = ({ navigation }) => {
         .collection("Wallet")
         .doc(CVU)
         .collection("Movimientos")
-        .where("operacion", "==", "Transferencia")
+        .where("operacion", "==", "transferencia")
         .orderBy("fecha", "desc")
         .onSnapshot((query) => {
           const trans = [];
@@ -85,7 +85,9 @@ const Transfers = ({ navigation }) => {
   /* ====================== RENDERING ========================== */
   return (
     <View style={{ backgroundColor: bg }}>
-      <View style={{ backgroundColor: bg, height: heightPercentageToDP("100%") }}>
+      <View
+        style={{ backgroundColor: bg, height: heightPercentageToDP("100%") }}
+      >
         {transfers.length === 0 ? (
           <View style={{ marginTop: 150 }}>
             <ActivityIndicator size="large" color={secondary} />
@@ -105,11 +107,16 @@ const Transfers = ({ navigation }) => {
                 "Ups!\nAun no tenes transferencias!\nComparti tu CVU para recibirlas\n😉"
               }
             </Text>
-            <View style={[{ backgroundColor: primary, height: heightPercentageToDP("72%") }, viewStyle.container]} >
-
-            </View>
+            <View
+              style={[
+                {
+                  backgroundColor: primary,
+                  height: heightPercentageToDP("72%"),
+                },
+                viewStyle.container,
+              ]}
+            ></View>
           </View>
-
         ) : (
               <ScrollView
                 style={[{ backgroundColor: primary }, styles.background2]}
@@ -138,31 +145,29 @@ const Transfers = ({ navigation }) => {
                               id: item.id,
                               monto: item.monto,
                               motivo: item.motivo,
-                              tipo: item.tipo,
+                              categoria: item.categoria,
                               operacion: item.operacion,
                               receiver: item.receiver,
                               sender: item.sender,
                             })
                           }
                         >
-                          {item.tipo == "Tsaliente" ||
-                            item.empresa ||
-                            item.operacion == "Compra" ? (
+                          {item.categoria == "Tsaliente" ? (
+                            <Icon
+                              name={iconList[item.categoria]}
+                              size={30}
+                              color="red"
+                            />
+                          ) : (
                               <Icon
-                                name={iconList[item.tipo]}
-                                size={30}
-                                color="red"
-                              />
-                            ) : (
-                              <Icon
-                                name={iconList[item.tipo]}
+                                name={iconList[item.categoria]}
                                 size={30}
                                 color="green"
                               />
                             )}
                           <ListItem.Content>
                             <ListItem.Title>
-                              {item.tipo == "Tsaliente"
+                              {item.categoria == "Tsaliente"
                                 ? item.receiver
                                 : item.sender}
                             </ListItem.Title>
@@ -171,7 +176,7 @@ const Transfers = ({ navigation }) => {
                             </ListItem.Subtitle>
                           </ListItem.Content>
                           <Text style={{ marginRight: 3 }}>
-                            {item.tipo == "Tsaliente"
+                            {item.categoria == "Tsaliente"
                               ? `- $ ${formatNumber(item.monto)}`
                               : `$ ${formatNumber(item.monto)}`}
                           </Text>
@@ -188,9 +193,12 @@ const Transfers = ({ navigation }) => {
               </ScrollView>
             )}
       </View>
-      <View style={botonStyle.container}>
+      <View style={[{ top: heightPercentageToDP("72%"), position: "absolute" }, botonStyle.container]}>
         <TouchableOpacity
-          style={[{ backgroundColor: secondary, top: heightPercentageToDP("72%") }, botonStyle.boton]}
+          style={[
+            { backgroundColor: secondary },
+            botonStyle.boton,
+          ]}
           onPress={() => {
             navigation.navigate("Transferir");
           }}

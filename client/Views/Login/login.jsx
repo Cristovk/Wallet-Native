@@ -113,32 +113,7 @@ const upPassword = (value) => {
   }).start()
 }
 
-  // const cerrar = async () => {
-  //   await AsyncStorage.removeItem('Pin')
-  // }
-
-  // cerrar()
-
-  // const AuthWithFinger = async () => {
-  //   const res = await LocalAuthentication.hasHardwareAsync()
-  //   if (!res) return Alert.alert("Su dispositivo no soporta los metodos de login")
-
-  //   const autorization = await LocalAuthentication.supportedAuthenticationTypesAsync({})
-  //   if (!autorization) return Alert.alert('No autorizado')
-
-  //   const huella = await LocalAuthentication.isEnrolledAsync()
-  //   if (!huella) return Alert.alert('No tiene autorizacion')
-  //   const login = await LocalAuthentication.authenticateAsync('Ponga su huella')
-  //   if (login.success) {
-  //     console.log(login)
-  //     // Alert.alert('Usuario encontrado')
-  //     navigation.navigate("HomeDrawer")
-  //   } else {
-  //     Alert.alert('Hubo un error')
-  //   }
-  // }
-
-
+  const iconColor='grey';
 
    return (
     <View style={styles.container} >
@@ -148,7 +123,6 @@ const upPassword = (value) => {
       <View>
       <Image
         style={styles.logo}
-        
         source={require('../../../assets/sinfondo.png')}
       />
       </View>
@@ -156,9 +130,6 @@ const upPassword = (value) => {
     </View>
 
     <View style={styles.menu}>
-
-    
-
     <View style={styles.general}>
       <View style={styles.contInput}>
         <View style={styles.contIcono}>
@@ -166,18 +137,18 @@ const upPassword = (value) => {
             size={16}
             name="envelope"
             type="font-awesome"
-            color="#1c2383"
+            color={iconColor}
             onPress={() => changeImage()}
           />
         </View>
         <TextInput 
         style={styles.inputPrueba} 
-        onFocus={()=>upEmail(-14)}
+        onFocus={()=>upEmail(-20)}
         onBlur={()=>{if(!email){upEmail(0)}}} 
         onChangeText={(value) => handleChange("email", value)}
         />
         <Animated.Text
-         style={[styles.inicial, { transform: [{ translateY: subirEmail }],color:'#1c2383' }]}
+         style={[styles.inicial, { transform: [{ translateY: subirEmail }]}]}
         >
           Email
         </Animated.Text>
@@ -193,20 +164,20 @@ const upPassword = (value) => {
             size={20}
             name="lock"
             type="font-awesome"
-            color="#1c2383"
+            color={iconColor}
             onPress={() => changeImage()}
           />
         </View>
         <TextInput 
         style={styles.inputPrueba} 
         secureTextEntry={hide}
-        onFocus={() => upPassword(-14)} 
+        onFocus={() => upPassword(-20)} 
         onBlur={()=>{if(!password){upPassword(0)}}} 
         onChangeText={(value) => handleChange('password', value)}
 
         />
         <Animated.Text
-         style={[styles.inicial, { transform: [{ translateY: subirPassword }],color:'#1c2383' }]}
+         style={[styles.inicial, { transform: [{ translateY: subirPassword }] }]}
         >
           Password
         </Animated.Text>
@@ -217,7 +188,7 @@ const upPassword = (value) => {
             secureTextEntry={hide}
             name={nameIcon}
             type="font-awesome"
-            color="#1c2383"
+            color={iconColor}
             onPress={() => setHide(!hide)}
 
           />
@@ -237,110 +208,8 @@ const upPassword = (value) => {
 
     </View>
 
- </View>
-
-  //   <View style={styles.container}>
-
-  //     <Image source={require("../../src/logo.png")} />
-  //     <View style={{ width: '90%' }}>
-  //       <Input
-  //         textContentType="emailAddress"
-  //         autoCompleteType="email"
-  //         label=" Email"
-  //         leftIcon={{ type: "font-awesome", name: "envelope" }}
-  //         placeholderTextColor="grey"
-  //         placeholder="Email"
-  //         onChangeText={(value) => handleChange("email", value)}
-  //         defaultValue={text.email}
-  //       />
-  //       <View style={styles.contEye}>
-  //         <Input
-  //           secureTextEntry={hide}
-  //           autoCompleteType='password'
-  //           label='Password'
-  //           leftIcon={{ type: 'font-awesome', name: 'lock' }}
-  //           placeholderTextColor='grey'
-  //           placeholder=' Password'
-  //           onChangeText={(value) => handleChange('password', value)}
-  //           defaultValue={text.password}
-  //         />
-  //         <View style={styles.eye}>
-  //           <Icon
-  //             size={16}
-  //             name={nameIcon}
-  //             type="font-awesome"
-  //             color="#02072f"
-  //             onPress={() => setHide(!hide)}
-
-  //           />
-  //         </View>
-
-  //       </View>
-  //     </View>
-  //     {/* <View style={styles.button}>
-  //       <Button mode="contained" title="finger" onPress={AuthWithFinger} color="darkblue">
-  //         Huella
-  //       </Button>
-  //     </View> */}
-  //     <View style={styles.button}>
-  //       <Button mode="contained" title="Login" onPress={login} color="darkblue">
-  //         Login
-  //       </Button>
-  //     </View>
-  //     <View style={styles.viewLinks}>
-  //       <TouchableOpacity
-  //         onPress={() => navigation.navigate('ResetPaswword')}
-  //       >
-  //         <Text style={styles.link}>Olvidé mi contraseña</Text>
-  //       </TouchableOpacity>
-  //       <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-  //         <Text style={styles.link}>Crear cuenta</Text>
-  //       </TouchableOpacity>
-  //     </View>
-  //   </View>
+  </View>
   );
 };
 
 export default Login;
-
-
-// const AuthWithFinger = () => {
-//   LocalAuthentication.hasHardwareAsync()
-//   .then((res) => {
-//       console.log(res)
-//     if(res){
-//       LocalAuthentication.supportedAuthenticationTypesAsync({})
-//       .then((result) => {
-//         console.log(result)
-//         if(result){
-//           LocalAuthentication.isEnrolledAsync()
-//           .then((re) => {
-//             console.log(re)
-//             LocalAuthentication.authenticateAsync('Ponga su huella')
-//             .then((success) => {
-//               console.log(success)
-//               Alert.alert('Usuario encontrado')
-//               navigation.navigate("HomeDrawer")
-//             })
-//             .catch(err => {
-//               Alert.alert("No se encontro la huella ")
-//             })
-//           })
-//           .catch((er) => {
-//             console.log(er)
-//             Alert.alert('Hubo un error')
-//           })
-//         }
-
-//       })
-//       .catch(err => {
-//         console.log(err)
-//       })
-//     }
-
-//   })
-//   .catch((err) => {
-//     console.log(err)
-//   })
-
-// }
