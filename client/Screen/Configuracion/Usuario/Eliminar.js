@@ -20,11 +20,6 @@ const Eliminar = ({ navigation, cambiar, userLog, user, oscuro }) => {
   }, [])
 
 
-  const cerrar = async () => {
-    await AsyncStorage.removeItem('Metodo')
-  }
-
-
   const deleteUser = async () => {
     if (!dni) {
       return setError(true);

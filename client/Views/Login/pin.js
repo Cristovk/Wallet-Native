@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-community/async-storage'
 import React, { useEffect, useState, useRef } from 'react'
 import { View, Text, ScrollView, Button, Image, TouchableOpacity, Alert, BackHandler } from 'react-native'
 import { Input, Icon } from 'react-native-elements'
@@ -24,11 +23,6 @@ const Pin = ({ navigation }) => {
   const [candado, setCandado] = useState("locked")
 
   const { primary, secondary, text, bg } = useSelector(store => store.color)
-
-  // const cerrar = async () => {
-  //   await AsyncStorage.removeItem("Metodo")
-  // }
-  // cerrar()
 
   useEffect(() => {
     if (!clave.pin1) {
@@ -61,19 +55,7 @@ const Pin = ({ navigation }) => {
   };
 
 
-  const ingresar = async () => {
-    let key = clave.pin1 + clave.pin2 + clave.pin3 + clave.pin4
-    let pin = await AsyncStorage.getItem("Metodo")
-    if (pin == JSON.stringify(key)) {
-      setCandado("unlocked")
-      setTimeout(() => { navigation.navigate('HomeDrawer'); }, 2000);
-      setTimeout(() => { setCandado("locked"); setClave(""); }, 2000);
-    } else {
-      setClave("")
-      Alert.alert('Pin incorrecto, Intente nuevamente')
-      alert('Pin incorrecto, Intente nuevamente')
-    }
-  }
+
 
   // const handleBack = () => {
   //   navigation.navigate('Login')

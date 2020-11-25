@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, ScrollView, Button, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import AsyncStorage from "@react-native-community/async-storage";
 import * as LocalAuthentication from 'expo-local-authentication';
 import styles from './HuellaStyle'
 import { useSelector } from 'react-redux'
-import {Icon } from 'react-native-elements'
+import { Icon } from 'react-native-elements'
 import styleBoton from '../../Global-Styles/BotonMediano'
 
 
@@ -24,7 +23,7 @@ const Huella = ({ navigation }) => {
     if (login.success) {
       setCandado("unlocked")
       setTimeout(() => { navigation.navigate("HomeDrawer"); }, 1000);
-      setTimeout(() => { setCandado("locked")}, 2000);
+      setTimeout(() => { setCandado("locked") }, 2000);
     } else {
       Alert.alert('Hubo un error')
     }
@@ -32,29 +31,21 @@ const Huella = ({ navigation }) => {
 
   useEffect(() => {
     AuthWithFinger()
-  },[])
+  }, [])
 
   const { primary, secondary, text, bg } = useSelector(store => store.color)
-
-
-  // const cerrar = async () => {
-  //   await AsyncStorage.removeItem("Metodo")
-  // }
-
-  // cerrar()
-
 
   return (
 
     <View style={[{ backgroundColor: bg }, styles.container]}>
-      <View style={{marginBottom:50, alignContent:"center"}}>
-             <Icon
-          name= {candado}
+      <View style={{ marginBottom: 50, alignContent: "center" }}>
+        <Icon
+          name={candado}
           type="fontisto"
           size={100}
           color={candado === "locked" ? primary : "green"}
         />
-        </View>
+      </View>
       <View style={[{ backgroundColor: primary }, styles.containerTwo]} >
       </View>
     </View>

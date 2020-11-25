@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { connect } from 'react-redux'
 import { addContact, deleteAll } from '../../Redux/Contacts'
 import { profileImage } from './profileImage'
-import AsyncStorage from '@react-native-community/async-storage'
 
 
 // COMPONENTES
@@ -61,29 +60,7 @@ export function MyStack(props) {
   const [usuario, setUsuario] = useState(false)
   const [huella, setHuella] = useState(false)
 
-  const storageAsync = async () => {
-    const clave = await AsyncStorage.getItem('Metodo')
-    if (clave !== null) {
-      setUsuario(true)
-      if (clave === "huella") {
-        setHuella(true)
-      }
-    }
-    else {
-      setUsuario(false)
-    }
-  }
 
-  // const UsarHuella = async () => {
-  //   const clave = await AsyncStorage.getItem('Huella') ? JSON.parse(await AsyncStorage.getItem('Huella')) : null;
-  //   console.log("claveee", clave);
-  //   if (clave === false) {
-  //     setHuella(false)
-  //   }
-  //   else if (clave === true) {
-  //     setHuella(true)
-  //   }
-  // }
 
 
   useEffect(() => {

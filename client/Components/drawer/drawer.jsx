@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { darkMode } from '../../Redux/Estilos'
 import { auth } from "../../../firebase"
 import { getContacts, addContact, deleteAll } from "../../Redux/Contacts"
-import AsyncStorage from '@react-native-community/async-storage'
 
 // Navigator
 import { homeScreen } from '../stack/stack'
@@ -30,22 +29,6 @@ export function MyDrowner({ navigation, route }) {
 
   const user = useSelector(store => store.user.user)
 
-  const save = async () => {
-    if (user && user.clave) {
-      const asyncStor = await AsyncStorage.getItem('Metodo')
-      if (!asyncStor) {
-        if (user.metodo === "") {
-          const usuario = JSON.stringify(user.clave)
-          await AsyncStorage.setItem('Metodo', usuario);
-          const clave = await AsyncStorage.getItem('Metodo');
-        } else {
-          const usuario = user.metodo
-          await AsyncStorage.setItem('Metodo', usuario);
-        }
-      }
-    }
-  }
-  save();
   return (
     <Drawer.Navigator drawerContent={({ navigation }) => CustomDrawerContent({ navigation, route, primary, secondary, text, bg, dispatch, dark })} drawerStyle={{ backgroundColor: dark ? bg : primary }}>
       <Drawer.Screen name='HomeScreen' component={homeScreen} initialParams={{ status: status }} options={{ headerShown: false }} />
@@ -55,10 +38,6 @@ export function MyDrowner({ navigation, route }) {
 
 // Esta función nos permite configurar el drawer según lo que queremos mostrar (requerido en la línea 15)
 function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, dark, dispatch }) {
-
-  const cerrar = async () => {
-    await AsyncStorage.removeItem('Metodo')
-  }
 
 
 

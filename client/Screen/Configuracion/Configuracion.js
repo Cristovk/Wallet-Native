@@ -7,7 +7,6 @@ import Correo from "./Correo/Correo";
 import Usuario from "./Usuario/Usuario";
 import { useDispatch, useSelector } from "react-redux";
 import { darkMode } from "../../Redux/Estilos";
-import AsyncStorage from '@react-native-community/async-storage'
 import { auth, storage } from "../../../firebase";
 import viewStyle from '../../Global-Styles/ViewContainer'
 
@@ -25,52 +24,6 @@ const Configuracion = ({ navigation, route }) => {
   const iconColor = dark ? primary : secondary;
 
 
-  const user = useSelector(store => store.user.user)
-
-  const usarHuella = async () => {
-    modifMetodo();
-    if (huella) {
-      const clave = JSON.stringify(user.clave)
-      const usoHuella = await AsyncStorage.setItem("Metodo", clave)
-    }
-    if (!huella) {
-      const usoHuella = await AsyncStorage.setItem("Metodo", "huella")
-    }
-    const usuario = await AsyncStorage.getItem("Metodo")
-  }
-
-  const getHuella = () => {
-    AsyncStorage.getItem("Metodo")
-      .then(resp => {
-        if (resp === "huella") {
-          setHuella(true)
-        }
-        else if (resp !== "huella" && user.metodo === "true") {
-          setHuella(true)
-        }
-      }).catch(err => {
-        console.log(err);
-      })
-  }
-
-  const modifMetodo = async () => {
-    const id = await auth.currentUser.uid
-    if (!huella) {
-      await storage.collection('Users').doc(id).update({
-        ...user,
-        metodo: "huella"
-      })
-    } else {
-      await storage.collection('Users').doc(id).update({
-        ...user,
-        metodo: ""
-      })
-    }
-  }
-
-  useEffect(() => {
-    getHuella();
-  }, [])
 
 
 
