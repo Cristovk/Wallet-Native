@@ -154,7 +154,7 @@ function HomeScreen({ userLog, user, status }) {
           >
             <Image
               source={{ uri: user.imagen || profileImage }}
-              style={{ width: 50, height: 50, borderRadius: 50, marginRight: 10 }}
+              style={{ width: 40, height: 40, borderRadius: 50, marginRight: 10, }}
             />
           </TouchableOpacity>
         )

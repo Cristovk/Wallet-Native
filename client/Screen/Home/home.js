@@ -9,6 +9,7 @@ import {
   FlatList,
   ActivityIndicator,
   BackHandler,
+  TouchableOpacity
 } from "react-native";
 import { ListItem, Button } from "react-native-elements";
 import style from "./homeStyles";
@@ -21,7 +22,6 @@ import {
 } from "../../Redux/movements";
 import { useIsFocused } from "@react-navigation/native";
 import { auth, storage } from "../../../firebase";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import styleBoton from '../../Global-Styles/BotonGrande'
 import { widthPercentageToDP, heightPercentageToDP } from "react-native-responsive-screen"
 
@@ -186,63 +186,23 @@ const Home = ({ navigation }) => {
         </Text>
         <Text
           style={style.saldoBalance}
-          onPress={() => navigation.navigate("Balance")}
         >
           {saldo == 0 ? (
             <ActivityIndicator size="large" color={primary} />
           ) : saldo == null ? (
             <View
-              style={{
-                fontSize: 16,
-              }}
             >
-              <Text
-                style={{
-                  textAlign: "center",
-                  fontSize: 22,
-                  paddingVertical: 15,
-                  color: primary,
-                }}
-              >
-                Bienvenido a MoonBank! 🤗
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: primary,
-                }}
-              >
-                {" "}
-                Ups! No tenes $$$ ??
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: primary,
-                }}
-              >
-                Recargá tu billetera
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: primary,
-                }}
-                style={{
-                  textAlign: "center",
-                  color: primary,
-                }}
-              >
-                O mejor aun!
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: primary,
-                }}
-              >
-                Comparti tu CVU para recibir transferencias 😉
-              </Text>
+              <Text style={style.tituloBalanceCero}>$ 0 </Text>
+
+              <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                <Text onPress={() => navigation.navigate("Recargas")}
+                  style={{ fontSize: 12, fontWeight: "normal" }}
+                >
+
+                  Recargar
+                   </Text>
+
+              </View>
             </View>
           ) : (
                 `$ ${formatNumber(saldo)}`
@@ -351,7 +311,7 @@ const Home = ({ navigation }) => {
                 ></FlatList>
                 <View style={styleBoton.container}>
                   <TouchableOpacity
-                    style={[{ backgroundColor: secondary, top: heightPercentageToDP("55%") }, styleBoton.boton]}
+                    style={[{ backgroundColor: secondary, marginBottom: 25 }, styleBoton.boton]}
                     onPress={() => navigation.navigate("Movimientos")}
                   >
                     <Text style={[{ color: text }, styleBoton.texto]}>Ver todos los Movimientos</Text>

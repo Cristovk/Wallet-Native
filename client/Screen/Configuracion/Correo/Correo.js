@@ -59,13 +59,13 @@ const Correo = ({ cambiar, navigation, oscuro }) => {
           </View>
 
           <View style={[{ marginTop: 20 }, botonStyle.botonContainer]}>
-            <TouchableOpacity style={[{ backgroundColor: oscuro ? black : blue }, botonStyle.boton]}>
-              <Text style={[{ color: oscuro ? white : white }, botonStyle.texto]} onPress={() => handleSubmit()}>Guardar</Text>
+            <TouchableOpacity style={[{ backgroundColor: oscuro ? black : blue }, botonStyle.boton]} onPress={() => handleSubmit()}>
+              <Text style={[{ color: oscuro ? white : white }, botonStyle.texto]} >Guardar</Text>
             </TouchableOpacity>
           </View>
           <View style={[{ marginTop: 20 }, botonStyle.botonContainer]}>
-            <TouchableOpacity style={[{ backgroundColor: oscuro ? blue : grey }, botonStyle.boton]}>
-              <Text style={[{ color: oscuro ? white : black }, botonStyle.texto]} onPress={() => cambiar(false)}>Volver</Text>
+            <TouchableOpacity style={[{ backgroundColor: oscuro ? blue : grey }, botonStyle.boton]} onPress={() => cambiar(false)}>
+              <Text style={[{ color: oscuro ? white : black }, botonStyle.texto]} >Volver</Text>
             </TouchableOpacity>
           </View>
         </View>

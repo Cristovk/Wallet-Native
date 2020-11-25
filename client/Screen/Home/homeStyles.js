@@ -11,7 +11,7 @@ const style = StyleSheet.create({
   }, background2: {
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
-    marginTop:25,
+    marginTop: 25,
     height: heightPercentageToDP("87%")
   },
   balance: {
@@ -47,6 +47,13 @@ const style = StyleSheet.create({
   lista: {
     marginBottom: 10,
 
+  }, tituloBalanceCero: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 40,
+    paddingBottom: 10,
+    marginBottom: 10,
+    marginRight: 10
   },
 });
 

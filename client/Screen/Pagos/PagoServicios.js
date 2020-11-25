@@ -35,7 +35,7 @@ const PagoServicios = ({ navigation, route }) => {
     } else {
       if (parseInt(precio) > parseInt(movements.saldo)) {
         setErrorMoney(true);
-      }else{
+      } else {
         setLoading(!loading);
         const id = await auth.currentUser.uid;
         const data = {
@@ -103,7 +103,7 @@ const PagoServicios = ({ navigation, route }) => {
                 <TextInput
                   placeholder="Monto"
                   value={precio.amount}
-                  onChangeText={(data) => {setPrecio(data), setErrorMoney(false), setErr(false)}}
+                  onChangeText={(data) => { setPrecio(data), setErrorMoney(false), setErr(false) }}
                   style={{ width: 80 }}
                 />
               </View>
@@ -112,17 +112,17 @@ const PagoServicios = ({ navigation, route }) => {
         </View>
         {err ? <View>
           <Text style={{ color: "red" }}>Ingresa el monto a pagar</Text>
-          </View>: 
+        </View> :
           errormoney ? (
-        <View>
-          <Text style={{color: "red"}}>
-            No tienes suficiente saldo para completar la transacción
+            <View>
+              <Text style={{ color: "red" }}>
+                No tienes suficiente saldo para completar la transacción
           </Text>
-        </View>
-      ): null}
-        <View style={styleBoton.container}>
+            </View>
+          ) : null}
+        <View style={[{ top: heightPercentageToDP("55%"), position: "absolute" }, styleBoton.container]}>
           <TouchableOpacity
-            style={[{ backgroundColor: secondary, top: heightPercentageToDP("72%") }, styleBoton.boton]}
+            style={[{ backgroundColor: secondary }, styleBoton.boton]}
             onPress={handleSubmit}
           >
             <Text style={[{ color: text }, styleBoton.texto]}>Pagar Servicio</Text>
@@ -174,14 +174,14 @@ const PagoServicios = ({ navigation, route }) => {
                   <TextInput
                     placeholder="Monto"
                     value={precio.amount}
-                    onChangeText={(data) => setPrecio(data) }
+                    onChangeText={(data) => setPrecio(data)}
                     style={{ width: 80 }}
                   />
                 </View>
               </ListItem.Content>
             </ListItem>
           </View>
-         {/*  {err ? <Text style={{ color: "red" }}>{err}</Text> : errormoney ? (
+          {/*  {err ? <Text style={{ color: "red" }}>{err}</Text> : errormoney ? (
         <View>
           <Text style={{color: "red"}}>
             No tienes suficiente saldo para completar la transacción
