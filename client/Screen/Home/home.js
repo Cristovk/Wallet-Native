@@ -22,10 +22,11 @@ import {
 import { useIsFocused } from "@react-navigation/native";
 import { auth, storage } from "../../../firebase";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { darkBlue, orange, white } from "../../Global-Styles/colors";
 
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
   const dispatch = useDispatch();
   const [saldo, setSaldo] = useState(0);
   const [movements, setMovements] = useState([]);
@@ -36,7 +37,7 @@ const Home = ({ navigation }) => {
     panaderia: "cookie",
     almacen: "shopping-basket",
     videojuegos: "gamepad",
-    entretenimiento: "play-circle",
+    Entretenimiento: "play-circle",
     transporte: "bus-alt",
     gasolinera: "gas-pump",
     jet: "fighter-jet",
@@ -45,10 +46,16 @@ const Home = ({ navigation }) => {
     Tsaliente: "arrow-circle-up",
     Tentrante: "arrow-circle-down",
     recarga: "wallet",
+    Agua: "tint",
+    Telefono: "phone",
+    Gas: "burn",
+    Electricidad: "bolt",
+    Internet: "wifi",
   };
 
-
-  const { primary, bg, secondary, text, dark } = useSelector(store => store.color)
+  const { primary, bg, secondary, text, dark } = useSelector(
+    (store) => store.color
+  );
 
   /* ======================= FUNCTIONS ========================== */
   const getSaldo = async () => {
@@ -209,41 +216,13 @@ const Home = ({ navigation }) => {
                   color: primary,
                 }}
               >
-                {" "}
-                Ups! No tenes $$$ ??
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: primary,
-                }}
-              >
-                Recargá tu billetera
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: primary,
-                }}
-                style={{
-                  textAlign: "center",
-                  color: primary,
-                }}
-              >
-                O mejor aun!
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: primary,
-                }}
-              >
-                Comparti tu CVU para recibir transferencias 😉
+                Recargá tu billetera o comparti tu CVU para recibir
+                transferencias 😉
               </Text>
             </View>
           ) : (
-                `$ ${formatNumber(saldo)}`
-              )}
+            `$ ${formatNumber(saldo)}`
+          )}
         </Text>
       </View>
       <View
@@ -284,81 +263,91 @@ const Home = ({ navigation }) => {
             {"Acá se listarán tus movimientos una vez que los tengas"}
           </Text>
         ) : (
-              <ScrollView>
-                <FlatList
-                  data={movements}
-                  keyExtractor={(mov) => mov.id}
-                  style={{ marginVertical: 15, backgroundColor: primary }}
-                  renderItem={({ item }) => {
-                    return (
-                      <ListItem
-                        key={item.id}
-                        containerStyle={{
-                          backgroundColor: primary,
-                        }}
-                        style={[
-                          { borderBottomColor: dark ? "grey" : secondary },
-                          style.listaContenedor,
-                        ]}
-                        onPress={() =>
-                          navigation.navigate("Detalle", {
-                            fecha: item.fecha,
-                            monto: item.monto,
-                            hacia: item.hacia,
-                            desde: item.desde,
-                            estado: item.estado,
-                            tipo: item.tipo,
-                            motivo: item.motivo,
-                            operacion: item.operacion,
-                            estado: item.estado,
-                            empresa: item.empresa,
-                            sender: item.sender,
-                            receiver: item.receiver,
-                          })
-                        }
-                      >
-                        {item.tipo == "Tsaliente" ? (
-                          <Icon name={iconList[item.tipo]} size={30} color="red" />
-                        ) : (
-                            <Icon
-                              name={iconList[item.tipo]}
-                              size={30}
-                              color="green"
-                            />
-                          )}
-                        <ListItem.Content>
-                          <ListItem.Title>{item.operacion}</ListItem.Title>
-                          <ListItem.Subtitle>
-                            {new Date(item.fecha).toLocaleDateString()}
-                          </ListItem.Subtitle>
-                        </ListItem.Content>
-                        <Text style={{ marginRight: 3 }}>
-                          {item.tipo == "Tsaliente"
-                            ? `- $ ${formatNumber(item.monto)}`
-                            : `$ ${formatNumber(item.monto)}`}
-                        </Text>
-                        <ListItem.Chevron
-                          name="chevron-right"
-                          type="font-awesome"
-                          color="black"
-                        />
-                      </ListItem>
-                    );
-                  }}
-                ></FlatList>
-                <Button
-                  buttonStyle={{
-                    marginBottom: 40,
-                    backgroundColor: secondary,
-                    borderRadius: 10,
-                    marginHorizontal: 75,
-                    color: primary,
-                  }}
-                  title="Ver todos los movimientos"
-                  onPress={() => navigation.navigate("Movimientos")}
-                />
-              </ScrollView>
-            )}
+          <ScrollView>
+            <FlatList
+              data={movements}
+              keyExtractor={(mov) => mov.id}
+              style={{ marginVertical: 15, backgroundColor: primary }}
+              renderItem={({ item }) => {
+                return (
+                  <ListItem
+                    key={item.id}
+                    containerStyle={{
+                      backgroundColor: primary,
+                    }}
+                    style={[
+                      { borderBottomColor: dark ? "grey" : secondary },
+                      style.listaContenedor,
+                    ]}
+                    onPress={() =>
+                      navigation.navigate("Detalle", {
+                        fecha: item.fecha,
+                        monto: item.monto,
+                        hacia: item.hacia,
+                        desde: item.desde,
+                        estado: item.estado,
+                        tipo: item.tipo,
+                        motivo: item.motivo,
+                        operacion: item.operacion,
+                        estado: item.estado,
+                        empresa: item.empresa,
+                        sender: item.sender,
+                        receiver: item.receiver,
+                      })
+                    }
+                  >
+                    {item.categoria == "Tsaliente" ||
+                    item.operacion == "compra" ||
+                    item.operacion == "servicios" ||
+                    item.operacion == "servicio" ? (
+                      <Icon
+                        name={iconList[item.categoria]}
+                        size={30}
+                        color="red"
+                      />
+                    ) : (
+                      <Icon
+                        name={iconList[item.categoria]}
+                        size={30}
+                        color="green"
+                      />
+                    )}
+                    <ListItem.Content>
+                      <ListItem.Title>{item.operacion}</ListItem.Title>
+                      <ListItem.Subtitle>
+                        {new Date(item.fecha).toLocaleDateString()}
+                      </ListItem.Subtitle>
+                    </ListItem.Content>
+                    <Text style={{ marginRight: 3 }}>
+                      {item.categoria == "Tsaliente" ||
+                      item.operacion == "compra" ||
+                      item.operacion == "servicios" ||
+                      item.operacion == "servicio"
+                        ? `- $ ${formatNumber(item.monto)}`
+                        : `$ ${formatNumber(item.monto)}`}
+                    </Text>
+                    <ListItem.Chevron
+                      name="chevron-right"
+                      type="font-awesome"
+                      color="black"
+                    />
+                  </ListItem>
+                );
+              }}
+            ></FlatList>
+            <Button
+              buttonStyle={{
+                marginBottom: 20,
+                backgroundColor: secondary,
+                borderRadius: 10,
+                marginHorizontal: 75,
+                color: primary,
+              }}
+              title="Ver todos los movimientos"
+              onPress={() => navigation.navigate("Movimientos")}
+            />
+          </ScrollView>
+        )}
       </View>
     </View>
   );
