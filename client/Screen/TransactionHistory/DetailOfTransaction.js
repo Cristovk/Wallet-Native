@@ -4,23 +4,29 @@ import { ListItem, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useSelector } from "react-redux";
 import { generateInvoice } from "./utils";
-import { heightPercentageToDP } from "react-native-responsive-screen";
+import styleView from "../../Global-Styles/ViewContainer";
+import {
+  widthPercentageToDP,
+  heightPercentageToDP,
+} from "react-native-responsive-screen";
 import { ScrollView } from "react-native-gesture-handler";
 import { TouchableOpacity } from "react-native";
 import styleBoton from "../../Global-Styles/BotonGrande";
+import { color } from "react-native-reanimated";
 
 const DetalleDeTransaccion = ({ route, navigation }) => {
   const {
     fecha,
     monto,
     tipo,
+    hacia,
     motivo,
     estado,
     operacion,
     empresa,
+    categoria,
     sender,
     receiver,
-    categoria,
   } = route.params;
   const oparation = operacion
     ? operacion[0].toUpperCase() + operacion.substring(1)
@@ -35,7 +41,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     gasolinera: "gas-pump",
     jet: "fighter-jet",
     farmacia: "first-aid",
-    servicios: "file-invoice-dollar",
+    Servicio: "file-invoice-dollar",
     Tsaliente: "arrow-circle-up",
     Tentrante: "arrow-circle-down",
     recarga: "wallet",
@@ -188,7 +194,9 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <View>
             <Icon
               name={
-                tipo === "recarga" ? iconList[categoria] : iconList[oparation]
+                categoria === "recarga"
+                  ? iconList[categoria]
+                  : iconList[oparation]
               }
               size={50}
               color={primary}
@@ -196,8 +204,10 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           </View>
           <View style={{ marginTop: 20 }}>
             <Text style={{ color: primary, fontSize: 20 }}>
-              {tipo === "recarga"
+              {categoria === "recarga"
                 ? "Recarga desde " + " " + empresa
+                : operacion == "servicio"
+                ? empresa
                 : "Gasto de" + " " + oparation}
             </Text>
           </View>
@@ -228,7 +238,11 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
                 <ListItem.Content>
                   <ListItem.Title>{"Operacion"}</ListItem.Title>
                 </ListItem.Content>
-                <Text>{tipo === "recarga" ? empresa : oparation}</Text>
+                <Text>
+                  {categoria === "recarga"
+                    ? "Recarga de saldo"
+                    : `Pago de ${oparation}`}
+                </Text>
               </ListItem>
               <ListItem
                 containerStyle={{
@@ -239,10 +253,18 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
               >
                 <ListItem.Content>
                   <ListItem.Title>
-                    {tipo === "recarga" ? "Empresa" : "Categoria"}
+                    {categoria === "recarga" ? "Empresa" : "Categoria"}
                   </ListItem.Title>
                 </ListItem.Content>
-                <Text>{tipo === "recarga" ? empresa : type}</Text>
+                <Text>
+                  {categoria === "recarga"
+                    ? empresa
+                    : operacion === "servicio" && categoria == "Telefono"
+                    ? "Telefonía"
+                    : operacion === "servicio"
+                    ? categoria
+                    : null}
+                </Text>
               </ListItem>
               <ListItem
                 containerStyle={{

@@ -131,16 +131,17 @@ const PagoServicios = ({ navigation, route }) => {
             </ListItem.Content>
           </ListItem>
         </View>
-        {err ? <View>
-          <Text style={{ color: "red" }}>Ingresa el monto a pagar</Text>
-          </View>: 
-          errormoney ? (
-        <View>
-          <Text style={{color: "red"}}>
-            No tienes suficiente saldo para completar la transacción
-          </Text>
-        </View>
-      ): null}
+        {err ? (
+          <View>
+            <Text style={{ color: "red" }}>Ingresa el monto a pagar</Text>
+          </View>
+        ) : errormoney ? (
+          <View>
+            <Text style={{ color: "red" }}>
+              No tienes suficiente saldo para completar la transacción
+            </Text>
+          </View>
+        ) : null}
         <View style={styleBoton.container}>
           <TouchableOpacity
             onPress={() => handleSubmit()}
