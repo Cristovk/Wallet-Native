@@ -135,7 +135,7 @@ const Movimientos = ({ navigation }) => {
               }}
             >
               {
-                "Ups!\nAun no tenes movimientos!\n¿Que esperas!?\nAnda a comprar!\nTenemos promociones para vos!!"
+                "Ups!\nAun no tenes movimientos!\n¿Que esperas!?\nAnda a comprar con la MoonBank!\nTenemos promociones para vos!!"
               }
             </Text>
           </View>

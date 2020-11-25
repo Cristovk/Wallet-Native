@@ -256,7 +256,7 @@ const Home = ({ navigation }) => {
               color: secondary,
             }}
           >
-            {"Acá se listarán tus movimientos una vez que los tengas"}
+            {"Acá se listarán tus movimientos cuando los tengas"}
           </Text>
         ) : (
           <ScrollView>

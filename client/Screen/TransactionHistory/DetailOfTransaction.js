@@ -31,7 +31,6 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
   const oparation = operacion
     ? operacion[0].toUpperCase() + operacion.substring(1)
     : null;
-  const type = tipo ? tipo[0].toUpperCase() + tipo.substring(1) : null;
   const iconList = {
     panaderia: "cookie",
     almacen: "shopping-basket",

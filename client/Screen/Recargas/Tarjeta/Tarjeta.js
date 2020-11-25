@@ -64,7 +64,7 @@ const Tarjeta = (props) => {
         empresa: cardType,
       }
     )
-      .then((res) => {
+      .then(() => {
         setLoading(false);
         setCharged(!charged);
       })
