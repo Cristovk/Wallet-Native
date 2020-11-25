@@ -13,23 +13,22 @@ import {
   heightPercentageToDP,
 } from "react-native-responsive-screen";
 
+
 const PagoServicios = ({ navigation, route }) => {
   const { title, servicio } = route.params;
   const [loading, setLoading] = useState(false);
   const [precio, setPrecio] = useState("");
   const [errormoney, setErrorMoney] = useState(false);
-  const { primary, secondary, text, bg, dark } = useSelector(
-    (store) => store.color
-  );
-  const [err, setErr] = useState(false);
+  const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
+  const [err, setErr] = useState(false)
   const movements = useSelector((store) => store.movementsReducer);
   const handleSubmit = async () => {
     if (!precio) {
-      setErr(true);
+      setErr(true)
     } else {
       if (parseInt(precio) > parseInt(movements.saldo)) {
         setErrorMoney(true);
-      } else {
+      }else{
         setLoading(!loading);
         const id = await auth.currentUser.uid;
         const data = {
@@ -125,9 +124,7 @@ const PagoServicios = ({ navigation, route }) => {
                   placeholder="Monto"
                   keyboardType="numeric"
                   value={precio.amount}
-                  onChangeText={(data) => {
-                    setPrecio(data), setErrorMoney(false), setErr(false);
-                  }}
+                  onChangeText={(data) => {setPrecio(data), setErrorMoney(false), setErr(false)}}
                   style={{ width: 80 }}
                 />
               </View>

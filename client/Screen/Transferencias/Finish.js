@@ -20,9 +20,7 @@ const Finish = ({ navigation, route }) => {
   });
   const dispatch = useDispatch();
   const movements = useSelector((store) => store.movementsReducer);
-  const { text, primary, secondary, dark, bg } = useSelector(
-    (store) => store.color
-  );
+  const {text, primary, secondary, dark, bg} = useSelector(store => store.color)
   const user = useSelector((store) => store.user.user);
   const [checked, setChecked] = useState(false);
   useEffect(() => {
@@ -63,7 +61,6 @@ const Finish = ({ navigation, route }) => {
       num && num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     return number;
   }
-
   return (
     <View style={{ backgroundColor: bg, height: "100%" }}>
       <View
@@ -154,9 +151,9 @@ const Finish = ({ navigation, route }) => {
               </Text>
             </TouchableOpacity>
           </View>
-        </View>
       </View>
     </View>
+      </View>
   );
 };
 
