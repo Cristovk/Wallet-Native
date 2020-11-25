@@ -5,7 +5,8 @@ import { Button, Icon } from "react-native-elements";
 import { styles, estilos } from "./estilosTarjetas";
 import { saveTarjetas } from "../../Redux/CardActions";
 import { CreditCardInput } from "react-native-credit-card-input";
-import { orange } from "../../Global-Styles/colors";
+import { useSelector } from "react-redux";
+import style from "../../Screen/Home/homeStyles";
 
 /* ========================= STATES ============================ */
 const AddCard = (props) => {
@@ -15,6 +16,7 @@ const AddCard = (props) => {
     cards: [],
   });
   const [visible, setVisible] = useState(false);
+  const {primary,secondary,text,dark,bg} = useSelector(store => store.color)
   /* ======================= FUNCTIONS ========================== */
 
   const onChange = (formData) => {
@@ -33,6 +35,7 @@ const AddCard = (props) => {
   };
   const addAgain = () => {
     toggleOverlay();
+    props.navigation.navigate("Tarjetas")
     props.navigation.navigate("AddTarjeta");
   };
   const asociarTarjeta = () => {
@@ -46,7 +49,9 @@ const AddCard = (props) => {
   };
   /* ====================== RENDERING ========================== */
   return (
-    <ScrollView>
+    <View style={{backgroundColor: bg, height:"100%"}}>
+    <View style={{height: 50, borderRadius: 10,backgroundColor: primary, marginBottom: -15,}}></View>
+    <ScrollView style={{backgroundColor: primary}}>
       <View style={styles.container}>
         <View style={{ flex: 1, alignItems: "center" }}>
           <View style={{ width: "100%", height: "30%", marginTop: 60 }}>
@@ -77,38 +82,43 @@ const AddCard = (props) => {
             />
           </View>
         </View>
-        <View>
+        <View style={{marginTop: 20}}>
           <Button
             onPress={() => asociarTarjeta()}
             title="Asociar Tarjeta"
-            buttonStyle={[styles.button, { backgroundColor: orange }]}
+            buttonStyle={[styles.blueButton]}
           />
         </View>
-        <View>
-          <Modal visible={visible}>
-            <Text style={[styles.title, { marginTop: 30 }]}>MUY BIEN!</Text>
+        <View style={{height:"100%", flex: 1, justifyContent:"center", alignItems: "center", backgroundColor: bg}}>
+          <Modal visible={visible} transparent={true} animationType="slide">
+            <View style={{flex: 1, justifyContent:"center", alignItems: "center",marginTop:30}}>
+            <View style={[estilos.modalView, {backgroundColor: primary}]}>
+            {/* <Text style={[styles.title, { marginTop: 30 }]}>MUY BIEN!</Text> */}
             <Text style={styles.h3}>
               Su tarjeta ha sido asociada correctamente!
             </Text>
             <Icon name="check" type="fontisto" color="green" size={60} />
             <Text style={styles.h3}>¿Que desea hacer a continuación?</Text>
-            <View>
+            <View style={{flexDirection:"row", justifyContent:"space-between"}}>
               <Button
                 onPress={continuar}
                 title="Continuar"
-                buttonStyle={[styles.orangeButton]}
+                buttonStyle={[styles.blueButton]}
               />
               <View style={styles.separator}></View>
               <Button
                 onPress={addAgain}
-                buttonStyle={[styles.darkBlueButton]}
+                buttonStyle={[styles.blueButton]}
                 title="¿Añadis otra?"
               />
+              </View>
+            </View>
             </View>
           </Modal>
         </View>
       </View>
     </ScrollView>
+    </View>
   );
 };
 

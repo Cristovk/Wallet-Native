@@ -9,8 +9,9 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
+import { useSelector } from "react-redux";
 import { Icon, Button } from "react-native-elements";
-import { styles } from "./estilosTarjetas";
+import { styles, estilos } from "./estilosTarjetas";
 import { getCards, deleteCard } from "../../Redux/CardActions";
 import { CardView } from "react-native-credit-card-input";
 import { darkBlue } from "../../Global-Styles/colors";
@@ -25,6 +26,7 @@ const Tarjetas = (props) => {
   const [id, setId] = useState("");
   const [state, setState] = useState({ render: 0 });
   let response = [];
+  const {primary,secondary,text,dark,bg} = useSelector(store => store.color)
   /* ============================ FUNTIONS ============================ */
   const onDelete = () => {
     setQuestionModal(!questionModal);
@@ -44,7 +46,9 @@ const Tarjetas = (props) => {
   }, [deletedModal, state]);
   /* ============================ RENDERING ============================= */
   return (
-    <ScrollView style={styles.container}>
+    <View style={{backgroundColor: bg, height:"100%"}}>
+        <View style={{height: 50, borderRadius: 10,backgroundColor: primary, marginBottom: -15,}}></View>
+    <ScrollView style={[styles.container, {backgroundColor: primary}]}>
       <View style={[styles.rowButtons]}>
         <Button
           onPress={() =>
@@ -54,12 +58,12 @@ const Tarjetas = (props) => {
             })
           }
           title="Añadir Tarjeta"
-          buttonStyle={[styles.orangeButton]}
+          buttonStyle={[styles.blueButton]}
         />
         <Button
           onPress={() => props.navigation.goBack()}
           title="Go back home"
-          buttonStyle={[styles.darkBlueButton]}
+          buttonStyle={[styles.grayButton, {backgroundColor:!dark ? secondary : bg}]}
         />
       </View>
       {cards.length === 0 ? (
@@ -125,46 +129,57 @@ const Tarjetas = (props) => {
           }}
         ></FlatList>
       )}
-      <View>
+      <View style={{height:"100%", flex: 1, justifyContent:"center", alignItems: "center"}}>
         <Modal
           visible={questionModal}
           animationType="fade"
+          transparent={true}
           ModalComponent={Modal}
-        >
+        > 
+         <View style={{flex: 1, justifyContent:"center", alignItems: "center",marginTop:30}}>
+            <View style={[estilos.modalView, {backgroundColor: primary}]}>
           <Text style={[styles.title, { marginVertical: 30 }]}>
             ¿Estas seguro que quieres eliminar esta tarjeta?
           </Text>
-          <View style={styles.rowButtons}>
+          <View style={{flexDirection:"row", justifyContent:"space-between"}}>
             <Button
               onPress={() => setQuestionModal(!questionModal)}
               title="NO"
-              buttonStyle={styles.orangeButton}
+              buttonStyle={styles.blueButton}
             />
             <View style={styles.separator}></View>
             <Button
               onPress={() => onDelete()}
-              buttonStyle={styles.darkBlueButton}
+              buttonStyle={styles.blueButton}
               title="SI"
             />
+          </View>
+          </View>
           </View>
         </Modal>
         <Modal
           visible={deletedModal}
+          transparent={true}
           animationType="fade"
           ModalComponent={Modal}
         >
+           <View style={{flex: 1, justifyContent:"center", alignItems: "center",marginTop:30}}>
+            <View style={[estilos.modalView, {backgroundColor: primary}]}>
           <Text style={[styles.title, { marginVertical: 30 }]}>
             Su tarjeta ha sido eliminada correctamente!
           </Text>
           <Icon name="check" type="fontisto" color="green" size={60} />
           <Button
             onPress={() => toggleDModal()}
-            buttonStyle={[styles.darkBlueButton, { marginVertical: 30 }]}
+            buttonStyle={[styles.blueButton, { marginVertical: 30 }]}
             title="OK"
           />
+          </View>
+          </View>
         </Modal>
       </View>
     </ScrollView>
+    </View>
   );
 };
 export default Tarjetas;

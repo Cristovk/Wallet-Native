@@ -66,6 +66,7 @@ const alto = Dimensions.get("window").height
                         <Text style={{padding:15, fontSize: 18, color: text}}>Copiar al Portapapeles</Text>
                 </TouchableOpacity>
             </View>
+            
         </View>
         </View>
     )
