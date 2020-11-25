@@ -14,7 +14,6 @@ import { useSelector, useDispatch } from "react-redux";
 const Amigos = ({ navigation }) => {
   const user = useSelector((store) => store.user.user);
   const contactos = useSelector((store) => store.contacts);
-  console.log("constact", contactos);
   const { text, bg, dark, primary, secondary } = useSelector(
     (store) => store.color
   );
@@ -66,7 +65,6 @@ const Amigos = ({ navigation }) => {
         <ScrollView>
           {contactos[0] &&
             contactos.map((l, i) => {
-              console.log("contactos", l.phone, i);
               return (
                 <ListItem
                   key={i}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Linking } from "react-native";
 import { transferir } from "../../Redux/movements";
 import { useDispatch, useSelector } from "react-redux";
 import { saveSaldo } from "../../Redux/movements";
@@ -20,13 +20,28 @@ const Finish = ({ navigation, route }) => {
   });
   const dispatch = useDispatch();
   const movements = useSelector((store) => store.movementsReducer);
-  const {text, primary, secondary, dark, bg} = useSelector(store => store.color)
+  const { text, primary, secondary, dark, bg } = useSelector(
+    (store) => store.color
+  );
   const user = useSelector((store) => store.user.user);
-  const [checked, setChecked] = useState(false);
+  const [sms, setSms] = useState(false);
+  const [wApp, setWApp] = useState(false);
   useEffect(() => {
     saveSaldo();
   }, []);
 
+  const onWappPress = () => {
+    if (sms) {
+      setSms(!sms);
+    }
+    setWApp(!wApp);
+  };
+  const onSmsPress = () => {
+    if (wApp) {
+      setWApp(!wApp);
+    }
+    setSms(!sms);
+  };
   const sendSMS = async () => {
     try {
       const isAvailable = await SMS.isAvailableAsync();
@@ -42,6 +57,11 @@ const Finish = ({ navigation, route }) => {
       console.log("Error: ", error);
     }
   };
+  const wAppNotification = async () => {
+    await Linking.openURL(
+      `https://wa.me/${receiver.telefono}?text=Hola *${receiver.nombre}*, ${user.name} ${user.lastName} le ha enviado $ ${transferencia.amount} a traves de *MoonBank*.\nMotivo: _${transferencia.motivo}._`
+    );
+  };
 
   const handleSubmit = async () => {
     const { amount } = transferencia;
@@ -49,7 +69,7 @@ const Finish = ({ navigation, route }) => {
       return setErrorMoney(true);
     }
     transferir(transferencia);
-    checked ? sendSMS() : null;
+    sms ? sendSMS() : wApp ? wAppNotification() : null;
     navigation.navigate("postScreen", {
       receiver: receiver,
       amount: transferencia.amount,
@@ -128,9 +148,18 @@ const Finish = ({ navigation, route }) => {
             title="Quiero notificar por sms a mi amigo"
             checkedIcon="dot-circle-o"
             uncheckedIcon="circle-o"
-            checked={checked}
+            checked={sms}
             containerStyle={{ backgroundColor: primary, borderColor: primary }}
-            onPress={() => setChecked(!checked)}
+            onPress={() => onSmsPress()}
+          />
+          <CheckBox
+            center
+            title="Quiero notificar por WhatsApp a mi amigo"
+            checkedIcon="dot-circle-o"
+            uncheckedIcon="circle-o"
+            checked={wApp}
+            containerStyle={{ backgroundColor: primary, borderColor: primary }}
+            onPress={() => onWappPress()}
           />
           <View style={[style.botonContainer, { marginBottom: 15 }]}>
             <TouchableOpacity
@@ -151,9 +180,9 @@ const Finish = ({ navigation, route }) => {
               </Text>
             </TouchableOpacity>
           </View>
+        </View>
       </View>
     </View>
-      </View>
   );
 };
 
