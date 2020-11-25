@@ -57,10 +57,18 @@ export function MyDrowner({ navigation, route }) {
 // Esta función nos permite configurar el drawer según lo que queremos mostrar (requerido en la línea 15)
 export function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, dark, dispatch }) {
 
+  const cerrar = async () => {
+    await AsyncStorage.removeItem('Metodo');
+
+  }
+
 
   const setApp = route.params.darker
-  const handleLogOut = async () => {
-    await AsyncStorage.removeItem('Metodo');
+  const handleLogOut = () => {
+    cerrar();
+    // setTimeout(() => {
+    //   navigation.navigate("Splash", { usuario2: false });
+    // }, 3000);
   }
 
 
