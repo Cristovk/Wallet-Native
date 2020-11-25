@@ -22,7 +22,6 @@ export function MyDrowner({ navigation, route }) {
   // LogBox.ignoreAllLogs()
   useEffect(() => {
     if (status) {
-
       let id = auth.currentUser.uid
       dispatch(addContact(id))
     };
