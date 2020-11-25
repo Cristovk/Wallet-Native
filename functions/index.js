@@ -86,6 +86,50 @@ ex.get('/api/users', async (req, res) => {
   });
 
 
+ex.get('api/users/email/:email',(req, res) => {
+
+//   const email = req.params.email;
+         
+//   const qry =  DBS.collection('Users').where('email', '==', email);
+              
+//   const  querySnapshot = await qry.get();
+  
+//   if(querySnapshot.size > 0 ){
+//     console.log(querySnapshot.docs[0].data())
+
+//     let sz = (querySnapshot.docs[0].data())
+//         if(sz.length > 0){
+//           let result = true
+//           return res.send({"result" : result});
+
+//         }
+//   }
+//   else {
+//     return res.status(400).json({status: 'not found'});
+//   }
+
+// });
+
+      let {email} = req.params;
+      let record = []  
+      auth.getUserByEmail(email).then(userRecord => {
+          
+            record.push(userRecord);
+        if(record.length > 0){
+                        
+             return res.send({"result": true});
+          }else{
+            return res.send({"result": false})
+          }
+        }).catch(err => {
+          return res.send(err)
+        })
+      });
+
+
+
+
+
 //traer datos de un usuario especifico via CVU
 
 

@@ -74,6 +74,7 @@ const Transferencias = ({ navigation }) => {
           onChangeText={(data) => setDato({ ...dato, receivercvu: data }, setError(false))}
           value={dato.receivercvu}
         />
+        <Text>_______________________________________</Text>
         {spinner && (
           <View style={style.spinner}>
             <ActivityIndicator size="small" color="#fff" />

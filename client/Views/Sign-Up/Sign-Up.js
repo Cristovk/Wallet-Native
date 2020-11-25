@@ -12,8 +12,9 @@ import { styles } from "./Sing-Up-Styles";
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { addUser, saveData } from "../../Redux/User";
 import { useDispatch } from "react-redux";
-import { LogBox } from "react-native";
-import { storage } from "../../../firebase";
+//import { LogBox } from "react-native";
+import {auth} from "../../../firebase.js";
+const admin = require("firebase-admin");
 
 Dimensions.get("window").width;
 Dimensions.get("window").height;
@@ -41,6 +42,38 @@ const SignUp = ({ navigation }) => {
     emptyYear: "",
     invalidYearFormat: "",
   });
+
+
+
+let emailExistente = true;
+
+async function checkUserInFirebase(email) {
+  return new Promise((resolve) => {
+      admin.auth().getUserByEmail(email)
+          .then((user) => {
+              resolve({ isError: false, doesExist: true, user });
+          })
+          .catch((err) => {
+              resolve({ isError: true, err });
+          });
+  });
+}
+
+  // let validacionE = (async (email, emailExistente) => { 
+
+  //   admin.auth().getUserByEmail(email).then(user =>{
+
+  //   })
+    
+  //   // const query = await storage.collection('Users').where('email', '==', email).get()
+            
+  //   //    if(query.size > 0) {
+  //   //      console.log('Existen mail iguales'); 
+  //   //     return emailExistente= true;
+  //   //     }else{
+  //   //     return emailExistente = false;               
+  //   //  }
+  //  })();
 
   let newDate = new Date(year, month - 1, day + 1);
   let actualYear = new Date().getFullYear();
@@ -87,8 +120,9 @@ const SignUp = ({ navigation }) => {
     if (!email) {
       emptyEmail = "El campo Email es necesario";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      invalidEmailFormat = "Formato de email inválido";
-    }else if (emailValido()){
+      invalidEmailFormat = "Formato de email inválido o ya registrado";
+     } 
+      else if (emailExistente === true){
       emailExist = "el email ya esta registrado";
 
     }
