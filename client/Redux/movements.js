@@ -112,7 +112,7 @@ export const getDayMovements = (allMovements) => (dispatch) => {
     año: today.getFullYear(),
   };
   let todayMovements =
-    allMovements[0] == null
+    allMovements.length === 0 || allMovements[0] == null
       ? []
       : allMovements.filter(
           (m) =>

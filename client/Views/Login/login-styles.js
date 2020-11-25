@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   eye: {
     position: 'absolute',
     right: 5,
-    top: 10,
+    top: 13,
     zIndex: 100,
     color: '#1c2383'
   },
@@ -64,23 +64,20 @@ const styles = StyleSheet.create({
     top: 10
   },
   inputPrueba: {
-    borderColor: '#fff',
-    borderWidth: 1,
     padding: 6,
     borderRadius: 3,
     backgroundColor: '#fff',
-    borderColor: '#1c2383',
+    borderColor: '#ccc',
     borderWidth: 1,
     width: '100%',
     paddingLeft: 28,
 
-
   },
   inicial: {
     position: 'absolute',
-    top: 6,
+    top: 11,
     left: 28,
-    color: '#1c2383',
+    color: '#000',
     backgroundColor: '#fff'
   },
   etiqueta: {
@@ -101,9 +98,9 @@ const styles = StyleSheet.create({
   },
   btnLogin: {
     width: 120,
-    height: 30,
-    padding: 5,
-    borderRadius: 8,
+    height: 35,
+    padding:8,
+    borderRadius: 6,
     backgroundColor: '#1c2383',
     shadowColor: "#000",
     shadowOffset: {

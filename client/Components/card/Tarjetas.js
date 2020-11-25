@@ -18,7 +18,7 @@ import { LogBox } from "react-native";
 
 /* =============================== STATES ============================== */
 const Tarjetas = (props) => {
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
   const [cards, setCards] = useState([]);
   const [questionModal, setQuestionModal] = useState(false);
   const [deletedModal, setDeletedModal] = useState(false);
@@ -82,49 +82,49 @@ const Tarjetas = (props) => {
           </Text>
         </ScrollView>
       ) : (
-            <FlatList
-              keyExtractor={(card) => card.id}
-              data={cards}
-              renderItem={({ item }) => {
-                return (
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <TouchableOpacity>
-                      <CardView
-                        name={item.name}
-                        focused="number"
-                        brand={item.type}
-                        number={item.number}
-                        expiry={item.expiry}
-                        scale={0.8}
-                      />
-                    </TouchableOpacity>
-                    <Button
-                      buttonStyle={{
-                        backgroundColor: darkBlue,
-                        color: darkBlue,
-                        paddingHorizontal: 15,
-                        paddingVertical: 10,
-                        borderRadius: 5,
-                        fontWeight: "bold",
-                      }}
-                      onPress={() => {
-                        setId(item.id);
-                        setQuestionModal(!questionModal);
-                      }}
-                      title="X"
-                      iconRight={true}
-                    />
-                  </View>
-                );
-              }}
-            ></FlatList>
-          )}
+        <FlatList
+          keyExtractor={(card) => card.id}
+          data={cards}
+          renderItem={({ item }) => {
+            return (
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <TouchableOpacity>
+                  <CardView
+                    name={item.name}
+                    focused="number"
+                    brand={item.type}
+                    number={item.number}
+                    expiry={item.expiry}
+                    scale={0.8}
+                  />
+                </TouchableOpacity>
+                <Button
+                  buttonStyle={{
+                    backgroundColor: darkBlue,
+                    color: darkBlue,
+                    paddingHorizontal: 15,
+                    paddingVertical: 10,
+                    borderRadius: 5,
+                    fontWeight: "bold",
+                  }}
+                  onPress={() => {
+                    setId(item.id);
+                    setQuestionModal(!questionModal);
+                  }}
+                  title="X"
+                  iconRight={true}
+                />
+              </View>
+            );
+          }}
+        ></FlatList>
+      )}
       <View>
         <Modal
           visible={questionModal}

@@ -15,7 +15,7 @@ const store = generateStore();
 //Se muestran en orden. La que primero esta, es la que va a aparecer.
 export default function App() {
   const [darker, setDarker] = useState(false);
-  useEffect(() => { }, [darker]);
+  useEffect(() => {}, [darker]);
   const MyTheme = {
     ...DefaultTheme,
     colors: {
@@ -24,7 +24,7 @@ export default function App() {
     },
   };
 
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
 
   return (
     /* para agregar mas pantallas */
