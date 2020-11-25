@@ -7,7 +7,7 @@ import front from './Frontb.png'
 import { CardView } from "react-native-credit-card-input";
 
 
-function MoonCard({props}){
+function MoonCard({navigation}){
     const {user} = useSelector(store => store.user)
     const {primary,secondary,text,dark,bg} = useSelector(store => store.color)
     const movements = useSelector((store) => store.movementsReducer);
@@ -38,7 +38,7 @@ const alto = Dimensions.get("window").height
         <Text style={{ color: primary,  fontWeight: "bold",
                         fontSize: 20,
                         paddingBottom: 10,
-                        marginBottom: 10,}}>Tu saldo:</Text>
+                        marginBottom: 10,}}>Saldo en tu Tarjeta:</Text>
         <Text style={{ color: primary, fontWeight: "bold",
                         fontSize: 30,
                         paddingBottom: 10,
@@ -83,7 +83,7 @@ const alto = Dimensions.get("window").height
                                 borderRadius: 10}}>
                         <Text style={{padding:15, fontSize: 18, color: text}}>Copiar al Portapapeles</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={copyToClipboard}
+                <TouchableOpacity onPress={() => navigation.navigate("Recargas")}
                                 style={{alignItems: "center",
                                 backgroundColor:bg,
                                 width:"50%",
