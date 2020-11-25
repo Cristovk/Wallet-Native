@@ -37,7 +37,7 @@ const Home = ({ navigation }) => {
     panaderia: "cookie",
     almacen: "shopping-basket",
     videojuegos: "gamepad",
-    entretenimiento: "play-circle",
+    Entretenimiento: "play-circle",
     transporte: "bus-alt",
     gasolinera: "gas-pump",
     jet: "fighter-jet",
@@ -46,6 +46,11 @@ const Home = ({ navigation }) => {
     Tsaliente: "arrow-circle-up",
     Tentrante: "arrow-circle-down",
     recarga: "wallet",
+    Agua: "tint",
+    Telefono: "phone",
+    Gas: "burn",
+    Electricidad: "bolt",
+    Internet: "wifi",
   };
 
   const { primary, bg, secondary, text, dark } = useSelector(
@@ -211,36 +216,8 @@ const Home = ({ navigation }) => {
                   color: primary,
                 }}
               >
-                {" "}
-                Ups! No tenes $$$ ??
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: primary,
-                }}
-              >
-                Recargá tu billetera
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: primary,
-                }}
-                style={{
-                  textAlign: "center",
-                  color: primary,
-                }}
-              >
-                O mejor aun!
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: primary,
-                }}
-              >
-                Comparti tu CVU para recibir transferencias 😉
+                Recargá tu billetera o comparti tu CVU para recibir
+                transferencias 😉
               </Text>
             </View>
           ) : (
@@ -319,11 +296,18 @@ const Home = ({ navigation }) => {
                       })
                     }
                   >
-                    {item.tipo == "Tsaliente" ? (
-                      <Icon name={iconList[item.tipo]} size={30} color="red" />
+                    {item.categoria == "Tsaliente" ||
+                    item.operacion == "compra" ||
+                    item.operacion == "servicios" ||
+                    item.operacion == "servicio" ? (
+                      <Icon
+                        name={iconList[item.categoria]}
+                        size={30}
+                        color="red"
+                      />
                     ) : (
                       <Icon
-                        name={iconList[item.tipo]}
+                        name={iconList[item.categoria]}
                         size={30}
                         color="green"
                       />
@@ -335,7 +319,10 @@ const Home = ({ navigation }) => {
                       </ListItem.Subtitle>
                     </ListItem.Content>
                     <Text style={{ marginRight: 3 }}>
-                      {item.tipo == "Tsaliente"
+                      {item.categoria == "Tsaliente" ||
+                      item.operacion == "compra" ||
+                      item.operacion == "servicios" ||
+                      item.operacion == "servicio"
                         ? `- $ ${formatNumber(item.monto)}`
                         : `$ ${formatNumber(item.monto)}`}
                     </Text>

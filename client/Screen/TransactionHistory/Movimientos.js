@@ -38,7 +38,7 @@ const Movimientos = ({ navigation }) => {
     panaderia: "cookie",
     almacen: "shopping-basket",
     videojuegos: "gamepad",
-    entretenimiento: "play-circle",
+    Entretenimiento: "play-circle",
     transporte: "bus-alt",
     gasolinera: "gas-pump",
     jet: "fighter-jet",
@@ -62,7 +62,6 @@ const Movimientos = ({ navigation }) => {
     dispatch(getWeekMovement(movements.allMovements));
     dispatch(getMonthMovements(movements.allMovements));
   }, [isFocused, selectedIndex]);
-  console.log("movements", movements);
   useEffect(() => {
     if (selectedIndex == 0) {
       movements.dayMovements.length === 0
@@ -166,7 +165,10 @@ const Movimientos = ({ navigation }) => {
                       })
                     }
                   >
-                    {item.categoria ? (
+                    {item.categoria == "Tsaliente" ||
+                    item.operacion == "compra" ||
+                    item.operacion == "servicios" ||
+                    item.operacion == "servicio" ? (
                       <Icon
                         name={iconList[item.categoria]}
                         size={30}
@@ -174,7 +176,7 @@ const Movimientos = ({ navigation }) => {
                       />
                     ) : (
                       <Icon
-                        name={iconList[item.tipo]}
+                        name={iconList[item.categoria]}
                         size={30}
                         color="green"
                       />
@@ -182,7 +184,7 @@ const Movimientos = ({ navigation }) => {
                     <ListItem.Content>
                       <ListItem.Title>
                         {item.categoria[0].toUpperCase() +
-                          operacion.substring(1)}
+                          item.categoria.substring(1)}
                       </ListItem.Title>
                       <ListItem.Subtitle>
                         {new Date(item.fecha).toLocaleDateString()}

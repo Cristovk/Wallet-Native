@@ -90,8 +90,6 @@ export function MyStack(props) {
     storageAsync();
     // UsarHuella();
   }, [])
-  console.log("huellaaaaa", huella);
-
 
   LogBox.ignoreAllLogs()
   return (

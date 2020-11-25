@@ -51,7 +51,7 @@ const Transfers = ({ navigation }) => {
         .collection("Wallet")
         .doc(CVU)
         .collection("Movimientos")
-        .where("operacion", "==", "Transferencia")
+        .where("operacion", "==", "transferencia")
         .orderBy("fecha", "desc")
         .onSnapshot((query) => {
           const trans = [];
@@ -145,31 +145,29 @@ const Transfers = ({ navigation }) => {
                           id: item.id,
                           monto: item.monto,
                           motivo: item.motivo,
-                          tipo: item.tipo,
+                          categoria: item.categoria,
                           operacion: item.operacion,
                           receiver: item.receiver,
                           sender: item.sender,
                         })
                       }
                     >
-                      {item.tipo == "Tsaliente" ||
-                      item.empresa ||
-                      item.operacion == "Compra" ? (
+                      {item.categoria == "Tsaliente" ? (
                         <Icon
-                          name={iconList[item.tipo]}
+                          name={iconList[item.categoria]}
                           size={30}
                           color="red"
                         />
                       ) : (
                         <Icon
-                          name={iconList[item.tipo]}
+                          name={iconList[item.categoria]}
                           size={30}
                           color="green"
                         />
                       )}
                       <ListItem.Content>
                         <ListItem.Title>
-                          {item.tipo == "Tsaliente"
+                          {item.categoria == "Tsaliente"
                             ? item.receiver
                             : item.sender}
                         </ListItem.Title>
@@ -178,7 +176,7 @@ const Transfers = ({ navigation }) => {
                         </ListItem.Subtitle>
                       </ListItem.Content>
                       <Text style={{ marginRight: 3 }}>
-                        {item.tipo == "Tsaliente"
+                        {item.categoria == "Tsaliente"
                           ? `- $ ${formatNumber(item.monto)}`
                           : `$ ${formatNumber(item.monto)}`}
                       </Text>

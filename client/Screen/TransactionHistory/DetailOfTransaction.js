@@ -4,11 +4,7 @@ import { ListItem, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useSelector } from "react-redux";
 import { generateInvoice } from "./utils";
-import styleView from "../../Global-Styles/ViewContainer";
-import {
-  widthPercentageToDP,
-  heightPercentageToDP,
-} from "react-native-responsive-screen";
+import { heightPercentageToDP } from "react-native-responsive-screen";
 import { ScrollView } from "react-native-gesture-handler";
 import { TouchableOpacity } from "react-native";
 import styleBoton from "../../Global-Styles/BotonGrande";
@@ -18,14 +14,13 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     fecha,
     monto,
     tipo,
-    hacia,
     motivo,
     estado,
     operacion,
     empresa,
-    desde,
     sender,
     receiver,
+    categoria,
   } = route.params;
   const oparation = operacion
     ? operacion[0].toUpperCase() + operacion.substring(1)
@@ -35,15 +30,20 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     panaderia: "cookie",
     almacen: "shopping-basket",
     videojuegos: "gamepad",
-    entretenimiento: "play-circle",
+    Entretenimiento: "play-circle",
     transporte: "bus-alt",
     gasolinera: "gas-pump",
     jet: "fighter-jet",
     farmacia: "first-aid",
-    Servicio: "file-invoice-dollar",
+    servicios: "file-invoice-dollar",
     Tsaliente: "arrow-circle-up",
     Tentrante: "arrow-circle-down",
     recarga: "wallet",
+    Agua: "tint",
+    Telefono: "phone",
+    Gas: "burn",
+    Electricidad: "bolt",
+    Internet: "wifi",
   };
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -58,7 +58,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     (store) => store.color
   );
 
-  return tipo === "Tsaliente" || tipo === "Tentrante" ? (
+  return categoria === "Tsaliente" || categoria === "Tentrante" ? (
     <View style={{ backgroundColor: bg }}>
       <View>
         <View
@@ -69,7 +69,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           }}
         >
           <View>
-            <Icon name={iconList[tipo]} size={50} color={primary} />
+            <Icon name={iconList[categoria]} size={50} color={primary} />
           </View>
           <View style={{ marginTop: 20 }}>
             <Text style={{ color: primary, fontSize: 20 }}>
@@ -187,106 +187,49 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
         >
           <View>
             <Icon
-              name={tipo === "recarga" ? iconList[tipo] : iconList[oparation]}
+              name={
+                tipo === "recarga" ? iconList[categoria] : iconList[oparation]
+              }
               size={50}
               color={primary}
             />
           </View>
-          <View
-            style={{
-              height: heightPercentageToDP("100%"),
-              backgroundColor: primary,
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
-              marginTop: 25,
-            }}
-          >
-            <View style={{ marginTop: 15 }}>
-              <ScrollView>
-                <ListItem
-                  containerStyle={{
-                    backgroundColor: primary,
-                    borderBottomColor: dark ? "grey" : secondary,
-                    borderBottomWidth: 1,
-                  }}
-                >
-                  <ListItem.Content>
-                    <ListItem.Title>{"Operacion"}</ListItem.Title>
-                  </ListItem.Content>
-                  <Text>{tipo === "recarga" ? empresa : oparation}</Text>
-                </ListItem>
-                <ListItem
-                  containerStyle={{
-                    backgroundColor: primary,
-                    borderBottomColor: dark ? "grey" : secondary,
-                    borderBottomWidth: 1,
-                  }}
-                >
-                  <ListItem.Content>
-                    <ListItem.Title>
-                      {tipo === "recarga" ? "Empresa" : "Categoria"}
-                    </ListItem.Title>
-                  </ListItem.Content>
-                  <Text>{tipo === "recarga" ? empresa : type}</Text>
-                </ListItem>
-                <ListItem
-                  containerStyle={{
-                    backgroundColor: primary,
-                    borderBottomColor: dark ? "grey" : secondary,
-                    borderBottomWidth: 1,
-                  }}
-                >
-                  <ListItem.Content>
-                    <ListItem.Title>{"Estado"}</ListItem.Title>
-                  </ListItem.Content>
-                  <Text>{estado}</Text>
-                </ListItem>
-                <ListItem
-                  containerStyle={{
-                    backgroundColor: primary,
-                    borderBottomColor: dark ? "grey" : secondary,
-                    borderBottomWidth: 1,
-                  }}
-                >
-                  <ListItem.Content>
-                    <ListItem.Title>{"Fecha"}</ListItem.Title>
-                  </ListItem.Content>
-                  <Text>{date}</Text>
-                </ListItem>
-                <ListItem
-                  containerStyle={{
-                    backgroundColor: primary,
-                    borderBottomColor: dark ? "grey" : secondary,
-                    borderBottomWidth: 1,
-                  }}
-                >
-                  <ListItem.Content>
-                    <ListItem.Title>{"Hora"}</ListItem.Title>
-                  </ListItem.Content>
-                  <Text>{time}</Text>
-                </ListItem>
-              </ScrollView>
-            </View>
-            <View
-              style={[
-                { top: heightPercentageToDP("55%") },
-                styleBoton.container,
-              ]}
-            >
-              <TouchableOpacity
-                style={[{ backgroundColor: secondary }, styleBoton.boton]}
-                onPress={() => generateInvoice(title, amount, icon)}
-                icon={{
-                  name: "receipt",
-                  size: 20,
-                  color: text,
+          <View style={{ marginTop: 20 }}>
+            <Text style={{ color: primary, fontSize: 20 }}>
+              {tipo === "recarga"
+                ? "Recarga desde " + " " + empresa
+                : "Gasto de" + " " + oparation}
+            </Text>
+          </View>
+          <View style={{ marginTop: 15 }}>
+            <Text style={{ color: primary, fontSize: 20 }}>{`$ ${formatNumber(
+              monto
+            )}`}</Text>
+          </View>
+        </View>
+        <View
+          style={{
+            height: heightPercentageToDP("100%"),
+            backgroundColor: primary,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+            marginTop: 25,
+          }}
+        >
+          <View style={{ marginTop: 15 }}>
+            <ScrollView>
+              <ListItem
+                containerStyle={{
+                  backgroundColor: primary,
+                  borderBottomColor: dark ? "grey" : secondary,
+                  borderBottomWidth: 1,
                 }}
               >
                 <ListItem.Content>
                   <ListItem.Title>{"Operacion"}</ListItem.Title>
                 </ListItem.Content>
                 <Text>{tipo === "recarga" ? empresa : oparation}</Text>
-              </TouchableOpacity>
+              </ListItem>
               <ListItem
                 containerStyle={{
                   backgroundColor: primary,
@@ -339,7 +282,9 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
               </ListItem>
             </ScrollView>
           </View>
-          <View style={styleBoton.container}>
+          <View
+            style={[{ top: heightPercentageToDP("55%") }, styleBoton.container]}
+          >
             <TouchableOpacity
               style={[{ backgroundColor: secondary }, styleBoton.boton]}
               onPress={() => generateInvoice(title, amount, icon)}

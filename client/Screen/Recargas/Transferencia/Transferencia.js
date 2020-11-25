@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text, TextInput, TouchableOpacity, Linking } from "react-native";
 import styles from "./estilosTransferencia";
 import * as SMS from "expo-sms";
-import React from "react";
 import { useSelector } from "react-redux";
 import botonStyle from "../../../Global-Styles/BotonGrande";
 import { heightPercentageToDP } from "react-native-responsive-screen";
@@ -69,41 +68,42 @@ const Transferencia = ({ color }) => {
         </View>
       </View>
       <View
-        style={[{ top: heightPercentageToDP("55%") }, botonStyle.container]}
+        style={[
+          { top: heightPercentageToDP("55%") } /* botonStyle.container */,
+        ]}
+      ></View>
+      <TouchableOpacity
+        onPress={shareCVUbySMS}
+        // style={{
+        //   // ...styles.btncompartir,
+        //   borderColor: color.dark ? color.s : color.p,
+        // }}
       >
-        <TouchableOpacity
-          onPress={shareCVUbySMS}
-          style={{
-            ...styles.btncompartir,
-            borderColor: color.dark ? color.s : color.p,
-          }}
+        <Text
+        // style={{
+        //   // ...styles.textocompartir,
+        //   color: color.dark ? color.s : color.p,
+        // }}
         >
-          <Text
-            style={{
-              ...styles.textocompartir,
-              color: color.dark ? color.s : color.p,
-            }}
-          >
-            Compartir CVU vía SMS
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={shareCVUbyWApp}
-          style={{
-            ...styles.btncompartir,
-            borderColor: color.dark ? color.s : color.p,
-          }}
+          Compartir CVU vía SMS
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={shareCVUbyWApp}
+        // style={{
+        //   //   ...styles.btncompartir,
+        //   borderColor: color.dark ? color.s : color.p,
+        // }}
+      >
+        <Text
+        // style={{
+        //   //   ...styles.textocompartir,
+        //   color: color.dark ? color.s : color.p,
+        // }}
         >
-          <Text
-            style={{
-              ...styles.textocompartir,
-              color: color.dark ? color.s : color.p,
-            }}
-          >
-            Compartir CVU vía WApp
-          </Text>
-        </TouchableOpacity>
-      </View>
+          Compartir CVU vía WApp
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };

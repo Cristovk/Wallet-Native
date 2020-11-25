@@ -113,34 +113,7 @@ const upPassword = (value) => {
   }).start()
 }
 
-  // const cerrar = async () => {
-  //   await AsyncStorage.removeItem('Pin')
-  // }
-
-  // cerrar()
-
-  // const AuthWithFinger = async () => {
-  //   const res = await LocalAuthentication.hasHardwareAsync()
-  //   if (!res) return Alert.alert("Su dispositivo no soporta los metodos de login")
-
-  //   const autorization = await LocalAuthentication.supportedAuthenticationTypesAsync({})
-  //   if (!autorization) return Alert.alert('No autorizado')
-
-  //   const huella = await LocalAuthentication.isEnrolledAsync()
-  //   if (!huella) return Alert.alert('No tiene autorizacion')
-  //   const login = await LocalAuthentication.authenticateAsync('Ponga su huella')
-  //   if (login.success) {
-  //     console.log(login)
-  //     // Alert.alert('Usuario encontrado')
-  //     navigation.navigate("HomeDrawer")
-  //   } else {
-  //     Alert.alert('Hubo un error')
-  //   }
-  // }
-
-
-
-   return (
+  return (
     <View style={styles.container} >
     <Text style={styles.franja}>Bienvenido</Text>
 
@@ -237,110 +210,8 @@ const upPassword = (value) => {
 
     </View>
 
- </View>
-
-  //   <View style={styles.container}>
-
-  //     <Image source={require("../../src/logo.png")} />
-  //     <View style={{ width: '90%' }}>
-  //       <Input
-  //         textContentType="emailAddress"
-  //         autoCompleteType="email"
-  //         label=" Email"
-  //         leftIcon={{ type: "font-awesome", name: "envelope" }}
-  //         placeholderTextColor="grey"
-  //         placeholder="Email"
-  //         onChangeText={(value) => handleChange("email", value)}
-  //         defaultValue={text.email}
-  //       />
-  //       <View style={styles.contEye}>
-  //         <Input
-  //           secureTextEntry={hide}
-  //           autoCompleteType='password'
-  //           label='Password'
-  //           leftIcon={{ type: 'font-awesome', name: 'lock' }}
-  //           placeholderTextColor='grey'
-  //           placeholder=' Password'
-  //           onChangeText={(value) => handleChange('password', value)}
-  //           defaultValue={text.password}
-  //         />
-  //         <View style={styles.eye}>
-  //           <Icon
-  //             size={16}
-  //             name={nameIcon}
-  //             type="font-awesome"
-  //             color="#02072f"
-  //             onPress={() => setHide(!hide)}
-
-  //           />
-  //         </View>
-
-  //       </View>
-  //     </View>
-  //     {/* <View style={styles.button}>
-  //       <Button mode="contained" title="finger" onPress={AuthWithFinger} color="darkblue">
-  //         Huella
-  //       </Button>
-  //     </View> */}
-  //     <View style={styles.button}>
-  //       <Button mode="contained" title="Login" onPress={login} color="darkblue">
-  //         Login
-  //       </Button>
-  //     </View>
-  //     <View style={styles.viewLinks}>
-  //       <TouchableOpacity
-  //         onPress={() => navigation.navigate('ResetPaswword')}
-  //       >
-  //         <Text style={styles.link}>Olvidé mi contraseña</Text>
-  //       </TouchableOpacity>
-  //       <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-  //         <Text style={styles.link}>Crear cuenta</Text>
-  //       </TouchableOpacity>
-  //     </View>
-  //   </View>
+  </View>
   );
 };
 
 export default Login;
-
-
-// const AuthWithFinger = () => {
-//   LocalAuthentication.hasHardwareAsync()
-//   .then((res) => {
-//       console.log(res)
-//     if(res){
-//       LocalAuthentication.supportedAuthenticationTypesAsync({})
-//       .then((result) => {
-//         console.log(result)
-//         if(result){
-//           LocalAuthentication.isEnrolledAsync()
-//           .then((re) => {
-//             console.log(re)
-//             LocalAuthentication.authenticateAsync('Ponga su huella')
-//             .then((success) => {
-//               console.log(success)
-//               Alert.alert('Usuario encontrado')
-//               navigation.navigate("HomeDrawer")
-//             })
-//             .catch(err => {
-//               Alert.alert("No se encontro la huella ")
-//             })
-//           })
-//           .catch((er) => {
-//             console.log(er)
-//             Alert.alert('Hubo un error')
-//           })
-//         }
-
-//       })
-//       .catch(err => {
-//         console.log(err)
-//       })
-//     }
-
-//   })
-//   .catch((err) => {
-//     console.log(err)
-//   })
-
-// }

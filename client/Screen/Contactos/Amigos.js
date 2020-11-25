@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,19 +8,13 @@ import {
   Alert,
   Linking,
 } from "react-native";
-import { ListItem, Avatar, Icon, ThemeProvider } from "react-native-elements";
-import * as Contacts from "expo-contacts";
-import { storage, auth } from "../../../firebase";
+import { ListItem, Avatar, Icon } from "react-native-elements";
 import { useSelector, useDispatch } from "react-redux";
-import { addContact, getContacts } from "../../Redux/Contacts";
 
 const Amigos = ({ navigation }) => {
-  // const onlyContacts = [...new Set(contactsRedux)]
-
-  const user = useSelector((store) => store.user);
+  const user = useSelector((store) => store.user.user);
   const contactos = useSelector((store) => store.contacts);
-  const [contacts, setContacts] = useState(contactos);
-  const dispatch = useDispatch();
+  console.log("constact", contactos);
   const { text, bg, dark, primary, secondary } = useSelector(
     (store) => store.color
   );
@@ -38,10 +32,6 @@ const Amigos = ({ navigation }) => {
   //   await dispatch(addContact(id))
   //   await dispatch(getContacts(id))
   // };
-
-  useEffect(() => {
-    console.log(user);
-  }, []);
 
   const requestMoney = async (phone) => {
     // await Linking.openURL("sms:+5493517733375?body=otro");
@@ -75,58 +65,64 @@ const Amigos = ({ navigation }) => {
       <View style={{ backgroundColor: primary, height: "100%" }}>
         <ScrollView>
           {contactos[0] &&
-            contactos.map((l, i) => (
-              <ListItem
-                key={i}
-                bottomDivider
-                containerStyle={{ backgroundColor: primary }}
-              >
-                <Avatar rounded source={{ uri: l.imagen }} />
-                <ListItem.Content>
-                  <ListItem.Title
-                    style={{ color: !dark ? text : "black", fontSize: 20 }}
-                  >
-                    {l.name}
-                  </ListItem.Title>
-                  <ListItem.Subtitle
-                    style={{ color: !dark ? secondary : "black" }}
-                  >
-                    MoonBank
-                  </ListItem.Subtitle>
-                </ListItem.Content>
-                <Icon
-                  name="ios-information-circle"
-                  type="ionicon"
-                  onPress={() => {
-                    setIndex(l);
-                    toggle();
-                  }}
-                />
-                {l.telefono !== "--" && (
+            contactos.map((l, i) => {
+              console.log("contactos", l.phone, i);
+              return (
+                <ListItem
+                  key={i}
+                  bottomDivider
+                  containerStyle={{ backgroundColor: primary }}
+                >
+                  <Avatar rounded source={{ uri: l.imagen }} />
+                  <ListItem.Content>
+                    <ListItem.Title
+                      style={{ color: !dark ? text : "black", fontSize: 20 }}
+                    >
+                      {l.name}
+                    </ListItem.Title>
+                    <ListItem.Subtitle
+                      style={{ color: !dark ? secondary : "black" }}
+                    >
+                      MoonBank
+                    </ListItem.Subtitle>
+                  </ListItem.Content>
                   <Icon
-                    name="ios-hand"
+                    name="ios-information-circle"
                     type="ionicon"
-                    onPress={() => requestMoney(l.phone)}
+                    onPress={() => {
+                      setIndex(l);
+                      toggle();
+                    }}
                   />
-                )}
-                <Icon
-                  name="ios-send"
-                  type="ionicon"
-                  onPress={() =>
-                    navigation.navigate("Finish", {
-                      receiver: {
-                        apellido: l.lastName,
-                        nombre: l.name,
-                        cvu: l.cvu,
-                        dni: l.dni,
-                        telefono: l.phone,
-                      },
-                      dato: { receivercvu: l.cvu, senderId: user.user.id },
-                    })
-                  }
-                />
-              </ListItem>
-            ))}
+                  {l.telefono !== "--" && (
+                    <Icon
+                      name="ios-share-alt"
+                      type="ionicon"
+                      onPress={() => requestMoney(l.phone)}
+                    />
+                  )}
+                  <Icon
+                    name="ios-send"
+                    type="ionicon"
+                    onPress={() =>
+                      navigation.navigate("Finish", {
+                        receiver: {
+                          apellido: l.lastName,
+                          nombre: l.name,
+                          cvu: l.cvu,
+                          dni: l.dni,
+                          telefono: l.phone,
+                        },
+                        dato: {
+                          receivercvu: l.cvu,
+                          senderId: user.id,
+                        },
+                      })
+                    }
+                  />
+                </ListItem>
+              );
+            })}
 
           {/* ----------MODAL--------- */}
           <Modal
