@@ -1,10 +1,10 @@
 import React, {useState} from "react"
-import {View, Text, Dimensions, TouchableOpacity, Alert, Clipboard, ScrollView } from "react-native"
+import {View, Text, Dimensions, TouchableOpacity, Alert, Clipboard, Icon} from "react-native"
 import CreditCardDisplay from 'react-native-credit-card-display'
 import { useSelector } from "react-redux";
 import back from './BackCard.png'
 import front from './Frontb.png'
-import { orange } from "../../Global-Styles/colors";
+import { CardView } from "react-native-credit-card-input";
 
 
 function MoonCard({props}){
@@ -16,49 +16,61 @@ function MoonCard({props}){
     Alert.alert("Copiado en tu papelera ;)")
   };
 
+const alto = Dimensions.get("window").height
+
     return (
-        <ScrollView style={{backgroundColor:bg}}>
-        <View style={{backgroundColor: primary,
+        <View style={{backgroundColor:bg, height: alto}}>
+        <View style={{backgroundColor: bg,
                         justifyContent: "center",
                         alignItems: "center",}}>
-          <Text style={{color: "white",
+          <Text style={{color: primary,
                         fontWeight: "bold",
-                        fontSize: 20,
+                        fontSize: 25,
                         paddingBottom: 30,
                         marginBottom: 10}}>MoonCard</Text>
         </View>
-        <View>
+        <View style={{backgroundColor: primary, height: "100%", borderTopLeftRadius: 10, borderTopRightRadius: 10}}>
            
             <View style={{marginLeft:5, marginTop: 30}}>
             <CreditCardDisplay
             number={"4242 4242 4242 4242"}
             cvc={123}
-            expiration="04/21"
-            name= {"                       " + user.name.toUpperCase() + " " + user.lastName.toUpperCase()}
+            name= {"                 " + user.name.toUpperCase() + " " + user.lastName.toUpperCase()}
             flipped= {true}
-            fontSize={20}
+            cardStyles={{}}
+            fontSize={23}
             height={250}
             width={(Dimensions.get("window").width)-10}
             frontImage={front}
             backImage={back}
             borderRadius={5}
             />
+            {/* <CardView
+                        name={user.name.toUpperCase() + " " + user.lastName.toUpperCase()}
+                        focused="number"
+                        number={"4242 4242 4242 4242"}
+                        expiry={"04/21"}
+                        scale={1.3}
+                        imageFront={front}
+                      /> */}
             </View>
             <View style={{flexDirection: "column",
                         marginTop:50,
                         alignItems: "center"}}>
                 <TouchableOpacity onPress={copyToClipboard}
                                 style={{alignItems: "center",
-                                backgroundColor:orange,
+                                backgroundColor:secondary,
                                 width:"50%",
                                 height:50,
-                                borderRadius: 20}}>
-                        <Text style={{padding:15, fontSize: 18}}>Copiar al Portapapeles</Text>
+                                borderRadius: 10}}>
+                        <Text style={{padding:15, fontSize: 18, color: text}}>Copiar al Portapapeles</Text>
                 </TouchableOpacity>
             </View>
         </View>
-        </ScrollView>
+        </View>
     )
 }
+
+
 
 export default MoonCard
