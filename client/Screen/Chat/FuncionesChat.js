@@ -26,30 +26,35 @@ export async function changeImage(con, setCon) {
 
 }
 
-export function validarChat(mensaje) {
-
-  let respuesta;
-  if (mensaje.length < 4) {
-    respuesta = 'Por favor sé más claro con tu petición';
-  } else {
-    if (!mensaje.includes('jaja') && !mensaje.includes('servicios') && !mensaje.includes('servicios') && !mensaje.includes('transferencia')
-      && !mensaje.includes('recarga') && !mensaje.includes('tarjeta') && !mensaje.includes('telefono')) {
-      respuesta = 'En seguida uno de nuestros asesores se hará cargo'
-    }
-    else {
-      if (mensaje.includes('jaja')) respuesta = 'Tu risa es estupida';
-      if (mensaje.includes('servicios')) respuesta = 'Claro que puedes pagar tus servicios con nuestra app';
-      if (mensaje.includes('transferencia')) respuesta = 'Puedes transferir a tus contactos o desconocidos';
-      if (mensaje.includes('recarga')) respuesta = 'Puedes recargar tu cuenta en puntos autorizados';
-      if (mensaje.includes('tarjeta')) respuesta = 'Obtén tu tarjeta moonbank y empieza a disfrutar de nuestros beneficios';
-      if (mensaje.includes('tarjeta')) respuesta = 'Obten tu tarjeta moonbank y empieza a disfrutar de nuestros beneficios';
-      if (mensaje.includes('telefono')) respuesta = 'Puedes comunicarte al número 3013184491 para más información';
-      if (mensaje.includes('hola')) respuesta = 'Hola, ¿En qúe te podemos ayudar?';
-      if (mensaje.includes('contraseña')) respuesta = 'Puedes reestablecer tu contraseña';
-
-    }
+export function validarChat(mensaje,user) {
+  let respuesta='En seguida uno de nuestros asesores se hará cargo';
+  if(mensaje.length<3){
+      respuesta='Por favor sé más claro con tu petición';
   }
+  else {
+     
+      if (mensaje.includes('jaja')) respuesta = 'Tu risa es estupida';
+      if (mensaje.includes('servicios')) respuesta = 'Claro que podés pagar tus servicios con nuestra app';
+      if (mensaje.includes('transferencia')) respuesta = 'Podés transferir a tus contactos o desconocidos';
+      if (mensaje.includes('recarga')) respuesta = 'Podés recargar tu cuenta en puntos autorizados';
+      if (mensaje.includes('tarjeta')) respuesta = 'Asociá tu tarjeta moonbank y empieza a disfrutar de nuestros beneficios';
+      if (mensaje.includes('telefono')) respuesta = 'Podés comunicarte al número 3013184491 para más información';
+      if (mensaje.includes('hola')) respuesta = `Hola ${user}, ¿Cómo te encuentras el día de hoy?`;
+      if (mensaje.includes('buenos dias')) respuesta = `Hola ${user}, ¿Cómo te encuentras el día de hoy?`;
+      if (mensaje.includes('buenos días')) respuesta = `Hola ${user}, ¿Cómo te encuentras el día de hoy?`;
+      if (mensaje.includes('buen dia')) respuesta = `Hola ${user}, ¿Cómo te encuentras el día de hoy?`;
+      if (mensaje.includes('buenas tardes')) respuesta = `Hola ${user}, ¿Cómo te encuentras el día de hoy?`;
+      if (mensaje.includes('buenos noches')) respuesta = `Hola ${user}, ¿Cómo te encuentras el día de hoy?`;
+      if (mensaje.includes('buenos')) respuesta = `Hola ${user}, ¿Cómo te encuentras el día de hoy?`;
+      if (mensaje.includes('chao')) respuesta = 'Hasta luego, volvé pronto!';
+      if (mensaje.includes('contraseña')) respuesta = 'Podés reestablecer tu contraseña';
+      if (mensaje.includes('chao')) respuesta = 'Hasta luego, volvé pronto!';
+      if (mensaje.includes('contactos')) respuesta = 'Podés envíar y recibir dinero de un contacto tuyo';
+      if (mensaje.includes('como estás')) respuesta = '¿Bien y vos?';
+      if (mensaje.includes('como estas')) respuesta = '¿Bien y vos?';
 
+  }
+  
   return respuesta;
 
 }

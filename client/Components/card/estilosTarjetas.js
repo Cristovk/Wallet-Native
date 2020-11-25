@@ -5,7 +5,7 @@ import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height:"100%"
+    height: "100%"
   },
   title: {
     fontSize: 24,
@@ -40,12 +40,13 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     marginVertical: 15,
   },
-  rowButtons: {
-    flexDirection: "row",
-    marginTop: 50,
-    justifyContent: "space-between",
-    
-  },
+  // rowButtons: {
+  //   flexDirection: "row",
+  //   marginTop: 25,
+  //   marginBottom: 25,
+  //   justifyContent: "space-between",
+
+  // },
 });
 export const estilos = StyleSheet.create({
   container: {
@@ -73,16 +74,16 @@ export const estilos = StyleSheet.create({
     borderRadius: 5,
     fontWeight: "bold",
   },
-  modalView:{
-    margin:20,
+  modalView: {
+    margin: 20,
     borderRadius: 30,
     borderColor: "black",
-    borderWidth: 1, 
+    borderWidth: 1,
     padding: 35,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
-      width:0,
+      width: 0,
       height: 2
     },
     shadowOpacity: 0.25,

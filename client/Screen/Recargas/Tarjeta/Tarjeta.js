@@ -1,10 +1,8 @@
 /* ========================== IMPORTATIONS ========================== */
 import React, { useEffect, useState } from "react";
 import {
-  StyleSheet,
   Text,
   View,
-  ScrollView,
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
@@ -20,16 +18,21 @@ import { styles as style } from "../../../Components/card/estilosTarjetas";
 import { TextInput } from "react-native-paper";
 import styles from "../Transferencia/estilosTransferencia";
 import Axios from "axios";
+import { auth, storage } from "../../../../firebase";
+import { widthPercentageToDP, heightPercentageToDP } from "react-native-responsive-screen"
+import botonStyle from '../../../Global-Styles/BotonGrande'
 
 /* ============================ STATES ============================ */
 const Tarjeta = (props) => {
   LogBox.ignoreAllLogs();
-  const [id, setId] = useState("");
   const [questionModal, setQuestionModal] = useState(false);
   const [cards, setCards] = useState([]);
   const [monto, setMonto] = useState(0);
+  const [pin, setPin] = useState("");
   const [cardNumber, setCardNumber] = useState(0);
   const [cardType, setCardType] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [charged, setCharged] = useState(false);
   const { primary, secondary, text, bg, dark } = useSelector(
     (store) => store.color
   );
@@ -40,21 +43,36 @@ const Tarjeta = (props) => {
     response = await getCards();
     response.length ? setCards(response) : setCards([null]);
   };
+  const getPin = async () => {
+    const ref = await storage
+      .collection("Users")
+      .doc(auth.currentUser.uid)
+      .get();
+    const pin = ref.data().pin;
+    setPin(pin);
+  };
   useEffect(() => {
     func();
+    getPin();
   }, []);
 
-  const sendData = async () => {
-    let info = {
-      id: id,
-      monto: monto,
-      cardNumber: cardNumber,
-      cardType: cardType,
-    };
-    console.log("info", info);
-    // const { data } = await Axios.post("/asdfasd", info);
-    setQuestionModal(!questionModal);
-    return;
+  const sendData = () => {
+    setLoading(true);
+    Axios.post(
+      "https://us-central1-henrybankfire.cloudfunctions.net/recargaV2",
+      {
+        pin: pin,
+        amount: monto,
+        empresa: cardType,
+      }
+    )
+      .then(() => {
+        setLoading(false);
+        setCharged(!charged);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
   };
   /* ========================== RENDERING =========================== */
   return (
@@ -86,103 +104,149 @@ const Tarjeta = (props) => {
             </Text>
           </View>
         ) : (
-          <FlatList
-            horizontal={true}
-            keyExtractor={(card) => card.id}
-            data={cards}
-            renderItem={({ item }) => {
-              return (
-                <TouchableOpacity
-                  style={{
-                    marginVertical: 15,
-                  }}
-                  onPress={() => {
-                    setId(item.id);
-                    setCardNumber(item.number);
-                    setCardType(item.type);
-                    setQuestionModal(!questionModal);
-                  }}
-                >
-                  <CardView
-                    name={item.name}
-                    focused="number"
-                    brand={item.type}
-                    number={item.number}
-                    expiry={item.expiry}
-                    scale={0.9}
-                  />
-                </TouchableOpacity>
-              );
-            }}
-          ></FlatList>
-        )}
+              <FlatList
+                horizontal={true}
+                keyExtractor={(card) => card.id}
+                data={cards}
+                renderItem={({ item }) => {
+                  return (
+                    <TouchableOpacity
+                      style={{
+                        marginVertical: 15,
+                      }}
+                      onPress={() => {
+                        setCardNumber(item.number);
+                        setCardType(item.type);
+                        setQuestionModal(!questionModal);
+                      }}
+                    >
+                      <CardView
+                        name={item.name}
+                        focused="number"
+                        brand={item.type}
+                        number={item.number}
+                        expiry={item.expiry}
+                        scale={0.9}
+                      />
+                    </TouchableOpacity>
+                  );
+                }}
+              ></FlatList>
+            )}
       </View>
-      <View style={{height: 500}}>
-        <Modal
-          visible={questionModal}
-          animationType="fade"
-          transparent={true}
-          ModalComponent={Modal}
-        > 
-         <View style={{flex: 1, justifyContent:"center", alignItems: "center",marginTop:30}}>
-        <View style={{
-    backgroundColor: primary,
-    height: "55%",
-    margin:20,
-    borderRadius: 20,
-    borderColor: "black",
-    borderWidth: 1, 
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width:0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5
-  }}> 
-  <Icon name="credit-card" type="fontisto" color="green" size={40} />
-          <Text style={[style.title, { marginVertical: 30 }]}>
-            {`El monto a recargar será debitado de su tarjeta ${
-              cardType
-                ? cardType[0].toUpperCase() + cardType.substring(1)
-                : null
-            } número`}
-          </Text>
-          <Text style={{fontSize:24, fontWeight: "bold"}}>
-            {cardNumber}
-          </Text>
-          <TextInput
-            textAlign="center"
-            placeholder="Ingrese Monto"
-            style={{ maxHeight: 40, 
-              width: 200, 
-              fontSize:20, 
-              alignItems:"center",
-               backgroundColor: primary, 
-               borderBottomColor: bg, 
-               borderBottomWidth: 1,
-              marginTop:30 }}
-            onChangeText={($) => setMonto($)}
-            keyboardType="numeric"
-          />
-          <View style={style.rowButtons}>
-            <Button
-              onPress={() => sendData()}
-              title="Recargar"
-              buttonStyle={style.blueButton}
-            />
-            <Button
-              onPress={() => setQuestionModal(!questionModal)}
-              title="Volver"
-              buttonStyle={style.blueButton}
-            />
+      <View>
+        {charged ? (
+          <Modal
+            visible={questionModal}
+            animationType="fade"
+            ModalComponent={Modal}
+          >
+            <Text
+              style={{ marginVertical: 150, fontSize: 60, textAlign: "center" }}
+            >
+              Recarga exitosa!
+            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                setQuestionModal(!questionModal);
+                setCharged(!charged);
+              }}
+            >
+              <Icon name="check" type="fontisto" color="green" size={100} />
+            </TouchableOpacity>
+          </Modal>
+        ) : loading === false ? (
+          <Modal
+            visible={questionModal}
+            animationType="fade"
+            ModalComponent={Modal}
+          >
+            <View style={{ backgroundColor: bg, height: heightPercentageToDP("100%") }}>
+              <View style={[{ backgroundColor: primary, marginTop: 60, height: heightPercentageToDP("100%") }, styleView.container]}>
+                <Text style={[style.title, { marginVertical: 30 }]}>
+                  El monto a recargar será debitado de:
+                </Text>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                  <Text style={{ marginVertical: 20, fontSize: 20, marginHorizontal: 15 }}>
+                    Tarjeta:
+                </Text>
+                  <Text style={{ fontSize: 20, marginHorizontal: 15 }}>
+                    {cardType
+                      ? cardType[0].toUpperCase() + cardType.substring(1)
+                      : null}
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                  <Text style={{ marginBottom: 40, fontSize: 20, marginHorizontal: 15 }}>
+                    Número:
+                </Text>
+                  <Text style={{ marginBottom: 40, fontSize: 17, marginHorizontal: 15 }}>
+                    {cardNumber}
+                  </Text>
+                </View>
+                <TextInput
+                  textAlign="center"
+                  placeholder="$ 1,000,000"
+                  style={{ marginHorizontal: 35, borderRadius: 10 }}
+                  onChangeText={($) => setMonto($)}
+                  keyboardType="numeric"
+                />
+                <View style={[{ marginTop: 40 }, botonStyle.container]}>
+                  <TouchableOpacity style={[{ backgroundColor: dark ? bg : bg }, botonStyle.boton]} onPress={() => sendData()}>
+                    <Text style={[{ color: dark ? primary : secondary }, botonStyle.texto]} >Recargar</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={[{ marginTop: 20 }, botonStyle.container]}>
+                  <TouchableOpacity style={[{ backgroundColor: dark ? secondary : secondary }, botonStyle.boton]} onPress={() => setQuestionModal(!questionModal)}>
+                    <Text style={[{ color: dark ? primary : text }, botonStyle.texto]} >Volver</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
+          </Modal>
+        ) : loading ? (
+          <Modal
+            visible={questionModal}
+            animationType="fade"
+            ModalComponent={Modal}
+          >
+            <View style={{ backgroundColor: bg, height: heightPercentageToDP("100%") }}>
+              <View style={[{ backgroundColor: primary, marginTop: 60, height: heightPercentageToDP("100%") }, styleView.container]}>
+                <Text style={[style.title, { marginVertical: 30 }]}>
+                  El monto a recargar será debitado de:
+              </Text>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                  <Text style={{ marginVertical: 20, fontSize: 20, marginHorizontal: 15 }}>
+                    Tarjeta:
+              </Text>
+                  <Text style={{ fontSize: 20, marginHorizontal: 15 }}>
+                    {cardType
+                      ? cardType[0].toUpperCase() + cardType.substring(1)
+                      : null}
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                  <Text style={{ marginBottom: 40, fontSize: 20, marginHorizontal: 15 }}>
+                    Número:
+              </Text>
+                  <Text style={{ marginBottom: 40, fontSize: 17, marginHorizontal: 15 }}>
+                    {cardNumber}
+                  </Text>
+                </View>
+                <TextInput
+                  textAlign="center"
+                  placeholder="$ 1,000,000"
+                  style={{ marginHorizontal: 35, borderRadius: 10 }}
+                  onChangeText={($) => setMonto($)}
+                  keyboardType="numeric"
+                />
+                <View style={{ marginVertical: 30 }}>
+                  <ActivityIndicator size="large" color={bg} />
+                </View>
+              </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
+        ) : null}
       </View>
     </View>
   );

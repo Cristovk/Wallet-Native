@@ -22,6 +22,7 @@ import { useIsFocused } from "@react-navigation/native";
 import viewStyle from "../../Global-Styles/ViewContainer";
 import { darkBlue, orange, white } from "../../Global-Styles/colors";
 
+
 const Movimientos = ({ navigation }) => {
   // LogBox.ignoreAllLogs();
   const windowHeight = Dimensions.get("window").height;
@@ -52,6 +53,7 @@ const Movimientos = ({ navigation }) => {
     Gas: "burn",
     Electricidad: "bolt",
     Internet: "wifi",
+    "recarga con tarjeta": "credit-card",
   };
 
   function formatNumber(num) {
@@ -134,7 +136,7 @@ const Movimientos = ({ navigation }) => {
               }}
             >
               {
-                "Ups!\nAun no tenes movimientos!\n¿Que esperas!?\nAnda a comprar!\nTenemos promociones para vos!!"
+                "Ups!\nAun no tenes movimientos!\n¿Que esperas!?\nAnda a comprar con la MoonBank!\nTenemos promociones para vos!!"
               }
             </Text>
           </View>
@@ -162,9 +164,11 @@ const Movimientos = ({ navigation }) => {
                             empresa: item.empresa,
                             sender: item.sender,
                             receiver: item.receiver,
+                            card: item.card
                           })
                         }
                       >
+
                         {item.categoria == "Tsaliente" ||
                           item.operacion == "compra" ||
                           item.operacion == "servicios" ||

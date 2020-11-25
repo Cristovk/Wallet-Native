@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
     input:{
         width:'94%',
         paddingLeft:13,
-        paddingTop:12
+        paddingTop:12,
+        
     },
     imagen:{
         width:120,
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     },
     contCam:{
         position:'relative',
-        left:6,
+        left:2,
         top:0
     },
     contSend:{

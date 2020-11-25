@@ -15,7 +15,6 @@ import Modelo from "./VistasAyuda/Modelo";
 import datos from "./VistasAyuda/Datos";
 import Chat from "../Chat/Chat";
 
-// import Tarjeta from './VistasAyuda/Tarjeta';
 import { useSelector } from "react-redux";
 import styleBoton from "../../Global-Styles/BotonGrande";
 
@@ -54,11 +53,7 @@ const Ayuda = ({ navigation }) => {
     });
   };
 
-  //fondo bg
-  ///fondo primary
-  ///boton secondary
-  ///borderbotton grey
-
+ 
   return (
     <ScrollView style={[styles.generalClave, { backgroundColor: bg }]}>
       <View
@@ -90,9 +85,9 @@ const Ayuda = ({ navigation }) => {
                 styles.padre,
                 { borderBottomColor: dark ? "grey" : "#ccc" },
               ]}
-              onPress={() => updateCurrent("reconocimientoFacial")}
+              onPress={() => updateCurrent("huellaDactilar")}
             >
-              <Subitem texto="Activar reconocimiento facial en Quiquebank" />
+              <Subitem texto="Activar Ingreso con huella dactilar" />
             </Text>
             <Text
               style={[
@@ -113,7 +108,7 @@ const Ayuda = ({ navigation }) => {
             { borderBottomColor: dark ? "grey" : secondary },
           ]}
         >
-          <Text style={styles.textoItem}>Tarjeta MoonBank</Text>
+          <Text style={styles.textoItem}>Mis tarjetas</Text>
           <TouchableOpacity onPress={() => showItems("tarjeta")}>
             <Icon
               size={16}
@@ -124,11 +119,32 @@ const Ayuda = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        {/* {tarjeta && (
-        <View>
-          <Text style={styles.padre} onPress={() => updateCurrent('tarjeta')}><Subitem texto='Asociar mi tarjeta' /></Text>
-        </View>
-      )} */}
+
+        {tarjeta && (
+          <View>
+            <Text
+              style={[
+                styles.padre,
+                { borderBottomColor: dark ? "grey" : "#ccc" },
+              ]}
+              onPress={() => updateCurrent("tarjetaMoon")}
+            >
+              <Subitem texto="Mi tarjeta Moonbank" />
+            </Text>
+
+            <Text
+              style={[
+                styles.padre,
+                { borderBottomColor: dark ? "grey" : "#ccc" },
+              ]}
+              onPress={() => updateCurrent("tarjetas")}
+            >
+              <Subitem texto="Mis tarjetas" />
+            </Text>
+            
+          </View>
+        )}
+        
 
         {/* SECCIÓN DE DATOS */}
         <View
@@ -191,15 +207,7 @@ const Ayuda = ({ navigation }) => {
             >
               <Subitem texto="Transferir dinero a un contacto" />{" "}
             </Text>
-            <Text
-              style={[
-                styles.padre,
-                { borderBottomColor: dark ? "grey" : "#ccc" },
-              ]}
-              onPress={() => updateCurrent("transferirDesconocido")}
-            >
-              <Subitem texto="Transferir dinero a un desconocido" />{" "}
-            </Text>
+           
           </View>
         )}
 
@@ -227,19 +235,11 @@ const Ayuda = ({ navigation }) => {
                 styles.padre,
                 { borderBottomColor: dark ? "grey" : "#ccc" },
               ]}
-              onPress={() => updateCurrent("serviciosPublicos")}
+              onPress={() => updateCurrent("realizarPagos")}
             >
-              <Subitem texto="Pagar mis servicios públicos" />{" "}
+              <Subitem texto="Realizar mis pagos" />{" "}
             </Text>
-            <Text
-              style={[
-                styles.padre,
-                { borderBottomColor: dark ? "grey" : "#ccc" },
-              ]}
-              onPress={() => updateCurrent("entretenimiento")}
-            >
-              <Subitem texto="Pagar mis servicios de entretenimiento" />{" "}
-            </Text>
+            
           </View>
         )}
 
@@ -268,18 +268,9 @@ const Ayuda = ({ navigation }) => {
                 styles.padre,
                 { borderBottomColor: dark ? "grey" : "#ccc" },
               ]}
-              onPress={() => updateCurrent("recargarEfectivo")}
+              onPress={() => updateCurrent("recarga")}
             >
-              <Subitem texto="Recargar mi app con dinero en efectivo" />{" "}
-            </Text>
-            <Text
-              style={[
-                styles.padre,
-                { borderBottomColor: dark ? "grey" : "#ccc" },
-              ]}
-              onPress={() => updateCurrent("recargarTransferencia")}
-            >
-              <Subitem texto="Recargar mi app con por transferencia" />{" "}
+              <Subitem texto="Recargar mi billetera" />
             </Text>
           </View>
         )}
@@ -305,10 +296,10 @@ const Ayuda = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        {currentview === "reconocimientoFacial" && (
+        {currentview === "huellaDactilar" && (
           <Modelo
             change={setCurrentView}
-            volver="Reconocimiento facial"
+            volver="Ingreso con huella"
             titulo={datos.reconocimientoFacial.titulo}
             texto={datos.reconocimientoFacial.texto}
             hide={hideItems}
@@ -327,8 +318,7 @@ const Ayuda = ({ navigation }) => {
           />
         )}
 
-        {/* {currentview === 'tarjeta' &&
-        <Tarjeta change={setCurrentView}  hide={hideItems} />} */}
+        
 
         {currentview === "reconocimientoFacial" && (
           <Modelo
@@ -375,23 +365,14 @@ const Ayuda = ({ navigation }) => {
           />
         )}
 
-        {currentview === "transferirDesconocido" && (
-          <Modelo
-            change={setCurrentView}
-            volver="Transferir a un desconocido"
-            titulo={datos.transferirDesconocido.titulo}
-            texto={datos.transferirDesconocido.texto}
-            hide={hideItems}
-            navigation={navigation}
-          />
-        )}
+       
 
-        {currentview === "serviciosPublicos" && (
+        {currentview === "realizarPagos" && (
           <Modelo
             change={setCurrentView}
-            volver="Servicios públicos"
-            titulo={datos.serviciosPublicos.titulo}
-            texto={datos.serviciosPublicos.texto}
+            volver="Mis pagos"
+            titulo={datos.pagos.titulo}
+            texto={datos.pagos.texto}
             hide={hideItems}
             navigation={navigation}
           />
@@ -408,27 +389,39 @@ const Ayuda = ({ navigation }) => {
           />
         )}
 
-        {currentview === "recargarEfectivo" && (
+        {currentview === "recarga" && (
           <Modelo
             change={setCurrentView}
-            volver="Recarga en efectivo"
-            titulo={datos.recargarEfectivo.titulo}
-            texto={datos.recargarEfectivo.texto}
+            volver="Recargar mi billetera"
+            titulo={datos.recarga.titulo}
+            texto={datos.recarga.texto}
             hide={hideItems}
             navigation={navigation}
           />
         )}
 
-        {currentview === "recargarTransferencia" && (
+      {currentview === "tarjetaMoon" && (
           <Modelo
             change={setCurrentView}
-            volver="Recarga por transferencia"
-            titulo={datos.recargarTransferencia.titulo}
-            texto={datos.recargarTransferencia.texto}
+            volver="Mi tarjeta Moonbank"
+            titulo={datos.tarjetaMoon.titulo}
+            texto={datos.tarjetaMoon.texto}
             hide={hideItems}
-            navigation={navigation}
           />
         )}
+
+        
+      {currentview === "tarjetas" && (
+          <Modelo
+            change={setCurrentView}
+            volver="Mis tarjetas"
+            titulo={datos.tarjetas.titulo}
+            texto={datos.tarjetas.texto}
+            hide={hideItems}
+          />
+        )}
+
+      
         {chat && <Chat />}
       </View>
     </ScrollView>
