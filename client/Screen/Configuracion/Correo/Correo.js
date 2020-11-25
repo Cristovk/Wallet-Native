@@ -40,25 +40,13 @@ const Correo = ({ cambiar, navigation, oscuro }) => {
       <View style={[{ backgroundColor: oscuro ? grey : white, marginTop: 25 }, viewStyle.container]}>
         <View style={{ marginTop: 25 }}>
           <View style={oscuro ? styles.tituloBlack : styles.titulo}>
-            <Text style={styles.subtitulo}>Cambia tu correo</Text>
+            <Text style={[{ backgroundColor: oscuro ? grey : white }, styles.subtitulo]}>Cambia tu correo</Text>
           </View>
 
           <View style={styles.contraseñas}>
-            <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", width: widthPercentageToDP("100%") }}>
-              {/* <Text>Mi Correo:</Text>
-              <Text>{auth.currentUser.email}</Text> */}
-              <ListItem
-                containerStyle={{ backgroundColor: oscuro ? grey : white }}
-              >
-                <ListItem.Content
-                  style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", width: widthPercentageToDP("100%") }}
-                >
-                  <ListItem.Title>Correo actual:</ListItem.Title>
-                  <ListItem.Subtitle
-                    style={{ color: black }}
-                  >{auth.currentUser.email} </ListItem.Subtitle>
-                </ListItem.Content>
-              </ListItem>
+            <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", width: widthPercentageToDP("100%"), marginTop: 25 }}>
+              <Text>Mi Correo:</Text>
+              <Text>{auth.currentUser.email}</Text>
             </View>
             <TextInput
               placeholder='Ingrese nuevo correo'
@@ -70,14 +58,14 @@ const Correo = ({ cambiar, navigation, oscuro }) => {
             {empty && <Text style={styles.error}>Debes ingresar un correo para continuar</Text>}
           </View>
 
-          <View style={botonStyle.botonContainer}>
-            <TouchableOpacity style={[{ backgroundColor: oscuro ? black : blue }, botonStyle.boton]}>
-              <Text style={[{ color: oscuro ? white : white }, botonStyle.texto]} onPress={() => handleSubmit()}>Guardar</Text>
+          <View style={[{ marginTop: 20 }, botonStyle.botonContainer]}>
+            <TouchableOpacity style={[{ backgroundColor: oscuro ? black : blue }, botonStyle.boton]} onPress={() => handleSubmit()}>
+              <Text style={[{ color: oscuro ? white : white }, botonStyle.texto]} >Guardar</Text>
             </TouchableOpacity>
           </View>
-          <View style={botonStyle.botonContainer}>
-            <TouchableOpacity style={[{ backgroundColor: oscuro ? blue : grey }, botonStyle.boton]}>
-              <Text style={[{ color: oscuro ? white : black }, botonStyle.texto]} onPress={() => cambiar(false)}>Volver</Text>
+          <View style={[{ marginTop: 20 }, botonStyle.botonContainer]}>
+            <TouchableOpacity style={[{ backgroundColor: oscuro ? blue : grey }, botonStyle.boton]} onPress={() => cambiar(false)}>
+              <Text style={[{ color: oscuro ? white : black }, botonStyle.texto]} >Volver</Text>
             </TouchableOpacity>
           </View>
         </View>

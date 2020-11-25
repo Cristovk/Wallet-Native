@@ -31,7 +31,8 @@ const style = StyleSheet.create({
   },
   nombreSubitem: {
     fontWeight: '600',
-    fontSize: 17
+    fontSize: 17,
+    color: black
   },
   flecha: {
     paddingLeft: 1,
@@ -65,6 +66,7 @@ const style = StyleSheet.create({
     borderRadius: 100,
   },
   itemAjustesDark: {
+    marginTop: 15,
     backgroundColor: grey,
     flexDirection: 'row',
     justifyContent: 'space-between',

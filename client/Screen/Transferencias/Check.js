@@ -1,19 +1,24 @@
 import React, { useState } from "react";
-import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, Image, TouchableOpacity, Alert } from "react-native";
 import style from "./Check_Styles";
 import { Icon, ListItem } from "react-native-elements";
+import { useSelector } from "react-redux";
+import { widthPercentageToDP, heightPercentageToDP } from "react-native-responsive-screen"
+import botonStyle from '../../Global-Styles/BotonMediano'
 
 const confirmOrError = ({ navigation, route }) => {
-  const {dato, receiver } = route.params;
+  const { dato, receiver } = route.params;
+  const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
+
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: bg }}>
       {receiver ? (
-        <View>
+        <View style={{ height: heightPercentageToDP("100%"), backgroundColor: primary, borderTopLeftRadius: 20, borderTopRightRadius: 20, marginTop: 25 }}>
           <View style={style.tituloContainer}>
             <Text style={style.titulo}>Datos del receptor</Text>
           </View>
           <View style={style.listaContenedor}>
-            <ListItem style={style.lista}>
+            <ListItem style={[{ borderBottomColor: dark ? "grey" : secondary }, style.lista]} containerStyle={{ backgroundColor: primary }}>
               <ListItem.Content>
                 <ListItem.Title>Nombre:</ListItem.Title>
                 <ListItem.Subtitle>
@@ -21,56 +26,48 @@ const confirmOrError = ({ navigation, route }) => {
                 </ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
-            <ListItem style={style.lista}>
+            <ListItem style={[{ borderBottomColor: dark ? "grey" : secondary }, style.lista]} containerStyle={{ backgroundColor: primary }}>
               <ListItem.Content>
                 <ListItem.Title>Dni: </ListItem.Title>
                 <ListItem.Subtitle>{receiver.dni} </ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
-            <ListItem style={style.lista}>
+            <ListItem style={[{ borderBottomColor: dark ? "grey" : secondary }, style.lista]} containerStyle={{ backgroundColor: primary }}>
               <ListItem.Content style={style.listaPhone1}>
                 <ListItem.Title>Telefono: </ListItem.Title>
                 <ListItem.Subtitle>{receiver.telefono}</ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
-            <ListItem style={style.lista}>
+            <ListItem style={[{ borderBottomColor: dark ? "grey" : secondary }, style.lista]} containerStyle={{ backgroundColor: primary }}>
               <ListItem.Content>
                 <ListItem.Title>Cvu: </ListItem.Title>
                 <ListItem.Subtitle>{receiver.cvu} </ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
-            <View style={[style.botonContainer, { marginBottom: 15 }]}>
-              <TouchableOpacity
-                style={style.boton}
-                onPress={() => {
-                  navigation.navigate("Finish", {
-                    receiver: receiver,
-                    dato: dato,
-                  });
-                }}
-              >
-                <Text style={{ fontWeight: "bold", fontSize: 15 }}>
-                  Confirmar
-                </Text>
+            <View style={[{ marginTop: 20 }, botonStyle.botonContainer]}>
+              <TouchableOpacity style={[{ backgroundColor: bg }, botonStyle.boton]} onPress={() => {
+                navigation.navigate("Finish", {
+                  receiver: receiver,
+                  dato: dato,
+                });
+              }}>
+                <Text style={[{ color: primary }, botonStyle.texto]} >Confirmar</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={style.boton}
-                onPress={() => {
-                  navigation.navigate("Home");
-                }}
-              >
-                <Text style={{ fontWeight: "bold", fontSize: 15 }}>
-                  Cancelar
-                </Text>
+            </View>
+            <View style={[{ marginTop: 20 }, botonStyle.botonContainer]}>
+              <TouchableOpacity style={[{ backgroundColor: secondary }, botonStyle.boton]} onPress={() => {
+                navigation.navigate("Home");
+              }}>
+                <Text style={[{ color: text }, botonStyle.texto]} >Cancelar</Text>
               </TouchableOpacity>
             </View>
           </View>
         </View>
       ) : (
-        <View>
-          <Text>HEy Alerta de no encontre nada.png</Text>
-        </View>
-      )}
+          <View>
+            {Alert.alert('No se encontró destinatario')}
+          </View>
+        )}
     </ScrollView>
   );
 };

@@ -5,11 +5,11 @@ import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: white,
+    height:"100%"
   },
   title: {
     fontSize: 24,
-    marginHorizontal: 35,
+    marginHorizontal: 25,
     textAlign: "center",
   },
   button: {
@@ -18,18 +18,16 @@ export const styles = StyleSheet.create({
     marginVertical: 35,
     marginHorizontal: 35,
   },
-  orangeButton: {
+  blueButton: {
     borderRadius: 10,
     color: white,
-    marginHorizontal: 35,
-    backgroundColor: orange,
+    marginHorizontal: 10,
+    backgroundColor: "#1C2383",
     paddingHorizontal: 15,
   },
-  darkBlueButton: {
+  grayButton: {
     borderRadius: 10,
-    color: white,
     marginHorizontal: 35,
-    backgroundColor: darkBlue,
     paddingHorizontal: 15,
   },
   separator: {
@@ -44,9 +42,9 @@ export const styles = StyleSheet.create({
   },
   rowButtons: {
     flexDirection: "row",
-    paddingVertical: 15,
-    justifyContent: "space-evenly",
-    borderTopColor: darkBlue,
+    marginTop: 50,
+    justifyContent: "space-between",
+    
   },
 });
 export const estilos = StyleSheet.create({
@@ -75,4 +73,20 @@ export const estilos = StyleSheet.create({
     borderRadius: 5,
     fontWeight: "bold",
   },
+  modalView:{
+    margin:20,
+    borderRadius: 30,
+    borderColor: "black",
+    borderWidth: 1, 
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width:0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  }
 });

@@ -40,6 +40,7 @@
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
     "react-native-chart-kit": "^6.7.0",
+    "react-native-credit-card-display": "^0.3.4",
     "react-native-credit-card-input": "^0.4.1",
     "react-native-elements": "^3.0.0-alpha.1",
     "react-native-exit-app": "^1.1.0",

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Image, TouchableOpacity, StyleSheet, LogBox } from 'react-native';
+import { Image, TouchableOpacity, StyleSheet, LogBox, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { Icon } from 'react-native-elements'
 import db from '../../../firebase'
@@ -14,8 +14,8 @@ import AsyncStorage from '@react-native-community/async-storage'
 import Balance from '../../Screen/Balance/Balance.js';
 import Pagos from '../../Screen/Pagos/Pagos';
 import Amigos from '../../Screen/Contactos/Amigos';
- import Chat from '../../Screen/Chat/Chat';
- import Ayuda from '../../Screen/Ayuda/Ayuda';
+import Chat from '../../Screen/Chat/Chat';
+import Ayuda from '../../Screen/Ayuda/Ayuda';
 import Configuracion from '../../Screen/Configuracion/Configuracion';
 import Login from '../../Views/Login/login'
 import SignUp from '../../Views/Sign-Up/Sign-Up'
@@ -24,6 +24,7 @@ import SignUp2 from '../../Views/Sign-Up/SignUp2'
 
 import Tarjetas from '../card/Tarjetas';
 import AddTarjeta from '../card/AddTarjeta';
+import MoonCard from '../../Screen/MoonCard/MoonCard.js'
 
 import TransactionHistory from '../../Screen/TransactionHistory/Movimientos'
 import Detalle from '../../Screen/TransactionHistory/DetailOfTransaction'
@@ -90,8 +91,6 @@ export function MyStack(props) {
     storageAsync();
     // UsarHuella();
   }, [])
-  console.log("huellaaaaa", huella);
-
 
   // LogBox.ignoreAllLogs()
   return (
@@ -154,7 +153,7 @@ function HomeScreen({ userLog, user, status }) {
           >
             <Image
               source={{ uri: user.imagen || profileImage }}
-              style={{ width: 50, height: 50, borderRadius: 50, marginRight: 10 }}
+              style={{ width: 40, height: 40, borderRadius: 50, marginRight: 10, }}
             />
           </TouchableOpacity>
         )
@@ -169,20 +168,36 @@ function HomeScreen({ userLog, user, status }) {
         title: 'Mis Contactos',
         headerRight: () => (
           <TouchableOpacity onPress={handleRefresh}>
-            <Icon name='spinner-refresh' type='fontisto' color={!dark? secondary: primary} style={{ marginRight: 30 }} />
+            <Icon name='spinner-refresh' type='fontisto' color={!dark ? secondary : primary} style={{ marginRight: 30 }} />
           </TouchableOpacity>
         )
       }} />
       <HomeScreenStack.Screen name='Configuracion' component={Configuracion} options={{ title: 'Ajustes' }} />
       <HomeScreenStack.Screen name='Ayuda' component={Ayuda} options={{ title: 'Soporte y Atención' }} />
       <HomeScreenStack.Screen name='Balance' component={Balance} options={{ title: 'Mi Balance' }} />
+      <HomeScreenStack.Screen name='MoonCard' component={MoonCard} options={{ title: "MoonCard" }} />
       <HomeScreenStack.Screen name='Detalle' component={Detalle} options={{ title: 'Detalle de la transaccion' }} />
       <HomeScreenStack.Screen name='Recargas' component={Recargas} options={{ title: 'Recargar' }} />
       <HomeScreenStack.Screen name='confirmOrError' component={confirmOrError} options={{ title: 'Receptor' }} />
-      <HomeScreenStack.Screen name='postScreen' component={postScreen} options={{ headerLeft: null, title: "Transferencia completada" }} />
+      <HomeScreenStack.Screen name='postScreen' component={postScreen} options={{ headerLeft: null, title: null }} />
       <HomeScreenStack.Screen name='Finish' component={Finish} options={{ title: 'Monto' }} />
       <HomeScreenStack.Screen name='PagoServicios' component={PagoServicios} options={{ title: 'Confirmar Pago' }} />
-      <HomeScreenStack.Screen name='PagoConfirm' component={PagoConfirm} options={{ headerShown: false }} />
+      <HomeScreenStack.Screen name='PagoConfirm' component={PagoConfirm} options={({ navigation }) => ({
+        title: "Confirmación", headerLeft: () => (<TouchableOpacity
+          onPress={() => navigation.navigate("Home")}
+        >
+          <View style={{ marginStart: 10 }}>
+            <Icon
+              name="arrow-left"
+              type="fontisto"
+              size={15}
+              color={primary}
+              onPress={() => navigation.navigate("Home")}
+            />
+          </View>
+
+        </TouchableOpacity>),
+      })} />
       <HomeScreenStack.Screen name='ModificaEmail' component={ModificaEmail} options={{ title: 'Modificar Email' }} />
       <HomeScreenStack.Screen name='ModificaPassword' component={ModificaPassword} options={{ title: 'Modificar Password' }} />
       <HomeScreenStack.Screen name='DeleteUser' component={DeleteUser} options={{ title: 'Borrar Usuario' }} />

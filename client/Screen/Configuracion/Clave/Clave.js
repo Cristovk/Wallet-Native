@@ -74,7 +74,7 @@ const Clave = ({ cambiar, navigation, oscuro }) => {
         <View style={{ marginTop: 25 }}>
 
           <View style={oscuro ? styles.tituloBlack : styles.titulo}>
-            <Text style={styles.subtitulo}>Cambia tu contraseña</Text>
+            <Text style={[{ backgroundColor: oscuro ? grey : white }, styles.subtitulo]}>Cambia tu contraseña</Text>
           </View>
 
           <View style={styles.contraseñas}>
@@ -107,13 +107,13 @@ const Clave = ({ cambiar, navigation, oscuro }) => {
             ) : null}
           </View>
           <View style={botonStyle.botonContainer}>
-            <TouchableOpacity style={[{ backgroundColor: oscuro ? black : blue }, botonStyle.boton]}>
-              <Text style={[{ color: oscuro ? white : white }, botonStyle.texto]} onPress={() => handleSubmit()}>Guardar</Text>
+            <TouchableOpacity style={[{ backgroundColor: oscuro ? black : blue }, botonStyle.boton]} onPress={() => handleSubmit()}>
+              <Text style={[{ color: oscuro ? white : white }, botonStyle.texto]}>Guardar</Text>
             </TouchableOpacity>
           </View>
           <View style={botonStyle.botonContainer}>
-            <TouchableOpacity style={[{ backgroundColor: oscuro ? blue : grey }, botonStyle.boton]}>
-              <Text style={[{ color: oscuro ? white : black }, botonStyle.texto]} onPress={() => cambiar(false)}>Volver</Text>
+            <TouchableOpacity style={[{ backgroundColor: oscuro ? blue : grey }, botonStyle.boton]} onPress={() => cambiar(false)}>
+              <Text style={[{ color: oscuro ? white : black }, botonStyle.texto]} >Volver</Text>
             </TouchableOpacity>
           </View>
         </View>

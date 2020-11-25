@@ -27,7 +27,7 @@ gastosTot:0}
 
       for(let i = 0; i < mov.length; i++){
           if(new Date(mov[i].fecha).getDate()===objeto.dia){
-            if(mov[i].tipo === "Tentrante"|| mov[i].tipo === "recarga"){
+            if(mov[i].categoria === "Tentrante"|| mov[i].operacion === "recarga"){
                 ingreso[1] = ingreso[1] + mov[i].monto
             } else {
                 gasto[1] = gasto[1] + mov[i].monto
@@ -36,7 +36,7 @@ gastosTot:0}
 
 
           if(new Date(mov[i].fecha).getDate()===objeto.dia-1){
-            if(mov[i].tipo === "Tentrante"|| mov[i].tipo === "recarga"){
+            if(mov[i].categoria === "Tentrante"|| mov[i].operacion === "recarga"){
                 ingreso[2] = ingreso[2] + mov[i].monto
             } else {
                 gasto[2] = gasto[2] + mov[i].monto
@@ -44,7 +44,7 @@ gastosTot:0}
           }
 
           if(new Date(mov[i].fecha).getDate()===objeto.dia-2){
-            if(mov[i].tipo === "Tentrante"|| mov[i].tipo === "recarga"){
+            if(mov[i].categoria === "Tentrante"|| mov[i].operacion === "recarga"){
                 ingreso[3] = ingreso[3] + mov[i].monto
             } else {
                 gasto[3] = gasto[3] + mov[i].monto
@@ -52,28 +52,28 @@ gastosTot:0}
           }
 
           if(new Date(mov[i].fecha).getDate()===objeto.dia-3){
-            if(mov[i].tipo === "Tentrante"|| mov[i].tipo === "recarga"){
+            if(mov[i].categoria === "Tentrante"|| mov[i].operacion === "recarga"){
                 ingreso[4] = ingreso[4] + mov[i].monto
             } else {
                 gasto[4] = gasto[4] + mov[i].monto
             }
           }
           if(new Date(mov[i].fecha).getDate()===objeto.dia-4){
-            if(mov[i].tipo === "Tentrante"|| mov[i].tipo === "recarga"){
+            if(mov[i].categoria === "Tentrante"|| mov[i].operacion === "recarga"){
                 ingreso[5] = ingreso[5] + mov[i].monto
             } else {
                 gasto[5] = gasto[5] + mov[i].monto
             }
           }
           if(new Date(mov[i].fecha).getDate()===objeto.dia-5){
-            if(mov[i].tipo === "Tentrante"|| mov[i].tipo === "recarga"){
+            if(mov[i].categoria === "Tentrante"|| mov[i].operacion === "recarga"){
                 ingreso[6] = ingreso[6] + mov[i].monto
             } else {
                 gasto[6] = gasto[6] + mov[i].monto
             }
           }
           if(new Date(mov[i].fecha).getDate()===objeto.dia-6){
-            if(mov[i].tipo === "Tentrante"|| mov[i].tipo === "recarga"){
+            if(mov[i].categoria === "Tentrante"|| mov[i].operacion === "recarga"){
                 ingreso[7] = ingreso[7] + mov[i].monto
             } else {
                 gasto[7] = gasto[7] + mov[i].monto
@@ -128,7 +128,7 @@ export function filtroMes(today, mov){
           if(new Date(mov[i].fecha).getMonth()+1===objeto.mes){
 
               if(fecha<8){
-                  if(mov[i].tipo === "Tentrante"|| mov[i].tipo === "recarga"){
+                  if(mov[i].categoria === "Tentrante"|| mov[i].operacion === "recarga"){
                       ingreso[1] = ingreso[1] + mov[i].monto
                     } else {
                 gasto[1] = gasto[1] + mov[i].monto
@@ -137,7 +137,7 @@ export function filtroMes(today, mov){
 
 
           if(fecha >=8 && fecha<16){
-            if(mov[i].tipo === "Tentrante"|| mov[i].tipo === "recarga"){
+            if(mov[i].categoria === "Tentrante"|| mov[i].operacion === "recarga"){
                 ingreso[2] = ingreso[2] + mov[i].monto
             } else {
                 gasto[2] = gasto[2] + mov[i].monto
@@ -145,7 +145,7 @@ export function filtroMes(today, mov){
           }
           
           if(fecha >= 16 && fecha < 22){
-              if(mov[i].tipo === "Tentrante"|| mov[i].tipo === "recarga"){
+              if(mov[i].categoria === "Tentrante"|| mov[i].operacion === "recarga"){
                   ingreso[3] = ingreso[3] + mov[i].monto
                 } else {
                     gasto[3] = gasto[3] + mov[i].monto
@@ -153,7 +153,7 @@ export function filtroMes(today, mov){
             }
             
             if(fecha >= 22 && fecha < 32){
-                if(mov[i].tipo === "Tentrante"|| mov[i].tipo === "recarga"){
+                if(mov[i].categoria === "Tentrante"|| mov[i].operacion === "recarga"){
                     ingreso[4] = ingreso[4] + mov[i].monto
                 } else {
                     gasto[4] = gasto[4] + mov[i].monto
@@ -164,9 +164,9 @@ export function filtroMes(today, mov){
             
     }
     for(let i = 1; i < 5; i++){
-        resp.balance.unshift(ingreso[i]-gasto[i]) 
-        resp.ingreso.unshift(ingreso[i]) 
-        resp.gasto.unshift(gasto[i]) 
+        resp.balance.push(ingreso[i]-gasto[i]) 
+        resp.ingreso.push(ingreso[i]) 
+        resp.gasto.push(gasto[i]) 
     }
     for (const property in ingreso){
         resp.ingresosTot= ingreso[property] + resp.ingresosTot
@@ -210,7 +210,7 @@ export function filtroAño(today, mov){
 
       for(let i = 0; i < mov.length; i++){
           if(new Date(mov[i].fecha).getMonth()+1===objeto.mes){
-            if(mov[i].tipo === "Tentrante"|| mov[i].tipo === "recarga"){
+            if(mov[i].categoria === "Tentrante"|| mov[i].operacion === "recarga"){
                 ingreso[1] = ingreso[1] + mov[i].monto
             } else {
                 gasto[1] = gasto[1] + mov[i].monto
@@ -219,7 +219,7 @@ export function filtroAño(today, mov){
 
 
           if(new Date(mov[i].fecha).getMonth()+1===objeto.mes-1){
-            if(mov[i].tipo === "Tentrante"|| mov[i].tipo === "recarga"){
+            if(mov[i].categoria === "Tentrante"|| mov[i].operacion === "recarga"){
                 ingreso[2] = ingreso[2] + mov[i].monto
             } else {
                 gasto[2] = gasto[2] + mov[i].monto
@@ -227,7 +227,7 @@ export function filtroAño(today, mov){
           }
 
           if(new Date(mov[i].fecha).getMonth()+1===objeto.mes-2){
-            if(mov[i].tipo === "Tentrante"|| mov[i].tipo === "recarga"){
+            if(mov[i].categoria === "Tentrante"|| mov[i].operacion === "recarga"){
                 ingreso[3] = ingreso[3] + mov[i].monto
             } else {
                 gasto[3] = gasto[3] + mov[i].monto
@@ -235,21 +235,21 @@ export function filtroAño(today, mov){
           }
 
           if(new Date(mov[i].fecha).getMonth()+1===objeto.mes-3){
-            if(mov[i].tipo === "Tentrante"|| mov[i].tipo === "recarga"){
+            if(mov[i].categoria === "Tentrante"|| mov[i].operacion === "recarga"){
                 ingreso[4] = ingreso[4] + mov[i].monto
             } else {
                 gasto[4] = gasto[4] + mov[i].monto
             }
           }
           if(new Date(mov[i].fecha).getMonth()+1===objeto.mes-4){
-            if(mov[i].tipo === "Tentrante"|| mov[i].tipo === "recarga"){
+            if(mov[i].categoria === "Tentrante"|| mov[i].operacion === "recarga"){
                 ingreso[5] = ingreso[5] + mov[i].monto
             } else {
                 gasto[5] = gasto[5] + mov[i].monto
             }
           }
           if(new Date(mov[i].fecha).getMonth()+1===objeto.mes-5){
-            if(mov[i].tipo === "Tentrante"|| mov[i].tipo === "recarga"){
+            if(mov[i].categoria === "Tentrante"|| mov[i].operacion === "recarga"){
                 ingreso[6] = ingreso[6] + mov[i].monto
             } else {
                 gasto[6] = gasto[6] + mov[i].monto

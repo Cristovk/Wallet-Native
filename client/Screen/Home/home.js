@@ -9,6 +9,7 @@ import {
   FlatList,
   ActivityIndicator,
   BackHandler,
+  TouchableOpacity
 } from "react-native";
 import { ListItem, Button } from "react-native-elements";
 import style from "./homeStyles";
@@ -21,7 +22,9 @@ import {
 } from "../../Redux/movements";
 import { useIsFocused } from "@react-navigation/native";
 import { auth, storage } from "../../../firebase";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import styleBoton from '../../Global-Styles/BotonGrande'
+import { widthPercentageToDP, heightPercentageToDP } from "react-native-responsive-screen"
+import { darkBlue, orange, white } from "../../Global-Styles/colors";
 
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
@@ -36,7 +39,7 @@ const Home = ({ navigation }) => {
     panaderia: "cookie",
     almacen: "shopping-basket",
     videojuegos: "gamepad",
-    entretenimiento: "play-circle",
+    Entretenimiento: "play-circle",
     transporte: "bus-alt",
     gasolinera: "gas-pump",
     jet: "fighter-jet",
@@ -45,10 +48,16 @@ const Home = ({ navigation }) => {
     Tsaliente: "arrow-circle-up",
     Tentrante: "arrow-circle-down",
     recarga: "wallet",
+    Agua: "tint",
+    Telefono: "phone",
+    Gas: "burn",
+    Electricidad: "bolt",
+    Internet: "wifi",
   };
 
-
-  const { primary, bg, secondary, text, dark } = useSelector(store => store.color)
+  const { primary, bg, secondary, text, dark } = useSelector(
+    (store) => store.color
+  );
 
   /* ======================= FUNCTIONS ========================== */
   const getSaldo = async () => {
@@ -183,63 +192,23 @@ const Home = ({ navigation }) => {
         </Text>
         <Text
           style={style.saldoBalance}
-          onPress={() => navigation.navigate("Balance")}
         >
           {saldo == 0 ? (
             <ActivityIndicator size="large" color={primary} />
           ) : saldo == null ? (
             <View
-              style={{
-                fontSize: 16,
-              }}
             >
-              <Text
-                style={{
-                  textAlign: "center",
-                  fontSize: 22,
-                  paddingVertical: 15,
-                  color: white,
-                }}
-              >
-                Bienvenido a MoonBank! 🤗
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: white,
-                }}
-              >
-                {" "}
-                Ups! No tenes $$$ ??
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: white,
-                }}
-              >
-                Recargá tu billetera
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: white,
-                }}
-                style={{
-                  textAlign: "center",
-                  color: white,
-                }}
-              >
-                O mejor aun!
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: white,
-                }}
-              >
-                Comparti tu CVU para recibir transferencias 😉
-              </Text>
+              <Text style={style.tituloBalanceCero}>$ 0 </Text>
+
+              <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                <Text onPress={() => navigation.navigate("Recargas")}
+                  style={{ fontSize: 12, fontWeight: "normal" }}
+                >
+
+                  Recargar
+                   </Text>
+
+              </View>
             </View>
           ) : (
                 `$ ${formatNumber(saldo)}`
@@ -297,7 +266,7 @@ const Home = ({ navigation }) => {
                           backgroundColor: primary,
                         }}
                         style={[
-                          { borderBottomColor: secondary },
+                          { borderBottomColor: dark ? "grey" : secondary },
                           style.listaContenedor,
                         ]}
                         onPress={() =>
@@ -314,14 +283,22 @@ const Home = ({ navigation }) => {
                             empresa: item.empresa,
                             sender: item.sender,
                             receiver: item.receiver,
+                            categoria: item.categoria
                           })
                         }
                       >
-                        {item.tipo == "Tsaliente" ? (
-                          <Icon name={iconList[item.tipo]} size={30} color="red" />
-                        ) : (
+                        {item.categoria == "Tsaliente" ||
+                          item.operacion == "compra" ||
+                          item.operacion == "servicios" ||
+                          item.operacion == "servicio" ? (
                             <Icon
-                              name={iconList[item.tipo]}
+                              name={iconList[item.categoria]}
+                              size={30}
+                              color="red"
+                            />
+                          ) : (
+                            <Icon
+                              name={iconList[item.categoria]}
                               size={30}
                               color="green"
                             />
@@ -333,7 +310,10 @@ const Home = ({ navigation }) => {
                           </ListItem.Subtitle>
                         </ListItem.Content>
                         <Text style={{ marginRight: 3 }}>
-                          {item.tipo == "Tsaliente"
+                          {item.categoria == "Tsaliente" ||
+                            item.operacion == "compra" ||
+                            item.operacion == "servicios" ||
+                            item.operacion == "servicio"
                             ? `- $ ${formatNumber(item.monto)}`
                             : `$ ${formatNumber(item.monto)}`}
                         </Text>
@@ -346,17 +326,14 @@ const Home = ({ navigation }) => {
                     );
                   }}
                 ></FlatList>
-                <Button
-                  buttonStyle={{
-                    marginBottom: 40,
-                    backgroundColor: secondary,
-                    borderRadius: 10,
-                    marginHorizontal: 75,
-                    color: primary,
-                  }}
-                  title="Ver todos los movimientos"
-                  onPress={() => navigation.navigate("Movimientos")}
-                />
+                <View style={[{ marginBottom: 20 }, styleBoton.container]}>
+                  <TouchableOpacity
+                    style={[{ backgroundColor: secondary, marginBottom: 25 }, styleBoton.boton]}
+                    onPress={() => navigation.navigate("Movimientos")}
+                  >
+                    <Text style={[{ color: text }, styleBoton.texto]}>Ver todos los Movimientos</Text>
+                  </TouchableOpacity>
+                </View>
               </ScrollView>
             )}
       </View>
