@@ -7,17 +7,20 @@ import MsjUser from "./MsjUser";
 import MsjFoto from "./MsjFoto";
 import { changeImage, validarChat } from "./FuncionesChat";
 import { useSelector } from "react-redux";
+import { auth } from "../../../firebase";
 
 const Prueba = () => {
   const [conversation, setConversation] = useState([]); //Listado de mensajes del usuario
   const [msj, setMsj] = useState(""); //Mensaje actual del usuario
   const alto= Dimensions.get('window').height*0.90;
 
+  const {user} = useSelector((store)=>store.user);
   const { bg, text, primary, secondary,dark } = useSelector((store) => store.color);
   const sendMsj = () => {
     if (msj) {
       const mensaje = msj.toLowerCase();
-      const respuesta = validarChat(mensaje);
+
+      const respuesta = validarChat(mensaje,user.name);
       setConversation([
         ...conversation,
         { msj: msj, res: respuesta, active: false },
@@ -25,6 +28,7 @@ const Prueba = () => {
       setMsj("");
     }
   };
+  
 
   return (
     <View style={styles.general,{backgroundColor:dark?'#000':bg,height:'100%'}}>
@@ -32,7 +36,7 @@ const Prueba = () => {
         <ScrollView style={styles.scroll}>
           <View style={styles.contBot}>
             <Text style={styles.msjBot}>
-              Hola. ¿En qué te podemos ayudar hoy?
+              Hola. {user.name} ¿En qué te podemos ayudar hoy?
             </Text>
           </View>
 
