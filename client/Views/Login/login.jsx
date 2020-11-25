@@ -36,11 +36,6 @@ const Login = ({ navigation }) => {
   const security = useState("");
   const {password,email}=text;
 
-  useEffect(() => {
-    //AuthWithFinger()
-    console.log(user)
-  }, [])
-
   const handleChange = async (name, value) => {
     // const permisosFinger = await Permissions.askAsync(Permissions.USE_FINGERPRINT);
     // const permisosBio = await Permissions.askAsync(Permissions.USE_BIOMETRIC);

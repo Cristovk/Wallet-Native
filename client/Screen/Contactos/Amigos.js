@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,10 +10,11 @@ import {
 } from "react-native";
 import { ListItem, Avatar, Icon } from "react-native-elements";
 import { useSelector, useDispatch } from "react-redux";
-
+import profileImage from "../../Components/stack/profileImage";
 const Amigos = ({ navigation }) => {
   const user = useSelector((store) => store.user.user);
   const contactos = useSelector((store) => store.contacts);
+  const [contacts, setContacts] = useState([]);
   const { text, bg, dark, primary, secondary } = useSelector(
     (store) => store.color
   );
@@ -31,6 +32,9 @@ const Amigos = ({ navigation }) => {
   //   await dispatch(addContact(id))
   //   await dispatch(getContacts(id))
   // };
+  useEffect(() => {
+    setContacts(contactos);
+  }, []);
 
   const requestMoney = async (phone) => {
     // await Linking.openURL("sms:+5493517733375?body=otro");
@@ -48,20 +52,18 @@ const Amigos = ({ navigation }) => {
           backgroundColor: primary,
           marginBottom: -15,
         }}
-      >
-        
-      </View>
+      ></View>
       <View style={{ backgroundColor: primary, height: "100%" }}>
         <ScrollView>
-          {contactos[0] &&
-            contactos.map((l, i) => {
+          {contacts[0] &&
+            contacts.map((l, i) => {
               return (
                 <ListItem
                   key={i}
                   bottomDivider
                   containerStyle={{ backgroundColor: primary }}
                 >
-                  <Avatar rounded source={{ uri: l.imagen }} />
+                  <Avatar rounded source={{ uri: l.imagen || profileImage }} />
                   <ListItem.Content>
                     <ListItem.Title
                       style={{ color: !dark ? text : "black", fontSize: 20 }}

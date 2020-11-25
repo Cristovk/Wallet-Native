@@ -36,7 +36,7 @@ const Huella = ({ navigation }) => {
     if (login.success) {
       setCandado("unlocked");
       setTimeout(() => {
-        navigation.navigate("HomeDrawer");
+        navigation.navigate("HomeDrawer", { status: true });
       }, 1000);
       setTimeout(() => {
         setCandado("locked");
