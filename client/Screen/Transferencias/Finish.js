@@ -20,6 +20,7 @@ const Finish = ({ navigation, route }) => {
   });
   const dispatch = useDispatch();
   const movements = useSelector((store) => store.movementsReducer);
+  const {text, primary, secondary, dark, bg} = useSelector(store => store.color)
   const user = useSelector((store) => store.user.user);
   const [checked, setChecked] = useState(false);
   useEffect(() => {
@@ -56,18 +57,35 @@ const Finish = ({ navigation, route }) => {
     });
   };
 
+  function formatNumber(num) {
+    let number =
+      num && num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    return number;
+  }
+  
   return (
-    <View>
+    <View style={{backgroundColor: bg, height:"100%"}}>
+      <View style={{ backgroundColor: bg, height: 170,
+                    justifyContent: "center",
+                    alignItems: "center" }}>
+        <Text style={[{ color: primary}, style.tituloSaldo]}>Tu saldo:</Text>
+        <Text style={[{ color: primary}, style.saldo]}>${formatNumber(movements.saldo === null ? 0 : movements.saldo)}</Text>
+      </View>
+    <View style={{ height: 50, borderRadius: 10, backgroundColor: primary, marginBottom: -15 }} >
+
+      </View>
+      <View style={{backgroundColor: primary, height:"100%"}}>
       <View>
         <View style={style.monto}>
-          <Text h4 style={style.text}>
-            Monto
+          <Text style={[style.text, {color: bg}]}>
+            Monto a enviar:
           </Text>
         </View>
+        
         <TextInput
           placeholder="$0"
           keyboardType="numeric"
-          style={style.input}
+          style={[style.input, {borderBottomColor: bg}]}
           onChangeText={(data) =>
             setTransferencia(
               { ...transferencia, amount: data },
@@ -78,13 +96,15 @@ const Finish = ({ navigation, route }) => {
       </View>
       <View>
         <View style={style.monto}>
-          <Text h4 style={style.text}>
-            Motivo
+          <Text style={[style.text, {color: bg}]}>
+            Motivo:
           </Text>
         </View>
         <TextInput
-          placeholder="Enviando desde Moonbank"
-          style={style.input1}
+          placeholder="Te envio este dinero porque..."
+          style={[style.input1, {borderBottomColor: bg}]}
+          multiline = {true}
+          numberOfLines= {2}
           onChangeText={(data) =>
             setTransferencia({ ...transferencia, motivo: data })
           }
@@ -100,25 +120,32 @@ const Finish = ({ navigation, route }) => {
       <View style={style.che}>
         <CheckBox
           center
-          title="Notificar por sms"
-          checkedIcon="dot-circle-o"
-          uncheckedIcon="circle-o"
-          checked={checked}
+          title='Quiero notificar por sms a mi amigo'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          checked={checked} 
+          containerStyle={{backgroundColor: primary, borderColor: primary}}
           onPress={() => setChecked(!checked)}
         />
         <View style={[style.botonContainer, { marginBottom: 15 }]}>
           <TouchableOpacity
-            style={style.boton}
+            style={[{
+              backgroundColor:secondary,
+              color: primary,
+            }, style.boton]}
             onPress={() => {
               handleSubmit();
             }}
             disabled={transferencia.amount.length <= 0 ? true : false}
           >
-            <Text style={{ fontWeight: "bold", fontSize: 15 }}>Enviar</Text>
+            <Text style={{ fontWeight: "bold", fontSize: 15, color: text}}>Enviar</Text>
+           
           </TouchableOpacity>
+          
         </View>
       </View>
     </View>
+      </View>
   );
 };
 

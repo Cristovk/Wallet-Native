@@ -101,8 +101,8 @@ export function MyStack(props) {
       <Stack.Screen name="Pin" component={Pin} options={{ headerShown: false }} />
       <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
-      <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />
-      <Stack.Screen name="SignUp2" component={SignUp2} options={{ title: "Registro" }} />
+      <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} /> 
+      <Stack.Screen name="SignUp2" component={SignUp2} options={{ title: "Registro" }} /> 
       <Stack.Screen name="Verify" component={Verify} />
       <Stack.Screen name="ResetPaswword" component={ResetPaswword} options={{ title: "Resetear Password" }} />
     </Stack.Navigator>
@@ -177,7 +177,7 @@ function HomeScreen({ userLog, user, status }) {
       <HomeScreenStack.Screen name='Detalle' component={Detalle} options={{ title: 'Detalle de la transaccion' }} />
       <HomeScreenStack.Screen name='Recargas' component={Recargas} options={{ title: 'Recargar' }} />
       <HomeScreenStack.Screen name='confirmOrError' component={confirmOrError} options={{ title: 'Receptor' }} />
-      <HomeScreenStack.Screen name='postScreen' component={postScreen} options={{ headerLeft: null, title: "Transferencia completada" }} />
+      <HomeScreenStack.Screen name='postScreen' component={postScreen} options={{ headerLeft: null, title: null }} />
       <HomeScreenStack.Screen name='Finish' component={Finish} options={{ title: 'Monto' }} />
       <HomeScreenStack.Screen name='PagoServicios' component={PagoServicios} options={{ title: 'Confirmar Pago' }} />
       <HomeScreenStack.Screen name='PagoConfirm' component={PagoConfirm} options={({ navigation }) => ({
