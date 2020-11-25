@@ -145,6 +145,18 @@ export const detalle = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,c
       </ListItem.Content>
       <Text>{estado}</Text>
     </ListItem>
+    <ListItem
+      containerStyle={{
+        backgroundColor: primary,
+        borderBottomColor: dark ? "grey" : secondary,
+        borderBottomWidth: 1,
+      }}
+    >
+      <ListItem.Content>
+        <ListItem.Title>{"Motivo"}</ListItem.Title>
+      </ListItem.Content>
+      <Text>{motivo}</Text>
+    </ListItem>
    <ListItem
       containerStyle={{
         backgroundColor: primary,
