@@ -90,17 +90,17 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
         </ListItem>
       </View>
       <View>
-        <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }}
-          onPress={() => navigation.navigate('HomeScreen', { screen: 'Tarjetas' })}>
+      <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }}
+          onPress={() => navigation.navigate('HomeScreen', { screen: 'MoonCard' })}>
           <Icon name='credit-card' type='fontisto' color={dark ? text : bg} />
           <ListItem.Content>
-            <ListItem.Title style={{ color: dark ? text : bg }}>Tarjetas</ListItem.Title>
+            <ListItem.Title style={{ color: dark ? text : bg  }}>MoonCard</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
         <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }}
           onPress={() => navigation.navigate('HomeScreen', { screen: 'Balance' })} >
-          <Icon name='bar-chart' type='fontisto' color={dark ? text : bg} />
+          <Icon name='area-chart' type='fontisto' color={dark ? text : bg} />
           <ListItem.Content>
             <ListItem.Title style={{ color: dark ? text : bg }}>Balance</ListItem.Title>
           </ListItem.Content>
@@ -111,6 +111,14 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
           <Icon name='list-2' type='fontisto' color={dark ? text : bg} />
           <ListItem.Content>
             <ListItem.Title style={{ color: dark ? text : bg }}>Movimientos</ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
+        <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }}
+          onPress={() => navigation.navigate('HomeScreen', { screen: 'Tarjetas' })}>
+          <Icon name='wallet' type='fontisto' color={dark ? text : bg} />
+          <ListItem.Content>
+            <ListItem.Title style={{color: dark ? text : bg }}>Tarjetas</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>

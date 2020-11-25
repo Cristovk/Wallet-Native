@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert, ScrollView, Clipboard } from 'react-native';
 import Lapiz from './Lapiz';
 import styles from './estilosFormulario';
 import styles2 from './estilosPerfil';
@@ -17,6 +17,11 @@ const Formulario = ({ data, updateUser, navigation, color }) => {
   const { name, phone, dni, cuil, lastName, imagen, cvu, email } = data;
   //State que guarda los datos del usuario editado.
   const [datos, setDatos] = useState({ name, phone, dni, cuil, lastName, imagen });
+
+  const copyToClipboard = () => {
+    Clipboard.setString(cvu);
+    Alert.alert("Copiado en tu papelera ;)")
+  };
 
   function handleSubmit() {
 
@@ -95,6 +100,13 @@ const Formulario = ({ data, updateUser, navigation, color }) => {
             <ListItem.Title>CVU: </ListItem.Title>
             <ListItem.Subtitle>{cvu}</ListItem.Subtitle>
           </ListItem.Content>
+          <Icon
+            size={16}
+            name='copy'
+            type='fontisto'
+            color={dark ? bg : secondary}
+            onPress={copyToClipboard}
+          />
         </ListItem>
         <ListItem
           containerStyle={{ backgroundColor: primary, borderBottomColor: dark ? "gray" : secondary, borderBottomWidth: 1 }}
