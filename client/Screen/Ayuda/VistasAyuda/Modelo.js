@@ -15,13 +15,13 @@ const Modelo = ({ change, titulo, texto, volver, hide }) => {
     <View style={[styles.general, { backgroundColor: bg }]}>
       <Text style={{ backgroundColor: bg, flexDirection: "row", justifyContent: "center", alignItems: "center" }} onPress={() => change('')}>
         <View style={styles.volver}  >
-          <Text style={[styles.subtitulo, { color: primary }]} >{volver}</Text>
+           <Text style={[styles.subtitulo, { color: primary }]} >{volver}</Text> 
         </View>
       </Text>
       <View style={[styles.menu, { backgroundColor: primary, height: '100%' }]}>
-        <Text style={styles.titulo}>{titulo}</Text>
+         {/* <Text style={styles.titulo}>{titulo}</Text>  */}
         <Text style={styles.parrafo}>{texto}</Text>
-        <View style={[{ height: heightPercentageToDP("55%") }, styleBoton.botonContainer]}>
+        <View style={[{ height: heightPercentageToDP("55%"),top:-80 }, styleBoton.botonContainer]}>
           <TouchableOpacity
             style={[{ backgroundColor: secondary }, styleBoton.boton]}
             onPress={() => { change(''); hide() }}
