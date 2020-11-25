@@ -1,18 +1,11 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { ListItem, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useSelector } from "react-redux";
 import { generateInvoice, detalle } from "./utils";
-import styleView from "../../Global-Styles/ViewContainer";
-import {
-  widthPercentageToDP,
-  heightPercentageToDP,
-} from "react-native-responsive-screen";
-import { ScrollView } from "react-native-gesture-handler";
+import { heightPercentageToDP } from "react-native-responsive-screen";
 import { TouchableOpacity } from "react-native";
 import styleBoton from "../../Global-Styles/BotonGrande";
-import { color } from "react-native-reanimated";
 
 const DetalleDeTransaccion = ({ route, navigation }) => {
   const { primary, secondary, bg, text, dark } = useSelector(
@@ -71,7 +64,6 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <View>
             <Icon name={iconList[categoria]} size={50} color={primary} />
           </View>
-
           <View style={{ marginTop: 20 }}>
             <Text style={{ color: primary, fontSize: 20 }}>
               {operacion === "transferencia"
