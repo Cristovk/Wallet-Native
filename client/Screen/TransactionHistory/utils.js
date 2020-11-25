@@ -76,7 +76,7 @@ export const detalle = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,c
       <ListItem.Content>
         <ListItem.Title>{categoria=== "recarga" ? "Lugar de recarga" : "Tarjeta"}</ListItem.Title>
       </ListItem.Content>
-      <Text>{empresa+" "+card}</Text>
+      <Text>{categoria=== "recarga" ? empresa :empresa+" "+card}</Text>
     </ListItem> 
       <ListItem
         containerStyle={{
