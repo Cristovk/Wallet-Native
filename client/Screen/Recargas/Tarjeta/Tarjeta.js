@@ -117,23 +117,54 @@ const Tarjeta = (props) => {
           ></FlatList>
         )}
       </View>
-      <View>
+      <View style={{height: 500}}>
         <Modal
           visible={questionModal}
           animationType="fade"
+          transparent={true}
           ModalComponent={Modal}
-        >
+        > 
+         <View style={{flex: 1, justifyContent:"center", alignItems: "center",marginTop:30}}>
+        <View style={{
+    backgroundColor: primary,
+    height: "55%",
+    margin:20,
+    borderRadius: 20,
+    borderColor: "black",
+    borderWidth: 1, 
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width:0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  }}> 
+  <Icon name="credit-card" type="fontisto" color="green" size={40} />
           <Text style={[style.title, { marginVertical: 30 }]}>
             {`El monto a recargar será debitado de su tarjeta ${
               cardType
                 ? cardType[0].toUpperCase() + cardType.substring(1)
                 : null
-            } número ${cardNumber}`}
+            } número`}
+          </Text>
+          <Text style={{fontSize:24, fontWeight: "bold"}}>
+            {cardNumber}
           </Text>
           <TextInput
             textAlign="center"
-            placeholder="$ 1,000,000"
-            style={{ marginHorizontal: 35 }}
+            placeholder="Ingrese Monto"
+            style={{ maxHeight: 40, 
+              width: 200, 
+              fontSize:20, 
+              alignItems:"center",
+               backgroundColor: primary, 
+               borderBottomColor: bg, 
+               borderBottomWidth: 1,
+              marginTop:30 }}
             onChangeText={($) => setMonto($)}
             keyboardType="numeric"
           />
@@ -141,13 +172,15 @@ const Tarjeta = (props) => {
             <Button
               onPress={() => sendData()}
               title="Recargar"
-              buttonStyle={style.orangeButton}
+              buttonStyle={style.blueButton}
             />
             <Button
               onPress={() => setQuestionModal(!questionModal)}
               title="Volver"
-              buttonStyle={style.darkBlueButton}
+              buttonStyle={style.blueButton}
             />
+            </View>
+            </View>
           </View>
         </Modal>
       </View>
