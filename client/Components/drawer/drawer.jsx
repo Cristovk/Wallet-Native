@@ -66,9 +66,9 @@ export function CustomDrawerContent({ navigation, text, bg, primary, secondary, 
   const setApp = route.params.darker
   const handleLogOut = () => {
     cerrar();
-    // setTimeout(() => {
-    //   navigation.navigate("Splash", { usuario2: false });
-    // }, 3000);
+    setTimeout(() => {
+      navigation.navigate("Splash", { usuario2: false });
+    }, 3000);
   }
 
 

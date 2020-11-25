@@ -40,8 +40,9 @@ const Pin = ({ navigation }) => {
     } else if (!clave.pin4) {
       pin4.current.focus()
     } else if (clave.pin4) {
-      ingresar()
       pin4.current.blur()
+      ingresar()
+
 
 
     }
@@ -68,6 +69,7 @@ const Pin = ({ navigation }) => {
       setTimeout(() => { navigation.navigate('HomeDrawer'); }, 2000);
       setTimeout(() => { setCandado("locked"); setClave(""); }, 2000);
     } else {
+      setClave("")
       Alert.alert('Pin incorrecto, Intente nuevamente')
       alert('Pin incorrecto, Intente nuevamente')
     }
