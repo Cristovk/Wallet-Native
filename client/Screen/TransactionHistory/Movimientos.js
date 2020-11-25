@@ -165,22 +165,13 @@ const Movimientos = ({ navigation }) => {
                           })
                         }
                       >
-                        {item.categoria == "Tsaliente" ||
-                          item.operacion == "compra" ||
-                          item.operacion == "servicios" ||
-                          item.operacion == "servicio" ? (
-                            <Icon
+                        
+                         <Icon
                               name={iconList[item.categoria]}
                               size={30}
                               color="red"
                             />
-                          ) : (
-                            <Icon
-                              name={iconList[item.categoria]}
-                              size={30}
-                              color="green"
-                            />
-                          )}
+
                         <ListItem.Content>
                           <ListItem.Title>
                             {item.categoria[0].toUpperCase() +
@@ -193,8 +184,7 @@ const Movimientos = ({ navigation }) => {
                         <Text style={{ marginRight: 3 }}>
                           {item.categoria == "Tsaliente" ||
                             item.operacion == "compra" ||
-                            item.operacion == "servicios" ||
-                            item.operacion == "servicio"
+                            item.operacion == "servicios"
                             ? `- $ ${formatNumber(item.monto)}`
                             : `$ ${formatNumber(item.monto)}`}
                         </Text>
