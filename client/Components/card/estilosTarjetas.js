@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    marginHorizontal: 35,
+    marginHorizontal: 25,
     textAlign: "center",
   },
   button: {
@@ -42,9 +42,9 @@ export const styles = StyleSheet.create({
   },
   rowButtons: {
     flexDirection: "row",
-    paddingVertical: 15,
-    justifyContent: "space-evenly",
-    borderTopColor: darkBlue,
+    marginTop: 50,
+    justifyContent: "space-between",
+    
   },
 });
 export const estilos = StyleSheet.create({

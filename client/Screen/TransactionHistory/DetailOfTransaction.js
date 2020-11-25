@@ -33,7 +33,6 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     desde,
     card
   } = route.params;
-  console.log(route.params)
   const iconList = {
     panaderia: "cookie",
     almacen: "shopping-basket",
@@ -76,7 +75,6 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           
           <View style={{ marginTop: 20 }}>
                 <Text style={{ color: primary, fontSize: 20 }}>{
-                  console.log(operacion),
                 operacion === "transferencia" ?(categoria === "Tentrante" ? `${sender} te envió` : `Le enviaste a ${receiver}`):
                 operacion === "recarga" ?(categoria === "recarga" ? `Recargaste en ${empresa}` : `Recargaste usando ${empresa}`):
                 operacion === "servicio" ? (`Pagaste a ${empresa}`) :

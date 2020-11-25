@@ -175,7 +175,7 @@ function HomeScreen({ userLog, user, status }) {
       <HomeScreenStack.Screen name='Configuracion' component={Configuracion} options={{ title: 'Ajustes' }} />
       <HomeScreenStack.Screen name='Ayuda' component={Ayuda} options={{ title: 'Soporte y Atención' }} />
       <HomeScreenStack.Screen name='Balance' component={Balance} options={{ title: 'Mi Balance' }} />
-      <HomeScreenStack.Screen name='MoonCard' component={MoonCard} options={{ title: null }} />
+      <HomeScreenStack.Screen name='MoonCard' component={MoonCard} options={{ title: "MoonCard" }} />
       <HomeScreenStack.Screen name='Detalle' component={Detalle} options={{ title: 'Detalle de la transaccion' }} />
       <HomeScreenStack.Screen name='Recargas' component={Recargas} options={{ title: 'Recargar' }} />
       <HomeScreenStack.Screen name='confirmOrError' component={confirmOrError} options={{ title: 'Receptor' }} />

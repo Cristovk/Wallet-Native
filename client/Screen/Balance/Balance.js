@@ -120,8 +120,14 @@ const Balance = ({ navigation }) => {
       };
     }
   }, [selectedIndex, balance]);
+ 
 
-
+  const seleccionado={fontSize:19,
+                      color:"#1C2383",
+                      textDecorationLine: "underline"}
+  const noSeleccionado={fontSize:14,
+                    color:"black"}
+  
   const chartConfig = {
     //configuracion para el grafico
     backgroundGradientFrom: primary,
@@ -176,7 +182,8 @@ const Balance = ({ navigation }) => {
             chartConfig={chartConfig}
           ></LineChart>
         </View>
-        <View >
+        <View style={{flexDirection:"row", justifyContent: "center"}}>
+          <Text  style={!balance? seleccionado : noSeleccionado}>Ingresos y Gastos</Text>
           <Switch
             trackColor={{ false: secondary, true: bg }}
             thumbColor={secondary}
@@ -185,6 +192,7 @@ const Balance = ({ navigation }) => {
               setBalance(!balance);
             }}
           />
+          <Text style={balance? seleccionado : noSeleccionado}>Balance General</Text>
         </View>
         <View style={style.contenedor}>
           <View style={[{ borderColor: bg }, style.ingresoCont]}>
