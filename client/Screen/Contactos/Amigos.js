@@ -49,17 +49,7 @@ const Amigos = ({ navigation }) => {
           marginBottom: -15,
         }}
       >
-        <View
-          style={{
-            alignSelf: "center",
-            width: 200,
-            borderStyle: "solid",
-            borderColor: bg,
-            borderWidth: 3,
-            marginTop: 10,
-            borderRadius: 5,
-          }}
-        ></View>
+        
       </View>
       <View style={{ backgroundColor: primary, height: "100%" }}>
         <ScrollView>

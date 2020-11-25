@@ -35,7 +35,7 @@ const style = StyleSheet.create({
     textDecorationLine: "underline",
   },
   ingresoCont: {
-    borderRadius: 5,
+    borderRadius: 10,
     borderWidth: 1,
     height: 90,
     width: 150,
