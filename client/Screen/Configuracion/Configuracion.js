@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, Switch } from "react-native";
+import { View, Text, ScrollView, Switch, TouchableOpacity } from "react-native";
 import styles from "./EstilosConfiguracion";
 import { Icon } from "react-native-elements";
 import Clave from "./Clave/Clave";
@@ -156,13 +156,16 @@ const Configuracion = ({ navigation, route }) => {
             </View>
 
             <View style={[dark ? styles.contIconoDark : styles.contIcono, styles.flecha]} >
-              <Icon
-                size={14}
-                name="chevron-right"
-                type="font-awesome"
-                color={iconColor}
+              <TouchableOpacity
                 onPress={() => setPasswordChange(true)}
-              />
+              >
+                <Icon
+                  size={14}
+                  name="chevron-right"
+                  type="font-awesome"
+                  color={iconColor}
+                />
+              </TouchableOpacity>
             </View>
 
 
@@ -185,13 +188,17 @@ const Configuracion = ({ navigation, route }) => {
               </View>
             </View>
             <View style={[dark ? styles.contIconoDark : styles.contIcono, styles.flecha]} >
-              <Icon
-                size={14}
-                name="chevron-right"
-                type="font-awesome"
-                color={iconColor}
+              <TouchableOpacity
                 onPress={() => setEmailChange(true)}
-              />
+              >
+                <Icon
+                  size={14}
+                  name="chevron-right"
+                  type="font-awesome"
+                  color={iconColor}
+                />
+
+              </TouchableOpacity>
             </View>
           </View>
 
@@ -235,13 +242,19 @@ const Configuracion = ({ navigation, route }) => {
               </View>
             </View>
             <View style={[dark ? styles.contIconoDark : styles.contIcono, styles.flecha]} >
-              <Icon
-                size={14}
-                name="chevron-right"
-                type="font-awesome"
-                color={iconColor}
+              <TouchableOpacity
                 onPress={() => setDeleteUser(true)}
-              />
+
+              >
+                <Icon
+                  size={14}
+                  name="chevron-right"
+                  type="font-awesome"
+                  color={iconColor}
+                  onPress={() => setDeleteUser(true)}
+                />
+
+              </TouchableOpacity>
             </View>
           </View>
         </View>

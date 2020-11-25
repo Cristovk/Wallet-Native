@@ -145,16 +145,15 @@ const PagoServicios = ({ navigation, route }) => {
             </Text>
           </View>
         ) : null}
-        <View style={styleBoton.container}>
+        <View
+          style={[
+            { top: heightPercentageToDP("55%"), position: "absolute" },
+            styleBoton.container,
+          ]}
+        >
           <TouchableOpacity
-            onPress={() => handleSubmit()}
-            style={[
-              {
-                backgroundColor: secondary,
-                top: heightPercentageToDP("55%"),
-              },
-              styleBoton.boton,
-            ]}
+            style={[{ backgroundColor: secondary }, styleBoton.boton]}
+            onPress={handleSubmit}
           >
             <Text style={[{ color: text }, styleBoton.texto]}>
               Pagar Servicio

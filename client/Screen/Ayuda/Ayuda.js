@@ -73,14 +73,14 @@ const Ayuda = ({ navigation }) => {
           ]}
         >
           <Text style={styles.textoItem}>Seguridad e ingreso</Text>
-
-          <Icon
-            size={14}
-            name={!administrar ? "chevron-right" : "chevron-down"}
-            type="font-awesome"
-            color={dark ? "grey" : secondary}
-            onPress={() => showItems("administrar")}
-          />
+          <TouchableOpacity onPress={() => showItems("administrar")}>
+            <Icon
+              size={16}
+              name={!administrar ? "chevron-right" : "chevron-down"}
+              type="font-awesome"
+              color={dark ? "grey" : secondary}
+            />
+          </TouchableOpacity>
         </View>
 
         {administrar && (
@@ -114,13 +114,14 @@ const Ayuda = ({ navigation }) => {
           ]}
         >
           <Text style={styles.textoItem}>Tarjeta MoonBank</Text>
-          <Icon
-            size={14}
-            name={!tarjeta ? "chevron-right" : "chevron-down"}
-            type="font-awesome"
-            color={dark ? "grey" : secondary}
-            onPress={() => showItems("tarjeta")}
-          />
+          <TouchableOpacity onPress={() => showItems("tarjeta")}>
+            <Icon
+              size={16}
+              name={!tarjeta ? "chevron-right" : "chevron-down"}
+              type="font-awesome"
+              color={dark ? "grey" : secondary}
+            />
+          </TouchableOpacity>
         </View>
 
         {/* {tarjeta && (
@@ -137,13 +138,14 @@ const Ayuda = ({ navigation }) => {
           ]}
         >
           <Text style={styles.textoItem}>Mis datos</Text>
-          <Icon
-            size={14}
-            name={!editar ? "chevron-right" : "chevron-down"}
-            type="font-awesome"
-            color={dark ? "grey" : secondary}
-            onPress={() => showItems("editar")}
-          />
+          <TouchableOpacity onPress={() => showItems("editar")}>
+            <Icon
+              size={16}
+              name={!editar ? "chevron-right" : "chevron-down"}
+              type="font-awesome"
+              color={dark ? "grey" : secondary}
+            />
+          </TouchableOpacity>
         </View>
         {editar && (
           <View>
@@ -168,14 +170,14 @@ const Ayuda = ({ navigation }) => {
           ]}
         >
           <Text style={styles.textoItem}>Transferir</Text>
-
-          <Icon
-            size={14}
-            name={!transferir ? "chevron-right" : "chevron-down"}
-            type="font-awesome"
-            color={dark ? "grey" : secondary}
-            onPress={() => showItems("transferir")}
-          />
+          <TouchableOpacity onPress={() => showItems("transferir")}>
+            <Icon
+              size={16}
+              name={!transferir ? "chevron-right" : "chevron-down"}
+              type="font-awesome"
+              color={dark ? "grey" : secondary}
+            />
+          </TouchableOpacity>
         </View>
 
         {transferir && (
@@ -209,14 +211,14 @@ const Ayuda = ({ navigation }) => {
           ]}
         >
           <Text style={styles.textoItem}>Pagar</Text>
-
-          <Icon
-            size={14}
-            name={!pagar ? "chevron-right" : "chevron-down"}
-            type="font-awesome"
-            color={dark ? "grey" : secondary}
-            onPress={() => showItems("pagar")}
-          />
+          <TouchableOpacity onPress={() => showItems("pagar")}>
+            <Icon
+              size={16}
+              name={!pagar ? "chevron-right" : "chevron-down"}
+              type="font-awesome"
+              color={dark ? "grey" : secondary}
+            />
+          </TouchableOpacity>
         </View>
         {pagar && (
           <View>
@@ -249,14 +251,14 @@ const Ayuda = ({ navigation }) => {
           ]}
         >
           <Text style={styles.textoItem}>Recargas</Text>
-
-          <Icon
-            size={14}
-            name={!recargar ? "chevron-right" : "chevron-down"}
-            type="font-awesome"
-            color={dark ? "grey" : secondary}
-            onPress={() => showItems("recargar")}
-          />
+          <TouchableOpacity onPress={() => showItems("recargar")}>
+            <Icon
+              size={14}
+              name={!recargar ? "chevron-right" : "chevron-down"}
+              type="font-awesome"
+              color={dark ? "grey" : secondary}
+            />
+          </TouchableOpacity>
         </View>
 
         {recargar && (
@@ -292,13 +294,41 @@ const Ayuda = ({ navigation }) => {
         >
           <TouchableOpacity
             onPress={() => navigation.navigate("Chat")}
-            style={[{ backgroundColor: secondary, top: 60 }, styleBoton.boton]}
+            style={[
+              { backgroundColor: secondary, top: 60 },
+              styleBoton.botonSinShadow,
+            ]}
           >
             <Text style={[{ color: text }, styleBoton.texto]}>
               Inicia chat de ayuda
             </Text>
           </TouchableOpacity>
         </View>
+
+        {currentview === "reconocimientoFacial" && (
+          <Modelo
+            change={setCurrentView}
+            volver="Reconocimiento facial"
+            titulo={datos.reconocimientoFacial.titulo}
+            texto={datos.reconocimientoFacial.texto}
+            hide={hideItems}
+            navigation={navigation}
+          />
+        )}
+
+        {currentview === "huella" && (
+          <Modelo
+            change={setCurrentView}
+            volver="Huella en transacciones"
+            titulo={datos.huella.titulo}
+            texto={datos.huella.texto}
+            hide={hideItems}
+            navigation={navigation}
+          />
+        )}
+
+        {/* {currentview === 'tarjeta' &&
+        <Tarjeta change={setCurrentView}  hide={hideItems} />} */}
 
         {currentview === "reconocimientoFacial" && (
           <Modelo
@@ -330,6 +360,7 @@ const Ayuda = ({ navigation }) => {
             titulo={datos.editarDatos.titulo}
             texto={datos.editarDatos.texto}
             hide={hideItems}
+            navigation={navigation}
           />
         )}
 
@@ -340,6 +371,7 @@ const Ayuda = ({ navigation }) => {
             titulo={datos.transferirConocido.titulo}
             texto={datos.transferirConocido.texto}
             hide={hideItems}
+            navigation={navigation}
           />
         )}
 
@@ -350,6 +382,7 @@ const Ayuda = ({ navigation }) => {
             titulo={datos.transferirDesconocido.titulo}
             texto={datos.transferirDesconocido.texto}
             hide={hideItems}
+            navigation={navigation}
           />
         )}
 
@@ -360,6 +393,7 @@ const Ayuda = ({ navigation }) => {
             titulo={datos.serviciosPublicos.titulo}
             texto={datos.serviciosPublicos.texto}
             hide={hideItems}
+            navigation={navigation}
           />
         )}
 
@@ -370,6 +404,7 @@ const Ayuda = ({ navigation }) => {
             titulo={datos.entretenimiento.titulo}
             texto={datos.entretenimiento.texto}
             hide={hideItems}
+            navigation={navigation}
           />
         )}
 
@@ -380,6 +415,7 @@ const Ayuda = ({ navigation }) => {
             titulo={datos.recargarEfectivo.titulo}
             texto={datos.recargarEfectivo.texto}
             hide={hideItems}
+            navigation={navigation}
           />
         )}
 
@@ -390,6 +426,7 @@ const Ayuda = ({ navigation }) => {
             titulo={datos.recargarTransferencia.titulo}
             texto={datos.recargarTransferencia.texto}
             hide={hideItems}
+            navigation={navigation}
           />
         )}
         {chat && <Chat />}

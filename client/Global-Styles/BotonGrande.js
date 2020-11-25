@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import {heightPercentageToDP} from "react-native-responsive-screen"
+import { heightPercentageToDP } from "react-native-responsive-screen"
 
 
 const style = StyleSheet.create({
@@ -8,7 +8,7 @@ const style = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    position: "absolute",
+    // position: "absolute",
     //  top: heightPercentageToDP("72%"),
   },
   boton: {
@@ -30,7 +30,22 @@ const style = StyleSheet.create({
   texto: {
     textAlign: "center",
     fontSize: 15
-  }
+  },
+  botonSinShadow: {
+    width: 170,
+    height: 45,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+
+  },
 })
 
 export default style;
