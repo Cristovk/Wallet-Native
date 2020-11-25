@@ -52,8 +52,6 @@ const Huella = ({ navigation }) => {
 
   const { primary, secondary, text, bg } = useSelector((store) => store.color);
 
-  const { primary, secondary, text, bg } = useSelector((store) => store.color);
-
   // const cerrar = async () => {
   //   await AsyncStorage.removeItem("Metodo")
   // }
