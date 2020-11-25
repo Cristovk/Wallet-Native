@@ -13,18 +13,19 @@ import {
   heightPercentageToDP,
 } from "react-native-responsive-screen";
 
-
 const PagoServicios = ({ navigation, route }) => {
   const { title, servicio } = route.params;
   const [loading, setLoading] = useState(false);
   const [precio, setPrecio] = useState("");
   const [errormoney, setErrorMoney] = useState(false);
-  const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
-  const [err, setErr] = useState(false)
+  const { primary, secondary, text, bg, dark } = useSelector(
+    (store) => store.color
+  );
+  const [err, setErr] = useState(false);
   const movements = useSelector((store) => store.movementsReducer);
   const handleSubmit = async () => {
     if (!precio) {
-      setErr(true)
+      setErr(true);
     } else {
       if (parseInt(precio) > parseInt(movements.saldo)) {
         setErrorMoney(true);
@@ -124,24 +125,32 @@ const PagoServicios = ({ navigation, route }) => {
                   placeholder="Monto"
                   keyboardType="numeric"
                   value={precio.amount}
-                  onChangeText={(data) => { setPrecio(data), setErrorMoney(false), setErr(false) }}
+                  onChangeText={(data) => {
+                    setPrecio(data), setErrorMoney(false), setErr(false);
+                  }}
                   style={{ width: 80 }}
                 />
               </View>
             </ListItem.Content>
           </ListItem>
         </View>
-        {err ? <View>
-          <Text style={{ color: "red" }}>Ingresa el monto a pagar</Text>
-        </View> :
-          errormoney ? (
-            <View>
-              <Text style={{ color: "red" }}>
-                No tienes suficiente saldo para completar la transacción
-          </Text>
-            </View>
-          ) : null}
-        <View style={[{ top: heightPercentageToDP("55%"), position: "absolute" }, styleBoton.container]}>
+        {err ? (
+          <View>
+            <Text style={{ color: "red" }}>Ingresa el monto a pagar</Text>
+          </View>
+        ) : errormoney ? (
+          <View>
+            <Text style={{ color: "red" }}>
+              No tienes suficiente saldo para completar la transacción
+            </Text>
+          </View>
+        ) : null}
+        <View
+          style={[
+            { top: heightPercentageToDP("55%"), position: "absolute" },
+            styleBoton.container,
+          ]}
+        >
           <TouchableOpacity
             style={[{ backgroundColor: secondary }, styleBoton.boton]}
             onPress={handleSubmit}
@@ -154,62 +163,89 @@ const PagoServicios = ({ navigation, route }) => {
       </View>
     </View>
   ) : (
-      <View style={{ backgroundColor: bg }}>
-        <View style={[{ backgroundColor: primary, marginTop: 25 }, viewStyle.container]} >
-          <View style={{ marginTop: 25 }}>
-            <ListItem
-              containerStyle={{ backgroundColor: primary }}
-              style={[{ borderBottomColor: dark ? "grey" : secondary }, style.lista]}>
-              <ListItem.Chevron
-                color={dark ? bg : secondary}
-              />
-              <ListItem.Content style={style.listaContenedor}>
-                <ListItem.Title>Servicio: </ListItem.Title>
-                <View style={{ width: widthPercentageToDP("25%"), alignItems: "flex-start", justifyContent: "flex-start" }}>
-                  <Text>{servicio}</Text>
-                </View>
-              </ListItem.Content>
-            </ListItem>
-            <ListItem
-              containerStyle={{ backgroundColor: primary }}
-              style={[{ borderBottomColor: dark ? "grey" : secondary }, style.lista]}>
-              <ListItem.Chevron
-                color={dark ? bg : secondary}
-              />
-              <ListItem.Content style={style.listaContenedor}>
-                <ListItem.Title>Empresa:</ListItem.Title>
-                <View style={{ width: widthPercentageToDP("25%"), alignItems: "flex-start", justifyContent: "flex-start" }}>
-                  <Text >{title}</Text>
-                </View>
-              </ListItem.Content>
-            </ListItem>
-            <ListItem
-              containerStyle={{ backgroundColor: primary }}
-              style={[{ borderBottomColor: dark ? "grey" : secondary }, style.lista]}>
-              <ListItem.Chevron
-                color={dark ? bg : secondary}
-              />
-              <ListItem.Content style={style.listaContenedor}>
-                <ListItem.Title
-
-                >Total a Pagar:</ListItem.Title>
-                <View style={{ width: widthPercentageToDP("25%"), alignItems: "flex-start", justifyContent: "flex-start" }}>
-                  <TextInput
-                    placeholder="Monto"
-                    value={precio.amount}
-                    onChangeText={(data) => setPrecio(data)}
-                    style={{ width: 80 }}
-                  />
-                </View>
-              </ListItem.Content>
-            </ListItem>
-          </View>
-          <View style={style.activityIndicator}>
-            <ActivityIndicator size="large" color={dark ? secondary : bg} />
-          </View>
+    <View style={{ backgroundColor: bg }}>
+      <View
+        style={[
+          { backgroundColor: primary, marginTop: 25 },
+          viewStyle.container,
+        ]}
+      >
+        <View style={{ marginTop: 25 }}>
+          <ListItem
+            containerStyle={{ backgroundColor: primary }}
+            style={[
+              { borderBottomColor: dark ? "grey" : secondary },
+              style.lista,
+            ]}
+          >
+            <ListItem.Chevron color={dark ? bg : secondary} />
+            <ListItem.Content style={style.listaContenedor}>
+              <ListItem.Title>Servicio: </ListItem.Title>
+              <View
+                style={{
+                  width: widthPercentageToDP("25%"),
+                  alignItems: "flex-start",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <Text>{servicio}</Text>
+              </View>
+            </ListItem.Content>
+          </ListItem>
+          <ListItem
+            containerStyle={{ backgroundColor: primary }}
+            style={[
+              { borderBottomColor: dark ? "grey" : secondary },
+              style.lista,
+            ]}
+          >
+            <ListItem.Chevron color={dark ? bg : secondary} />
+            <ListItem.Content style={style.listaContenedor}>
+              <ListItem.Title>Empresa:</ListItem.Title>
+              <View
+                style={{
+                  width: widthPercentageToDP("25%"),
+                  alignItems: "flex-start",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <Text>{title}</Text>
+              </View>
+            </ListItem.Content>
+          </ListItem>
+          <ListItem
+            containerStyle={{ backgroundColor: primary }}
+            style={[
+              { borderBottomColor: dark ? "grey" : secondary },
+              style.lista,
+            ]}
+          >
+            <ListItem.Chevron color={dark ? bg : secondary} />
+            <ListItem.Content style={style.listaContenedor}>
+              <ListItem.Title>Total a Pagar:</ListItem.Title>
+              <View
+                style={{
+                  width: widthPercentageToDP("25%"),
+                  alignItems: "flex-start",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <TextInput
+                  placeholder="Monto"
+                  value={precio.amount}
+                  onChangeText={(data) => setPrecio(data)}
+                  style={{ width: 80 }}
+                />
+              </View>
+            </ListItem.Content>
+          </ListItem>
+        </View>
+        <View style={style.activityIndicator}>
+          <ActivityIndicator size="large" color={dark ? secondary : bg} />
         </View>
       </View>
-    );
+    </View>
+  );
 };
 
 export default PagoServicios;
