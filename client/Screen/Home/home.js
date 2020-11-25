@@ -335,21 +335,21 @@ const Home = ({ navigation }) => {
                     );
                   }}
                 ></FlatList>
+                <View style={[{ marginBottom: 30 }, styleBoton.container]}>
+                  <TouchableOpacity
+                    style={[
+                      { backgroundColor: secondary, marginBottom: 25 },
+                      styleBoton.boton,
+                    ]}
+                    onPress={() => navigation.navigate("Movimientos")}
+                  >
+                    <Text style={[{ color: text }, styleBoton.texto]}>
+                      Ver todos los Movimientos
+                </Text>
+                  </TouchableOpacity>
+                </View>
               </ScrollView>
             )}
-        <View style={[{ marginBottom: 10 }, styleBoton.container]}>
-          <TouchableOpacity
-            style={[
-              { backgroundColor: secondary, marginBottom: 25 },
-              styleBoton.boton,
-            ]}
-            onPress={() => navigation.navigate("Movimientos")}
-          >
-            <Text style={[{ color: text }, styleBoton.texto]}>
-              Ver todos los Movimientos
-                </Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </View>
   );
