@@ -51,6 +51,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     Gas: "burn",
     Electricidad: "bolt",
     Internet: "wifi",
+    "recarga con tarjeta": "credit-card",
   };
   
   function formatNumber(num) {
