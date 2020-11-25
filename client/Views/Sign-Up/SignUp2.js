@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   Alert,
+  TouchableOpacity
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
@@ -159,6 +160,8 @@ const SignUp2 = ({ navigation }) => {
     setPin(Math.floor(Math.random() * (max - min + 1)) + min);
   }, []);
 
+  const iconColor='grey';
+  const placeholderColor='grey';
 
   return (
     <ScrollView>
@@ -166,8 +169,16 @@ const SignUp2 = ({ navigation }) => {
         <View style={styles.centered}>
           <Image
             style={[styles.icon]}
-            source={require("../../../assets/icon.png")}
+            source={require("../../../assets/sinfondo.png")}
           />
+        </View>
+
+
+        <View style={styles.formGroup}>
+          <View style={styles.subgroup}>
+
+        <View style={styles.contIcono}>
+            <Icon size={16} name="lock" type="font-awesome" color={iconColor} />
         </View>
         <Text style={styles.label}>Contraseña</Text>
         <TextInput
@@ -175,84 +186,131 @@ const SignUp2 = ({ navigation }) => {
           onChangeText={(text) => setPassword1(text)}
           value={password1}
           placeholder="********"
-          placeholderTextColor={grey}
+          placeholderTextColor={placeholderColor}
           textContentType="password"
           secureTextEntry={hide}
         />
+        </View>
+        </View>
+
+
+    
         {Err.shortPasswordErr ? (
           <Text style={styles.error}>{Err.shortPasswordErr}</Text>
         ) : null}
         {Err.notNumberPasswordErr ? (
           <Text style={styles.error}>{Err.notNumberPasswordErr}</Text>
         ) : null}
-        <View style={{ flexDirection: "row" }}>
-          <Text style={styles.label}>Repite la contraseña</Text>
-          <View
-            style={{
-              position: "absolute",
-              top: "220%",
-              left: "83%",
-              zIndex: 1,
-            }}
-          >
-            <Icon
-              size={16}
-              name={nameIcon}
-              type="font-awesome"
-              color="#02072f"
-              onPress={() => setHide(!hide)}
-            />
-          </View>
+
+       <View style={styles.formGroup}>
+          <View style={styles.subgroup}>
+
+        <View style={styles.contIcono}>
+            <Icon size={16} name="lock" type="font-awesome" color={iconColor} />
         </View>
+        <Text style={styles.label}>Repite la contraseña</Text>
         <TextInput
           style={[styles.inputs]}
           onChangeText={(text) => setPassword2(text)}
           value={password2}
           placeholder="********"
-          placeholderTextColor={grey}
+          placeholderTextColor={placeholderColor}
           textContentType="password"
           secureTextEntry={hide}
         />
-        {Err.matchPasswordErr ? (
-          <Text style={styles.error}>{Err.matchPasswordErr}</Text>
-        ) : null}
-        <Text style={styles.label}>Código de verificación</Text>
-        <View style={styles.pin}>
-          <Text style={styles.pinTexto}>{pin}</Text>
         </View>
-        <TextInput
-          style={[styles.inputs]}
-          onChangeText={(text) => setCode(text)}
-          value={code}
-          placeholder="Ingrese el codigo"
-          placeholderTextColor={grey}
-          textContentType="oneTimeCode"
-        />
-        {Err.codeErr ? <Text style={styles.error}>{Err.codeErr}</Text> : null}
-        <View>
-          <Text style={styles.label}>Clave de Aplicación</Text>
+        </View>
+
+
+        <View style={styles.formGroup}>
+          <View style={styles.subgroup}>
+
+        <View style={[styles.contIcono,{top:50}]}>
+            <Icon size={20} name="slack" type="fontisto" color={iconColor} />
+        </View>
+        <Text style={styles.label}>Código de verificación</Text>
           <TextInput
-            style={[styles.inputs]}
-            onChangeText={(text) => setClave(text)}
-            value={clave}
-            placeholder="Ingrese Clave"
-            placeholderTextColor={grey}
+            style={[styles.inputs,{paddingLeft:34,fontSize:26,width:120}]}
+            value={pin}
+            placeholderTextColor={placeholderColor}
             textContentType="oneTimeCode"
           />
         </View>
+        </View>
+
+
+        {/* <View style={styles.formGroup}>
+          <View style={styles.subgroup}>
+
+        <View style={styles.contIcono}>
+            <Icon size={16} name="slack" type="fontisto" color="#1c2383" />
+        </View>
+        <Text style={styles.label}>Código de verificación</Text>
+          <TextInput
+            style={[styles.inputs,{paddingLeft:24}]}
+            value={pin}
+            placeholderTextColor='#1c2383'
+            placeholderTextColor='grey'
+            textContentType="oneTimeCode"
+          />
+        </View>
+        </View> */}
+
+
+        <View style={styles.formGroup}>
+          <View style={styles.subgroup}>
+
+        <View style={styles.contIcono}>
+            <Icon size={16} name="slack" type="font-awesome" color={iconColor} />
+        </View>
+        <Text style={styles.label}>Ingrese el código</Text>
+          <TextInput
+            style={[styles.inputs,{paddingLeft:26}]}
+            onChangeText={(text) => setCode(text)}
+            value={code}
+            placeholder="-- -- -- --"
+            placeholderTextColor={placeholderColor}
+            textContentType="oneTimeCode"
+            keyboardType='numeric'
+          />
+        </View>
+        </View>
+
+        {Err.codeErr ? <Text style={styles.error}>{Err.codeErr}</Text> : null}
+
+        <View style={styles.formGroup}>
+          <View style={styles.subgroup}>
+
+        <View style={styles.contIcono}>
+            <Icon size={16} name="key" type="font-awesome" color={iconColor} />
+        </View>
+        <Text style={styles.label}>Clave de Aplicación</Text>
+          <TextInput
+            style={[styles.inputs,{paddingLeft:26}]}
+            onChangeText={(text) => setClave(text)}
+            value={clave}
+            placeholder="-- -- -- --"
+            placeholderTextColor={placeholderColor}
+            textContentType="oneTimeCode"
+          />
+        </View>
+        </View>
+
         {Err.claveErr ? <Text style={styles.error}>{Err.claveErr}</Text> : null}
+        
+
         <View style={[styles.button, styles.box]}>
-          <Button
-            title="Anterior"
-            color={orange}
-            onPress={() => navigation.navigate("SignUp1")}
-          />
+  
+          <TouchableOpacity style={[styles.btnEnviar,styles.siguiente]} onPress={() => handleOnPress()}>
+              <Text style={styles.textoBtn}>CREAR CUENTA</Text>
+            </TouchableOpacity>
+
           <View style={styles.separator}></View>
-          <Button
-            title="Crear Cuenta"
-            color={darkBlue}
-            onPress={() => handleOnPress()}
-          />
+         
+            <TouchableOpacity style={[styles.btnEnviar,styles.anterior]} onPress={() => navigation.navigate("SignUp1")}>
+              <Text style={styles.textoBtn}>ANTERIOR</Text>
+            </TouchableOpacity>
+    
         </View>
       </View>
     </ScrollView>
