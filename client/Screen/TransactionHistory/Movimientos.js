@@ -140,32 +140,34 @@ const Movimientos = ({ navigation }) => {
             </Text>
           </View>
         ) : (
-          <ScrollView style={{ maxHeight: windowHeight }}>
-            <FlatList
-              data={list}
-              keyExtractor={(mov) => mov.id}
-              style={{ marginVertical: 15 }}
-              renderItem={({ item }) => {
-                return (
-                  <ListItem
-                    key={item.id}
-                    onPress={() =>
-                      navigation.navigate("Detalle", {
-                        fecha: item.fecha,
-                        monto: item.monto,
-                        hacia: item.hacia,
-                        desde: item.desde,
-                        estado: item.estado,
-                        categoria: item.categoria,
-                        motivo: item.motivo,
-                        operacion: item.operacion,
-                        estado: item.estado,
-                        empresa: item.empresa,
-                        sender: item.sender,
-                        receiver: item.receiver,
-                      })
-                    }
-                  >
+              <ScrollView style={{ maxHeight: windowHeight }}>
+                <FlatList
+                  data={list}
+                  keyExtractor={(mov) => mov.id}
+                  style={{ marginVertical: 15 }}
+                  renderItem={({ item }) => {
+                    return (
+                      <ListItem
+                        key={item.id}
+                        onPress={() =>
+                          navigation.navigate("Detalle", {
+                            fecha: item.fecha,
+                            monto: item.monto,
+                            hacia: item.hacia,
+                            desde: item.desde,
+                            estado: item.estado,
+                            categoria: item.categoria,
+                            motivo: item.motivo,
+                            operacion: item.operacion,
+                            estado: item.estado,
+                            empresa: item.empresa,
+                            sender: item.sender,
+                            receiver: item.receiver,
+                            card: item.card
+                          })
+                        }
+                      >
+         
                     {item.categoria == "Tsaliente" ||
                     item.operacion == "compra" ||
                     item.operacion == "servicios" ||
