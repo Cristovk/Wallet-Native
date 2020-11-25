@@ -19,7 +19,7 @@ import { LogBox } from "react-native";
 
 /* =============================== STATES ============================== */
 const Tarjetas = (props) => {
-  LogBox.ignoreAllLogs();
+  // LogBox.ignoreAllLogs();
   const [cards, setCards] = useState([]);
   const [questionModal, setQuestionModal] = useState(false);
   const [deletedModal, setDeletedModal] = useState(false);

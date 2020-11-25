@@ -24,7 +24,7 @@ const Configuracion = (props) => {
         <View style={{ marginTop: 25 }}>
           <View>
             <View style={oscuro ? styles.tituloDark : styles.titulo}>
-              <Text style={styles.subtitulo}>Eliminar usuario</Text>
+              <Text style={[{ backgroundColor: oscuro ? grey : white }, styles.subtitulo]}>Eliminar usuario</Text>
             </View>
 
             <View style={oscuro ? styles.itemDatosDark : styles.itemDatos}>
@@ -105,13 +105,13 @@ const Configuracion = (props) => {
               </View>
             </View>
             <View style={botonStyle.botonContainer}>
-              <TouchableOpacity style={[{ backgroundColor: oscuro ? black : blue }, botonStyle.boton]}>
-                <Text style={[{ color: oscuro ? white : white }, botonStyle.texto]} onPress={() => setRemove(true)}>Eliminar usuario</Text>
+              <TouchableOpacity style={[{ backgroundColor: oscuro ? black : blue }, botonStyle.boton]} onPress={() => setRemove(true)}>
+                <Text style={[{ color: oscuro ? white : white }, botonStyle.texto]} >Eliminar usuario</Text>
               </TouchableOpacity>
             </View>
             <View style={botonStyle.botonContainer}>
-              <TouchableOpacity style={[{ backgroundColor: oscuro ? blue : grey }, botonStyle.boton]}>
-                <Text style={[{ color: oscuro ? white : black }, botonStyle.texto]} onPress={() => cambiar(false)}>Volver</Text>
+              <TouchableOpacity style={[{ backgroundColor: oscuro ? blue : grey }, botonStyle.boton]} onPress={() => cambiar(false)}>
+                <Text style={[{ color: oscuro ? white : black }, botonStyle.texto]}>Volver</Text>
               </TouchableOpacity>
             </View>
           </View>

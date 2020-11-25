@@ -92,7 +92,7 @@ export function MyStack(props) {
     // UsarHuella();
   }, [])
 
-  LogBox.ignoreAllLogs()
+  // LogBox.ignoreAllLogs()
   return (
     <Stack.Navigator>
       <Stack.Screen name="Splash" component={Splash} initialParams={props} options={{ headerShown: false }} />
@@ -102,8 +102,8 @@ export function MyStack(props) {
       <Stack.Screen name="Pin" component={Pin} options={{ headerShown: false }} />
       <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
-      <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} /> 
-      <Stack.Screen name="SignUp2" component={SignUp2} options={{ title: "Registro" }} /> 
+      <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />
+      <Stack.Screen name="SignUp2" component={SignUp2} options={{ title: "Registro" }} />
       <Stack.Screen name="Verify" component={Verify} />
       <Stack.Screen name="ResetPaswword" component={ResetPaswword} options={{ title: "Resetear Password" }} />
     </Stack.Navigator>
@@ -153,7 +153,7 @@ function HomeScreen({ userLog, user, status }) {
           >
             <Image
               source={{ uri: user.imagen || profileImage }}
-              style={{ width: 50, height: 50, borderRadius: 50, marginRight: 10 }}
+              style={{ width: 40, height: 40, borderRadius: 50, marginRight: 10, }}
             />
           </TouchableOpacity>
         )
