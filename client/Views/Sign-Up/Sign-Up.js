@@ -81,6 +81,7 @@ const SignUp = ({ navigation }) => {
     let emptyYear = "";
     let invalidYearFormat = "";
 
+    const existe = await emailValido();
 
     if (!name) {
       emptyName = "El campo Nombre(s) es necesario";
@@ -92,7 +93,9 @@ const SignUp = ({ navigation }) => {
       emptyEmail = "El campo Email es necesario";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       invalidEmailFormat = "Formato de email inválido o ya registrado";
-
+    } else if (existe) {
+      emailExist = "El email ya está registrado";
+    }
 
     
     if (!day) {
