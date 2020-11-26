@@ -23,6 +23,7 @@ const Pin = ({ navigation }) => {
   const [candado, setCandado] = useState("locked")
 
   const { primary, secondary, text, bg } = useSelector(store => store.color)
+  const claveRedux = useSelector(store => store.user.user.clave)
 
   useEffect(() => {
     if (!clave.pin1) {
@@ -36,23 +37,22 @@ const Pin = ({ navigation }) => {
     } else if (clave.pin4) {
       pin4.current.blur()
       ingresar()
-
-
-
     }
-    BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick);
-    return () => {
-      BackHandler.removeEventListener(
-        "hardwareBackPress",
-        handleBackButtonClick
-      );
-    };
-
   }, [clave])
 
-  const handleBackButtonClick = () => {
-    BackHandler.exitApp();
-  };
+  const ingresar = async () => {
+    let key = clave.pin1 + clave.pin2 + clave.pin3 + clave.pin4
+    console.log(claveRedux)
+    if (claveRedux == key) {
+      setCandado("unlocked")
+      setTimeout(() => { navigation.navigate('HomeDrawer'); }, 2000);
+      setTimeout(() => { setCandado("locked"); setClave(""); }, 2000);
+    } else {
+      setClave("")
+      Alert.alert('Pin incorrecto, Intente nuevamente')
+      alert('Pin incorrecto, Intente nuevamente')
+    }
+  }
 
 
 

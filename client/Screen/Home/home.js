@@ -25,6 +25,7 @@ import { auth, storage } from "../../../firebase";
 import styleBoton from '../../Global-Styles/BotonGrande'
 import { widthPercentageToDP, heightPercentageToDP } from "react-native-responsive-screen"
 import { darkBlue, orange, white } from "../../Global-Styles/colors";
+import { cambiateHdp } from "../../Redux/User";
 
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
@@ -178,6 +179,10 @@ const Home = ({ navigation }) => {
 
   const handleBackButtonClick = () => {
     BackHandler.exitApp();
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Splash' }],
+    });
   };
 
   /* ====================== RENDERING ========================== */

@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Image, TouchableOpacity, StyleSheet, LogBox, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { Icon } from 'react-native-elements'
-import db from '../../../firebase'
+import db,{auth, storage} from '../../../firebase'
 import { useSelector, useDispatch } from 'react-redux'
 import { connect } from 'react-redux'
 import { addContact, deleteAll } from '../../Redux/Contacts'
 import { profileImage } from './profileImage'
+import {cambiateHdp} from "../../Redux/User"
 
 
 // COMPONENTES
@@ -58,13 +59,58 @@ const HomeScreenStack = createStackNavigator()
 export function MyStack(props) {
 
   const [usuario, setUsuario] = useState(false)
-  const [huella, setHuella] = useState(false)
+  const [huella, setHuella] = useState("")
+  const [clave,setClave] = useState("")
+
+  const dispatch = useDispatch();
+
+  
+  const getUsuario = async () => {
+    const userId = await auth.currentUser.uid
+    try {
+      let ref = await storage
+        .collection("Users")
+        .onSnapshot((query) => {
+          var metodo;
+          var clave;
+          for (const user of query.docs) {
+            if(user.data().id === auth.currentUser.uid){
+              metodo = user.data().metodo;
+              clave = user.data().clave
+            }
+          }
+          metodo === "huella" ? setHuella(metodo) : "";
+          setClave(clave)
+        });
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
 
 
+  // useEffect(() => {
+  //   firebase.db.collection('users').onSnapshot(querySnapshot => {
+
+  //     const users = []
+
+  //     querySnapshot.docs.forEach(doc => {
+  //       const { name, email, phone } = doc.data() //Como necesito guardar esos datos, hago destructuring de la data.
+  //       users.push({ //Lo guardamos principalmente en este array nuevo que creamos.
+  //         id: doc.id, //Al no tener un id que nosotros hagamos, vamos a crear un id con doc.id. No es una función, es solo una propiedad.
+  //         name,
+  //         email,
+  //         phone
+  //       })
+  //     })
+  //     setUSers(users)
+  //   })
 
 
   useEffect(() => {
-    storageAsync();
+    dispatch(cambiateHdp(1))
+    getUsuario();
+    console.log("esto es clave en stack-----", clave)
+    console.log("esto es huella en stack-----", huella)
     // UsarHuella();
   }, [])
 
@@ -73,9 +119,11 @@ export function MyStack(props) {
     <Stack.Navigator>
       <Stack.Screen name="Splash" component={Splash} initialParams={props} options={{ headerShown: false }} />
       {/* <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} /> */}
+      {console.log("huella antes de la condicional",huella)}
+      <Stack.Screen name="Huella" component={Huella} options={{ headerShown: false }} /> 
+      <Stack.Screen name="Pin" component={Pin} options={{ headerShown: false }} /> 
       <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
-      <Stack.Screen name="Huella" component={Huella} options={{ headerShown: false }} />
-      <Stack.Screen name="Pin" component={Pin} options={{ headerShown: false }} />
+     
       <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />

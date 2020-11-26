@@ -23,7 +23,20 @@ const Configuracion = ({ navigation, route }) => {
   const [deleteuser, setDeleteUser] = useState(false);
   const iconColor = dark ? primary : secondary;
 
-
+  
+  
+  const modifMetodo = async () => {
+    const id = await auth.currentUser.uid
+    if (!huella) {
+      await storage.collection('Users').doc(id).update({
+        metodo: "huella"
+      })
+    } else {
+      await storage.collection('Users').doc(id).update({
+        metodo: ""
+      })
+    }
+  }
 
 
 
@@ -88,7 +101,7 @@ const Configuracion = ({ navigation, route }) => {
                 value={huella}
                 onValueChange={() => {
                   setHuella(!huella);
-                  usarHuella()
+                  modifMetodo()
                 }}
               />
             </View>

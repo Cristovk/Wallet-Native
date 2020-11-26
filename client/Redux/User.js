@@ -6,6 +6,7 @@ const SAVE_USER_DATA = "SAVE_USER_DATA";
 const LOGEADO = "LOGEADO";
 const MODIFICA_USUARIO = "MODIFICA_USUARIO";
 const CHANGE_LOGIN_METHOD = "CHANGE_LOGIN_METHOD";
+const CAMBIATE_HDP = "CAMBIATE_HDP";
 
 // STATE
 const initialState = {
@@ -28,7 +29,7 @@ const initialState = {
   security: {
     fingerPrint: false,
     methods: [],
-  },
+  },cambiar:""
 };
 
 // REDUCER
@@ -69,6 +70,12 @@ export default function userReducer(state = initialState, action) {
           fingerPrint: action.payload,
         },
       };
+    
+    case CAMBIATE_HDP:
+      return{
+        ...state,
+        cambiar: action.payload
+      }
 
     default:
       return {
@@ -155,3 +162,10 @@ export const changeLoginMethod = (bool) => (dispatch) => {
     payload: bool,
   });
 };
+
+export const cambiateHdp = (val) => (dispatch) => {
+  dispatch({
+    type: CAMBIATE_HDP,
+    payload: val
+  })
+}
