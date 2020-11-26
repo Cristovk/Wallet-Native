@@ -6,16 +6,28 @@ import * as Print from "expo-print";
 import * as MediaLibrary from "expo-media-library";
 import * as Sharing from "expo-sharing";
 import { View } from "react-native";
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 import { ScrollView } from "react-native-gesture-handler";
-
 
 function formatNumber(num) {
   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
 
-
-export const detalle = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver, desde, card) => {
+export const detalle = (
+  fecha,
+  monto,
+  tipo,
+  hacia,
+  motivo,
+  estado,
+  operacion,
+  empresa,
+  categoria,
+  sender,
+  receiver,
+  desde,
+  card
+) => {
   const { primary, secondary, bg, text, dark } = useSelector(
     (store) => store.color
   );
@@ -183,13 +195,8 @@ export const detalle = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,c
   </ScrollView>
     )
   }
-
     
-  
-   
-  
-    
-
+       
 
 /*Esta funcion genera un recibo en pdf*/
 export const generateInvoice = async (date, time,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver, desde, card) => {
@@ -395,4 +402,5 @@ export const generateInvoice = async (date, time,monto,tipo,hacia,motivo,estado,
     }
   }
 };
+
 

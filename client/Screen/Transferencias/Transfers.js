@@ -148,6 +148,7 @@ const Transfers = ({ navigation }) => {
                               categoria: item.categoria,
                               operacion: item.operacion,
                               receiver: item.receiver,
+                              card: item.card,
                               sender: item.sender,
                             })
                           }
@@ -193,12 +194,14 @@ const Transfers = ({ navigation }) => {
               </ScrollView>
             )}
       </View>
-      <View style={[{ top: heightPercentageToDP("72%"), position: "absolute" }, botonStyle.container]}>
+      <View
+        style={[
+          { top: heightPercentageToDP("72%"), position: "absolute" },
+          botonStyle.container,
+        ]}
+      >
         <TouchableOpacity
-          style={[
-            { backgroundColor: secondary },
-            botonStyle.boton,
-          ]}
+          style={[{ backgroundColor: secondary }, botonStyle.boton]}
           onPress={() => {
             navigation.navigate("Transferir");
           }}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Image, TouchableOpacity, StyleSheet, LogBox, View } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack'
+import { createStackNavigator, HeaderBackButton } from '@react-navigation/stack'
 import { Icon } from 'react-native-elements'
 import db from '../../../firebase'
 import { useSelector, useDispatch } from 'react-redux'
@@ -33,6 +33,7 @@ import Verify from "../../Screen/verificacion/verify"
 import confirmOrError from "../../Screen/Transferencias/Check"
 import Finish from "../../Screen/Transferencias/Finish"
 import postScreen from "../../Screen/Transferencias/postScreen"
+import Dolares from "../../Screen/Dolares/dolares"
 
 // NAVIGATORS
 import { MyTab } from '../tab/tab'
@@ -50,6 +51,7 @@ import ConfirmDelete from '../../Screen/Modificar-Email-Pass/ConfirmDelete';
 import Pin from '../../Views/Login/pin';
 import Huella from '../../Views/Login/Huella';
 import Splash from '../../Screen/Splash/Splash';
+
 
 // Creamos los navegadores
 const Stack = createStackNavigator()
@@ -111,7 +113,7 @@ export function MyStack(props) {
 }
 
 // Navegador que se encarga de darle cabeceras a los componentes y renderizarlos (importado en drawer.jsx)
-function HomeScreen({ userLog, user, status }) {
+function HomeScreen({ userLog, user, route }) {
   const [users, setUsers] = useState([])
   const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
   const dispatch = useDispatch()
@@ -123,16 +125,41 @@ function HomeScreen({ userLog, user, status }) {
     dispatch(deleteAll())
     dispatch(addContact(db.auth().currentUser.uid))
   }
+  const { nombre } = route.params;
+
+
 
   return (
-    <HomeScreenStack.Navigator screenOptions={{ // Personalizamos las cabeceras en general
+    <HomeScreenStack.Navigator screenOptions={({ navigation }) => ({ // Personalizamos las cabeceras en general
       headerStyle: {
         backgroundColor: bg,
         borderBottomColor: bg,
       },
+      headerBackImage: () => (
+        navigation.navigate('Ayuda')
+      )
+      ,
+      headerLeft: () => (
+
+        <View style={{ marginStart: 10 }} >
+          <TouchableOpacity
+            onPress={() => { navigation.navigate("Home"); nombre('home') }}
+          >
+            <Icon
+              name="arrow-left"
+              type="font-awesome"
+              size={20}
+              color={primary}
+
+            />
+          </TouchableOpacity>
+        </View>
+
+      )
+      ,
       headerTintColor: primary
-    }}>
-      <HomeScreenStack.Screen name='HomeTab' initialParams={status} component={MyTab} options={({ navigation }) => ({ // Personalizamos las cabeceras de los atajos principales
+    })}>
+      <HomeScreenStack.Screen name='HomeTab' component={MyTab} options={({ navigation }) => ({ // Personalizamos las cabeceras de los atajos principales
         headerLeft: () => (
           <TouchableOpacity
             onPress={() => navigation.openDrawer()}
@@ -149,7 +176,7 @@ function HomeScreen({ userLog, user, status }) {
         headerTitleAlign: 'center',
         headerRight: () => (
           <TouchableOpacity
-            onPress={() => navigation.navigate('Perfil')}
+            onPress={() => { navigation.navigate('Perfil'); console.log(nombre, 'aca') }}
           >
             <Image
               source={{ uri: user.imagen || profileImage }}
@@ -170,11 +197,13 @@ function HomeScreen({ userLog, user, status }) {
           <TouchableOpacity onPress={handleRefresh}>
             <Icon name='spinner-refresh' type='fontisto' color={!dark ? secondary : primary} style={{ marginRight: 30 }} />
           </TouchableOpacity>
-        )
+        ),
+
       }} />
       <HomeScreenStack.Screen name='Configuracion' component={Configuracion} options={{ title: 'Ajustes' }} />
       <HomeScreenStack.Screen name='Ayuda' component={Ayuda} options={{ title: 'Soporte y Atención' }} />
       <HomeScreenStack.Screen name='Balance' component={Balance} options={{ title: 'Mi Balance' }} />
+      <HomeScreenStack.Screen name= 'Dolares' component={Dolares} options={{title:'Dolares'}}/>
       <HomeScreenStack.Screen name='MoonCard' component={MoonCard} options={{ title: "MoonCard" }} />
       <HomeScreenStack.Screen name='Detalle' component={Detalle} options={{ title: 'Detalle de la transaccion' }} />
       <HomeScreenStack.Screen name='Recargas' component={Recargas} options={{ title: 'Recargar' }} />
@@ -186,14 +215,16 @@ function HomeScreen({ userLog, user, status }) {
         title: "Confirmación", headerLeft: () => (<TouchableOpacity
           onPress={() => navigation.navigate("Home")}
         >
-          <View style={{ marginStart: 10 }}>
-            <Icon
-              name="arrow-left"
-              type="fontisto"
-              size={15}
-              color={primary}
-              onPress={() => navigation.navigate("Home")}
-            />
+          <View style={{ marginStart: 10 }} >
+            <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+              <Icon
+                name="arrow-left"
+                type="fontisto"
+                size={20}
+                color={primary}
+              />
+            </TouchableOpacity>
+
           </View>
 
         </TouchableOpacity>),
