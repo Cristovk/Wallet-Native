@@ -7,11 +7,9 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
-  Alert,
 } from "react-native";
-import { Icon, Button } from "react-native-elements";
+import { Icon } from "react-native-elements";
 import { styles } from "./Sing-Up-Styles";
-import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { addUser, saveData } from "../../Redux/User";
 import { useDispatch } from "react-redux";
 //import { LogBox } from "react-native";
@@ -30,7 +28,6 @@ const SignUp = ({ navigation }) => {
   const [day, setDay] = useState();
   const [month, setMonth] = useState();
   const [year, setYear] = useState();
-  // const [birthday, setBirthday] = useState();
   const [Err, setErr] = useState({
     emptyName: "",
     emptyLastname: "",
@@ -55,6 +52,7 @@ const SignUp = ({ navigation }) => {
     return true;
   };
 
+  let newDate = new Date(year, month - 1, day);
   let actualYear = new Date().getFullYear();
 
   const validateForm = async () => {
@@ -108,8 +106,9 @@ const SignUp = ({ navigation }) => {
     } else if (!year) {
       emptyYear = "El campo Año es necesario";
     } else if (year < actualYear - 100 || year > actualYear || isNaN(year)) {
-      invalidYearFormat = `Elija un año entre ${actualYear - 100
-        } y ${actualYear}`;
+      invalidYearFormat = `Elija un año entre ${
+        actualYear - 100
+      } y ${actualYear}`;
     }
     if (
       emptyName ||
