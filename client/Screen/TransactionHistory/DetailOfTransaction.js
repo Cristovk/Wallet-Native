@@ -98,10 +98,10 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
             marginTop: 25,
           }}
         >
-         {detalle(fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver,desde, card)}
+         <View style={{ marginTop: 15 }}>{detalle(fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver,desde, card)}</View>
                            
           <View
-            style={[{ top: heightPercentageToDP("55%") }, styleBoton.container]}
+            style={[{ bottom: heightPercentageToDP("10%") }, styleBoton.container]}
           >
             <TouchableOpacity
               style={[{ backgroundColor: secondary }, styleBoton.boton]}

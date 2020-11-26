@@ -25,10 +25,8 @@ export const detalle = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,c
     minute: "2-digit",
   });
   const Operacion = operacion ? operacion[0].toUpperCase() + operacion.substring(1) : null;
-  if(operacion === "recarga"){
-
+  
     return  (
-    <View style={{ marginTop: 15 }}>
       <ScrollView>
         <ListItem
       containerStyle={{
@@ -54,98 +52,8 @@ export const detalle = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,c
       </ListItem.Content>
       <Text>{estado}</Text>
     </ListItem>
-    <ListItem
-      containerStyle={{
-        backgroundColor: primary,
-        borderBottomColor: dark ? "grey" : secondary,
-        borderBottomWidth: 1,
-      }}
-    >
-      <ListItem.Content>
-        <ListItem.Title>{"Metodo de recarga"}</ListItem.Title>
-      </ListItem.Content>
-      <Text>{categoria=== "recarga" ? "Recarga presencial": "Recarga con tarjeta de credito"}</Text>
-    </ListItem> 
+   {operacion === "transferencia" ? <View>
    <ListItem
-      containerStyle={{
-        backgroundColor: primary,
-        borderBottomColor: dark ? "grey" : secondary,
-        borderBottomWidth: 1,
-      }}
-    >
-      <ListItem.Content>
-        <ListItem.Title>{categoria=== "recarga" ? "Lugar de recarga" : "Tarjeta"}</ListItem.Title>
-      </ListItem.Content>
-      <Text>{categoria=== "recarga" ? empresa :empresa+" "+card}</Text>
-    </ListItem> 
-      <ListItem
-        containerStyle={{
-          backgroundColor: primary,
-          borderBottomColor: dark ? "grey" : secondary,
-          borderBottomWidth: 1,
-        }}
-      >
-      <ListItem.Content>
-        <ListItem.Title>{"Fecha"}</ListItem.Title>
-      </ListItem.Content>
-      <Text>{date}</Text>
-    </ListItem>
-    <ListItem
-      containerStyle={{
-        backgroundColor: primary,
-        borderBottomColor: dark ? "grey" : secondary,
-        borderBottomWidth: 1,
-      }}
-    >
-    <ListItem.Content>
-      <ListItem.Title>{"Hora"}</ListItem.Title>
-    </ListItem.Content>
-    <Text>{time}</Text>
-  </ListItem>
-  <ListItem
-    containerStyle={{
-      backgroundColor: primary,
-      borderBottomColor: dark ? "grey" : secondary,
-      borderBottomWidth: 1,
-    }}
-  >
-  <ListItem.Content>
-    <ListItem.Title>{"Monto"}</ListItem.Title>
-  </ListItem.Content>
-  <Text>{`$ ${monto}`}</Text>
-</ListItem>
-  </ScrollView>
-  </View>)
-  }
-
-  if(operacion === "transferencia"){ return (
-    <View style={{ marginTop: 15 }}>
-      <ScrollView>
-        <ListItem
-      containerStyle={{
-        backgroundColor: primary,
-        borderBottomColor: dark ? "grey" : secondary,
-        borderBottomWidth: 1,
-      }}
-    >
-    <ListItem.Content>
-        <ListItem.Title>{"Operacion"}</ListItem.Title>
-      </ListItem.Content>
-      <Text>{Operacion}</Text>
-    </ListItem>
-      <ListItem
-      containerStyle={{
-        backgroundColor: primary,
-        borderBottomColor: dark ? "grey" : secondary,
-        borderBottomWidth: 1,
-      }}
-    >
-      <ListItem.Content>
-        <ListItem.Title>{"Estado"}</ListItem.Title>
-      </ListItem.Content>
-      <Text>{estado}</Text>
-    </ListItem>
-    <ListItem
       containerStyle={{
         backgroundColor: primary,
         borderBottomColor: dark ? "grey" : secondary,
@@ -181,6 +89,61 @@ export const detalle = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,c
       </ListItem.Content>
       <Text>{categoria === "Tentrante" ? desde : hacia}</Text>
     </ListItem> 
+   </View> : operacion === "recarga" ?
+
+ <View>
+   <ListItem
+      containerStyle={{
+        backgroundColor: primary,
+        borderBottomColor: dark ? "grey" : secondary,
+        borderBottomWidth: 1,
+      }}
+    >
+      <ListItem.Content>
+        <ListItem.Title>{"Metodo de recarga"}</ListItem.Title>
+      </ListItem.Content>
+      <Text>{categoria=== "recarga" ? "Recarga presencial": "Recarga con tarjeta de credito"}</Text>
+    </ListItem> 
+   <ListItem
+      containerStyle={{
+        backgroundColor: primary,
+        borderBottomColor: dark ? "grey" : secondary,
+        borderBottomWidth: 1,
+      }}
+    >
+      <ListItem.Content>
+        <ListItem.Title>{categoria=== "recarga" ? "Lugar de recarga" : "Tarjeta"}</ListItem.Title>
+      </ListItem.Content>
+      <Text>{categoria=== "recarga" ? empresa :empresa+" "+card}</Text>
+    </ListItem> 
+   </View>  : operacion === "servicio" ? <View>
+   <ListItem
+    containerStyle={{
+      backgroundColor: primary,
+      borderBottomColor: dark ? "grey" : secondary,
+      borderBottomWidth: 1,
+    }}
+  >
+    <ListItem.Content>
+      <ListItem.Title>{"Tipo de servicio"}</ListItem.Title>
+    </ListItem.Content>
+    <Text>{categoria}</Text>
+  </ListItem>
+   
+   </View> : operacion === "compra" ? <View>
+   <ListItem
+    containerStyle={{
+      backgroundColor: primary,
+      borderBottomColor: dark ? "grey" : secondary,
+      borderBottomWidth: 1,
+    }}
+  >
+    <ListItem.Content>
+      <ListItem.Title>{"Lugar de compra"}</ListItem.Title>
+    </ListItem.Content>
+    <Text>{empresa}</Text>
+  </ListItem> 
+   </View> : <View>Unexpected error</View>}
       <ListItem
         containerStyle={{
           backgroundColor: primary,
@@ -218,194 +181,37 @@ export const detalle = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,c
   <Text>{`$ ${monto}`}</Text>
 </ListItem>
   </ScrollView>
-  </View>
-  )
+    )
   }
-  if(operacion=== "compra"){
-    return (
-    <View style={{ marginTop: 15 }}>
-    <ScrollView>
-      <ListItem
-    containerStyle={{
-      backgroundColor: primary,
-      borderBottomColor: dark ? "grey" : secondary,
-      borderBottomWidth: 1,
-    }}
-  >
-  <ListItem.Content>
-      <ListItem.Title>{"Operacion"}</ListItem.Title>
-    </ListItem.Content>
-    <Text>{Operacion}</Text>
-  </ListItem>
-    <ListItem
-    containerStyle={{
-      backgroundColor: primary,
-      borderBottomColor: dark ? "grey" : secondary,
-      borderBottomWidth: 1,
-    }}
-  >
-    <ListItem.Content>
-      <ListItem.Title>{"Estado"}</ListItem.Title>
-    </ListItem.Content>
-    <Text>{estado}</Text>
-  </ListItem>
-  <ListItem
-    containerStyle={{
-      backgroundColor: primary,
-      borderBottomColor: dark ? "grey" : secondary,
-      borderBottomWidth: 1,
-    }}
-  >
+
     
-    <ListItem.Content>
-      <ListItem.Title>{"Lugar de compra"}</ListItem.Title>
-    </ListItem.Content>
-    <Text>{empresa}</Text>
-  </ListItem> 
-    <ListItem
-      containerStyle={{
-        backgroundColor: primary,
-        borderBottomColor: dark ? "grey" : secondary,
-        borderBottomWidth: 1,
-      }}
-    >
-    <ListItem.Content>
-      <ListItem.Title>{"Fecha"}</ListItem.Title>
-    </ListItem.Content>
-    <Text>{date}</Text>
-  </ListItem>
-  <ListItem
-    containerStyle={{
-      backgroundColor: primary,
-      borderBottomColor: dark ? "grey" : secondary,
-      borderBottomWidth: 1,
-    }}
-  >
-  <ListItem.Content>
-    <ListItem.Title>{"Hora"}</ListItem.Title>
-  </ListItem.Content>
-  <Text>{time}</Text>
-</ListItem>
-<ListItem
-    containerStyle={{
-      backgroundColor: primary,
-      borderBottomColor: dark ? "grey" : secondary,
-      borderBottomWidth: 1,
-    }}
-  >
-  <ListItem.Content>
-    <ListItem.Title>{"Monto"}</ListItem.Title>
-  </ListItem.Content>
-  <Text>{`$ ${monto}`}</Text>
-</ListItem>
-</ScrollView>
-</View>)
-  }
-if(operacion === "servicio"){
-  return (
-  <View style={{ marginTop: 15 }}>
-    <ScrollView>
-      <ListItem
-    containerStyle={{
-      backgroundColor: primary,
-      borderBottomColor: dark ? "grey" : secondary,
-      borderBottomWidth: 1,
-    }}
-  >
-  <ListItem.Content>
-      <ListItem.Title>{"Operacion"}</ListItem.Title>
-    </ListItem.Content>
-    <Text>{Operacion}</Text>
-  </ListItem>
-    <ListItem
-    containerStyle={{
-      backgroundColor: primary,
-      borderBottomColor: dark ? "grey" : secondary,
-      borderBottomWidth: 1,
-    }}
-  >
-    <ListItem.Content>
-      <ListItem.Title>{"Tipo de servicio"}</ListItem.Title>
-    </ListItem.Content>
-    <Text>{categoria}</Text>
-  </ListItem>
-    <ListItem
-    containerStyle={{
-      backgroundColor: primary,
-      borderBottomColor: dark ? "grey" : secondary,
-      borderBottomWidth: 1,
-    }}
-  >
-    <ListItem.Content>
-      <ListItem.Title>{"Estado"}</ListItem.Title>
-    </ListItem.Content>
-    <Text>{estado}</Text>
-  </ListItem>
-  <ListItem
-    containerStyle={{
-      backgroundColor: primary,
-      borderBottomColor: dark ? "grey" : secondary,
-      borderBottomWidth: 1,
-    }}
-  >
-    <ListItem.Content>
-      <ListItem.Title>{"Fecha"}</ListItem.Title>
-    </ListItem.Content>
-    <Text>{date}</Text>
-  </ListItem>
-  <ListItem
-    containerStyle={{
-      backgroundColor: primary,
-      borderBottomColor: dark ? "grey" : secondary,
-      borderBottomWidth: 1,
-    }}
-  >
-  <ListItem.Content>
-    <ListItem.Title>{"Hora"}</ListItem.Title>
-  </ListItem.Content>
-  <Text>{time}</Text>
-</ListItem>
-<ListItem
-    containerStyle={{
-      backgroundColor: primary,
-      borderBottomColor: dark ? "grey" : secondary,
-      borderBottomWidth: 1,
-    }}
-  >
-  <ListItem.Content>
-    <ListItem.Title>{"Monto"}</ListItem.Title>
-  </ListItem.Content>
-  <Text>{`$ ${monto}`}</Text>
-</ListItem>
-</ScrollView>
-</View>)
-}
-}
-
-
+  
+   
+  
+    
 /*Esta funcion parsea el html*/
 const generateHtml = (title, amount, icon) => {
-  return;
-  `<!DOCTYPE html>
-      <html lang="en">
-      <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Recibo de transaccion</title>
-        <style>
-            body {
-                font-size: 16px;
-                color: rgb(255, 196, 0);
-            }
-            h1 {
-                text-align: center;
-            }
-        </style>
-      </head>
-      <body>
-            <h1>Aqui iria el recibo si tuviera uno.jpeg</h1>
-      </body>
-    </html>`;
+  return(`<!DOCTYPE html>
+  <html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recibo de transaccion</title>
+    <style>
+        body {
+            font-size: 16px;
+            color: rgb(255, 196, 0);
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+  </head>
+  <body>
+        <h1>Aqui iria el recibo si tuviera uno.jpeg</h1>
+  </body>
+</html>`)
+  
 };
 
 /*Esta funcion genera un recibo en pdf*/

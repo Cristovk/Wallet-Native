@@ -290,6 +290,7 @@ const Home = ({ navigation }) => {
                             sender: item.sender,
                             receiver: item.receiver,
                             categoria: item.categoria,
+                            card: item.card
                           })
                         }
                       >
