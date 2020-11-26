@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { widthPercentageToDP, heightPercentageToDP } from "react-native-responsive-screen"
 import botonStyle from '../../Global-Styles/BotonMediano'
 
-const confirmOrError = ({ navigation, route }) => {
+const confirmOrErrorDolar = ({ navigation, route }) => {
   const { dato, receiver } = route.params;
   const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
 
@@ -72,4 +72,4 @@ const confirmOrError = ({ navigation, route }) => {
   );
 };
 
-export default confirmOrError;
+export default confirmOrErrorDolar;

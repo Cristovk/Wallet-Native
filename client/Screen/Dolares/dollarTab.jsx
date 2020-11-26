@@ -8,6 +8,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import style from "./dolaresStyle"
 import styleBtn from "../../Global-Styles/BotonGrande"
 import TransferenciasDolar from './transferirDolar'
+import { color } from "react-native-reanimated";
 
 const DollarTab = createBottomTabNavigator()
 
@@ -22,6 +23,8 @@ const DollarChange = (props) => {
                 fontSize:30,
                 textAlignVertical:"center",
                 marginBottom:5,
+                height:70,
+                paddingTop:20
             },
             activeTintColor: dark ? text : primary,
             inactiveTintColor: dark ? primary : secondary,
@@ -148,6 +151,7 @@ const CompraVenta = ({route}) => {
     return(
         <View style ={{backgroundColor:bg}}>
         <View style={[{ backgroundColor: primary }, style.containerTwo]}>
+            <View style={{marginTop:10,borderBottomColor:bg, borderBottomWidth:8, width:"50%",alignSelf:"center",borderRadius:20}}></View>
             <View style={style.contentInputs} >
                 <View style={{width:"40%"}}>
                    <Input style={style.input} name='dolares' placeholder={`USD$ ${moneda.dolares ? moneda.dolares : 1}`} placeholderTextColor='black' value={(moneda.dolares)} onChangeText={(e) =>handleChange(e, "dolares")}/>  
@@ -158,11 +162,16 @@ const CompraVenta = ({route}) => {
                 </View>
                     
             </View>
-                <View style={[{backgroundColor: bg}, style.contBtn]} >
-                    <TouchableOpacity >
-                        <Text onPress={dollarBuy}>Confirmar</Text>
+                <View style={styleBtn.container} >
+                    <TouchableOpacity style={[{backgroundColor:secondary},styleBtn.boton]} >
+                        <Text style={[dark ? {color:primary} : {color:"black"} ,styleBtn.texto]} onPress={dollarBuy}>Confirmar</Text>
                     </TouchableOpacity>
             </View>
+            {/* <View style={styleBtn.container} >
+                    <TouchableOpacity style={[{backgroundColor:secondary},styleBtn.boton]} >
+                        <Text style={[dark ? {color:primary} : {color:"black"} ,styleBtn.texto]} onPress={}>Transferencias</Text>
+                    </TouchableOpacity>
+            </View> */}
         </View>
         </View>
     )

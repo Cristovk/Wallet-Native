@@ -18,7 +18,7 @@ const postScreenDolar = ({ navigation, route }) => {
         
         </View>
         <Text style={{fontSize:20, margin: 30}}>
-            {receiver.nombre +" " + receiver.apellido} recibira sus ${amount} en unos instantes no te preocupes si se demora mas de lo esperado lo tenemos en nuestras manosGracias por utilizar moonbank
+            {receiver.nombre +" " + receiver.apellido} recibira sus us${amount} en unos instantes no te preocupes si se demora mas de lo esperado lo tenemos en nuestras manosGracias por utilizar moonbank
         </Text>
 
         <View style={{ marginBottom: 15, borderTopWidth: 1, flexDirection: "row",

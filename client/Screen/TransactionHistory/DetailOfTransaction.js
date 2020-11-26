@@ -1,5 +1,6 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React,{useState} from "react";
+import { View, Text,ActivityIndicator } from "react-native";
+import { ListItem, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useSelector } from "react-redux";
 import { generateInvoice, detalle } from "./utils";
@@ -7,6 +8,7 @@ import { heightPercentageToDP } from "react-native-responsive-screen";
 import { TouchableOpacity } from "react-native";
 import styleBoton from "../../Global-Styles/BotonGrande";
 
+/* const [spinne,setSpinner]=useSta */
 const DetalleDeTransaccion = ({ route, navigation }) => {
   const { primary, secondary, bg, text, dark } = useSelector(
     (store) => store.color
@@ -26,6 +28,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     desde,
     card,
   } = route.params;
+  
   const iconList = {
     panaderia: "cookie",
     almacen: "shopping-basket",
@@ -50,6 +53,13 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
+
+  let date = new Date(fecha).toLocaleDateString();
+  let time = new Date(fecha).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
 
   return (
     <View style={{ backgroundColor: bg }}>
@@ -97,28 +107,19 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
             marginTop: 25,
           }}
         >
-          {detalle(
-            fecha,
-            monto,
-            tipo,
-            hacia,
-            motivo,
-            estado,
-            operacion,
-            empresa,
-            categoria,
-            sender,
-            receiver,
-            desde,
-            card
-          )}
-
+         <View style={{ marginTop: 15 }}>{detalle(fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver,desde, card)}</View>
+                           
+        
           <View
-            style={[{ top: heightPercentageToDP("55%") }, styleBoton.container]}
-          >
+            style={[{ bottom: heightPercentageToDP("10%") }, styleBoton.container]}
+          > 
+          </View>
+          <View>
             <TouchableOpacity
               style={[{ backgroundColor: secondary }, styleBoton.boton]}
-              onPress={() => generateInvoice()}
+              onPress={() => generateInvoice( date, time,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver, desde, card)}
+
+
               icon={{
                 name: "receipt",
                 size: 20,

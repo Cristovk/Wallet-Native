@@ -139,7 +139,7 @@ const FinishDolar = ({ navigation, route }) => {
       >
         <Text style={[{ color: primary }, style.tituloSaldo]}>Tu saldo:</Text>
         <Text style={[{ color: primary }, style.saldo]}>
-          ${formatNumber(movements.dolares === null ? 0 : movements.dolares)}
+          us${formatNumber(movements.dolares === null ? 0 : movements.dolares)}
         </Text>
       </View>
       <View
@@ -156,7 +156,7 @@ const FinishDolar = ({ navigation, route }) => {
             <Text style={[style.text, { color: bg }]}>Monto a enviar:</Text>
           </View>
           <TextInput
-            placeholder="$0"
+            placeholder="us$ 0"
             keyboardType="numeric"
             style={[style.input, { borderBottomColor: bg }]}
             onChangeText={(data) =>
