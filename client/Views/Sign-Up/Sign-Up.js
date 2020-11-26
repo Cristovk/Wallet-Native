@@ -94,7 +94,7 @@ const SignUp = ({ navigation }) => {
       emptyEmail = "El campo Email es necesario";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       invalidEmailFormat = "Formato de email inválido o ya registrado";
-
+    }
 
     
     if (!day) {
@@ -140,6 +140,7 @@ const SignUp = ({ navigation }) => {
       return false;
     } else return true;
   };
+  
 
   let info = {
     name: name,
