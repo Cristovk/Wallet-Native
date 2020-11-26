@@ -98,14 +98,11 @@ const SignUp2 = ({ navigation }) => {
 
         await TransRef.set({});
 
-        NewUser.user.sendEmailVerification()
-          .then(resp => {
-            Alert.alert(
-              "Cuenta creada! Se envio a tu mail un link de verificación"
-            );
-            navigation.navigate("Login");
-
-          })
+        await NewUser.user.sendEmailVerification()
+        Alert.alert(
+          "Cuenta creada! Se envio a tu mail un link de verificación"
+        );
+        navigation.navigate("Login");
       } catch (error) {
         // console.log(error);
       }

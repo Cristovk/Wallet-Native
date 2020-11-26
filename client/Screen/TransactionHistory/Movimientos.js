@@ -81,134 +81,135 @@ const Movimientos = ({ navigation }) => {
     }
   }, [selectedIndex, isFocused, movements]);
 
+
   return (
-    // <ScrollView style={{ backgroundColor: bg }}>
-    <View
-      style={[{ backgroundColor: primary, marginTop: 25 }, viewStyle.container]}
-    >
-      <View>
-        <ButtonGroup
-          onPress={setSelectedIndex}
-          selectedIndex={selectedIndex}
-          buttonContainerStyle={{
-            backgroundColor: dark ? bg : secondary,
-            marginRight: 1,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 5,
-            },
-            shadowOpacity: 0.34,
-            shadowRadius: 6.27,
-            elevation: 10,
-          }}
-          buttons={buttons}
-          selectedButtonStyle={{ backgroundColor: dark ? secondary : bg }}
-          textStyle={{ color: text, fontSize: 15 }}
-          selectedTextStyle={{ color: primary }}
-          containerStyle={{ height: 50, borderRadius: 5, marginTop: 30 }}
-        />
-      </View>
-      {list.length === 0 ? (
-        <View style={{ marginTop: 100 }}>
-          <ActivityIndicator size="large" color={secondary} />
+    <View style={{ backgroundColor: bg }}>
+      <View
+        style={[{ backgroundColor: primary, marginTop: 25 }, viewStyle.container]}
+      >
+        <View>
+          <ButtonGroup
+            onPress={setSelectedIndex}
+            selectedIndex={selectedIndex}
+            buttonContainerStyle={{
+              backgroundColor: dark ? bg : secondary,
+              marginRight: 1,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 5,
+              },
+              shadowOpacity: 0.34,
+              shadowRadius: 6.27,
+              elevation: 10,
+            }}
+            buttons={buttons}
+            selectedButtonStyle={{ backgroundColor: dark ? secondary : bg }}
+            textStyle={{ color: text, fontSize: 15 }}
+            selectedTextStyle={{ color: primary }}
+            containerStyle={{ height: 50, borderRadius: 5, marginTop: 30 }}
+          />
         </View>
-      ) : list[0] == null ? (
-        <View
-          style={{
-            backgroundColor: primary,
-            marginHorizontal: "10%",
-            paddingHorizontal: 20,
-            borderRadius: 10,
-            alignContent: "center",
-            marginTop: 100,
-          }}
-        >
-          <Text
+        {list.length === 0 ? (
+          <View style={{ marginTop: 100 }}>
+            <ActivityIndicator size="large" color={secondary} />
+          </View>
+        ) : list[0] == null ? (
+          <View
             style={{
-              textAlign: "center",
-              textAlignVertical: "auto",
-              fontSize: 24,
+              backgroundColor: primary,
+              marginHorizontal: "10%",
+              paddingHorizontal: 20,
+              borderRadius: 10,
+              alignContent: "center",
+              marginTop: 100,
             }}
           >
-            {
-              "Ups!\nAun no tenes movimientos!\n¿Que esperas!?\nAnda a comprar con la MoonBank!\nTenemos promociones para vos!!"
-            }
-          </Text>
-        </View>
-      ) : (
-            // <View style={{ maxHeight: windowHeight }}>
-            <FlatList
-              data={list}
-              removeClippedSubviews={false}
-              keyExtractor={(mov) => mov.id}
-              style={{ marginVertical: 15 }}
-              renderItem={({ item }) => {
-                return (
-                  <ListItem
-                    key={item.id}
-                    onPress={() =>
-                      navigation.navigate("Detalle", {
-                        fecha: item.fecha,
-                        monto: item.monto,
-                        hacia: item.hacia,
-                        desde: item.desde,
-                        estado: item.estado,
-                        categoria: item.categoria,
-                        motivo: item.motivo,
-                        operacion: item.operacion,
-                        estado: item.estado,
-                        empresa: item.empresa,
-                        sender: item.sender,
-                        receiver: item.receiver,
-                        card: item.card,
-                      })
-                    }
-                  >
-                    {item.categoria == "Tsaliente" ||
-                      item.operacion == "compra" ||
-                      item.operacion == "servicios" ||
-                      item.operacion == "servicio" ? (
-                        <Icon name={iconList[item.categoria]} size={30} color="red" />
-                      ) : (
-                        <Icon
-                          name={iconList[item.categoria]}
-                          size={30}
-                          color="green"
-                        />
-                      )}
-                    <ListItem.Content>
-                      <ListItem.Title>
-                        {item.operacion
-                          ? item.operacion[0].toUpperCase() +
-                          item.operacion.substring(1)
-                          : null}
-                      </ListItem.Title>
-                      <ListItem.Subtitle>
-                        {new Date(item.fecha).toLocaleDateString()}
-                      </ListItem.Subtitle>
-                    </ListItem.Content>
-                    <Text style={{ marginRight: 3 }}>
+            <Text
+              style={{
+                textAlign: "center",
+                textAlignVertical: "auto",
+                fontSize: 24,
+              }}
+            >
+              {
+                "Ups!\nAun no tenes movimientos!\n¿Que esperas!?\nAnda a comprar con la MoonBank!\nTenemos promociones para vos!!"
+              }
+            </Text>
+          </View>
+        ) : (
+              // <View style={{ maxHeight: windowHeight }}>
+              <FlatList
+                data={list}
+                removeClippedSubviews={false}
+                keyExtractor={(mov) => mov.id}
+                style={{ marginVertical: 15 }}
+                renderItem={({ item }) => {
+                  return (
+                    <ListItem
+                      key={item.id}
+                      onPress={() =>
+                        navigation.navigate("Detalle", {
+                          fecha: item.fecha,
+                          monto: item.monto,
+                          hacia: item.hacia,
+                          desde: item.desde,
+                          estado: item.estado,
+                          categoria: item.categoria,
+                          motivo: item.motivo,
+                          operacion: item.operacion,
+                          estado: item.estado,
+                          empresa: item.empresa,
+                          sender: item.sender,
+                          receiver: item.receiver,
+                          card: item.card,
+                        })
+                      }
+                    >
                       {item.categoria == "Tsaliente" ||
                         item.operacion == "compra" ||
                         item.operacion == "servicios" ||
-                        item.operacion == "servicio"
-                        ? `- $ ${formatNumber(item.monto)}`
-                        : `$ ${formatNumber(item.monto)}`}
-                    </Text>
-                    <ListItem.Chevron
-                      name="chevron-right"
-                      type="font-awesome"
-                      color="black"
-                    />
-                  </ListItem>
-                );
-              }}
-            ></FlatList>
-            // </View>
-          )}
+                        item.operacion == "servicio" ? (
+                          <Icon name={iconList[item.categoria]} size={30} color="red" />
+                        ) : (
+                          <Icon
+                            name={iconList[item.categoria]}
+                            size={30}
+                            color="green"
+                          />
+                        )}
+                      <ListItem.Content>
+                        <ListItem.Title>
+                          {item.operacion
+                            ? item.operacion[0].toUpperCase() +
+                            item.operacion.substring(1)
+                            : null}
+                        </ListItem.Title>
+                        <ListItem.Subtitle>
+                          {new Date(item.fecha).toLocaleDateString()}
+                        </ListItem.Subtitle>
+                      </ListItem.Content>
+                      <Text style={{ marginRight: 3 }}>
+                        {item.categoria == "Tsaliente" ||
+                          item.operacion == "compra" ||
+                          item.operacion == "servicios" ||
+                          item.operacion == "servicio"
+                          ? `- $ ${formatNumber(item.monto)}`
+                          : `$ ${formatNumber(item.monto)}`}
+                      </Text>
+                      <ListItem.Chevron
+                        name="chevron-right"
+                        type="font-awesome"
+                        color="black"
+                      />
+                    </ListItem>
+                  );
+                }}
+              ></FlatList>
+              // // </View>
+            )}
+      </View>
     </View>
-    // </ScrollView>
   );
 };
 
