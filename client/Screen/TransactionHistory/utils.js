@@ -6,16 +6,28 @@ import * as Print from "expo-print";
 import * as MediaLibrary from "expo-media-library";
 import * as Sharing from "expo-sharing";
 import { View } from "react-native";
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 import { ScrollView } from "react-native-gesture-handler";
-
 
 function formatNumber(num) {
   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
 
-
-export const detalle = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver, desde, card) => {
+export const detalle = (
+  fecha,
+  monto,
+  tipo,
+  hacia,
+  motivo,
+  estado,
+  operacion,
+  empresa,
+  categoria,
+  sender,
+  receiver,
+  desde,
+  card
+) => {
   const { primary, secondary, bg, text, dark } = useSelector(
     (store) => store.color
   );
@@ -24,126 +36,12 @@ export const detalle = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,c
     hour: "2-digit",
     minute: "2-digit",
   });
-  const Operacion = operacion ? operacion[0].toUpperCase() + operacion.substring(1) : null;
-  
-    return  (
-      <ScrollView>
-        <ListItem
-      containerStyle={{
-        backgroundColor: primary,
-        borderBottomColor: dark ? "grey" : secondary,
-        borderBottomWidth: 1,
-      }}
-    >
-    <ListItem.Content>
-        <ListItem.Title>{"Operacion"}</ListItem.Title>
-      </ListItem.Content>
-      <Text>{Operacion}</Text>
-    </ListItem>
-      <ListItem
-      containerStyle={{
-        backgroundColor: primary,
-        borderBottomColor: dark ? "grey" : secondary,
-        borderBottomWidth: 1,
-      }}
-    >
-      <ListItem.Content>
-        <ListItem.Title>{"Estado"}</ListItem.Title>
-      </ListItem.Content>
-      <Text>{estado}</Text>
-    </ListItem>
-   {operacion === "transferencia" ? <View>
-   <ListItem
-      containerStyle={{
-        backgroundColor: primary,
-        borderBottomColor: dark ? "grey" : secondary,
-        borderBottomWidth: 1,
-      }}
-    >
-      <ListItem.Content>
-        <ListItem.Title>{"Motivo"}</ListItem.Title>
-      </ListItem.Content>
-      <Text>{motivo}</Text>
-    </ListItem>
-   <ListItem
-      containerStyle={{
-        backgroundColor: primary,
-        borderBottomColor: dark ? "grey" : secondary,
-        borderBottomWidth: 1,
-      }}
-    >
-      <ListItem.Content>
-        <ListItem.Title>{categoria === "Tentrante" ? "Emisor" : "Receptor"}</ListItem.Title>
-      </ListItem.Content>
-      <Text>{categoria === "Tentrante" ? sender: receiver}</Text>
-    </ListItem> 
-    <ListItem
-      containerStyle={{
-        backgroundColor: primary,
-        borderBottomColor: dark ? "grey" : secondary,
-        borderBottomWidth: 1,
-      }}
-    >
-      <ListItem.Content>
-        <ListItem.Title>{"Cvu"}</ListItem.Title>
-      </ListItem.Content>
-      <Text>{categoria === "Tentrante" ? desde : hacia}</Text>
-    </ListItem> 
-   </View> : operacion === "recarga" ?
+  const Operacion = operacion
+    ? operacion[0].toUpperCase() + operacion.substring(1)
+    : null;
 
- <View>
-   <ListItem
-      containerStyle={{
-        backgroundColor: primary,
-        borderBottomColor: dark ? "grey" : secondary,
-        borderBottomWidth: 1,
-      }}
-    >
-      <ListItem.Content>
-        <ListItem.Title>{"Metodo de recarga"}</ListItem.Title>
-      </ListItem.Content>
-      <Text>{categoria=== "recarga" ? "Recarga presencial": "Recarga con tarjeta de credito"}</Text>
-    </ListItem> 
-   <ListItem
-      containerStyle={{
-        backgroundColor: primary,
-        borderBottomColor: dark ? "grey" : secondary,
-        borderBottomWidth: 1,
-      }}
-    >
-      <ListItem.Content>
-        <ListItem.Title>{categoria=== "recarga" ? "Lugar de recarga" : "Tarjeta"}</ListItem.Title>
-      </ListItem.Content>
-      <Text>{categoria=== "recarga" ? empresa :empresa+" "+card}</Text>
-    </ListItem> 
-   </View>  : operacion === "servicio" ? <View>
-   <ListItem
-    containerStyle={{
-      backgroundColor: primary,
-      borderBottomColor: dark ? "grey" : secondary,
-      borderBottomWidth: 1,
-    }}
-  >
-    <ListItem.Content>
-      <ListItem.Title>{"Tipo de servicio"}</ListItem.Title>
-    </ListItem.Content>
-    <Text>{categoria}</Text>
-  </ListItem>
-   
-   </View> : operacion === "compra" ? <View>
-   <ListItem
-    containerStyle={{
-      backgroundColor: primary,
-      borderBottomColor: dark ? "grey" : secondary,
-      borderBottomWidth: 1,
-    }}
-  >
-    <ListItem.Content>
-      <ListItem.Title>{"Lugar de compra"}</ListItem.Title>
-    </ListItem.Content>
-    <Text>{empresa}</Text>
-  </ListItem> 
-   </View> : <View>Unexpected error</View>}
+  return (
+    <ScrollView>
       <ListItem
         containerStyle={{
           backgroundColor: primary,
@@ -151,50 +49,191 @@ export const detalle = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,c
           borderBottomWidth: 1,
         }}
       >
-      <ListItem.Content>
-        <ListItem.Title>{"Fecha"}</ListItem.Title>
-      </ListItem.Content>
-      <Text>{date}</Text>
-    </ListItem>
-    <ListItem
-      containerStyle={{
-        backgroundColor: primary,
-        borderBottomColor: dark ? "grey" : secondary,
-        borderBottomWidth: 1,
-      }}
-    >
-    <ListItem.Content>
-      <ListItem.Title>{"Hora"}</ListItem.Title>
-    </ListItem.Content>
-    <Text>{time}</Text>
-  </ListItem>
-  <ListItem
-    containerStyle={{
-      backgroundColor: primary,
-      borderBottomColor: dark ? "grey" : secondary,
-      borderBottomWidth: 1,
-    }}
-  >
-  <ListItem.Content>
-    <ListItem.Title>{"Monto"}</ListItem.Title>
-  </ListItem.Content>
-  <Text>{`$ ${monto}`}</Text>
-</ListItem>
-  </ScrollView>
-    )
-  }
-
-    
-  
-   
-  
-    
-
+        <ListItem.Content>
+          <ListItem.Title>{"Operacion"}</ListItem.Title>
+        </ListItem.Content>
+        <Text>{Operacion}</Text>
+      </ListItem>
+      <ListItem
+        containerStyle={{
+          backgroundColor: primary,
+          borderBottomColor: dark ? "grey" : secondary,
+          borderBottomWidth: 1,
+        }}
+      >
+        <ListItem.Content>
+          <ListItem.Title>{"Estado"}</ListItem.Title>
+        </ListItem.Content>
+        <Text>{estado}</Text>
+      </ListItem>
+      {operacion === "transferencia" ? (
+        <View>
+          <ListItem
+            containerStyle={{
+              backgroundColor: primary,
+              borderBottomColor: dark ? "grey" : secondary,
+              borderBottomWidth: 1,
+            }}
+          >
+            <ListItem.Content>
+              <ListItem.Title>{"Motivo"}</ListItem.Title>
+            </ListItem.Content>
+            <Text>{motivo}</Text>
+          </ListItem>
+          <ListItem
+            containerStyle={{
+              backgroundColor: primary,
+              borderBottomColor: dark ? "grey" : secondary,
+              borderBottomWidth: 1,
+            }}
+          >
+            <ListItem.Content>
+              <ListItem.Title>
+                {categoria === "Tentrante" ? "Emisor" : "Receptor"}
+              </ListItem.Title>
+            </ListItem.Content>
+            <Text>{categoria === "Tentrante" ? sender : receiver}</Text>
+          </ListItem>
+          <ListItem
+            containerStyle={{
+              backgroundColor: primary,
+              borderBottomColor: dark ? "grey" : secondary,
+              borderBottomWidth: 1,
+            }}
+          >
+            <ListItem.Content>
+              <ListItem.Title>{"CVU"}</ListItem.Title>
+            </ListItem.Content>
+            <Text>{categoria === "Tentrante" ? desde : hacia}</Text>
+          </ListItem>
+        </View>
+      ) : operacion === "recarga" ? (
+        <View>
+          <ListItem
+            containerStyle={{
+              backgroundColor: primary,
+              borderBottomColor: dark ? "grey" : secondary,
+              borderBottomWidth: 1,
+            }}
+          >
+            <ListItem.Content>
+              <ListItem.Title>{"Metodo de recarga"}</ListItem.Title>
+            </ListItem.Content>
+            <Text>
+              {categoria === "recarga"
+                ? "Recarga presencial"
+                : "Recarga con tarjeta de credito"}
+            </Text>
+          </ListItem>
+          <ListItem
+            containerStyle={{
+              backgroundColor: primary,
+              borderBottomColor: dark ? "grey" : secondary,
+              borderBottomWidth: 1,
+            }}
+          >
+            <ListItem.Content>
+              <ListItem.Title>
+                {categoria === "recarga" ? "Lugar de recarga" : "Tarjeta"}
+              </ListItem.Title>
+            </ListItem.Content>
+            <Text>
+              {categoria === "recarga" ? empresa : empresa + " " + card}
+            </Text>
+          </ListItem>
+        </View>
+      ) : operacion === "servicio" ? (
+        <View>
+          <ListItem
+            containerStyle={{
+              backgroundColor: primary,
+              borderBottomColor: dark ? "grey" : secondary,
+              borderBottomWidth: 1,
+            }}
+          >
+            <ListItem.Content>
+              <ListItem.Title>{"Tipo de servicio"}</ListItem.Title>
+            </ListItem.Content>
+            <Text>{categoria}</Text>
+          </ListItem>
+        </View>
+      ) : operacion === "compra" ? (
+        <View>
+          <ListItem
+            containerStyle={{
+              backgroundColor: primary,
+              borderBottomColor: dark ? "grey" : secondary,
+              borderBottomWidth: 1,
+            }}
+          >
+            <ListItem.Content>
+              <ListItem.Title>{"Lugar de compra"}</ListItem.Title>
+            </ListItem.Content>
+            <Text>{empresa}</Text>
+          </ListItem>
+        </View>
+      ) : (
+        <View>Unexpected error</View>
+      )}
+      <ListItem
+        containerStyle={{
+          backgroundColor: primary,
+          borderBottomColor: dark ? "grey" : secondary,
+          borderBottomWidth: 1,
+        }}
+      >
+        <ListItem.Content>
+          <ListItem.Title>{"Fecha"}</ListItem.Title>
+        </ListItem.Content>
+        <Text>{date}</Text>
+      </ListItem>
+      <ListItem
+        containerStyle={{
+          backgroundColor: primary,
+          borderBottomColor: dark ? "grey" : secondary,
+          borderBottomWidth: 1,
+        }}
+      >
+        <ListItem.Content>
+          <ListItem.Title>{"Hora"}</ListItem.Title>
+        </ListItem.Content>
+        <Text>{time}</Text>
+      </ListItem>
+      <ListItem
+        containerStyle={{
+          backgroundColor: primary,
+          borderBottomColor: dark ? "grey" : secondary,
+          borderBottomWidth: 1,
+        }}
+      >
+        <ListItem.Content>
+          <ListItem.Title>{"Monto"}</ListItem.Title>
+        </ListItem.Content>
+        <Text>{`$ ${monto}`}</Text>
+      </ListItem>
+    </ScrollView>
+  );
+};
 
 /*Esta funcion genera un recibo en pdf*/
-export const generateInvoice = async (date, time,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver, desde, card) => {
-  console.log("En Generate Invoice",categoria)
- 
+export const generateInvoice = async (
+  date,
+  time,
+  monto,
+  tipo,
+  hacia,
+  motivo,
+  estado,
+  operacion,
+  empresa,
+  categoria,
+  sender,
+  receiver,
+  desde,
+  card
+) => {
+  console.log("En Generate Invoice", categoria);
+
   const cabecera = `<!DOCTYPE html>
   <html lang="en">
   <head>
@@ -286,9 +325,9 @@ export const generateInvoice = async (date, time,monto,tipo,hacia,motivo,estado,
         <p class = "titulo">Operacion</p>
         <p class = "notitulo">${operacion}</p>
           <p class = "titulo">importe</p>
-          <p class = "notitulo">$${monto}</p>`
-  
-          const footer = `<p class = "titulo">Fecha</p>
+          <p class = "notitulo">$${monto}</p>`;
+
+  const footer = `<p class = "titulo">Fecha</p>
             <p class = "notitulo">${date}</p>
             <p class = "titulo">Hora</p>
             <p class = "notitulo">${time}</p>
@@ -300,19 +339,19 @@ export const generateInvoice = async (date, time,monto,tipo,hacia,motivo,estado,
             </div>
           </div>   
           </body>
-          </html>`
-  let html 
-  if(categoria === "Tentrante"){
+          </html>`;
+  let html;
+  if (categoria === "Tentrante") {
     const loquefalta = `<p class="titulo">Origen</p>
     <p class = "notitulo">${sender}</p>
     <p class="titulo">CVU</p>
     <p class = "notitulo">${desde}</p>
     <p class="titulo">Motivo</p>
     <p class = "notitulo">${motivo}</p>
-  `
-    html= cabecera+loquefalta+footer
+  `;
+    html = cabecera + loquefalta + footer;
   }
-  if(categoria === "Tsaliente"){
+  if (categoria === "Tsaliente") {
     const loquefalta = `
     <p class="titulo">Destino</p>
     <p class = "notitulo">${receiver}</p>
@@ -320,64 +359,64 @@ export const generateInvoice = async (date, time,monto,tipo,hacia,motivo,estado,
     <p class = "notitulo">${hacia}</p>
     <p class="titulo">Motivo</p>
     <p class = "notitulo">${motivo}</p>
-    `
-    return  cabecera + loquefalta +footer
+    `;
+    return cabecera + loquefalta + footer;
   }
-  if(categoria === "recarga"){
+  if (categoria === "recarga") {
     const loquefalta = `
     <p class="titulo">Metodo de recarga</p>
     <p class = "notitulo">Recarga presencial</p>
     <p class="titulo">Lugar de recarga</p>
     <p class = "notitulo">${empresa}</p>
-    `
-    html =  cabecera + loquefalta +footer
+    `;
+    html = cabecera + loquefalta + footer;
   }
-  if(categoria === "recarga con tarjeta"){
+  if (categoria === "recarga con tarjeta") {
     const loquefalta = `
     <p class="titulo">Metodo de recarga</p>
     <p class = "notitulo">Recarga con tarjeta</p>
     <p class="titulo">Tarjeta</p>
-    <p class = "notitulo">${empresa +""+card}</p>
-    `
-    html = cabecera + loquefalta +footer
+    <p class = "notitulo">${empresa + "" + card}</p>
+    `;
+    html = cabecera + loquefalta + footer;
   }
-  if(operacion === "compra"){
+  if (operacion === "compra") {
     const loquefalta = `
     <p class="titulo">Lugar de compra</p>
     <p class = "notitulo">${empresa}</p>
     <p class="titulo">Categoria</p>
     <p class = "notitulo">${categoria}</p>
-    `
-    html = cabecera + loquefalta +footer
+    `;
+    html = cabecera + loquefalta + footer;
   }
-  if(operacion === "servicio"){
+  if (operacion === "servicio") {
     const loquefalta = `
     <p class="titulo">Empresa</p>
     <p class = "notitulo">${empresa}</p>
     <p class="titulo">Tipo de servicio</p>
     <p class = "notitulo">${categoria}</p>
-    `
-    html = cabecera + loquefalta +footer
+    `;
+    html = cabecera + loquefalta + footer;
   }
-  if(categoria === "compradolar"){
+  if (categoria === "compradolar") {
     const loquefalta = `
     <p class="titulo">Vendiste</p>
     <p class = "notitulo">${monto}</p>
     <p class="titulo">Obtuvise</p>
     <p class = "notitulo">${dolares}</p>
-    `
-    html = cabecera + loquefalta +footer
+    `;
+    html = cabecera + loquefalta + footer;
   }
-  if(categoria === "ventadolar"){
+  if (categoria === "ventadolar") {
     const loquefalta = `
     <p class="titulo">Vendiste</p>
     <p class = "notitulo">${dolares}</p>
     <p class="titulo">Obtuviste</p>
     <p class = "notitulo">${monto}</p>
-    `
-    html = cabecera + loquefalta +footer
+    `;
+    html = cabecera + loquefalta + footer;
   }
-  
+
   if (html) {
     try {
       const { uri } = await Print.printToFileAsync({ html });
@@ -395,4 +434,3 @@ export const generateInvoice = async (date, time,monto,tipo,hacia,motivo,estado,
     }
   }
 };
-
