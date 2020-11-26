@@ -57,7 +57,11 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
   function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
- 
+  let date = new Date(fecha).toLocaleDateString();
+  let time = new Date(fecha).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   return(
     <View style={{ backgroundColor: bg }}>
@@ -105,7 +109,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           >
             <TouchableOpacity
               style={[{ backgroundColor: secondary }, styleBoton.boton]}
-              onPress={() => generateInvoice( )}
+              onPress={() => generateInvoice( date, time,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver, desde, card)}
               icon={{
                 name: "receipt",
                 size: 20,
