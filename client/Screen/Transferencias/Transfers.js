@@ -139,19 +139,17 @@ const Transfers = ({ navigation }) => {
                           ]}
                           onPress={() =>
                             navigation.navigate("Detalle", {
+                              estado: item.estado,
                               fecha: item.fecha,
-                              monto: item.monto,
                               hacia: item.hacia,
-                              desde: item.desde,
-                              estado: item.estado,
-                              categoria: item.categoria,
+                              id: item.id,
+                              monto: item.monto,
                               motivo: item.motivo,
+                              categoria: item.categoria,
                               operacion: item.operacion,
-                              estado: item.estado,
-                              empresa: item.empresa,
-                              sender: item.sender,
                               receiver: item.receiver,
-                              card: item.card
+                              card: item.card,
+                              sender: item.sender,
                             })
                           }
                         >
@@ -196,12 +194,14 @@ const Transfers = ({ navigation }) => {
               </ScrollView>
             )}
       </View>
-      <View style={[{ top: heightPercentageToDP("72%"), position: "absolute" }, botonStyle.container]}>
+      <View
+        style={[
+          { top: heightPercentageToDP("72%"), position: "absolute" },
+          botonStyle.container,
+        ]}
+      >
         <TouchableOpacity
-          style={[
-            { backgroundColor: secondary },
-            botonStyle.boton,
-          ]}
+          style={[{ backgroundColor: secondary }, botonStyle.boton]}
           onPress={() => {
             navigation.navigate("Transferir");
           }}
