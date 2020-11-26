@@ -9,8 +9,9 @@ import {
   Linking,
 } from "react-native";
 import { ListItem, Avatar, Icon } from "react-native-elements";
-import { useSelector, useDispatch } from "react-redux";
-import profileImage from "../../Components/stack/profileImage";
+import { useSelector } from "react-redux";
+import { iconM } from "../../Components/stack/profileImage";
+
 const Amigos = ({ navigation }) => {
   const user = useSelector((store) => store.user.user);
   const contactos = useSelector((store) => store.contacts);
@@ -63,7 +64,7 @@ const Amigos = ({ navigation }) => {
                   bottomDivider
                   containerStyle={{ backgroundColor: primary }}
                 >
-                  <Avatar rounded source={{ uri: l.imagen || profileImage }} />
+                  <Avatar rounded source={{ uri: l.imagen || iconM }} />
                   <ListItem.Content>
                     <ListItem.Title
                       style={{ color: !dark ? text : "black", fontSize: 20 }}
