@@ -73,6 +73,7 @@ const Transferencias = ({ navigation }) => {
           style={style.input}
           onChangeText={(data) => setDato({ ...dato, receivercvu: data }, setError(false))}
           value={dato.receivercvu}
+          
         />
         {spinner && (
           <View style={style.spinner}>

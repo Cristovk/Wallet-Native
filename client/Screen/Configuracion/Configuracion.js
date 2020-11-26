@@ -18,6 +18,7 @@ const Configuracion = ({ navigation, route }) => {
   const { primary, secondary, text, bg, dark } = useSelector((store) => store.color);
 
   const [huella, setHuella] = useState()
+  const [huellaTrans, setHuellaTrans] = useState()
 
   const [passwordchange, setPasswordChange] = useState(false);
   const [emailchange, setEmailChange] = useState(false);
@@ -27,18 +28,35 @@ const Configuracion = ({ navigation, route }) => {
 
   const user = useSelector(store => store.user.user)
 
+  //Huella  Transcionsion
+  const usarHuellaTrans = async () => {
+    modifMetodo();
+    if (huellaTrans) {
+      const clave = JSON.stringify(user.clave);
+       await AsyncStorage.setItem("MetodoTrans", clave)
+    }
+    if (!huellaTrans) {
+       await AsyncStorage.setItem("MetodoTrans", "huellaTrans")
+    }
+    const usuarioTrans = await AsyncStorage.getItem("MetodoTrans")
+    return usuarioTrans
+  }
+
+//huella Login
   const usarHuella = async () => {
     modifMetodo();
     if (huella) {
-      const clave = JSON.stringify(user.clave)
-      const usoHuella = await AsyncStorage.setItem("Metodo", clave)
+      const clave = JSON.stringify(user.clave);
+      await AsyncStorage.setItem("Metodo", clave)
     }
     if (!huella) {
-      const usoHuella = await AsyncStorage.setItem("Metodo", "huella")
+       await AsyncStorage.setItem("Metodo", "huella")
     }
     const usuario = await AsyncStorage.getItem("Metodo")
+    return usuario
   }
 
+  //getHuella LOGIN
   const getHuella = () => {
     AsyncStorage.getItem("Metodo")
       .then(resp => {
@@ -52,24 +70,42 @@ const Configuracion = ({ navigation, route }) => {
         console.log(err);
       })
   }
+    //getHuella Trans
+  const getHuellaTrans = () => {
+    AsyncStorage.getItem("MetodoTrans")
+      .then(resp => {
+        if (resp === "huellaTrans") {
+          setHuellaTrans(true)
+        }
+        else if (resp !== "huellaTrans" && user.metodoTrans === "true") {
+          setHuellaTrans(true)
+        }
+      }).catch(err => {
+        console.log(err);
+      })
+  }
+
 
   const modifMetodo = async () => {
     const id = await auth.currentUser.uid
-    if (!huella) {
+    if (!huella || !huellaTrans) {
       await storage.collection('Users').doc(id).update({
         ...user,
-        metodo: "huella"
+        metodo: "huella",
+        metodoTrans: "huellaTrans"
       })
     } else {
       await storage.collection('Users').doc(id).update({
         ...user,
-        metodo: ""
+        metodo: "",
+        metodoTrans: ""
       })
     }
   }
 
   useEffect(() => {
     getHuella();
+    getHuellaTrans();
   }, [])
 
 
@@ -215,20 +251,25 @@ const Configuracion = ({ navigation, route }) => {
                 />
               </View>
 
+                  {/* Swtch para huella de transaccion*/ }
               <View style={styles.textoSubitem}>
-                <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>Seguridad</Text>
-                <Text style={dark ? styles.letraClara : styles.letraOscura}>Usá tu huella en transacciones</Text>
-              </View>
-            </View>
-            <View style={[dark ? styles.contIconoDark : styles.contIcono, styles.flecha]} >
-              <Icon
-                size={14}
-                name="chevron-right"
-                type="font-awesome"
-                color={iconColor}
-              />
+              <Text style={dark ? styles.nombreSubitemDark : styles.nombreSubitem}>
+                Transacciones con Huella:
+              </Text>
             </View>
           </View>
+          <View style={styles.interruptor}>
+            <Switch
+              trackColor={{ false: dark ? bg : secondary, true: dark ? secondary : bg }}
+              thumbColor={dark ? primary : secondary}
+              value={huellaTrans}
+              onValueChange={() => {
+                setHuellaTrans(!huellaTrans);
+                usarHuellaTrans()
+              }}
+            />
+          </View>
+        </View>
 
           <View style={dark ? styles.itemAjustesDark : styles.itemAjustes}>
             <View style={styles.subitemAjustes}>

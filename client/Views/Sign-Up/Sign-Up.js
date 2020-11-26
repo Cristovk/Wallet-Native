@@ -6,22 +6,23 @@ import {
   Image,
   TextInput,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert,
 } from "react-native";
 import { Icon, Button } from "react-native-elements";
 import { styles } from "./Sing-Up-Styles";
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { addUser, saveData } from "../../Redux/User";
 import { useDispatch } from "react-redux";
-//import { LogBox } from "react-native";
-import { storage } from "../../../firebase.js";
+import { LogBox } from "react-native";
+import { auth, storage } from "../../../firebase.js";
 
 Dimensions.get("window").width;
 Dimensions.get("window").height;
 /* ======================================= STATE ================================================ */
 
 const SignUp = ({ navigation }) => {
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
@@ -43,21 +44,21 @@ const SignUp = ({ navigation }) => {
     emptyYear: "",
     invalidYearFormat: "",
   });
-  const emailValido = (async (email) => {
-    const query = await storage.collection('Users').where('email', '==', email).get()
-
+  const emailValido = async () => {
+    const query = await storage
+      .collection("Users")
+      .where("email", "==", email)
+      .get();
     if (query.empty) {
-      console.log('No existen mail iguales');
       return false;
     }
     return true;
+  };
 
-  });
-
-  let newDate = new Date(year, month - 1, day + 1);
+  let newDate = new Date(year, month - 1, day)
   let actualYear = new Date().getFullYear();
 
-  const validateForm = () => {
+  const validateForm = async () => {
     setErr({
       emptyName: "",
       emptyLastname: "",
@@ -84,9 +85,7 @@ const SignUp = ({ navigation }) => {
     let invalidYearFormat = "";
 
     //comprobar si el mail existe
-
-
-
+    const existe = await emailValido();
     if (!name) {
       emptyName = "El campo Nombre(s) es necesario";
     }
@@ -97,10 +96,9 @@ const SignUp = ({ navigation }) => {
       emptyEmail = "El campo Email es necesario";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       invalidEmailFormat = "Formato de email inválido o ya registrado";
+    } else if (existe) {
+      emailExist = "El email ya está registrado";
     }
-    // else if (emailValido(email)) {
-    //   emailExist = "El email ya está registrado";
-    // }
 
     if (!day) {
       emptyDay = "El campo día es necesario";
@@ -145,7 +143,6 @@ const SignUp = ({ navigation }) => {
       return false;
     } else return true;
   };
-  // setBirthday(newDate);
 
   let info = {
     name: name,
@@ -153,18 +150,17 @@ const SignUp = ({ navigation }) => {
     birthday: newDate,
   };
 
-  const handleOnPress = () => {
-    const valid = validateForm()
+  const handleOnPress = async () => {
+    const valid = await validateForm();
     if (valid) {
       dispatch(addUser("email", email));
       dispatch(saveData(info));
       navigation.navigate("SignUp1");
     }
-
   };
 
-  const iconColor = 'grey';
-  const placeholderColor = 'grey';
+  const iconColor = "grey";
+  const placeholderColor = "grey";
 
   return (
     <ScrollView style={styles.container}>
@@ -178,12 +174,7 @@ const SignUp = ({ navigation }) => {
       <View style={styles.formGroup}>
         <View style={styles.subgroup}>
           <View style={styles.contIcono}>
-            <Icon
-              size={16}
-              name="user"
-              type="font-awesome"
-              color={iconColor}
-            />
+            <Icon size={16} name="user" type="font-awesome" color={iconColor} />
           </View>
           <Text style={styles.label}>Nombres</Text>
           <TextInput
@@ -202,12 +193,7 @@ const SignUp = ({ navigation }) => {
       <View style={styles.formGroup}>
         <View style={styles.subgroup}>
           <View style={[styles.contIcono]}>
-            <Icon
-              size={16}
-              name="user"
-              type="font-awesome"
-              color={iconColor}
-            />
+            <Icon size={16} name="user" type="font-awesome" color={iconColor} />
           </View>
           <Text style={styles.label}>Apellidos</Text>
           <TextInput
@@ -257,7 +243,6 @@ const SignUp = ({ navigation }) => {
         <Text style={styles.error}>{Err.emailExist}</Text>
       ) : null}
 
-
       <Text style={styles.label}>Cumpleaños</Text>
       <View style={[styles.inputs, styles.cumple]}>
         <TextInput
@@ -299,13 +284,18 @@ const SignUp = ({ navigation }) => {
         <Text style={styles.error}>{Err.invalidYearFormat}</Text>
       ) : null}
 
-
       <View style={[styles.button, styles.box]}>
-        <TouchableOpacity style={[styles.btnEnviar, styles.siguiente]} onPress={() => handleOnPress()}>
+        <TouchableOpacity
+          style={[styles.btnEnviar, styles.siguiente]}
+          onPress={() => handleOnPress()}
+        >
           <Text style={styles.textoBtn}>SIGUIENTE</Text>
         </TouchableOpacity>
         <View style={styles.separator}></View>
-        <TouchableOpacity style={[styles.btnEnviar, styles.anterior]} onPress={() => navigation.navigate("Login")}>
+        <TouchableOpacity
+          style={[styles.btnEnviar, styles.anterior]}
+          onPress={() => navigation.navigate("Login")}
+        >
           <Text style={styles.textoBtn}>ANTERIOR</Text>
         </TouchableOpacity>
       </View>

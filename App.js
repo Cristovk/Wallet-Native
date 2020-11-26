@@ -23,15 +23,19 @@ export default function App() {
       background: darker ? "#02072F" : "lightgray",
     },
   };
+  const [cambio,setCambio]=useState(false);
+  useEffect(()=>{
+     setCambio(false);
+  },[cambio])
 
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
 
   return (
     /* para agregar mas pantallas */
     <Provider store={store}>
       <ProviderPaper>
         <NavigationContainer theme={MyTheme}>
-          <MyStack darker={setDarker} />
+          <MyStack darker={setDarker} cambio={setCambio}/>
           <StatusBar barStyle="light-content" />
         </NavigationContainer>
       </ProviderPaper>

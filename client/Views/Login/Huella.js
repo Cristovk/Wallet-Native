@@ -5,6 +5,7 @@ import {
   ScrollView,
   Button,
   Image,
+  Alert,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
@@ -13,6 +14,7 @@ import * as LocalAuthentication from "expo-local-authentication";
 import styles from "./HuellaStyle";
 import { useSelector } from "react-redux";
 import { Icon } from "react-native-elements";
+
 import styleBoton from "../../Global-Styles/BotonMediano";
 
 const Huella = ({ navigation }) => {

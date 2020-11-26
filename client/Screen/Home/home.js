@@ -23,15 +23,10 @@ import {
 import { useIsFocused } from "@react-navigation/native";
 import { auth, storage } from "../../../firebase";
 import styleBoton from "../../Global-Styles/BotonGrande";
-import {
-  widthPercentageToDP,
-  heightPercentageToDP,
-} from "react-native-responsive-screen";
-import { darkBlue, orange, white } from "../../Global-Styles/colors";
 
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
   const dispatch = useDispatch();
   const [saldo, setSaldo] = useState(0);
   const [movements, setMovements] = useState([]);
@@ -200,25 +195,36 @@ const Home = ({ navigation }) => {
           ) : saldo == null ? (
             <View>
               <Text style={style.tituloBalanceCero}>$ 0 </Text>
-
               <View
                 style={{
                   flexDirection: "row",
                   justifyContent: "center",
                   alignItems: "center",
+
                 }}
               >
-                <Text
-                  onPress={() => navigation.navigate("Recargas")}
-                  style={{ fontSize: 12, fontWeight: "normal" }}
-                >
-                  Recargar
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: dark ? primary : secondary,
+                    height: 20,
+                    width: 70,
+                    borderRadius: 5,
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}
+                  onPress={() => navigation.navigate("Recargas")}>
+                  <Text
+
+                    style={{ fontSize: 14, fontWeight: "bold" }}
+                  >
+                    Recargar
                 </Text>
+                </TouchableOpacity>
               </View>
             </View>
           ) : (
-            `$ ${formatNumber(saldo)}`
-          )}
+                `$ ${formatNumber(saldo)}`
+              )}
         </Text>
       </View>
       <View
@@ -259,97 +265,98 @@ const Home = ({ navigation }) => {
             {"Acá se listarán tus movimientos cuando los tengas"}
           </Text>
         ) : (
-          <ScrollView>
-            <FlatList
-              data={movements}
-              keyExtractor={(mov) => mov.id}
-              style={{ marginVertical: 15, backgroundColor: primary }}
-              renderItem={({ item }) => {
-                return (
-                  <ListItem
-                    key={item.id}
-                    containerStyle={{
-                      backgroundColor: primary,
-                    }}
+              <ScrollView>
+                <FlatList
+                  data={movements}
+                  keyExtractor={(mov) => mov.id}
+                  style={{ marginVertical: 15, backgroundColor: primary }}
+                  renderItem={({ item }) => {
+                    return (
+                      <ListItem
+                        key={item.id}
+                        containerStyle={{
+                          backgroundColor: primary,
+                        }}
+                        style={[
+                          { borderBottomColor: dark ? "grey" : secondary },
+                          style.listaContenedor,
+                        ]}
+                        onPress={() =>
+                          navigation.navigate("Detalle", {
+                            fecha: item.fecha,
+                            monto: item.monto,
+                            hacia: item.hacia,
+                            desde: item.desde,
+                            estado: item.estado,
+                            tipo: item.tipo,
+                            motivo: item.motivo,
+                            operacion: item.operacion,
+                            estado: item.estado,
+                            empresa: item.empresa,
+                            sender: item.sender,
+                            receiver: item.receiver,
+                            categoria: item.categoria,
+                            card: item.card
+                          })
+                        }
+                      >
+                        {item.categoria == "Tsaliente" ||
+                          item.operacion == "compra" ||
+                          item.operacion == "servicios" ||
+                          item.operacion == "servicio" ? (
+                            <Icon
+                              name={iconList[item.categoria]}
+                              size={30}
+                              color="red"
+                            />
+                          ) : (
+                            <Icon
+                              name={iconList[item.categoria]}
+                              size={30}
+                              color="green"
+                            />
+                          )}
+                        <ListItem.Content>
+                          <ListItem.Title>
+                            {item.operacion[0].toUpperCase() +
+                              item.operacion.substring(1)}
+                          </ListItem.Title>
+                          <ListItem.Subtitle>
+                            {new Date(item.fecha).toLocaleDateString()}
+                          </ListItem.Subtitle>
+                        </ListItem.Content>
+                        <Text style={{ marginRight: 3 }}>
+                          {item.categoria == "Tsaliente" ||
+                            item.operacion == "compra" ||
+                            item.operacion == "servicios" ||
+                            item.operacion == "servicio"
+                            ? `- $ ${formatNumber(item.monto)}`
+                            : `$ ${formatNumber(item.monto)}`}
+                        </Text>
+                        <ListItem.Chevron
+                          name="chevron-right"
+                          type="font-awesome"
+                          color="black"
+                        />
+                      </ListItem>
+                    );
+                  }}
+                ></FlatList>
+                <View style={[{ marginBottom: 30 }, styleBoton.container]}>
+                  <TouchableOpacity
                     style={[
-                      { borderBottomColor: dark ? "grey" : secondary },
-                      style.listaContenedor,
+                      { backgroundColor: secondary, marginBottom: 25 },
+                      styleBoton.boton,
                     ]}
-                    onPress={() =>
-                      navigation.navigate("Detalle", {
-                        fecha: item.fecha,
-                        monto: item.monto,
-                        hacia: item.hacia,
-                        desde: item.desde,
-                        estado: item.estado,
-                        tipo: item.tipo,
-                        motivo: item.motivo,
-                        operacion: item.operacion,
-                        estado: item.estado,
-                        empresa: item.empresa,
-                        sender: item.sender,
-                        receiver: item.receiver,
-                        categoria: item.categoria,
-                      })
-                    }
+                    onPress={() => navigation.navigate("Movimientos")}
                   >
-                    {item.categoria == "Tsaliente" ||
-                    item.operacion == "compra" ||
-                    item.operacion == "servicios" ||
-                    item.operacion == "servicio" ? (
-                      <Icon
-                        name={iconList[item.categoria]}
-                        size={30}
-                        color="red"
-                      />
-                    ) : (
-                      <Icon
-                        name={iconList[item.categoria]}
-                        size={30}
-                        color="green"
-                      />
-                    )}
-                    <ListItem.Content>
-                      <ListItem.Title>
-                        {item.operacion[0].toUpperCase() +
-                          item.operacion.substring(1)}
-                      </ListItem.Title>
-                      <ListItem.Subtitle>
-                        {new Date(item.fecha).toLocaleDateString()}
-                      </ListItem.Subtitle>
-                    </ListItem.Content>
-                    <Text style={{ marginRight: 3 }}>
-                      {item.categoria == "Tsaliente" ||
-                      item.operacion == "compra" ||
-                      item.operacion == "servicios" ||
-                      item.operacion == "servicio"
-                        ? `- $ ${formatNumber(item.monto)}`
-                        : `$ ${formatNumber(item.monto)}`}
-                    </Text>
-                    <ListItem.Chevron
-                      name="chevron-right"
-                      type="font-awesome"
-                      color="black"
-                    />
-                  </ListItem>
-                );
-              }}
-            ></FlatList>
-            <View style={[{ marginBottom: 30 }, styleBoton.container]}>
-              <TouchableOpacity
-                style={[
-                  { backgroundColor: secondary, marginBottom: 25 },
-                  styleBoton.boton,
-                ]}
-                onPress={() => navigation.navigate("Movimientos")}
-              >
-                <Text style={[{ color: text }, styleBoton.texto]}>
-                  Ver todos los Movimientos
+                    <Text style={[{ color: text }, styleBoton.texto]}>
+                      Ver todos los Movimientos
                 </Text>
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
-        )}
+                  </TouchableOpacity>
+                </View>
+              </ScrollView>
+            )}
       </View>
     </View>
   );
