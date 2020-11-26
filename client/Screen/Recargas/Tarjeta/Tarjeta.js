@@ -24,7 +24,7 @@ import botonStyle from '../../../Global-Styles/BotonGrande'
 
 /* ============================ STATES ============================ */
 const Tarjeta = (props) => {
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
   const [questionModal, setQuestionModal] = useState(false);
   const [cards, setCards] = useState([]);
   const [monto, setMonto] = useState(0);

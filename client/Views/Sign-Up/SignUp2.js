@@ -193,6 +193,7 @@ const SignUp2 = ({ navigation }) => {
               placeholderTextColor={placeholderColor}
               textContentType="password"
               secureTextEntry={hide1}
+              autoCompleteType='off'
             />
             <View style={styles.eye}>
               <Icon
@@ -234,6 +235,7 @@ const SignUp2 = ({ navigation }) => {
               placeholderTextColor={placeholderColor}
               textContentType="password"
               secureTextEntry={hide2}
+              autoCompleteType='off'
             />
             <View style={styles.eye}>
               <Icon
