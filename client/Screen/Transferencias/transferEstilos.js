@@ -35,8 +35,11 @@ const style = StyleSheet.create({
   },
   input: {
     marginVertical: 3,
+    lineHeight: 15,
+    borderBottomColor: darkBlue,
+    borderBottomWidth: 1,
     height: 40,
-    width: "100%",
+    width: "85%",
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
@@ -46,7 +49,7 @@ const style = StyleSheet.create({
   cvu: {
     alignContent: "center",
     marginTop: 2,
-    height: 60,
+    height: 80,
     alignItems: "center",
     borderTopStartRadius: 15,
     borderTopEndRadius: 15,
@@ -63,6 +66,8 @@ const style = StyleSheet.create({
   text: {
     color: "white",
     marginVertical: 15,
+    fontWeight: "bold",
+    fontSize: 20,
     textAlign: 'center',
     height: 40,
   },
