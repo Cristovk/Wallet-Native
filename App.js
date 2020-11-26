@@ -23,6 +23,10 @@ export default function App() {
       background: darker ? "#02072F" : "lightgray",
     },
   };
+  const [cambio,setCambio]=useState(false);
+  useEffect(()=>{
+     setCambio(false);
+  },[cambio])
 
   // LogBox.ignoreAllLogs();
 
@@ -31,7 +35,7 @@ export default function App() {
     <Provider store={store}>
       <ProviderPaper>
         <NavigationContainer theme={MyTheme}>
-          <MyStack darker={setDarker} />
+          <MyStack darker={setDarker} cambio={setCambio}/>
           <StatusBar barStyle="light-content" />
         </NavigationContainer>
       </ProviderPaper>
