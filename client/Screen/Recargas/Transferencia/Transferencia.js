@@ -81,8 +81,8 @@ const Transferencia = ({ color }) => {
           </TouchableOpacity>
         </View>
         <View style={[{ marginTop: 20 }, botonStyle.container]}>
-          <TouchableOpacity style={[{ backgroundColor: dark ? primary : secondary }, botonStyle.boton]} onPress={shareCVUbySMS}>
-            <Text style={[{ color: dark ? bg : text }, botonStyle.texto]} >Vía SMS</Text>
+          <TouchableOpacity style={[{ backgroundColor: dark ? secondary : secondary }, botonStyle.boton]} onPress={shareCVUbySMS}>
+            <Text style={[{ color: dark ? primary : text }, botonStyle.texto]} >Vía SMS</Text>
           </TouchableOpacity>
         </View>
 

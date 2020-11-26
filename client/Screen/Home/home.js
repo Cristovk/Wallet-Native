@@ -9,7 +9,7 @@ import {
   FlatList,
   ActivityIndicator,
   BackHandler,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import { ListItem, Button } from "react-native-elements";
 import style from "./homeStyles";
@@ -22,9 +22,7 @@ import {
 } from "../../Redux/movements";
 import { useIsFocused } from "@react-navigation/native";
 import { auth, storage } from "../../../firebase";
-import styleBoton from '../../Global-Styles/BotonGrande'
-import { widthPercentageToDP, heightPercentageToDP } from "react-native-responsive-screen"
-import { darkBlue, orange, white } from "../../Global-Styles/colors";
+import styleBoton from "../../Global-Styles/BotonGrande";
 
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
@@ -53,6 +51,7 @@ const Home = ({ navigation }) => {
     Gas: "burn",
     Electricidad: "bolt",
     Internet: "wifi",
+    "recarga con tarjeta": "credit-card",
   };
 
   const { primary, bg, secondary, text, dark } = useSelector(
@@ -190,24 +189,25 @@ const Home = ({ navigation }) => {
         >
           Balance General
         </Text>
-        <Text
-          style={style.saldoBalance}
-        >
+        <Text style={style.saldoBalance}>
           {saldo == 0 ? (
             <ActivityIndicator size="large" color={primary} />
           ) : saldo == null ? (
-            <View
-            >
+            <View>
               <Text style={style.tituloBalanceCero}>$ 0 </Text>
-
-              <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-                <Text onPress={() => navigation.navigate("Recargas")}
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  onPress={() => navigation.navigate("Recargas")}
                   style={{ fontSize: 12, fontWeight: "normal" }}
                 >
-
                   Recargar
-                   </Text>
-
+                </Text>
               </View>
             </View>
           ) : (
@@ -250,7 +250,7 @@ const Home = ({ navigation }) => {
               color: secondary,
             }}
           >
-            {"Acá se listarán tus movimientos una vez que los tengas"}
+            {"Acá se listarán tus movimientos cuando los tengas"}
           </Text>
         ) : (
               <ScrollView>
@@ -283,7 +283,8 @@ const Home = ({ navigation }) => {
                             empresa: item.empresa,
                             sender: item.sender,
                             receiver: item.receiver,
-                            categoria: item.categoria
+                            categoria: item.categoria,
+                            card: item.card
                           })
                         }
                       >
@@ -304,7 +305,10 @@ const Home = ({ navigation }) => {
                             />
                           )}
                         <ListItem.Content>
-                          <ListItem.Title>{item.operacion}</ListItem.Title>
+                          <ListItem.Title>
+                            {item.operacion[0].toUpperCase() +
+                              item.operacion.substring(1)}
+                          </ListItem.Title>
                           <ListItem.Subtitle>
                             {new Date(item.fecha).toLocaleDateString()}
                           </ListItem.Subtitle>
@@ -326,12 +330,17 @@ const Home = ({ navigation }) => {
                     );
                   }}
                 ></FlatList>
-                <View style={[{ marginBottom: 20 }, styleBoton.container]}>
+                <View style={[{ marginBottom: 30 }, styleBoton.container]}>
                   <TouchableOpacity
-                    style={[{ backgroundColor: secondary, marginBottom: 25 }, styleBoton.boton]}
+                    style={[
+                      { backgroundColor: secondary, marginBottom: 25 },
+                      styleBoton.boton,
+                    ]}
                     onPress={() => navigation.navigate("Movimientos")}
                   >
-                    <Text style={[{ color: text }, styleBoton.texto]}>Ver todos los Movimientos</Text>
+                    <Text style={[{ color: text }, styleBoton.texto]}>
+                      Ver todos los Movimientos
+                </Text>
                   </TouchableOpacity>
                 </View>
               </ScrollView>

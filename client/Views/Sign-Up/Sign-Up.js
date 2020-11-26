@@ -6,7 +6,8 @@ import {
   Image,
   TextInput,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert,
 } from "react-native";
 import { Icon, Button } from "react-native-elements";
 import { styles } from "./Sing-Up-Styles";
@@ -14,7 +15,7 @@ import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { addUser, saveData } from "../../Redux/User";
 import { useDispatch } from "react-redux";
 //import { LogBox } from "react-native";
-import { storage } from "../../../firebase.js";
+import { auth, storage } from "../../../firebase.js";
 
 Dimensions.get("window").width;
 Dimensions.get("window").height;
@@ -43,53 +44,20 @@ const SignUp = ({ navigation }) => {
     emptyYear: "",
     invalidYearFormat: "",
   });
-  const emailValido = (async (email) => {
-    const query = await storage.collection('Users').where('email', '==', email).get()
-
+  const emailValido = async () => {
+    const query = await storage
+      .collection("Users")
+      .where("email", "==", email)
+      .get();
     if (query.empty) {
-      console.log('No existen mail iguales');
       return false;
     }
     return true;
+  };
 
-  });
-
-
-
-let emailExistente = true;
-
-async function checkUserInFirebase(email) {
-  return new Promise((resolve) => {
-      admin.auth().getUserByEmail(email)
-          .then((user) => {
-              resolve({ isError: false, doesExist: true, user });
-          })
-          .catch((err) => {
-              resolve({ isError: true, err });
-          });
-  });
-}
-
-  // let validacionE = (async (email, emailExistente) => { 
-
-  //   admin.auth().getUserByEmail(email).then(user =>{
-
-  //   })
-    
-  //   // const query = await storage.collection('Users').where('email', '==', email).get()
-            
-  //   //    if(query.size > 0) {
-  //   //      console.log('Existen mail iguales'); 
-  //   //     return emailExistente= true;
-  //   //     }else{
-  //   //     return emailExistente = false;               
-  //   //  }
-  //  })();
-
-  let newDate = new Date(year, month - 1, day + 1);
   let actualYear = new Date().getFullYear();
 
-  const validateForm = () => {
+  const validateForm = async () => {
     setErr({
       emptyName: "",
       emptyLastname: "",
@@ -115,14 +83,6 @@ async function checkUserInFirebase(email) {
     let emptyYear = "";
     let invalidYearFormat = "";
 
-      //comprobar si el mail existe
-    const emailValido = ((email) => { 
-             let eml = storage.collection('Users').where('email', '==', email);
-              eml.get().then(querySnapshot => {
-                if(querySnapshot.size >= 0) return true;                
-              }) 
-            });
-  
 
     if (!name) {
       emptyName = "El campo Nombre(s) es necesario";
@@ -134,11 +94,7 @@ async function checkUserInFirebase(email) {
       emptyEmail = "El campo Email es necesario";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       invalidEmailFormat = "Formato de email inválido o ya registrado";
-     } 
-      else if (emailExistente === true){
-      emailExist = "el email ya esta registrado";
 
-    }
 
     
     if (!day) {
@@ -184,7 +140,6 @@ async function checkUserInFirebase(email) {
       return false;
     } else return true;
   };
-  // setBirthday(newDate);
 
   let info = {
     name: name,
@@ -192,18 +147,17 @@ async function checkUserInFirebase(email) {
     birthday: newDate,
   };
 
-  const handleOnPress = () => {
-    const valid = validateForm()
+  const handleOnPress = async () => {
+    const valid = await validateForm();
     if (valid) {
       dispatch(addUser("email", email));
       dispatch(saveData(info));
       navigation.navigate("SignUp1");
     }
-
   };
 
-  const iconColor = 'grey';
-  const placeholderColor = 'grey';
+  const iconColor = "grey";
+  const placeholderColor = "grey";
 
   return (
     <ScrollView style={styles.container}>
@@ -217,12 +171,7 @@ async function checkUserInFirebase(email) {
       <View style={styles.formGroup}>
         <View style={styles.subgroup}>
           <View style={styles.contIcono}>
-            <Icon
-              size={16}
-              name="user"
-              type="font-awesome"
-              color={iconColor}
-            />
+            <Icon size={16} name="user" type="font-awesome" color={iconColor} />
           </View>
           <Text style={styles.label}>Nombres</Text>
           <TextInput
@@ -241,12 +190,7 @@ async function checkUserInFirebase(email) {
       <View style={styles.formGroup}>
         <View style={styles.subgroup}>
           <View style={[styles.contIcono]}>
-            <Icon
-              size={16}
-              name="user"
-              type="font-awesome"
-              color={iconColor}
-            />
+            <Icon size={16} name="user" type="font-awesome" color={iconColor} />
           </View>
           <Text style={styles.label}>Apellidos</Text>
           <TextInput
@@ -295,6 +239,7 @@ async function checkUserInFirebase(email) {
       {Err.emailExist ? (
         <Text style={styles.error}>{Err.emailExist}</Text>
       ) : null}
+
       <Text style={styles.label}>Cumpleaños</Text>
       <View style={[styles.inputs, styles.cumple]}>
         <TextInput
@@ -336,13 +281,18 @@ async function checkUserInFirebase(email) {
         <Text style={styles.error}>{Err.invalidYearFormat}</Text>
       ) : null}
 
-
       <View style={[styles.button, styles.box]}>
-        <TouchableOpacity style={[styles.btnEnviar, styles.siguiente]} onPress={() => handleOnPress()}>
+        <TouchableOpacity
+          style={[styles.btnEnviar, styles.siguiente]}
+          onPress={() => handleOnPress()}
+        >
           <Text style={styles.textoBtn}>SIGUIENTE</Text>
         </TouchableOpacity>
         <View style={styles.separator}></View>
-        <TouchableOpacity style={[styles.btnEnviar, styles.anterior]} onPress={() => navigation.navigate("Login")}>
+        <TouchableOpacity
+          style={[styles.btnEnviar, styles.anterior]}
+          onPress={() => navigation.navigate("Login")}
+        >
           <Text style={styles.textoBtn}>ANTERIOR</Text>
         </TouchableOpacity>
       </View>

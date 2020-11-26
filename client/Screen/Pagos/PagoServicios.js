@@ -74,7 +74,7 @@ const PagoServicios = ({ navigation, route }) => {
               <ListItem.Title>Servicio: </ListItem.Title>
               <View
                 style={{
-                  width: widthPercentageToDP("25%"),
+                  width: widthPercentageToDP("30%"),
                   alignItems: "flex-start",
                   justifyContent: "flex-start",
                 }}
@@ -95,7 +95,7 @@ const PagoServicios = ({ navigation, route }) => {
               <ListItem.Title>Empresa:</ListItem.Title>
               <View
                 style={{
-                  width: widthPercentageToDP("25%"),
+                  width: widthPercentageToDP("30%"),
                   alignItems: "flex-start",
                   justifyContent: "flex-start",
                 }}
@@ -116,7 +116,7 @@ const PagoServicios = ({ navigation, route }) => {
               <ListItem.Title>Total a Pagar:</ListItem.Title>
               <View
                 style={{
-                  width: widthPercentageToDP("25%"),
+                  width: widthPercentageToDP("30%"),
                   alignItems: "flex-start",
                   justifyContent: "flex-start",
                 }}
@@ -163,89 +163,89 @@ const PagoServicios = ({ navigation, route }) => {
       </View>
     </View>
   ) : (
-    <View style={{ backgroundColor: bg }}>
-      <View
-        style={[
-          { backgroundColor: primary, marginTop: 25 },
-          viewStyle.container,
-        ]}
-      >
-        <View style={{ marginTop: 25 }}>
-          <ListItem
-            containerStyle={{ backgroundColor: primary }}
-            style={[
-              { borderBottomColor: dark ? "grey" : secondary },
-              style.lista,
-            ]}
-          >
-            <ListItem.Chevron color={dark ? bg : secondary} />
-            <ListItem.Content style={style.listaContenedor}>
-              <ListItem.Title>Servicio: </ListItem.Title>
-              <View
-                style={{
-                  width: widthPercentageToDP("25%"),
-                  alignItems: "flex-start",
-                  justifyContent: "flex-start",
-                }}
-              >
-                <Text>{servicio}</Text>
-              </View>
-            </ListItem.Content>
-          </ListItem>
-          <ListItem
-            containerStyle={{ backgroundColor: primary }}
-            style={[
-              { borderBottomColor: dark ? "grey" : secondary },
-              style.lista,
-            ]}
-          >
-            <ListItem.Chevron color={dark ? bg : secondary} />
-            <ListItem.Content style={style.listaContenedor}>
-              <ListItem.Title>Empresa:</ListItem.Title>
-              <View
-                style={{
-                  width: widthPercentageToDP("25%"),
-                  alignItems: "flex-start",
-                  justifyContent: "flex-start",
-                }}
-              >
-                <Text>{title}</Text>
-              </View>
-            </ListItem.Content>
-          </ListItem>
-          <ListItem
-            containerStyle={{ backgroundColor: primary }}
-            style={[
-              { borderBottomColor: dark ? "grey" : secondary },
-              style.lista,
-            ]}
-          >
-            <ListItem.Chevron color={dark ? bg : secondary} />
-            <ListItem.Content style={style.listaContenedor}>
-              <ListItem.Title>Total a Pagar:</ListItem.Title>
-              <View
-                style={{
-                  width: widthPercentageToDP("25%"),
-                  alignItems: "flex-start",
-                  justifyContent: "flex-start",
-                }}
-              >
-                <TextInput
-                  placeholder="Monto"
-                  value={precio.amount}
-                  onChangeText={(data) => setPrecio(data)}
-                  style={{ width: 80 }}
-                />
-              </View>
-            </ListItem.Content>
-          </ListItem>
-        </View>
-        <View style={style.activityIndicator}>
-          <ActivityIndicator size="large" color={dark ? secondary : bg} />
+      <View style={{ backgroundColor: bg }}>
+        <View
+          style={[
+            { backgroundColor: primary, marginTop: 25 },
+            viewStyle.container,
+          ]}
+        >
+          <View style={{ marginTop: 25 }}>
+            <ListItem
+              containerStyle={{ backgroundColor: primary }}
+              style={[
+                { borderBottomColor: dark ? "grey" : secondary },
+                style.lista,
+              ]}
+            >
+              <ListItem.Chevron color={dark ? bg : secondary} />
+              <ListItem.Content style={style.listaContenedor}>
+                <ListItem.Title>Servicio: </ListItem.Title>
+                <View
+                  style={{
+                    width: widthPercentageToDP("30%"),
+                    alignItems: "flex-start",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <Text>{servicio}</Text>
+                </View>
+              </ListItem.Content>
+            </ListItem>
+            <ListItem
+              containerStyle={{ backgroundColor: primary }}
+              style={[
+                { borderBottomColor: dark ? "grey" : secondary },
+                style.lista,
+              ]}
+            >
+              <ListItem.Chevron color={dark ? bg : secondary} />
+              <ListItem.Content style={style.listaContenedor}>
+                <ListItem.Title>Empresa:</ListItem.Title>
+                <View
+                  style={{
+                    width: widthPercentageToDP("30%"),
+                    alignItems: "flex-start",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <Text>{title}</Text>
+                </View>
+              </ListItem.Content>
+            </ListItem>
+            <ListItem
+              containerStyle={{ backgroundColor: primary }}
+              style={[
+                { borderBottomColor: dark ? "grey" : secondary },
+                style.lista,
+              ]}
+            >
+              <ListItem.Chevron color={dark ? bg : secondary} />
+              <ListItem.Content style={style.listaContenedor}>
+                <ListItem.Title>Total a Pagar:</ListItem.Title>
+                <View
+                  style={{
+                    width: widthPercentageToDP("30%"),
+                    alignItems: "flex-start",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <TextInput
+                    placeholder="Monto"
+                    value={precio.amount}
+                    onChangeText={(data) => setPrecio(data)}
+                    style={{ width: 80 }}
+                  />
+                </View>
+              </ListItem.Content>
+            </ListItem>
+          </View>
+          <View style={style.activityIndicator}>
+            <ActivityIndicator size="large" color={dark ? secondary : bg} />
+          </View>
         </View>
       </View>
-    </View>
-  );
+    );
 };
 
 export default PagoServicios;
