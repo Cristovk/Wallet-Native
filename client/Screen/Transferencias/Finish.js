@@ -7,6 +7,7 @@ import style from "./Finish_Styles";
 import * as SMS from "expo-sms";
 import { CheckBox } from "react-native-elements";
 import * as LocalAuthentication from "expo-local-authentication";
+import AsyncStorage from "@react-native-community/async-storage";
 
 // Check saldo, mandar la wea,
 
@@ -65,6 +66,11 @@ const Finish = ({ navigation, route }) => {
   };
 
   const AuthWithFinger = async () => {
+   const HuellaTrans = await AsyncStorage.getItem("HuellaTrans"); 
+
+   
+   if(HuellaTrans === "HuellaTrans"){
+     
     const res = await LocalAuthentication.hasHardwareAsync();
     if (!res)
       return Alert.alert("Su dispositivo no soporta los metodos de login");
@@ -78,7 +84,11 @@ const Finish = ({ navigation, route }) => {
     if (!huella) return Alert.alert("No tiene autorizacion");
     const login = await LocalAuthentication.authenticateAsync(
       "Ponga su huella"
+
     );
+
+
+
     if (login.success) {
       const { amount } = transferencia;
       if (parseInt(amount) > parseInt(movements.saldo)) {
@@ -91,8 +101,21 @@ const Finish = ({ navigation, route }) => {
         amount: transferencia.amount,
       });
     } else {
-      Alert.alert("Hubo un error");
+      Alert.alert("Hubo un error");  
     }
+  
+  }else {
+        const { amount } = transferencia;
+        if (parseInt(amount) > parseInt(movements.saldo)) {
+          return setErrorMoney(true);
+        }
+        transferir(transferencia);
+        sms ? sendSMS() : wApp ? wAppNotification() : null;
+        navigation.navigate("postScreen", {
+          receiver: receiver,
+          amount: transferencia.amount,
+          });
+     }
   };
 
   const handleSubmit = async () => {
