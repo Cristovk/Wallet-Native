@@ -24,7 +24,8 @@ const SignUp2 = ({ navigation }) => {
   const [code, setCode] = useState("");
   const [pin, setPin] = useState("");
   const [clave, setClave] = useState("")
-  const [hide, setHide] = useState(true);
+  const [hide1, setHide1] = useState(true);
+  const [hide2, setHide2] = useState(true);
   const [Err, setErr] = useState({
     matchPasswordErr: "",
     shortPasswordErr: "",
@@ -36,7 +37,8 @@ const SignUp2 = ({ navigation }) => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user.userAuth);
   const userData = useSelector((store) => store.user.userData);
-  const nameIcon = hide ? "eye-slash" : "eye";
+  const nameIcon = hide1? "eye-slash" : "eye";
+  const nameIcon2 = hide2 ? "eye-slash" : "eye";
 
   const handleOnPress = async () => {
     const valid = validateForm();
@@ -102,8 +104,9 @@ const SignUp2 = ({ navigation }) => {
           "Cuenta creada! Se envio a tu mail un link de verificación"
         );
         navigation.navigate("Login");
+       
       } catch (error) {
-        // console.log(error);
+         console.log(error);
       }
     }
   };
@@ -188,8 +191,18 @@ const SignUp2 = ({ navigation }) => {
           placeholder="********"
           placeholderTextColor={placeholderColor}
           textContentType="password"
-          secureTextEntry={hide}
+          secureTextEntry={hide1}
         />
+         <View style={styles.eye}>
+          <Icon
+            size={16}
+            name={nameIcon}
+            type="font-awesome"
+            color={iconColor}
+            onPress={() => setHide1(!hide1)}
+      
+          />
+        </View>
         </View>
         </View>
 
@@ -200,6 +213,9 @@ const SignUp2 = ({ navigation }) => {
         ) : null}
         {Err.notNumberPasswordErr ? (
           <Text style={styles.error}>{Err.notNumberPasswordErr}</Text>
+        ) : null}
+        {Err.matchPasswordErr ? (
+          <Text style={styles.error}>{Err.matchPasswordErr}</Text>
         ) : null}
 
        <View style={styles.formGroup}>
@@ -216,9 +232,20 @@ const SignUp2 = ({ navigation }) => {
           placeholder="********"
           placeholderTextColor={placeholderColor}
           textContentType="password"
-          secureTextEntry={hide}
+          secureTextEntry={hide2}
         />
+        <View style={styles.eye}>
+          <Icon
+            size={16}
+            name={nameIcon2}
+            type="font-awesome"
+            color={iconColor}
+            onPress={() => setHide2(!hide2)}
+          />
         </View>
+        </View>
+
+        
         </View>
 
 
