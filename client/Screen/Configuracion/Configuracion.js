@@ -32,26 +32,28 @@ const Configuracion = ({ navigation, route }) => {
   const usarHuellaTrans = async () => {
     modifMetodo();
     if (huellaTrans) {
-      const clave = JSON.stringify(user.clave)
-      const usoHuella = await AsyncStorage.setItem("MetodoTrans", clave)
+      const clave = JSON.stringify(user.clave);
+       await AsyncStorage.setItem("MetodoTrans", clave)
     }
     if (!huellaTrans) {
-      const usoHuella = await AsyncStorage.setItem("MetodoTrans", "huellaTrans")
+       await AsyncStorage.setItem("MetodoTrans", "huellaTrans")
     }
-    const usuario = await AsyncStorage.getItem("MetodoTrans")
+    const usuarioTrans = await AsyncStorage.getItem("MetodoTrans")
+    return usuarioTrans
   }
 
 //huella Login
   const usarHuella = async () => {
     modifMetodo();
     if (huella) {
-      const clave = JSON.stringify(user.clave)
-      const usoHuella = await AsyncStorage.setItem("Metodo", clave)
+      const clave = JSON.stringify(user.clave);
+      await AsyncStorage.setItem("Metodo", clave)
     }
     if (!huella) {
-      const usoHuella = await AsyncStorage.setItem("Metodo", "huella")
+       await AsyncStorage.setItem("Metodo", "huella")
     }
     const usuario = await AsyncStorage.getItem("Metodo")
+    return usuario
   }
 
   //getHuella LOGIN
