@@ -23,11 +23,6 @@ import {
 import { useIsFocused } from "@react-navigation/native";
 import { auth, storage } from "../../../firebase";
 import styleBoton from "../../Global-Styles/BotonGrande";
-import {
-  widthPercentageToDP,
-  heightPercentageToDP,
-} from "react-native-responsive-screen";
-import { darkBlue, orange, white } from "../../Global-Styles/colors";
 
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
@@ -200,7 +195,6 @@ const Home = ({ navigation }) => {
           ) : saldo == null ? (
             <View>
               <Text style={style.tituloBalanceCero}>$ 0 </Text>
-
               <View
                 style={{
                   flexDirection: "row",
@@ -342,7 +336,24 @@ const Home = ({ navigation }) => {
                       { backgroundColor: secondary, marginBottom: 25 },
                       styleBoton.boton,
                     ]}
-                    onPress={() => navigation.navigate("Movimientos")}
+                    onPress={() =>
+                      navigation.navigate("Detalle", {
+                        fecha: item.fecha,
+                        monto: item.monto,
+                        hacia: item.hacia,
+                        desde: item.desde,
+                        estado: item.estado,
+                        tipo: item.tipo,
+                        motivo: item.motivo,
+                        operacion: item.operacion,
+                        estado: item.estado,
+                        empresa: item.empresa,
+                        sender: item.sender,
+                        receiver: item.receiver,
+                        categoria: item.categoria,
+                        card: item.card,
+                      })
+                    }
                   >
                     <Text style={[{ color: text }, styleBoton.texto]}>
                       Ver todos los Movimientos
