@@ -97,6 +97,13 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
+        <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }} onPress={() => navigation.navigate('HomeScreen', { screen: 'Dolares' })} >
+          <Icon name='dollar' type='fontisto' color={dark ? text : bg} />
+          <ListItem.Content>
+            <ListItem.Title style={{ color: dark ? text : bg }}>Dolares</ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
         <ListItem bottomDivider containerStyle={{ backgroundColor: 'transparent' }}
           onPress={() => navigation.navigate('HomeScreen', { screen: 'Balance' })} >
           <Icon name='area-chart' type='fontisto' color={dark ? text : bg} />
