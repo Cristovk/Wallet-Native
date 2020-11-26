@@ -32,6 +32,7 @@
     "firebase": "^8.0.1",
     "firebase-admin": "^9.3.0",
     "firebase-functions": "^3.11.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",
     "native-base": "^2.13.14",
     "node-env-file": "^0.1.8",
