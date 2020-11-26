@@ -12,7 +12,7 @@ import { Icon } from "react-native-elements";
 import { styles } from "./Sing-Up-Styles";
 import { addUser, saveData } from "../../Redux/User";
 import { useDispatch } from "react-redux";
-//import { LogBox } from "react-native";
+import { LogBox } from "react-native";
 import { auth, storage } from "../../../firebase.js";
 
 Dimensions.get("window").width;
@@ -20,7 +20,7 @@ Dimensions.get("window").height;
 /* ======================================= STATE ================================================ */
 
 const SignUp = ({ navigation }) => {
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
@@ -81,6 +81,7 @@ const SignUp = ({ navigation }) => {
     let emptyYear = "";
     let invalidYearFormat = "";
 
+    const existe = await emailValido();
 
     if (!name) {
       emptyName = "El campo Nombre(s) es necesario";
@@ -92,7 +93,9 @@ const SignUp = ({ navigation }) => {
       emptyEmail = "El campo Email es necesario";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       invalidEmailFormat = "Formato de email inválido o ya registrado";
-
+    } else if (existe) {
+      emailExist = "El email ya está registrado";
+    }
 
     
     if (!day) {
