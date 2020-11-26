@@ -336,24 +336,7 @@ const Home = ({ navigation }) => {
                       { backgroundColor: secondary, marginBottom: 25 },
                       styleBoton.boton,
                     ]}
-                    onPress={() =>
-                      navigation.navigate("Detalle", {
-                        fecha: item.fecha,
-                        monto: item.monto,
-                        hacia: item.hacia,
-                        desde: item.desde,
-                        estado: item.estado,
-                        tipo: item.tipo,
-                        motivo: item.motivo,
-                        operacion: item.operacion,
-                        estado: item.estado,
-                        empresa: item.empresa,
-                        sender: item.sender,
-                        receiver: item.receiver,
-                        categoria: item.categoria,
-                        card: item.card,
-                      })
-                    }
+                    onPress={() => navigation.navigate("Movimientos")}
                   >
                     <Text style={[{ color: text }, styleBoton.texto]}>
                       Ver todos los Movimientos

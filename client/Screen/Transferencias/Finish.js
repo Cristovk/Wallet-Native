@@ -66,30 +66,45 @@ const Finish = ({ navigation, route }) => {
   };
 
   const AuthWithFinger = async () => {
-   const HuellaTrans = await AsyncStorage.getItem("HuellaTrans"); 
-
-   
-   if(HuellaTrans === "HuellaTrans"){
-     
-    const res = await LocalAuthentication.hasHardwareAsync();
-    if (!res)
-      return Alert.alert("Su dispositivo no soporta los metodos de login");
-
-    const autorization = await LocalAuthentication.supportedAuthenticationTypesAsync(
-      {}
-    );
-    if (!autorization) return Alert.alert("No autorizado");
-
-    const huella = await LocalAuthentication.isEnrolledAsync();
-    if (!huella) return Alert.alert("No tiene autorizacion");
-    const login = await LocalAuthentication.authenticateAsync(
-      "Ponga su huella"
-
-    );
+    const HuellaTrans = await AsyncStorage.getItem("MetodoTrans");
 
 
+    if (HuellaTrans === "huellaTrans") {
 
-    if (login.success) {
+      const res = await LocalAuthentication.hasHardwareAsync();
+      if (!res)
+        return Alert.alert("Su dispositivo no soporta los metodos de login");
+
+      const autorization = await LocalAuthentication.supportedAuthenticationTypesAsync(
+        {}
+      );
+      if (!autorization) return Alert.alert("No autorizado");
+
+      const huella = await LocalAuthentication.isEnrolledAsync();
+      if (!huella) return Alert.alert("No tiene autorizacion");
+      const login = await LocalAuthentication.authenticateAsync(
+        "Ponga su huella"
+
+      );
+
+
+
+      if (login.success) {
+        const { amount } = transferencia;
+        if (parseInt(amount) > parseInt(movements.saldo)) {
+          return setErrorMoney(true);
+        }
+        transferir(transferencia);
+        sms ? sendSMS() : wApp ? wAppNotification() : null;
+        navigation.navigate("postScreen", {
+          receiver: receiver,
+          amount: transferencia.amount,
+        });
+      } else {
+        Alert.alert("Hubo un error");
+      }
+
+    } else {
       const { amount } = transferencia;
       if (parseInt(amount) > parseInt(movements.saldo)) {
         return setErrorMoney(true);
@@ -100,22 +115,7 @@ const Finish = ({ navigation, route }) => {
         receiver: receiver,
         amount: transferencia.amount,
       });
-    } else {
-      Alert.alert("Hubo un error");  
     }
-  
-  }else {
-        const { amount } = transferencia;
-        if (parseInt(amount) > parseInt(movements.saldo)) {
-          return setErrorMoney(true);
-        }
-        transferir(transferencia);
-        sms ? sendSMS() : wApp ? wAppNotification() : null;
-        navigation.navigate("postScreen", {
-          receiver: receiver,
-          amount: transferencia.amount,
-          });
-     }
   };
 
   const handleSubmit = async () => {
