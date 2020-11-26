@@ -10,6 +10,7 @@ const SAVE_NEW_MOV = "SAVE_NEW_MOV";
 const SAVE_SALDO = "SAVE_SALDO";
 const SAVE_CVU = "SAVE_CVU";
 const SAVE_TRANSFER = "SAVE_TRANSFER";
+const SAVE_DOLARES = "SAVE_DOLARES";
 
 const today = new Date(Date.now());
 const weekInMiliseconds = 604800000;
@@ -24,6 +25,7 @@ const initialState = {
   monthMovements: [],
   transfers: [],
   saldo: "",
+  dolares:"",
   CVU: "",
 };
 /* ========================== REDUCERS ========================== */
@@ -40,6 +42,13 @@ export default function movementsReducer(state = initialState, action) {
         ...state,
         saldo: saldo,
       };
+
+    case SAVE_DOLARES:
+      return{
+        ...state,
+        dolares: action.payload
+      }
+
     case SAVE_CVU:
       let CVU = action.payload;
       return {
@@ -94,6 +103,12 @@ export const saveSaldo = (saldo) => (dispatch) => {
   dispatch({
     type: SAVE_SALDO,
     payload: saldo,
+  });
+};
+export const saveDolares = (dolares) => (dispatch) => {
+  dispatch({
+    type: SAVE_DOLARES,
+    payload: dolares,
   });
 };
 
@@ -156,6 +171,15 @@ export const saveTransfers = (transfers) => (dispatch) => {
 export const transferir = async (data) => {
   return Axios.post(
     "https://us-central1-henrybankfire.cloudfunctions.net/sendMoney",
+    data
+  )
+    .then((x) => x.data)
+    .catch((err) => console.log(err));
+};
+
+export const transferirDolar = async (data) => {
+  return Axios.post(
+   " https://us-central1-henrybankfire.cloudfunctions.net/sendDolars",
     data
   )
     .then((x) => x.data)

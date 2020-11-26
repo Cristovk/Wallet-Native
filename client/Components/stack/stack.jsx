@@ -51,7 +51,8 @@ import ConfirmDelete from '../../Screen/Modificar-Email-Pass/ConfirmDelete';
 import Pin from '../../Views/Login/pin';
 import Huella from '../../Views/Login/Huella';
 import Splash from '../../Screen/Splash/Splash';
-
+import confirmOrErrorDolar from "../../Screen/Dolares/CheckDolar"
+import FinishDolar from "../../Screen/Dolares/FinishDolar"
 
 // Creamos los navegadores
 const Stack = createStackNavigator()
@@ -234,7 +235,8 @@ function HomeScreen({ userLog, user, route }) {
       <HomeScreenStack.Screen name='DeleteUser' component={DeleteUser} options={{ title: 'Borrar Usuario' }} />
       <HomeScreenStack.Screen name='ConfirmDelete' component={ConfirmDelete} options={{ title: 'Borrar Usuario' }} />
       <HomeScreenStack.Screen name='Chat' component={Chat} options={{ title: 'Chat ayuda' }} />
-
+      <HomeScreenStack.Screen name='confirmOrErrorTransf' component={confirmOrErrorDolar} options={{ title: 'Receptor' }} />
+      <HomeScreenStack.Screen name='FinishDolar' component={FinishDolar} options={{ title: 'Monto' }} />
     </HomeScreenStack.Navigator >
   )
 }

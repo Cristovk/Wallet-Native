@@ -19,7 +19,7 @@ const style = StyleSheet.create({
          flexDirection:"row", 
          justifyContent:"space-around",
          alignItems:"center"
-      }
+      },
 })
 
 export default style;

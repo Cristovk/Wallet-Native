@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   saveAllMovements,
   saveSaldo,
+  saveDolares,
   saveCVU,
   getDayMovements,
 } from "../../Redux/movements";
@@ -29,6 +30,7 @@ const Home = ({ navigation }) => {
   // LogBox.ignoreAllLogs();
   const dispatch = useDispatch();
   const [saldo, setSaldo] = useState(0);
+  const [dolares,setDolares] = useState(0);
   const [movements, setMovements] = useState([]);
   const [allMovements, setAllMovements] = useState([]);
   const userId = auth.currentUser.uid;
@@ -71,6 +73,24 @@ const Home = ({ navigation }) => {
             saldo = mov.data().saldo;
           }
           saldo == 0 ? setSaldo(null) : setSaldo(saldo);
+        });
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+
+  const getDolares = async () => {
+    try {
+      let ref = await storage
+        .collection("Users")
+        .doc(userId)
+        .collection("Wallet")
+        .onSnapshot((query) => {
+          let dolares;
+          for (const mov of query.docs) {
+            dolares = mov.data().dolares;
+          }
+          dolares == 0 ? setDolares(null) : setDolares(dolares);
         });
     } catch (error) {
       console.log("Error", error);
@@ -152,6 +172,7 @@ const Home = ({ navigation }) => {
 
   useEffect(() => {
     getSaldo();
+    getDolares();
     getAllMovements();
     getSomeMovements();
     BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick);
@@ -165,6 +186,7 @@ const Home = ({ navigation }) => {
 
   useEffect(() => {
     dispatch(saveSaldo(saldo));
+    dispatch(saveDolares(dolares));
     dispatch(saveAllMovements(allMovements));
     dispatch(getDayMovements(allMovements));
   }, [isFocused, allMovements]);
