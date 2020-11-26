@@ -26,7 +26,7 @@ import styleBoton from "../../Global-Styles/BotonGrande";
 
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
   const dispatch = useDispatch();
   const [saldo, setSaldo] = useState(0);
   const [movements, setMovements] = useState([]);

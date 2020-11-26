@@ -12,7 +12,7 @@ import { Icon } from "react-native-elements";
 import { styles } from "./Sing-Up-Styles";
 import { addUser, saveData } from "../../Redux/User";
 import { useDispatch } from "react-redux";
-//import { LogBox } from "react-native";
+import { LogBox } from "react-native";
 import { auth, storage } from "../../../firebase.js";
 
 Dimensions.get("window").width;
@@ -20,7 +20,7 @@ Dimensions.get("window").height;
 /* ======================================= STATE ================================================ */
 
 const SignUp = ({ navigation }) => {
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");

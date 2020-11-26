@@ -21,7 +21,7 @@ import viewStyle from "../../Global-Styles/ViewContainer";
 
 /* ========================= STATES ============================ */
 const Transfers = ({ navigation }) => {
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
   const [transfers, setTransfers] = useState([]);
   const iconList = {
     Tsaliente: "arrow-circle-up",
