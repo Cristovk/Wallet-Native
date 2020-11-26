@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Image, TouchableOpacity, StyleSheet, LogBox, View } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack'
+import { createStackNavigator,HeaderBackButton } from '@react-navigation/stack'
 import { Icon } from 'react-native-elements'
 import db from '../../../firebase'
 import { useSelector, useDispatch } from 'react-redux'
@@ -50,6 +50,7 @@ import ConfirmDelete from '../../Screen/Modificar-Email-Pass/ConfirmDelete';
 import Pin from '../../Views/Login/pin';
 import Huella from '../../Views/Login/Huella';
 import Splash from '../../Screen/Splash/Splash';
+
 
 // Creamos los navegadores
 const Stack = createStackNavigator()
@@ -103,7 +104,7 @@ export function MyStack(props) {
       <Stack.Screen name='HomeDrawer' component={MyDrowner} initialParams={props} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Registro" }} />
       <Stack.Screen name="SignUp1" component={SignUp1} options={{ title: "Registro" }} />
-      <Stack.Screen name="SignUp2" component={SignUp2} options={{ title: "Registro" }} />
+       <Stack.Screen name="SignUp2" component={SignUp2} options={{ title: "Registro" }} />  
       <Stack.Screen name="Verify" component={Verify} />
       <Stack.Screen name="ResetPaswword" component={ResetPaswword} options={{ title: "Resetear Password" }} />
     </Stack.Navigator>
@@ -111,7 +112,7 @@ export function MyStack(props) {
 }
 
 // Navegador que se encarga de darle cabeceras a los componentes y renderizarlos (importado en drawer.jsx)
-function HomeScreen({ userLog, user, status }) {
+function HomeScreen({userLog, user,route}) {
   const [users, setUsers] = useState([])
   const { primary, secondary, text, bg, dark } = useSelector(store => store.color)
   const dispatch = useDispatch()
@@ -123,16 +124,37 @@ function HomeScreen({ userLog, user, status }) {
     dispatch(deleteAll())
     dispatch(addContact(db.auth().currentUser.uid))
   }
+  const {nombre} = route.params;
+
+    
 
   return (
-    <HomeScreenStack.Navigator screenOptions={{ // Personalizamos las cabeceras en general
+    <HomeScreenStack.Navigator screenOptions={({navigation})=>({ // Personalizamos las cabeceras en general
       headerStyle: {
         backgroundColor: bg,
         borderBottomColor: bg,
       },
+      headerBackImage:()=>(
+        navigation.navigate('Ayuda')
+      )
+      ,
+      headerLeft: () => (
+     
+        <View style={{ marginStart: 10 }}>
+          <Icon
+            name="arrow-left"
+            type="font-awesome"
+            size={15}
+            color={primary}
+            onPress={() => {navigation.navigate("Home"); nombre('home')}}
+          />
+        </View>
+     
+      )
+      ,
       headerTintColor: primary
-    }}>
-      <HomeScreenStack.Screen name='HomeTab' initialParams={status} component={MyTab} options={({ navigation }) => ({ // Personalizamos las cabeceras de los atajos principales
+    })}>
+      <HomeScreenStack.Screen name='HomeTab'  component={MyTab} options={({ navigation }) => ({ // Personalizamos las cabeceras de los atajos principales
         headerLeft: () => (
           <TouchableOpacity
             onPress={() => navigation.openDrawer()}
@@ -149,7 +171,7 @@ function HomeScreen({ userLog, user, status }) {
         headerTitleAlign: 'center',
         headerRight: () => (
           <TouchableOpacity
-            onPress={() => navigation.navigate('Perfil')}
+            onPress={() => {navigation.navigate('Perfil');console.log(nombre,'aca')}}
           >
             <Image
               source={{ uri: user.imagen || profileImage }}
@@ -158,7 +180,7 @@ function HomeScreen({ userLog, user, status }) {
           </TouchableOpacity>
         )
       })} />
-      <HomeScreenStack.Screen name='Tarjetas' component={Tarjetas} options={{ title: 'Tus Tarjetas' }} />
+      <HomeScreenStack.Screen name='Tarjetas' component={Tarjetas} options={{ title: 'Tus Tarjetas'}} />
       <HomeScreenStack.Screen name='AddTarjeta' component={AddTarjeta} options={{ title: 'Añadir Tarjeta' }} />
       <HomeScreenStack.Screen name='Movimientos' component={TransactionHistory} options={{ title: 'Mis Movimientos' }} />
       <HomeScreenStack.Screen name='Pagos' component={Pagos} options={{ title: 'Mis Servicios' }} />
@@ -170,7 +192,8 @@ function HomeScreen({ userLog, user, status }) {
           <TouchableOpacity onPress={handleRefresh}>
             <Icon name='spinner-refresh' type='fontisto' color={!dark ? secondary : primary} style={{ marginRight: 30 }} />
           </TouchableOpacity>
-        )
+        ),
+      
       }} />
       <HomeScreenStack.Screen name='Configuracion' component={Configuracion} options={{ title: 'Ajustes' }} />
       <HomeScreenStack.Screen name='Ayuda' component={Ayuda} options={{ title: 'Soporte y Atención' }} />
