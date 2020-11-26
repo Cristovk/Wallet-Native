@@ -23,11 +23,6 @@ import {
 import { useIsFocused } from "@react-navigation/native";
 import { auth, storage } from "../../../firebase";
 import styleBoton from "../../Global-Styles/BotonGrande";
-import {
-  widthPercentageToDP,
-  heightPercentageToDP,
-} from "react-native-responsive-screen";
-import { darkBlue, orange, white } from "../../Global-Styles/colors";
 
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
@@ -200,7 +195,6 @@ const Home = ({ navigation }) => {
           ) : saldo == null ? (
             <View>
               <Text style={style.tituloBalanceCero}>$ 0 </Text>
-
               <View
                 style={{
                   flexDirection: "row",
@@ -290,6 +284,7 @@ const Home = ({ navigation }) => {
                         sender: item.sender,
                         receiver: item.receiver,
                         categoria: item.categoria,
+                        card: item.card,
                       })
                     }
                   >
