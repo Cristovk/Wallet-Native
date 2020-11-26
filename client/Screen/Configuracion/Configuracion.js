@@ -103,7 +103,7 @@ const Configuracion = ({ navigation, route }) => {
 
   useEffect(() => {
     getHuella();
-    setHuellaTrans();
+    getHuellaTrans();
   }, [])
 
 
