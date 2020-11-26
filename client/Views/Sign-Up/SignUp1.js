@@ -93,13 +93,13 @@ const SignUp1 = ({ navigation }) => {
     }
   };
 
-  const alto = Dimensions.get("window").height ;
+  const alto = Dimensions.get("window").height;
 
-  const iconColor='grey';
-  const placeholderColor='grey';
+  const iconColor = 'grey';
+  const placeholderColor = 'grey';
 
   return (
-    <ScrollView style={{ height: "100%"}}>
+    <ScrollView style={{ height: "100%" }}>
       <View style={[styles.container, { height: alto }]}>
         <View style={styles.centered}>
           <Image
@@ -121,7 +121,7 @@ const SignUp1 = ({ navigation }) => {
 
             <Text style={styles.label}>Teléfono</Text>
             <TextInput
-              style={[styles.inputs,{paddingLeft:25}]}
+              style={[styles.inputs, { paddingLeft: 25 }]}
               onChangeText={(text) => setPhone(text)}
               value={phone}
               placeholder="+5491123456789"
@@ -130,7 +130,12 @@ const SignUp1 = ({ navigation }) => {
             />
           </View>
         </View>
-
+        {Err.emptyPhone ? (
+          <Text style={styles.error}>{Err.emptyPhone}</Text>
+        ) : null}
+        {Err.invalidPhoneFormat ? (
+          <Text style={styles.error}>{Err.invalidPhoneFormat}</Text>
+        ) : null}
         <View style={styles.formGroup}>
           <View style={styles.subgroup}>
             <View style={styles.contIcono}>
@@ -159,17 +164,17 @@ const SignUp1 = ({ navigation }) => {
         ) : null}
 
         <View style={[styles.button, styles.box]}>
-  
-          <TouchableOpacity style={[styles.btnEnviar,styles.siguiente]} onPress={() => handleOnPress()}>
-              <Text style={styles.textoBtn}>SIGUIENTE</Text>
-            </TouchableOpacity>
+
+          <TouchableOpacity style={[styles.btnEnviar, styles.siguiente]} onPress={() => handleOnPress()}>
+            <Text style={styles.textoBtn}>SIGUIENTE</Text>
+          </TouchableOpacity>
 
           <View style={styles.separator}></View>
-         
-            <TouchableOpacity style={[styles.btnEnviar,styles.anterior]} onPress={() => navigation.navigate("SignUp")}>
-              <Text style={styles.textoBtn}>ANTERIOR</Text>
-            </TouchableOpacity>
-         
+
+          <TouchableOpacity style={[styles.btnEnviar, styles.anterior]} onPress={() => navigation.navigate("SignUp")}>
+            <Text style={styles.textoBtn}>ANTERIOR</Text>
+          </TouchableOpacity>
+
         </View>
       </View>
     </ScrollView>
