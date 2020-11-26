@@ -98,9 +98,9 @@ const SignUp = ({ navigation }) => {
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       invalidEmailFormat = "Formato de email inválido o ya registrado";
     }
-    else if (emailValido(email)) {
-      emailExist = "El email ya está registrado";
-    }
+    // else if (emailValido(email)) {
+    //   emailExist = "El email ya está registrado";
+    // }
 
     if (!day) {
       emptyDay = "El campo día es necesario";

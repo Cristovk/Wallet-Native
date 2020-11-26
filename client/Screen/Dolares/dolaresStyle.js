@@ -12,6 +12,13 @@ const style = StyleSheet.create({
         height: heightPercentageToDP("60%"),
         borderTopLeftRadius:15,
         borderTopRightRadius:15,
+      },input:{
+         width:"30%" 
+      },contentInputs:{
+        marginTop:20,
+         flexDirection:"row", 
+         justifyContent:"space-around",
+         alignItems:"center"
       }
 })
 
