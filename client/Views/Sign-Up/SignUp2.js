@@ -87,6 +87,7 @@ const SignUp2 = ({ navigation }) => {
         });
         await walletRef.set({
           saldo: 0,
+          dolares:0,
         });
         //se le agrega modelo de transactiones inicial
 
@@ -134,9 +135,9 @@ const SignUp2 = ({ navigation }) => {
     } else if (password1.search(/[0-9]/) == -1) {
       notNumberPasswordErr = "Debe tener al menos un número";
     }
-    if (code != pin) {
-      codeErr = "Pin Incorrecto, intente nuevamente";
-    }
+    // if (code != pin) {
+    //   codeErr = "Pin Incorrecto, intente nuevamente";
+    // }
     if (clave.length > 4) {
       claveErr = "La clave tiene mas de 4 digitos o contiene letras"
     }
