@@ -81,8 +81,7 @@ const SignUp = ({ navigation }) => {
     let emptyYear = "";
     let invalidYearFormat = "";
 
-    //comprobar si el mail existe
-    const existe = await emailValido();
+
     if (!name) {
       emptyName = "El campo Nombre(s) es necesario";
     }
@@ -93,10 +92,9 @@ const SignUp = ({ navigation }) => {
       emptyEmail = "El campo Email es necesario";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       invalidEmailFormat = "Formato de email inválido o ya registrado";
-    } else if (existe) {
-      emailExist = "El email ya está registrado";
-    }
 
+
+    
     if (!day) {
       emptyDay = "El campo día es necesario";
     } else if (day < 1 || day > 31 || isNaN(day)) {

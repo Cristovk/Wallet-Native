@@ -1,23 +1,26 @@
 {
   "emulators": {
     "auth": {
+      "host": "localhost",
       "port": 9099
     },
     "functions": {
-      "port": 5001
+      "host": "localhost",
+      "port": 5000
     },
     "firestore": {
-      "port": 6000,
+      "host": "localhost",
+      "port": 6001,
       "rules": "firestore/firestore.stable.rules"
     },
     "ui": {
       "enabled": true,
-      "port": 8000
+      "host": "localhost",
+      "port": 8001
     }
   },
   "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
+    "rules": "firestore.rules"
   },
   "functions": {
     "predeploy": [
