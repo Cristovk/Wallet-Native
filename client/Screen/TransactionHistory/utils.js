@@ -189,8 +189,12 @@ export const detalle = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,c
    
   
     
-/*Esta funcion parsea el html*/
-const generateHtml = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver, desde, card) => {
+
+
+/*Esta funcion genera un recibo en pdf*/
+export const generateInvoice = async (date, time,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver, desde, card) => {
+  console.log("En Generate Invoice",categoria)
+ 
   const cabecera = `<!DOCTYPE html>
   <html lang="en">
   <head>
@@ -282,15 +286,22 @@ const generateHtml = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,cat
         <p class = "titulo">Operacion</p>
         <p class = "notitulo">${operacion}</p>
           <p class = "titulo">importe</p>
-          <p class = "notitulo">${$monto}</p>`
-  const footer = ` </section>
-  <div class="barcode">
-    <img class = "code" src="https://i.imgur.com/5QWBbed.png" alt="logo">
-  </div>
-  </div>
-</div>   
-</body>
-</html>`
+          <p class = "notitulo">$${monto}</p>`
+  
+          const footer = `<p class = "titulo">Fecha</p>
+            <p class = "notitulo">${date}</p>
+            <p class = "titulo">Hora</p>
+            <p class = "notitulo">${time}</p>
+            <p class = "titulo">**S.E.U.O**</p>
+            </section>
+            <div class="barcode">
+              <img class = "code" src="https://i.imgur.com/5QWBbed.png" alt="logo">
+            </div>
+            </div>
+          </div>   
+          </body>
+          </html>`
+  let html 
   if(categoria === "Tentrante"){
     const loquefalta = `<p class="titulo">Origen</p>
     <p class = "notitulo">${sender}</p>
@@ -298,12 +309,8 @@ const generateHtml = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,cat
     <p class = "notitulo">${desde}</p>
     <p class="titulo">Motivo</p>
     <p class = "notitulo">${motivo}</p>
-    <p class = "titulo">Fecha</p>
-    <p class = "notitulo">${date}</p>
-    <p class = "titulo">Hora</p>
-    <p class = "notitulo">${time}</p>
-    <p class = "titulo">**S.E.U.O**</p>`
-  return cabecera+loquefalta+footer
+  `
+    html= cabecera+loquefalta+footer
   }
   if(categoria === "Tsaliente"){
     const loquefalta = `
@@ -313,36 +320,64 @@ const generateHtml = (fecha,monto,tipo,hacia,motivo,estado,operacion,empresa,cat
     <p class = "notitulo">${hacia}</p>
     <p class="titulo">Motivo</p>
     <p class = "notitulo">${motivo}</p>
-    <p class = "titulo">Fecha</p>
-    <p class = "notitulo">${date}</p>
-    <p class = "titulo">Hora</p>
-    <p class = "notitulo">${time}</p>
-    <p class = "titulo">**S.E.U.O**</p>`
-
+    `
     return  cabecera + loquefalta +footer
   }
-  if(categoria === recarga){
+  if(categoria === "recarga"){
     const loquefalta = `
-    <p class="titulo">Destino</p>
-    <p class = "notitulo">${receiver}</p>
-    <p class="titulo">CVU</p>
-    <p class = "notitulo">${hacia}</p>
-    <p class="titulo">Motivo</p>
-    <p class = "notitulo">${motivo}</p>
-    <p class = "titulo">Fecha</p>
-    <p class = "notitulo">${date}</p>
-    <p class = "titulo">Hora</p>
-    <p class = "notitulo">${time}</p>
-    <p class = "titulo">**S.E.U.O**</p>`
-
-    return  cabecera + loquefalta +footer
+    <p class="titulo">Metodo de recarga</p>
+    <p class = "notitulo">Recarga presencial</p>
+    <p class="titulo">Lugar de recarga</p>
+    <p class = "notitulo">${empresa}</p>
+    `
+    html =  cabecera + loquefalta +footer
   }
-};
-
-/*Esta funcion genera un recibo en pdf*/
-export const generateInvoice = async (date, time,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver, desde, card) => {
+  if(categoria === "recarga con tarjeta"){
+    const loquefalta = `
+    <p class="titulo">Metodo de recarga</p>
+    <p class = "notitulo">Recarga con tarjeta</p>
+    <p class="titulo">Tarjeta</p>
+    <p class = "notitulo">${empresa +""+card}</p>
+    `
+    html = cabecera + loquefalta +footer
+  }
+  if(operacion === "compra"){
+    const loquefalta = `
+    <p class="titulo">Lugar de compra</p>
+    <p class = "notitulo">${empresa}</p>
+    <p class="titulo">Categoria</p>
+    <p class = "notitulo">${categoria}</p>
+    `
+    html = cabecera + loquefalta +footer
+  }
+  if(operacion === "servicio"){
+    const loquefalta = `
+    <p class="titulo">Empresa</p>
+    <p class = "notitulo">${empresa}</p>
+    <p class="titulo">Tipo de servicio</p>
+    <p class = "notitulo">${categoria}</p>
+    `
+    html = cabecera + loquefalta +footer
+  }
+  if(categoria === "compradolar"){
+    const loquefalta = `
+    <p class="titulo">Vendiste</p>
+    <p class = "notitulo">${monto}</p>
+    <p class="titulo">Obtuvise</p>
+    <p class = "notitulo">${dolares}</p>
+    `
+    html = cabecera + loquefalta +footer
+  }
+  if(categoria === "ventadolar"){
+    const loquefalta = `
+    <p class="titulo">Vendiste</p>
+    <p class = "notitulo">${dolares}</p>
+    <p class="titulo">Obtuviste</p>
+    <p class = "notitulo">${monto}</p>
+    `
+    html = cabecera + loquefalta +footer
+  }
   
-  const html = generateHtml(date,time,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver, desde, card);
   if (html) {
     try {
       const { uri } = await Print.printToFileAsync({ html });

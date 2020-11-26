@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React,{useState} from "react";
+import { View, Text,ActivityIndicator } from "react-native";
 import { ListItem, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useSelector } from "react-redux";
@@ -14,6 +14,7 @@ import { TouchableOpacity } from "react-native";
 import styleBoton from "../../Global-Styles/BotonGrande";
 import { color } from "react-native-reanimated";
 
+/* const [spinne,setSpinner]=useSta */
 const DetalleDeTransaccion = ({ route, navigation }) => {
   const { primary, secondary, bg, text, dark } = useSelector(
     (store) => store.color
@@ -33,6 +34,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     desde,
     card
   } = route.params;
+  
   const iconList = {
     panaderia: "cookie",
     almacen: "shopping-basket",
@@ -106,7 +108,9 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
                            
           <View
             style={[{ bottom: heightPercentageToDP("10%") }, styleBoton.container]}
-          >
+          > 
+          </View>
+          <View>
             <TouchableOpacity
               style={[{ backgroundColor: secondary }, styleBoton.boton]}
               onPress={() => generateInvoice( date, time,monto,tipo,hacia,motivo,estado,operacion,empresa,categoria,sender,receiver, desde, card)}
