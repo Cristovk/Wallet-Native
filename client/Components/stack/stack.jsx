@@ -33,6 +33,7 @@ import Verify from "../../Screen/verificacion/verify"
 import confirmOrError from "../../Screen/Transferencias/Check"
 import Finish from "../../Screen/Transferencias/Finish"
 import postScreen from "../../Screen/Transferencias/postScreen"
+import Dolares from "../../Screen/Dolares/dolares"
 
 // NAVIGATORS
 import { MyTab } from '../tab/tab'
@@ -202,6 +203,7 @@ function HomeScreen({ userLog, user, route }) {
       <HomeScreenStack.Screen name='Configuracion' component={Configuracion} options={{ title: 'Ajustes' }} />
       <HomeScreenStack.Screen name='Ayuda' component={Ayuda} options={{ title: 'Soporte y Atención' }} />
       <HomeScreenStack.Screen name='Balance' component={Balance} options={{ title: 'Mi Balance' }} />
+      <HomeScreenStack.Screen name= 'Dolares' component={Dolares} options={{title:'Dolares'}}/>
       <HomeScreenStack.Screen name='MoonCard' component={MoonCard} options={{ title: "MoonCard" }} />
       <HomeScreenStack.Screen name='Detalle' component={Detalle} options={{ title: 'Detalle de la transaccion' }} />
       <HomeScreenStack.Screen name='Recargas' component={Recargas} options={{ title: 'Recargar' }} />
