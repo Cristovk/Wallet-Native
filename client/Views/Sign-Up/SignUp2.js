@@ -7,13 +7,14 @@ import {
   Image,
   ScrollView,
   Alert,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { darkBlue, orange, grey, white } from "../../Global-Styles/colors";
 import { styles } from "./Sing-Up-Styles";
 import { addUser } from "../../Redux/User";
 import { useDispatch, useSelector } from "react-redux";
+import { Input } from 'react-native-elements'
 
 import { auth, storage } from "../../../firebase";
 import Clave from "../../Screen/Configuracion/Clave/Clave";
@@ -97,11 +98,14 @@ const SignUp2 = ({ navigation }) => {
 
         await TransRef.set({});
 
-        await NewUser.user.sendEmailVerification();
-        Alert.alert(
-          "Cuenta creada! Se envio a tu mail un link de verificación"
-        );
-        navigation.navigate("Login");
+        NewUser.user.sendEmailVerification()
+          .then(resp => {
+            Alert.alert(
+              "Cuenta creada! Se envio a tu mail un link de verificación"
+            );
+            navigation.navigate("Login");
+
+          })
       } catch (error) {
         // console.log(error);
       }
@@ -231,7 +235,7 @@ const SignUp2 = ({ navigation }) => {
             <Text style={styles.label}>Código de verificación</Text>
             <TextInput
               style={[styles.inputs, { paddingLeft: 34, fontSize: 26, width: 120 }]}
-              value={pin}
+              value={JSON.stringify(pin)}
               placeholderTextColor={placeholderColor}
               textContentType="oneTimeCode"
             />

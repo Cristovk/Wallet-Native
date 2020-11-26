@@ -55,7 +55,7 @@ const SignUp = ({ navigation }) => {
     return true;
   };
 
-  let newDate = new Date(year, month - 1, day).toLocaleDateString();
+  let newDate = new Date(year, month - 1, day)
   let actualYear = new Date().getFullYear();
 
   const validateForm = async () => {
@@ -111,9 +111,8 @@ const SignUp = ({ navigation }) => {
     } else if (!year) {
       emptyYear = "El campo Año es necesario";
     } else if (year < actualYear - 100 || year > actualYear || isNaN(year)) {
-      invalidYearFormat = `Elija un año entre ${
-        actualYear - 100
-      } y ${actualYear}`;
+      invalidYearFormat = `Elija un año entre ${actualYear - 100
+        } y ${actualYear}`;
     }
     if (
       emptyName ||
