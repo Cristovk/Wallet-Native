@@ -138,7 +138,7 @@ const SignUp = ({ navigation }) => {
       });
       return false;
     } else return true;
-  };
+  };}
 
   let info = {
     name: name,
