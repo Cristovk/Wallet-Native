@@ -56,6 +56,20 @@ const Tarjeta = (props) => {
     getPin();
   }, []);
 
+  const hideCreditcardNumbers = (string) => {
+    var newStr = "";
+    for (let i = 0; i < string.length; i++) {
+      if (string[i] === " ") {
+        newStr += " ";
+      } else if (i < string.length - 5) {
+        newStr += string[i].replace(string[i], "*");
+      } else {
+        newStr += string[i];
+      }
+    }
+    return newStr
+  };
+
   const sendData = () => {
     setLoading(true);
     Axios.post(
@@ -64,6 +78,7 @@ const Tarjeta = (props) => {
         pin: pin,
         amount: monto,
         empresa: cardType,
+        card: hideCreditcardNumbers(cardNumber)
       }
     )
       .then(() => {

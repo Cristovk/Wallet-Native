@@ -139,16 +139,19 @@ const Transfers = ({ navigation }) => {
                           ]}
                           onPress={() =>
                             navigation.navigate("Detalle", {
-                              estado: item.estado,
                               fecha: item.fecha,
-                              hacia: item.hacia,
-                              id: item.id,
                               monto: item.monto,
-                              motivo: item.motivo,
+                              hacia: item.hacia,
+                              desde: item.desde,
+                              estado: item.estado,
                               categoria: item.categoria,
+                              motivo: item.motivo,
                               operacion: item.operacion,
-                              receiver: item.receiver,
+                              estado: item.estado,
+                              empresa: item.empresa,
                               sender: item.sender,
+                              receiver: item.receiver,
+                              card: item.card
                             })
                           }
                         >
