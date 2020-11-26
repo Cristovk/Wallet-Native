@@ -34,6 +34,7 @@ export const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderWidth: 1,
     padding: 8,
+    paddingTop:6,
     color:'#000'
   },
   orangeButton: {
@@ -135,13 +136,15 @@ export const styles = StyleSheet.create({
   },
   contIcono:{
   position:'absolute',
-  top:46,
+  top:40,
   left:42,
 
   zIndex:10000
   },
   subgroup:{
-    width:'100%'
+    width:'100%',
+    position:'relative',
+  
   },
 
   btnEnviar:{
@@ -169,5 +172,10 @@ export const styles = StyleSheet.create({
   },
   anterior:{
     backgroundColor: 'grey',
+  },
+  eye:{
+    position:'absolute',
+    right:40,
+    top:40
   }
 });

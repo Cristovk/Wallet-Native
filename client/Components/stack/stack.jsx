@@ -125,7 +125,7 @@ function HomeScreen({ userLog, user, route }) {
     dispatch(addContact(db.auth().currentUser.uid))
   }
   const { nombre } = route.params;
-  console.log('props', route)
+
 
 
   return (
