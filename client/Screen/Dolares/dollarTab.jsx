@@ -20,11 +20,11 @@ const DollarChange = (props) => {
     return(
         <DollarTab.Navigator tabBarOptions={{
             labelStyle:{
-                fontSize:30,
+                fontSize:25,
                 textAlignVertical:"center",
                 marginBottom:5,
-                height:70,
-                paddingTop:20
+                height:80,
+                paddingTop:35
             },
             activeTintColor: dark ? text : primary,
             inactiveTintColor: dark ? primary : secondary,
@@ -70,8 +70,6 @@ const CompraVenta = ({route}) => {
     }
 
     const dollarBuy = () => {
-        console.log("saldo", saldo);
-        
         if(compraventa === "compra" && Number(saldoHijo.dolares)>= Number(moneda.dolares) ){
              const query = storage.collection("Users").doc(auth.currentUser.uid).collection("Wallet").doc(user.cvu).set({
            saldo: Number(saldoHijo.saldo) + Number(moneda.pesos),
@@ -83,8 +81,9 @@ const CompraVenta = ({route}) => {
                 estado: "Completada",
                 fecha: Date.now(),
                 monto: Number(moneda.pesos),
-                dolares: Number(monto.dolares) ,
-                categoria: "ventadolar"
+                dolares: Number(moneda.dolares) ,
+                cotizacion: valor,
+                categoria: "Dentrante"
 
              })
              .then(res => {
@@ -96,6 +95,10 @@ const CompraVenta = ({route}) => {
              console.log("idddddd", query1)
             })
             getSaldo()
+            setMoneda({
+                dolares:"",
+                pesos: ""
+            })
         }else if(compraventa==="venta" && Number(saldoHijo.saldo)>= Number(moneda.pesos) ){
             const query = storage.collection("Users").doc(auth.currentUser.uid).collection("Wallet").doc(user.cvu).set({
                 saldo: Number(saldoHijo.saldo) - Number(moneda.pesos),
@@ -108,7 +111,8 @@ const CompraVenta = ({route}) => {
                     fecha: Date.now(),
                     monto: Number(moneda.pesos),
                     dolares: Number(moneda.dolares) ,
-                    categoria: "compradolar"
+                    cotizacion: valor,
+                    categoria: "Dsaliente"
    
                 }).then(res => {
                     console.log("res")
@@ -118,6 +122,10 @@ const CompraVenta = ({route}) => {
                 })
             })
             getSaldo()
+            setMoneda({
+                dolares:"",
+                pesos: ""
+            })
         }else{
             Alert.alert("Saldo insuficiente")
         }
@@ -154,11 +162,11 @@ const CompraVenta = ({route}) => {
             <View style={{marginTop:10,borderBottomColor:bg, borderBottomWidth:8, width:"50%",alignSelf:"center",borderRadius:20}}></View>
             <View style={style.contentInputs} >
                 <View style={{width:"40%"}}>
-                   <Input style={style.input} name='dolares' placeholder={`USD$ ${moneda.dolares ? moneda.dolares : 1}`} placeholderTextColor='black' value={(moneda.dolares)} onChangeText={(e) =>handleChange(e, "dolares")}/>  
+                   <Input style={style.input} name='dolares' placeholder={`USD$ ${moneda.dolares ? moneda.dolares : 1}`} placeholderTextColor='black' value={moneda.dolares} onChangeText={(e) =>handleChange(e, "dolares")}/>  
                 </View>
                     <Text style={{fontSize:50}}>=</Text>
                 <View style={{width:"40%"}}>
-                     <Input style={style.input} name='pesos' placeholder={`ARS$ ${moneda.pesos}`} placeholderTextColor='black' value={moneda.pesos} editable={false} onChangeText={(e) =>handleChange(e, "pesos")}/> 
+                     <Input style={style.input} name='pesos' placeholder={`ARS$ ${moneda.pesos ? moneda.pesos : valor}`} placeholderTextColor='black' value={moneda.pesos} editable={false} onChangeText={(e) =>handleChange(e, "pesos")}/> 
                 </View>
                     
             </View>

@@ -53,7 +53,11 @@ const Home = ({ navigation }) => {
     Gas: "burn",
     Electricidad: "bolt",
     Internet: "wifi",
+    Dsaliente: "hand-holding-usd",
     "recarga con tarjeta": "credit-card",
+    Dentrante: "hand-holding-usd",
+    TDsaliente: "arrow-circle-up",
+    TDentrante: "arrow-circle-down",
   };
 
   const { primary, bg, secondary, text, dark } = useSelector(
@@ -304,7 +308,21 @@ const Home = ({ navigation }) => {
                           style.listaContenedor,
                         ]}
                         onPress={() =>
-                          navigation.navigate("Detalle", {
+                          item.categoria == 'Dentrante' || item.categoria == 'Dsaliente'
+                          ? navigation.navigate('Detalle',{
+                            operacion: item.operacion,
+                            estado: item.estado,
+                            motivo: item.motivo,
+                            monto: item.monto,
+                            cvu: item.cvu,
+                            categoria: item.categoria,
+                            sender: item.sender,
+                            receiver: item.receiver,
+                            fecha: item.fecha,
+                            dolares: item.dolares,
+                            cotizacion: item.cotizacion
+                          })
+                          : navigation.navigate("Detalle", {
                             fecha: item.fecha,
                             monto: item.monto,
                             hacia: item.hacia,
@@ -323,6 +341,8 @@ const Home = ({ navigation }) => {
                         }
                       >
                         {item.categoria == "Tsaliente" ||
+                          item.categoria == "Dentrante" ||
+                          item.categoria == "TDsaliente" ||
                           item.operacion == "compra" ||
                           item.operacion == "servicios" ||
                           item.operacion == "servicio" ? (
@@ -353,6 +373,14 @@ const Home = ({ navigation }) => {
                             item.operacion == "servicios" ||
                             item.operacion == "servicio"
                             ? `- $ ${formatNumber(item.monto)}`
+                            : item.categoria == "Dentrante"
+                            ? `- USD$ ${formatNumber(item.dolares)}`
+                            : item.categoria == "Dsaliente"
+                            ? `USD$ ${formatNumber(item.dolares)}`
+                            : item.categoria == "TDsaliente"
+                            ? `- USD$ ${formatNumber(item.monto)}`
+                            : item.categoria == "TDentrante"
+                            ? `USD$ ${formatNumber(item.monto)}`
                             : `$ ${formatNumber(item.monto)}`}
                         </Text>
                         <ListItem.Chevron
