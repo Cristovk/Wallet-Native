@@ -95,7 +95,7 @@ export function MyStack(props) {
     // UsarHuella();
   }, [])
 
-  // LogBox.ignoreAllLogs()
+  LogBox.ignoreAllLogs()
   return (
     <Stack.Navigator>
       <Stack.Screen name="Splash" component={Splash} initialParams={props} options={{ headerShown: false }} />

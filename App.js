@@ -28,7 +28,7 @@ export default function App() {
      setCambio(false);
   },[cambio])
 
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
 
   return (
     /* para agregar mas pantallas */

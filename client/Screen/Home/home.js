@@ -27,7 +27,7 @@ import styleBoton from "../../Global-Styles/BotonGrande";
 
 const Home = ({ navigation }) => {
   /* ========================= STATES ============================ */
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
   const dispatch = useDispatch();
   const [saldo, setSaldo] = useState(0);
   const [dolares,setDolares] = useState(0);
@@ -222,14 +222,26 @@ const Home = ({ navigation }) => {
                   flexDirection: "row",
                   justifyContent: "center",
                   alignItems: "center",
+
                 }}
               >
-                <Text
-                  onPress={() => navigation.navigate("Recargas")}
-                  style={{ fontSize: 12, fontWeight: "normal" }}
-                >
-                  Recargar
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: dark ? primary : secondary,
+                    height: 20,
+                    width: 70,
+                    borderRadius: 5,
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}
+                  onPress={() => navigation.navigate("Recargas")}>
+                  <Text
+
+                    style={{ fontSize: 14, fontWeight: "bold" }}
+                  >
+                    Recargar
                 </Text>
+                </TouchableOpacity>
               </View>
             </View>
           ) : (

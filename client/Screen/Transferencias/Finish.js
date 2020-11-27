@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, Linking } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Linking,
+  ScrollView,
+} from "react-native";
 import { transferir } from "../../Redux/movements";
 import { useDispatch, useSelector } from "react-redux";
 import { saveSaldo } from "../../Redux/movements";
@@ -8,7 +15,8 @@ import * as SMS from "expo-sms";
 import { CheckBox } from "react-native-elements";
 import * as LocalAuthentication from "expo-local-authentication";
 import AsyncStorage from "@react-native-community/async-storage";
-
+import qs from "qs";
+import { storage } from "../../../firebase";
 // Check saldo, mandar la wea,
 
 const Finish = ({ navigation, route }) => {
@@ -28,21 +36,53 @@ const Finish = ({ navigation, route }) => {
   const user = useSelector((store) => store.user.user);
   const [sms, setSms] = useState(false);
   const [wApp, setWApp] = useState(false);
+  const [email, setEmail] = useState(false);
+  const [to, setTo] = useState("");
+
+  const getReceiverEmail = async () => {
+    let email;
+    const ref = await storage
+      .collection("Users")
+      .where("cvu", "==", receiver.cvu)
+      .get();
+    for (const doc of ref.docs) {
+      email = await doc.data().email;
+    }
+    setTo(email);
+  };
+
   useEffect(() => {
     saveSaldo();
+    getReceiverEmail();
   }, []);
 
   const onWappPress = () => {
     if (sms) {
       setSms(!sms);
     }
+    if (email) {
+      setEmail(!email);
+    }
     setWApp(!wApp);
   };
+
   const onSmsPress = () => {
     if (wApp) {
       setWApp(!wApp);
     }
+    if (email) {
+      setEmail(!email);
+    }
     setSms(!sms);
+  };
+  const onEmailPress = () => {
+    if (sms) {
+      setSms(!sms);
+    }
+    if (wApp) {
+      setWApp(!wApp);
+    }
+    setEmail(!email);
   };
   const sendSMS = async () => {
     try {
@@ -50,7 +90,7 @@ const Finish = ({ navigation, route }) => {
       if (isAvailable) {
         const { result } = await SMS.sendSMSAsync(
           [`${receiver.telefono}`],
-          `Hola ${receiver.nombre}, ${user.name} ${user.lastName} le ha enviado $ ${transferencia.amount} a traves de MoonBank.\n Motivo: ${transferencia.motivo}.`
+          `Hola ${receiver.nombre}, ${user.name} ${user.lastName} le ha enviado $ ${transferencia.amount} a traves de MoonBank.\nMotivo: ${transferencia.motivo}.`
         );
       } else {
         Alert.alert("Su dispositivo no es compatible con esta función");
@@ -65,29 +105,37 @@ const Finish = ({ navigation, route }) => {
     );
   };
 
+  const sendEmail = async () => {
+    let url = `mailto:${to}`;
+    const query = qs.stringify({
+      subject: "Aviso de transferencia",
+      body: `Hola ${receiver.nombre}, ${user.name} ${user.lastName} le ha enviado $ ${transferencia.amount} a traves de MoonBank.\nMotivo: ${transferencia.motivo}.`,
+    });
+    if (query.length) {
+      url += `?${query}`;
+    }
+    const canOpen = await Linking.canOpenURL(url);
+    if (!canOpen) {
+      throw new Error("Provided URL can not be handled");
+    }
+    return Linking.openURL(url);
+  };
+
   const AuthWithFinger = async () => {
     const HuellaTrans = await AsyncStorage.getItem("MetodoTrans");
-
-
     if (HuellaTrans === "huellaTrans") {
-
       const res = await LocalAuthentication.hasHardwareAsync();
       if (!res)
         return Alert.alert("Su dispositivo no soporta los metodos de login");
-
       const autorization = await LocalAuthentication.supportedAuthenticationTypesAsync(
         {}
       );
       if (!autorization) return Alert.alert("No autorizado");
-
       const huella = await LocalAuthentication.isEnrolledAsync();
       if (!huella) return Alert.alert("No tiene autorizacion");
       const login = await LocalAuthentication.authenticateAsync(
         "Ponga su huella"
-
       );
-
-
 
       if (login.success) {
         const { amount } = transferencia;
@@ -95,7 +143,13 @@ const Finish = ({ navigation, route }) => {
           return setErrorMoney(true);
         }
         transferir(transferencia);
-        sms ? sendSMS() : wApp ? wAppNotification() : null;
+        sms
+          ? sendSMS()
+          : wApp
+          ? wAppNotification()
+          : email
+          ? sendEmail()
+          : null;
         navigation.navigate("postScreen", {
           receiver: receiver,
           amount: transferencia.amount,
@@ -103,14 +157,13 @@ const Finish = ({ navigation, route }) => {
       } else {
         Alert.alert("Hubo un error");
       }
-
     } else {
       const { amount } = transferencia;
       if (parseInt(amount) > parseInt(movements.saldo)) {
         return setErrorMoney(true);
       }
       transferir(transferencia);
-      sms ? sendSMS() : wApp ? wAppNotification() : null;
+      sms ? sendSMS() : wApp ? wAppNotification() : email ? sendEmail() : null;
       navigation.navigate("postScreen", {
         receiver: receiver,
         amount: transferencia.amount,
@@ -119,7 +172,7 @@ const Finish = ({ navigation, route }) => {
   };
 
   const handleSubmit = async () => {
-    AuthWithFinger()
+    AuthWithFinger();
   };
 
   function formatNumber(num) {
@@ -128,7 +181,7 @@ const Finish = ({ navigation, route }) => {
     return number;
   }
   return (
-    <View style={{ backgroundColor: bg, height: "100%" }}>
+    <ScrollView style={{ backgroundColor: bg, height: "100%" }}>
       <View
         style={{
           backgroundColor: bg,
@@ -207,6 +260,23 @@ const Finish = ({ navigation, route }) => {
             containerStyle={{ backgroundColor: primary, borderColor: primary }}
             onPress={() => onWappPress()}
           />
+          <CheckBox
+            center
+            title="Quiero notificar por Email a mi amigo"
+            checkedIcon="dot-circle-o"
+            uncheckedIcon="circle-o"
+            checked={email}
+            containerStyle={{ backgroundColor: primary, borderColor: primary }}
+            onPress={() => onEmailPress()}
+          />
+          {/* {email ? (
+            <TextInput
+              placeholderTextColor="grey"
+              placeholder="johndoe@emailserver.com"
+              style={[style.input1, { borderBottomColor: bg }]}
+              onChangeText={(data) => setEmailData({ to: data })}
+            />
+          ) : null} */}
           <View style={[style.botonContainer, { marginBottom: 15 }]}>
             <TouchableOpacity
               style={[
@@ -228,7 +298,7 @@ const Finish = ({ navigation, route }) => {
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
