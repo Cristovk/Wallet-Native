@@ -20,14 +20,12 @@ import { heightPercentageToDP } from "react-native-responsive-screen";
 import viewStyle from "../../Global-Styles/ViewContainer";
 
 /* ========================= STATES ============================ */
-const Transfers = ({ navigation }) => {
-  LogBox.ignoreAllLogs();
+const TransfersDolar = ({ navigation }) => {
+  // LogBox.ignoreAllLogs();
   const [transfers, setTransfers] = useState([]);
   const iconList = {
     Tsaliente: "arrow-circle-up",
     Tentrante: "arrow-circle-down",
-    TDsaliente: "arrow-circle-up",
-    TDentrante: "arrow-circle-down",
   };
   const dispatch = useDispatch();
   const userId = useSelector((store) => store.user.user.id);
@@ -120,89 +118,81 @@ const Transfers = ({ navigation }) => {
             ></View>
           </View>
         ) : (
-          <ScrollView
-            style={[{ backgroundColor: primary }, styles.background2]}
-          >
-            <View>
-              <FlatList
-                data={transfers}
-                keyExtractor={(transfer) => transfer.id}
-                style={{ marginVertical: 15 }}
-                renderItem={({ item }) => {
-                  return (
-                    <ListItem
-                      key={item.id}
-                      containerStyle={{
-                        backgroundColor: primary,
-                      }}
-                      style={[
-                        { borderBottomColor: secondary },
-                        styles.listaContenedor,
-                      ]}
-                      onPress={() => {
-                        console.log("item", item);
-                        navigation.navigate("Detalle", {
-                          estado: item.estado,
-                          fecha: item.fecha,
-                          hacia: item.hacia,
-                          id: item.id,
-                          monto: item.monto,
-                          motivo: item.motivo,
-                          categoria: item.categoria,
-                          operacion: item.operacion,
-                          receiver: item.receiver,
-                          card: item.card,
-                          sender: item.sender,
-                          desde: item.desde,
-                        });
-                      }}
-                    >
-                      {item.categoria == "Tsaliente" || item.categoria == "TDsaliente" 
-                        ? (
-                        <Icon
-                          name={iconList[item.categoria]}
-                          size={30}
-                          color="red"
-                        />
-                      ) : (
-                        <Icon
-                          name={iconList[item.categoria]}
-                          size={30}
-                          color="green"
-                        />
-                      )}
-                      <ListItem.Content>
-                        <ListItem.Title>
-                          {item.categoria == "Tsaliente"
-                            ? item.receiver
-                            : item.sender}
-                        </ListItem.Title>
-                        <ListItem.Subtitle>
-                          {new Date(item.fecha).toLocaleDateString()}
-                        </ListItem.Subtitle>
-                      </ListItem.Content>
-                      <Text style={{ marginRight: 3 }}>
-                        {item.categoria == "Tsaliente"
-                          ? `- $ ${formatNumber(item.monto)}`
-                          : item.categoria == "TDsaliente"
-                          ? `- USD$ ${formatNumber(item.monto)}`
-                          : item.categoria == "TDentrante"
-                          ? `USD$ ${formatNumber(item.monto)}`
-                          : `$ ${formatNumber(item.monto)}`}
-                          
-                      </Text>
-                      <ListItem.Chevron
-                        name="chevron-right"
-                        type="font-awesome"
-                        color="black"
-                      />
-                    </ListItem>
-                  );
-                }}
-              ></FlatList>
-            </View>
-          </ScrollView>
-        )}
+              <ScrollView
+                style={[{ backgroundColor: primary }, styles.background2]}
+              >
+                <View>
+                  <FlatList
+                    data={transfers}
+                    keyExtractor={(transfer) => transfer.id}
+                    style={{ marginVertical: 15 }}
+                    renderItem={({ item }) => {
+                      return (
+                        <ListItem
+                          key={item.id}
+                          containerStyle={{
+                            backgroundColor: primary,
+                          }}
+                          style={[
+                            { borderBottomColor: secondary },
+                            styles.listaContenedor,
+                          ]}
+                          onPress={() =>
+                            navigation.navigate("Detalle", {
+                              estado: item.estado,
+                              fecha: item.fecha,
+                              hacia: item.hacia,
+                              id: item.id,
+                              monto: item.monto,
+                              motivo: item.motivo,
+                              categoria: item.categoria,
+                              operacion: item.operacion,
+                              receiver: item.receiver,
+                              card: item.card,
+                              sender: item.sender,
+                            })
+                          }
+                        >
+                          {item.categoria == "Tsaliente" ? (
+                            <Icon
+                              name={iconList[item.categoria]}
+                              size={30}
+                              color="red"
+                            />
+                          ) : (
+                              <Icon
+                                name={iconList[item.categoria]}
+                                size={30}
+                                color="green"
+                              />
+                            )}
+                          <ListItem.Content>
+                            <ListItem.Title>
+                              {item.categoria == "Tsaliente"
+                                ? item.receiver
+                                : item.sender}
+                            </ListItem.Title>
+                            <ListItem.Subtitle>
+                              {new Date(item.fecha).toLocaleDateString()}
+                            </ListItem.Subtitle>
+                          </ListItem.Content>
+                          <Text style={{ marginRight: 3 }}>
+                            {item.categoria == "Tsaliente"
+                              ? `- $ ${formatNumber(item.monto)}`
+                              : `$ ${formatNumber(item.monto)}`}
+                          </Text>
+                          <ListItem.Chevron
+                            name="chevron-right"
+                            type="font-awesome"
+                            color="black"
+                          />
+                        </ListItem>
+                      );
+                    }}
+                  ></FlatList>
+                </View>
+              </ScrollView>
+            )}
       </View>
       <View
         style={[
@@ -225,4 +215,4 @@ const Transfers = ({ navigation }) => {
   );
 };
 
-export default Transfers;
+export default TransfersDolar;

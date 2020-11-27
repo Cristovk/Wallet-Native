@@ -49,10 +49,10 @@ const Dolares = () => {
     return(
         <View style={[{ backgroundColor: bg }, style.container]} >
             <View style={{marginBottom:70}} >
-                <Text style={{color: primary, fontSize: 50,textAlign:"center",marginBottom:10}}>Balance</Text>
-                <Text style={{color:primary, fontSize:40, textAlign:"center"}}>USD${saldo.dolares}</Text>
-                <View style={{borderBottomColor:primary, borderBottomWidth:1,width: 200}}></View>
-                <Text style={{color:primary, fontSize:20,textAlign:"center"}}>ARS ${compra ? parseFloat(saldo.dolares)*parseFloat(compra): 0}</Text>
+            <Text style={{color: primary, fontSize: 20,textAlign:"center",marginBottom:10, fontWeight:"bold"}}>Balance en dólares</Text>
+                <Text style={{color:primary, fontSize:40, textAlign:"center",fontWeight:"bold"}}>USD${saldo.dolares}</Text>
+                <View style={{borderBottomColor:primary, borderBottomWidth:1,width: 200,}}></View>
+                <Text style={{color:primary, fontSize:20,textAlign:"center",fontWeight:"bold"}}>ARS ${compra ? parseFloat(saldo.dolares)*parseFloat(compra): 0}</Text>
             </View>
             <View style={[{ backgroundColor: primary }, style.containerTwo]}>
                 <DollarChange setSaldo={setSaldo} saldo={saldo}/>

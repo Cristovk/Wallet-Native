@@ -53,11 +53,16 @@ const Movimientos = ({ navigation }) => {
     Gas: "burn",
     Electricidad: "bolt",
     Internet: "wifi",
+    Dsaliente: "hand-holding-usd",
+    Dentrante: "hand-holding-usd",
+    TDsaliente: "arrow-circle-up",
+    TDentrante: "arrow-circle-down",
     "recarga con tarjeta": "credit-card",
   };
 
   function formatNumber(num) {
-    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    console.log('acaaaaaaaaaaaaaaaaaaaaaaaaaa',num)
+    return parseFloat(num)/* console.log(num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")) */
   }
   useEffect(() => {
     dispatch(getDayMovements(movements.allMovements));
@@ -164,12 +169,16 @@ const Movimientos = ({ navigation }) => {
                             empresa: item.empresa,
                             sender: item.sender,
                             receiver: item.receiver,
-                            card: item.card
+                            card: item.card,
+                            dolares: item.dolares,
+                            cotizacion: item.cotizacion
                           })
                         }
                       >
 
                         {item.categoria == "Tsaliente" ||
+                          item.categoria == "Dentrante" ||
+                          item.categoria == "TDsaliente" ||
                           item.operacion == "compra" ||
                           item.operacion == "servicios" ||
                           item.operacion == "servicio" ? (
@@ -187,8 +196,8 @@ const Movimientos = ({ navigation }) => {
                           )}
                         <ListItem.Content>
                           <ListItem.Title>
-                            {item.categoria[0].toUpperCase() +
-                              item.categoria.substring(1)}
+                            {item.operacion[0].toUpperCase() +
+                              item.operacion.substring(1)}
                           </ListItem.Title>
                           <ListItem.Subtitle>
                             {new Date(item.fecha).toLocaleDateString()}
@@ -200,6 +209,14 @@ const Movimientos = ({ navigation }) => {
                             item.operacion == "servicios" ||
                             item.operacion == "servicio"
                             ? `- $ ${formatNumber(item.monto)}`
+                            : item.categoria == "Dentrante"
+                            ? `- USD$ ${formatNumber(item.dolares)}`
+                            : item.categoria == "Dsaliente"
+                            ? `USD$ ${formatNumber(item.dolares)}`
+                            : item.categoria == "TDsaliente"
+                            ? `- USD$ ${formatNumber(item.monto)}`
+                            : item.categoria == "TDentrante"
+                            ? `USD$ ${formatNumber(item.monto)}`
                             : `$ ${formatNumber(item.monto)}`}
                         </Text>
                         <ListItem.Chevron

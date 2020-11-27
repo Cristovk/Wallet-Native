@@ -26,8 +26,12 @@ export const detalle = (
   sender,
   receiver,
   desde,
-  card
+  card,
+  cotizacion,
+  dolares
 ) => {
+
+  console.log('utiiiiiilsssss props', cotizacion,dolares,estado,operacion)
   const { primary, secondary, bg, text, dark } = useSelector(
     (store) => store.color
   );
@@ -36,9 +40,9 @@ export const detalle = (
     hour: "2-digit",
     minute: "2-digit",
   });
-  const Operacion = operacion
+  /* const Operacion = operacion
     ? operacion[0].toUpperCase() + operacion.substring(1)
-    : null;
+    : null; */
 
   return (
     <ScrollView>
@@ -52,7 +56,7 @@ export const detalle = (
         <ListItem.Content>
           <ListItem.Title>{"Operacion"}</ListItem.Title>
         </ListItem.Content>
-        <Text>{Operacion}</Text>
+        <Text>{operacion}</Text>
       </ListItem>
       <ListItem
         containerStyle={{
@@ -172,8 +176,25 @@ export const detalle = (
             <Text>{empresa}</Text>
           </ListItem>
         </View>
-      ) : (
-        <View>Unexpected error</View>
+      ) : (categoria == 'Dsaliente' || categoria == 'Dentrante') ? (
+        <View>
+          <ListItem
+            containerStyle={{
+            backgroundColor: primary,
+            borderBottomColor: dark ? "grey" : secondary,
+            borderBottomWidth: 1,
+            }}
+          >
+            <ListItem.Content>
+              <ListItem.Title>Cotización</ListItem.Title>
+            </ListItem.Content>
+            <Text>USD$ 1 = ${cotizacion}</Text>
+          </ListItem>
+        </View>
+      )
+      :
+      (
+        <View><Text>Unexpected error</Text></View>
       )}
       <ListItem
         containerStyle={{
@@ -209,7 +230,7 @@ export const detalle = (
         <ListItem.Content>
           <ListItem.Title>{"Monto"}</ListItem.Title>
         </ListItem.Content>
-        <Text>{`$ ${monto}`}</Text>
+        <Text>{categoria == 'TDsaliente' || categoria == 'TDentrante'?`USD$ ${monto}`:`$ ${monto}`}</Text>
       </ListItem>
     </ScrollView>
   );
@@ -230,7 +251,9 @@ export const generateInvoice = async (
   sender,
   receiver,
   desde,
-  card
+  card,
+  cotizacion,
+  dolares
 ) => {
   console.log("En Generate Invoice", categoria);
 
@@ -398,7 +421,7 @@ export const generateInvoice = async (
     `;
     html = cabecera + loquefalta + footer;
   }
-  if (categoria === "compradolar") {
+  if (categoria === "Dsaliente") {
     const loquefalta = `
     <p class="titulo">Vendiste</p>
     <p class = "notitulo">${monto}</p>
@@ -407,7 +430,7 @@ export const generateInvoice = async (
     `;
     html = cabecera + loquefalta + footer;
   }
-  if (categoria === "ventadolar") {
+  if (categoria === "Dentrante") {
     const loquefalta = `
     <p class="titulo">Vendiste</p>
     <p class = "notitulo">${dolares}</p>
