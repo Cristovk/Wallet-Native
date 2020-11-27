@@ -59,7 +59,9 @@
     "redux": "^4.0.5",
     "redux-devtools": "^3.7.0",
     "redux-thunk": "^2.3.0",
-    "write-file-atomic": "^3.0.3"
+    "write-file-atomic": "^3.0.3",
+    "react-native-maps": "0.27.1",
+    "expo-location": "~9.0.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

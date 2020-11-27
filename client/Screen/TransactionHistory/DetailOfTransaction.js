@@ -136,7 +136,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
               styleBoton.container,
             ]}
           ></View>
-          <View>
+          <View style={{alignItems:"center", marginTop:10}}>
             <TouchableOpacity
               style={[{ backgroundColor: secondary }, styleBoton.boton]}
               onPress={() =>
@@ -163,7 +163,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
                 color: text,
               }}
             >
-              <Text style={[{ color: text }, styleBoton.texto]}>
+              <Text style={[{ color: text,alignSelf:"center" }, styleBoton.texto]}>
                 Compartir Recibo
               </Text>
             </TouchableOpacity>
