@@ -65,13 +65,6 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     minute: "2-digit",
   });
 
-  let date = new Date(fecha).toLocaleDateString();
-  let time = new Date(fecha).toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-
-
   return (
     <View style={{ backgroundColor: bg }}>
       <View>
