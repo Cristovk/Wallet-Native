@@ -25,17 +25,17 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   imagenpunto: {
-    width: 170,
-    height: 40,
+    width: 160,
+    height: 50,
     margin: 6,
     borderRadius: 15
   },
   botonImagen: {
     alignItems: "center",
-    width: 170,
-    height: 60,
+    width: 160,
+    height: 50,
     margin: 6,
-    marginTop: 50,
+    marginTop: 20,
     borderColor: "grey",
     shadowColor: "#000",
     shadowOffset: {

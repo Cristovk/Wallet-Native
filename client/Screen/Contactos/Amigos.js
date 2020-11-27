@@ -11,6 +11,7 @@ import {
 import { ListItem, Avatar, Icon } from "react-native-elements";
 import { useSelector } from "react-redux";
 import { iconM } from "../../Components/stack/profileImage";
+import ModalTransfer from './modalTransfer'
 
 const Amigos = ({ navigation }) => {
   const user = useSelector((store) => store.user.user);
@@ -23,9 +24,11 @@ const Amigos = ({ navigation }) => {
   // Función del modal para los detalles
   const [modal, setModal] = useState(false);
   const [index, setIndex] = useState("");
+  const [transfer,setTransfer] = useState("")
   const toggle = () => {
     setModal(!modal);
-    if (index) setIndex("");
+    if (index) setIndex("")
+    if (transfer) setTransfer("");
   };
 
   // const contactsRedux = async () => {
@@ -95,21 +98,10 @@ const Amigos = ({ navigation }) => {
                   <Icon
                     name="ios-send"
                     type="ionicon"
-                    onPress={() =>
-                      navigation.navigate("Finish", {
-                        receiver: {
-                          apellido: l.lastName,
-                          nombre: l.name,
-                          cvu: l.cvu,
-                          dni: l.dni,
-                          telefono: l.phone,
-                        },
-                        dato: {
-                          receivercvu: l.cvu,
-                          senderId: user.id,
-                        },
-                      })
-                    }
+                    onPress={() => {
+                      setTransfer(l);
+                      toggle()
+                    }}
                   />
                 </ListItem>
               );
@@ -124,7 +116,7 @@ const Amigos = ({ navigation }) => {
               Alert.alert("Modal has been closed.");
             }}
           >
-            {index && (
+            {index ? (
               <View style={styles.centeredView}>
                 <View style={[styles.modalView, { backgroundColor: primary }]}>
                   <View>
@@ -149,9 +141,8 @@ const Amigos = ({ navigation }) => {
                     </ListItem>
                   </View>
                   <View style={{ paddingTop: 10, paddingBottom: 10 }}>
-                    {/* <Text>Alias: {contactos[index].alias}</Text>
-                <Text>CBU: {contactos[index].cbu}</Text>
-                <Text>CVU: {contactos[index].cvu}</Text> */}
+                    <Text>DNI: {index.dni}</Text>
+                    <Text>CVU: {index.cvu}</Text>
                     <Text style={{ fontSize: 15 }}>
                       Telefono: {index.phone}
                     </Text>
@@ -170,7 +161,9 @@ const Amigos = ({ navigation }) => {
                   </ListItem>
                 </View>
               </View>
-            )}
+            ):
+            <ModalTransfer styles={styles} transfer={transfer} toggle={toggle} dark={dark} text={text} secondary={secondary} primary={primary} user={user} navigation={navigation}/>
+            }
           </Modal>
         </ScrollView>
       </View>

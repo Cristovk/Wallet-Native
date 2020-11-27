@@ -75,7 +75,6 @@ const Transferencias = ({ navigation }) => {
           value={dato.receivercvu}
           
         />
-        <Text>_______________________________________</Text>
         {spinner && (
           <View style={style.spinner}>
             <ActivityIndicator size="small" color={bg} />
