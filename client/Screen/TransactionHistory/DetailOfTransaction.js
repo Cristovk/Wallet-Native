@@ -33,9 +33,10 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     receiver,
     desde,
     card,
+    cotizacion,
+    dolares,
     cvu,
   } = route.params;
-
   const iconList = {
     panaderia: "cookie",
     almacen: "shopping-basket",
@@ -54,6 +55,8 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
     Gas: "burn",
     Electricidad: "bolt",
     Internet: "wifi",
+    Dsaliente: "hand-holding-usd",
+    Dentrante: "hand-holding-usd",
     "recarga con tarjeta": "credit-card",
   };
 
@@ -83,7 +86,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           <View style={{ marginTop: 20 }}>
             <Text style={{ color: primary, fontSize: 20 }}>
               {operacion === "transferencia"
-                ? categoria === "Tentrante"
+                ? categoria === "Tentrante" || categoria === "TDentrante"
                   ? `${sender} te envió`
                   : `Le enviaste a ${receiver}`
                 : operacion === "recarga"
@@ -94,14 +97,22 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
                 ? `Pagaste a ${empresa}`
                 : operacion === "compra"
                 ? `Compraste en ${empresa}`
+                : categoria == 'Dentrante'
+                ? `Venta de dolares`
+                : categoria == 'Dsaliente'
+                ? `Compra de dolares`
                 : `Exploto todo :D`}
             </Text>
           </View>
 
           <View style={{ marginTop: 5 }}>
-            <Text style={{ color: primary, fontSize: 20 }}>{`$ ${formatNumber(
-              monto
-            )}`}</Text>
+            <Text style={{ color: primary, fontSize: 20 }}>{
+              categoria == 'Dentrante' || categoria == 'Dsaliente' ?
+              `USD$ ${formatNumber(dolares)}`
+              : categoria == 'TDentrante' || categoria == 'TDsaliente' ?
+              `USD$ ${formatNumber(monto)}`
+              :`$ ${formatNumber(monto)}`}
+            </Text>
           </View>
         </View>
         <View
@@ -114,7 +125,9 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
           }}
         >
           <View style={{ marginTop: 15 }}>
-            {detalle(
+            { /* categoria == 'Dentrante' || categoria == 'Dsaliente'
+            ? detalle(fecha,monto,estado,operacion,categoria,cotizacion,dolares)
+            :  */detalle(
               fecha,
               monto,
               tipo,
@@ -127,7 +140,9 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
               sender,
               receiver,
               desde,
-              card
+              card,
+              cotizacion,
+              dolares
             )}
           </View>
 
@@ -137,7 +152,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
               styleBoton.container,
             ]}
           ></View>
-          <View>
+          <View style={{alignItems:"center", marginTop:10}}>
             <TouchableOpacity
               style={[{ backgroundColor: secondary }, styleBoton.boton]}
               onPress={() =>
@@ -164,7 +179,7 @@ const DetalleDeTransaccion = ({ route, navigation }) => {
                 color: text,
               }}
             >
-              <Text style={[{ color: text }, styleBoton.texto]}>
+              <Text style={[{ color: text,alignSelf:"center" }, styleBoton.texto]}>
                 Compartir Recibo
               </Text>
             </TouchableOpacity>

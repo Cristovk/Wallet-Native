@@ -93,7 +93,7 @@ const Pin = ({ navigation }) => {
           name={candado}
           type="fontisto"
           size={100}
-          color={candado === "locked" ? primary : "green"}
+          color={candado === "locked" ? primary : "white"}
         />
       </View>
       <View style={[{ backgroundColor: primary }, style.containerTwo]}>

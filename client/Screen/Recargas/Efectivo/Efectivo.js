@@ -1,10 +1,20 @@
-import React from 'react'
-import { View, Text, Image, Linking, TouchableOpacity } from 'react-native'
+import React,{useEffect,useState} from 'react'
+import { View, Text, Image, Linking, TouchableOpacity, Alert } from 'react-native'
 import { useSelector } from 'react-redux';
 import styles from './estilosEfectivo';
 import style from '../../Configuracion/Correo/CorreoEstilos'
+import MapView, { Marker } from 'react-native-maps';
+import axios from "axios";
+import * as Permissions from "expo-permissions";
+import * as Location from "expo-location";
+import {dot,logo} from "../../../../assets/index";
+import {ActivityIndicator} from "react-native"
 
 const Efectivo = ({ color }) => {
+
+  const [location,setLocation] = useState("");
+  const [places,setPlaces] = useState([]);
+  const [keyword,setKeyword] = useState("rapipago");
 
   const user = useSelector(store => store.user.user)
   const { primary, secondary, bg, text, dark } = useSelector(store => store.color)
@@ -16,13 +26,73 @@ const Efectivo = ({ color }) => {
     await Linking.openURL("https://www.e-pagofacil.com/")
   }
 
-  const handleTeleRecargas = async () => {
-    await Linking.openURL("http://telerecargas.com.ar/")
+  const getLocation = async () => {
+    const permiso = await Permissions.askAsync(Permissions.LOCATION)
+    const respuesta = permiso.permissions.location.status
+    if(respuesta === "denied"){
+      Alert.alert("No se tiene los permisos para el mapa")
+    }else{
+      const consulta = await Location.hasServicesEnabledAsync()
+      if(!consulta){
+        Alert.alert("No esta disponible su ubicación")
+      }
+      const loc = await Location.getCurrentPositionAsync()
+      const coordenadas = getDelta(loc.coords.latitude,loc.coords.longitude,1200)
+      setLocation(coordenadas)
+      console.log(coordenadas)
+    }
   }
 
-  const handleCobroExpress = async () => {
-    await Linking.openURL("https://www.cobroexpress.com.ar/Home/DondePagar")
+  const getDelta = (lat, lon, distance) => {
+      distance = distance/2
+      const circumference = 40075
+      const oneDegreeOfLatitudeInMeters = 111.32 * 1000
+      const angularDistance = distance/circumference
+
+      const latitudeDelta = distance / oneDegreeOfLatitudeInMeters
+      const longitudeDelta = Math.abs(Math.atan2(
+              Math.sin(angularDistance)*Math.cos(lat),
+              Math.cos(angularDistance) - Math.sin(lat) * Math.sin(lat)))
+
+      return  {
+          latitude: lat,
+          longitude: lon,
+          latitudeDelta,
+          longitudeDelta,
+      }
   }
+
+  const handleSearch = async (local) => {
+    console.log("se presiono el boton")
+    let array = [];
+    if(location){
+      const {data} = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.latitude},${location.longitude}&radius=1200&keyword=${local}&key=AIzaSyBb1jsHd9pMGasi6PWTIPLPLKr0Sgat-QU`)
+      if(data.results){
+        data.results.map(e => {
+          let dato = {
+            latitude: e.geometry.location.lat,
+            longitude: e.geometry.location.lng,
+            name:e.name,
+            icon:e.icon
+          }
+          array.push(dato);
+        })
+      }
+      if(array.length===0){
+        Alert.alert("No se encontraron resultados")
+      }
+      console.log(array);
+      setPlaces(array);
+    }else{
+      console.log("salio mal");
+    }
+  }
+
+
+  useEffect(() => {
+    getLocation()
+
+  },[])
 
   return (
     <View >
@@ -36,36 +106,33 @@ const Efectivo = ({ color }) => {
       </View>
       <View style={styles.contenedorimagenes}>
         <TouchableOpacity
-          onPress={handleRapiPago}
+          onPress={() => handleSearch("rapipago")}
           style={[{ backgroundColor: primary }, styles.botonImagen]}
         >
           <Image style={styles.imagenpunto} source={require('../../../src/rapipagoSinFondo.png')} />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={handlePagoFacil}
+          onPress={() => handleSearch("pagofacil")}
           style={[{ backgroundColor: primary }, styles.botonImagen]}
         >
           <Image style={styles.imagenpunto} source={require('../../../src/pagofacillogoSinfondo.png')} />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={handleTeleRecargas}
-          style={[{ backgroundColor: primary }, styles.botonImagen]}
-        >
-          <Image style={styles.imagenpunto} source={require('../../../src/teleRecargasSinFondo.png')} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={handleCobroExpress}
-          style={[{ backgroundColor: primary }, styles.botonImagen]}
-        >
-          <Image style={styles.imagenpunto} source={require('../../../src/CobroExpressSinFondo.png')} />
-        </TouchableOpacity>
-
-
-
-
-
       </View>
+<View>
+  {location  ? <MapView style={{height:300}}  initialRegion={location}
+    >
+    <Marker 
+      coordinate = {{latitude:Number(location.latitude),longitude:Number(location.longitude)}} title={"Ubicacion"} pinColor={'black'}>
+      </Marker>
 
+      {places[0] && places.map((e) => {
+        return(
+          <MapView.Marker coordinate={{latitude:e.latitude, longitude: e.longitude}} title={e.name}>
+       </MapView.Marker>
+        )})
+    }
+      </MapView>: <ActivityIndicator size="large" color={bg} style={{marginTop:50}}/>}
+</View>
     </View>
   );
 }

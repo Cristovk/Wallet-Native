@@ -20,14 +20,12 @@ import { heightPercentageToDP } from "react-native-responsive-screen";
 import viewStyle from "../../Global-Styles/ViewContainer";
 
 /* ========================= STATES ============================ */
-const Transfers = ({ navigation }) => {
-  LogBox.ignoreAllLogs();
+const TransfersDolar = ({ navigation }) => {
+  // LogBox.ignoreAllLogs();
   const [transfers, setTransfers] = useState([]);
   const iconList = {
     Tsaliente: "arrow-circle-up",
     Tentrante: "arrow-circle-down",
-    TDsaliente: "arrow-circle-up",
-    TDentrante: "arrow-circle-down",
   };
   const dispatch = useDispatch();
   const userId = useSelector((store) => store.user.user.id);
@@ -139,8 +137,7 @@ const Transfers = ({ navigation }) => {
                             { borderBottomColor: secondary },
                             styles.listaContenedor,
                           ]}
-                          onPress={() => {
-                            console.log("item", item);
+                          onPress={() =>
                             navigation.navigate("Detalle", {
                               estado: item.estado,
                               fecha: item.fecha,
@@ -153,18 +150,16 @@ const Transfers = ({ navigation }) => {
                               receiver: item.receiver,
                               card: item.card,
                               sender: item.sender,
-                              desde: item.desde,
-                            });
-                          }}
+                            })
+                          }
                         >
-                          {item.categoria == "Tsaliente" || item.categoria == "TDsaliente"
-                            ? (
-                              <Icon
-                                name={iconList[item.categoria]}
-                                size={30}
-                                color="red"
-                              />
-                            ) : (
+                          {item.categoria == "Tsaliente" ? (
+                            <Icon
+                              name={iconList[item.categoria]}
+                              size={30}
+                              color="red"
+                            />
+                          ) : (
                               <Icon
                                 name={iconList[item.categoria]}
                                 size={30}
@@ -173,7 +168,7 @@ const Transfers = ({ navigation }) => {
                             )}
                           <ListItem.Content>
                             <ListItem.Title>
-                              {item.categoria == "Tsaliente" || item.categoria == "TDsaliente"
+                              {item.categoria == "Tsaliente"
                                 ? item.receiver
                                 : item.sender}
                             </ListItem.Title>
@@ -184,12 +179,7 @@ const Transfers = ({ navigation }) => {
                           <Text style={{ marginRight: 3 }}>
                             {item.categoria == "Tsaliente"
                               ? `- $ ${formatNumber(item.monto)}`
-                              : item.categoria == "TDsaliente"
-                                ? `- USD$ ${formatNumber(item.monto)}`
-                                : item.categoria == "TDentrante"
-                                  ? `USD$ ${formatNumber(item.monto)}`
-                                  : `$ ${formatNumber(item.monto)}`}
-
+                              : `$ ${formatNumber(item.monto)}`}
                           </Text>
                           <ListItem.Chevron
                             name="chevron-right"
@@ -225,4 +215,4 @@ const Transfers = ({ navigation }) => {
   );
 };
 
-export default Transfers;
+export default TransfersDolar;

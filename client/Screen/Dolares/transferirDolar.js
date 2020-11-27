@@ -13,7 +13,9 @@ import { auth, storage } from "../../../firebase";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { ScrollView } from "react-native-gesture-handler";
-const Transferencias = ({ navigation }) => {
+
+
+const TransferenciasDolar = ({ navigation }) => {
   const user = useSelector((store) => store.user);
   const [dato, setDato] = useState({
     receivercvu: "",
@@ -49,11 +51,11 @@ const Transferencias = ({ navigation }) => {
       setDato({ receivercvu: "", senderId: "" });
 
       respuesta
-        ? navigation.navigate("confirmOrError", {
+        ? navigation.navigate("confirmOrErrorTransf", {
           receiver: respuesta.data.datos,
           dato: dato,
         })
-        : navigation.navigate("confirmOrError", {
+        : navigation.navigate("confirmOrErrorTransf", {
           receiver: null,
           dato: dato,
         });
@@ -104,4 +106,4 @@ const Transferencias = ({ navigation }) => {
   );
 };
 
-export default Transferencias;
+export default TransferenciasDolar;

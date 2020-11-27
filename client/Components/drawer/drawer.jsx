@@ -106,6 +106,14 @@ function CustomDrawerContent({ navigation, text, bg, primary, secondary, route, 
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
+        <ListItem bottomDivider containerStyle={{ backgroundColor: actual === 'Dolares' ? bg : 'transparent' }}
+          onPress={() => navegar('Dolares')}>
+          <Icon name='dollar' type='fontisto' color={dark ? text : actual === 'Dolares' ? '#fff' : bg} />
+          <ListItem.Content>
+            <ListItem.Title style={{ color: dark ? text : actual === 'Dolares' ? '#fff' : bg }}>Dolares</ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
         <ListItem bottomDivider containerStyle={{ backgroundColor: actual === 'Tarjetas' ? bg : 'transparent' }}
           onPress={() => navegar('Tarjetas')}>
           <Icon name='wallet' type='fontisto' color={dark ? text : actual === 'Tarjetas' ? '#fff' : bg} />
