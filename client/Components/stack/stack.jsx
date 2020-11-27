@@ -144,6 +144,7 @@ function HomeScreen({ userLog, user, route }) {
 
         <View style={{ marginStart: 10 }} >
           <TouchableOpacity
+            style={{width:30}}
             onPress={() => { navigation.navigate("Home"); nombre('home') }}
           >
             <Icon

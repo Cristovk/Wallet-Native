@@ -26,6 +26,8 @@ const Transfers = ({ navigation }) => {
   const iconList = {
     Tsaliente: "arrow-circle-up",
     Tentrante: "arrow-circle-down",
+    TDsaliente: "arrow-circle-up",
+    TDentrante: "arrow-circle-down",
   };
   const dispatch = useDispatch();
   const userId = useSelector((store) => store.user.user.id);
@@ -155,7 +157,8 @@ const Transfers = ({ navigation }) => {
                         });
                       }}
                     >
-                      {item.categoria == "Tsaliente" ? (
+                      {item.categoria == "Tsaliente" || item.categoria == "TDsaliente" 
+                        ? (
                         <Icon
                           name={iconList[item.categoria]}
                           size={30}
@@ -181,7 +184,12 @@ const Transfers = ({ navigation }) => {
                       <Text style={{ marginRight: 3 }}>
                         {item.categoria == "Tsaliente"
                           ? `- $ ${formatNumber(item.monto)}`
+                          : item.categoria == "TDsaliente"
+                          ? `- USD$ ${formatNumber(item.monto)}`
+                          : item.categoria == "TDentrante"
+                          ? `USD$ ${formatNumber(item.monto)}`
                           : `$ ${formatNumber(item.monto)}`}
+                          
                       </Text>
                       <ListItem.Chevron
                         name="chevron-right"
