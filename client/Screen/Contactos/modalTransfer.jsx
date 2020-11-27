@@ -51,7 +51,7 @@ const ModalTransfer = ({ transfer, toggle, styles, user, navigation, dark, prima
             style={{ backgroundColor: secondary, borderRadius: 5, width: 50, alignItems: "center", justifyContent: "center" }}
           >
 
-            <Text>Pesos</Text>
+            <Text style={dark ? {color:primary} : "black"}>Pesos</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => {
             navigation.navigate("FinishDolar", {
@@ -72,7 +72,7 @@ const ModalTransfer = ({ transfer, toggle, styles, user, navigation, dark, prima
             style={{ backgroundColor: secondary, borderRadius: 5, marginStart: 20, width: 50, alignItems: "center", justifyContent: "center" }}
           >
 
-            <Text>Dólares</Text>
+            <Text style={dark ? {color:primary} : "black"}>Dólares</Text>
           </TouchableOpacity>
         </View>
         <ListItem
