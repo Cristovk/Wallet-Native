@@ -8,6 +8,7 @@ import * as SMS from "expo-sms";
 import { CheckBox } from "react-native-elements";
 import * as LocalAuthentication from "expo-local-authentication";
 import AsyncStorage from "@react-native-community/async-storage";
+import { heightPercentageToDP } from "react-native-responsive-screen";
 
 // Check saldo, mandar la wea,
 
@@ -213,6 +214,7 @@ const FinishDolar = ({ navigation, route }) => {
                 {
                   backgroundColor: secondary,
                   color: primary,
+                  position: "absolute"
                 },
                 style.boton,
               ]}
