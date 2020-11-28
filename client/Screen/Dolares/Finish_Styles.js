@@ -33,43 +33,71 @@ const style = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  input: {
+  input:{
     marginVertical: 3,
-    lineHeight: 8,
-    borderBottomColor: darkBlue,
-    borderBottomWidth: 1,
     height: 40,
-    width: "70%",
+    width: "50%",
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
     textAlign: "center",
-    marginTop: 40
+    borderWidth: 1,
+    borderRadius: 10
+  },input1:{
+    marginVertical: 3,
+    height:50,
+    width: "60%",
+    borderWidth: 1,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    textAlign: "center"
   },
   cvu: {
-    alignContent: "center",
-    marginTop: 2,
-    height: 80,
-    alignItems: "center",
-    borderTopStartRadius: 15,
-    borderTopEndRadius: 15,
-  },
-  monto: {
     alignContent: "center",
     marginTop: 2,
     backgroundColor: "#02072F",
     height: 60,
     alignItems: "center",
-    borderBottomRightRadius: 15,
-    borderBottomLeftRadius: 15,
+    borderTopStartRadius: 15,
+    borderTopEndRadius: 15,
   },
-  text: {
-    color: "white",
-    marginVertical: 15,
+  tituloSaldo: {
     fontWeight: "bold",
     fontSize: 20,
+    paddingBottom: 10,
+    marginBottom: 10,
+  },
+  saldo: {
+    fontWeight: "bold",
+    fontSize: 30,
+    paddingBottom: 10,
+    marginBottom: 10,
+  },
+  monto: {
+    alignContent: "center",
+    alignItems: "center",
+  },
+  text:{
+    color: "white",
+    marginVertical: 15,
     textAlign: 'center',
     height: 40,
+    fontSize: 25
+  },
+  botonContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    margin:70,
+  },
+  boton: {  flexDirection:"row",
+              borderRadius: 10,
+             width: 120,
+              marginTop: 10,
+              padding: 15,
+              justifyContent: "center"
   },
   error: {
     color: "red",
@@ -106,12 +134,17 @@ const style = StyleSheet.create({
     backgroundColor: orange,
     paddingHorizontal: 15,
   },
-  spinner: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    padding: 5
+  spinner:{
+    width:'100%',
+    flexDirection:'row',
+    justifyContent:'center',
+    padding:5
+  },
+  che:{
+    flexDirection: "column",
+    justifyContent: "space-between"
   }
+  
 });
 
 export default style;

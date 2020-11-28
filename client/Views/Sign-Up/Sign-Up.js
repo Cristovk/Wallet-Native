@@ -12,7 +12,7 @@ import { Icon } from "react-native-elements";
 import { styles } from "./Sing-Up-Styles";
 import { addUser, saveData } from "../../Redux/User";
 import { useDispatch } from "react-redux";
-//import { LogBox } from "react-native";
+import { LogBox } from "react-native";
 import { auth, storage } from "../../../firebase.js";
 
 Dimensions.get("window").width;
@@ -20,7 +20,7 @@ Dimensions.get("window").height;
 /* ======================================= STATE ================================================ */
 
 const SignUp = ({ navigation }) => {
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
@@ -41,16 +41,20 @@ const SignUp = ({ navigation }) => {
     emptyYear: "",
     invalidYearFormat: "",
   });
-  const emailValido = async () => {
-    const query = await storage
-      .collection("Users")
-      .where("email", "==", email)
-      .get();
-    if (query.empty) {
-      return false;
-    }
-    return true;
-  };
+  // const emailValido = async () => {
+  //   try{
+  //   const query = await storage
+  //         .collection("Users")
+  //         .where("email", "==", email)
+  //         .get();
+  //       if (query.empty) {
+  //         return false;
+  //       }
+  //       return true;
+  //   }catch(err){
+  //     console.log(err)
+  //   }
+  // };
 
   let newDate = new Date(year, month - 1, day);
   let actualYear = new Date().getFullYear();
@@ -81,7 +85,8 @@ const SignUp = ({ navigation }) => {
     let emptyYear = "";
     let invalidYearFormat = "";
 
-    const existe = await emailValido();
+    // const existe = await emailValido();
+
     if (!name) {
       emptyName = "El campo Nombre(s) es necesario";
     }
@@ -90,12 +95,12 @@ const SignUp = ({ navigation }) => {
     }
     if (!email) {
       emptyEmail = "El campo Email es necesario";
-    } 
-    else if (existe) {
-      emailExist = "El email ya está registrado";
-    }
-    else if (!/\S+@\S+\.\S+/.test(email)) {
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
       invalidEmailFormat = "Formato de email inválido o ya registrado";
+    } // else if (existe) {
+    //   emailExist = "El email ya está registrado";
+    // }
+
     if (!day) {
       emptyDay = "El campo día es necesario";
     } else if (day < 1 || day > 31 || isNaN(day)) {
@@ -115,7 +120,7 @@ const SignUp = ({ navigation }) => {
       emptyName ||
       emptyLastname ||
       emptyEmail ||
-      emailExist ||
+      // emailExist ||
       invalidEmailFormat ||
       emptyDay ||
       invalidDayFormat ||
@@ -129,7 +134,7 @@ const SignUp = ({ navigation }) => {
         emptyLastname,
         emptyEmail,
         invalidEmailFormat,
-        emailExist,
+        // emailExist,
         emptyDay,
         invalidDayFormat,
         emptyMonth,

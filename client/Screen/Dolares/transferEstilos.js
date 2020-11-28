@@ -35,11 +35,11 @@ const style = StyleSheet.create({
   },
   input: {
     marginVertical: 3,
-    lineHeight: 8,
+    lineHeight: 15,
     borderBottomColor: darkBlue,
     borderBottomWidth: 1,
     height: 40,
-    width: "70%",
+    width: "85%",
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',

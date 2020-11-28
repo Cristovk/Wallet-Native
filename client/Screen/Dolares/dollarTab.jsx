@@ -6,6 +6,9 @@ import {auth, storage} from "../../../firebase"
 import axios from "axios"
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import style from "./dolaresStyle"
+import styleBtn from "../../Global-Styles/BotonGrande"
+import TransferenciasDolar from './transferirDolar'
+import { color } from "react-native-reanimated";
 
 const DollarTab = createBottomTabNavigator()
 
@@ -17,9 +20,11 @@ const DollarChange = (props) => {
     return(
         <DollarTab.Navigator tabBarOptions={{
             labelStyle:{
-                fontSize:30,
+                fontSize:25,
                 textAlignVertical:"center",
                 marginBottom:5,
+                height:80,
+                paddingTop:35
             },
             activeTintColor: dark ? text : primary,
             inactiveTintColor: dark ? primary : secondary,
@@ -28,6 +33,7 @@ const DollarChange = (props) => {
         }}>
             <DollarTab.Screen name='venta' component={CompraVenta} initialParams={props} options={{tabBarLabel:'Comprar'}}/>
             <DollarTab.Screen name='compra' component={CompraVenta}  initialParams={props} options={{tabBarLabel:'Vender'}}/>
+            <DollarTab.Screen name='TransfDolar' component={TransferenciasDolar} options={{tabBarLabel: "Transferir"}} />
         </DollarTab.Navigator>
     )
 }
@@ -64,8 +70,6 @@ const CompraVenta = ({route}) => {
     }
 
     const dollarBuy = () => {
-        console.log("saldo", saldo);
-        
         if(compraventa === "compra" && Number(saldoHijo.dolares)>= Number(moneda.dolares) ){
              const query = storage.collection("Users").doc(auth.currentUser.uid).collection("Wallet").doc(user.cvu).set({
            saldo: Number(saldoHijo.saldo) + Number(moneda.pesos),
@@ -73,11 +77,13 @@ const CompraVenta = ({route}) => {
          }).then(compra => {
              Alert.alert('Venta exitosa')
             const query1 = storage.collection("Users").doc(auth.currentUser.uid).collection("Wallet").doc(user.cvu).collection("Movimientos").add({
-                operacion: "Venta dolar",
+                operacion: "Venta",
                 estado: "Completada",
                 fecha: Date.now(),
                 monto: Number(moneda.pesos),
-                categoria: "Tentrante"
+                dolares: Number(moneda.dolares) ,
+                cotizacion: valor,
+                categoria: "Dentrante"
 
              })
              .then(res => {
@@ -89,6 +95,10 @@ const CompraVenta = ({route}) => {
              console.log("idddddd", query1)
             })
             getSaldo()
+            setMoneda({
+                dolares:"",
+                pesos: ""
+            })
         }else if(compraventa==="venta" && Number(saldoHijo.saldo)>= Number(moneda.pesos) ){
             const query = storage.collection("Users").doc(auth.currentUser.uid).collection("Wallet").doc(user.cvu).set({
                 saldo: Number(saldoHijo.saldo) - Number(moneda.pesos),
@@ -96,11 +106,13 @@ const CompraVenta = ({route}) => {
               }).then(venta => {
                   Alert.alert('Compra exitosa')
                   const query1 =  storage.collection("Users").doc(auth.currentUser.uid).collection("Wallet").doc(user.cvu).collection("Movimientos").add({
-                    operacion: "Compra dolar",
+                    operacion: "Compra",
                     estado: "Completada",
                     fecha: Date.now(),
                     monto: Number(moneda.pesos),
-                    categoria: "Tsaliente"
+                    dolares: Number(moneda.dolares) ,
+                    cotizacion: valor,
+                    categoria: "Dsaliente"
    
                 }).then(res => {
                     console.log("res")
@@ -110,6 +122,10 @@ const CompraVenta = ({route}) => {
                 })
             })
             getSaldo()
+            setMoneda({
+                dolares:"",
+                pesos: ""
+            })
         }else{
             Alert.alert("Saldo insuficiente")
         }
@@ -143,20 +159,32 @@ const CompraVenta = ({route}) => {
     return(
         <View style ={{backgroundColor:bg}}>
         <View style={[{ backgroundColor: primary }, style.containerTwo]}>
+            <View style={{marginTop:10,borderBottomColor:bg, borderBottomWidth:8, width:"50%",alignSelf:"center",borderRadius:20}}></View>
             <View style={style.contentInputs} >
                 <View style={{width:"40%"}}>
-                   <Input style={style.input} name='dolares' placeholder={`USD$ ${moneda.dolares ? moneda.dolares : 0}`} placeholderTextColor='black' value={(moneda.dolares)} onChangeText={(e) =>handleChange(e, "dolares")}/>  
+                   <Input style={style.input} name='dolares' placeholder={`USD$ ${moneda.dolares ? moneda.dolares : 1}`} placeholderTextColor='black' value={moneda.dolares} onChangeText={(e) =>handleChange(e, "dolares")}/>  
                 </View>
                     <Text style={{fontSize:50}}>=</Text>
                 <View style={{width:"40%"}}>
-                     <Input style={style.input} name='pesos' placeholder={`ARS$ ${moneda.pesos}`} placeholderTextColor='black' value={moneda.pesos} onChangeText={(e) =>handleChange(e, "pesos")}/> 
+                     <Input style={style.input} name='pesos' placeholder={`ARS$ ${moneda.pesos ? moneda.pesos : valor}`} placeholderTextColor='black' value={moneda.pesos} editable={false} onChangeText={(e) =>handleChange(e, "pesos")}/> 
                 </View>
                     
             </View>
-            <Button title='Confirmar' onPress={dollarBuy}/>
+                <View style={styleBtn.container} >
+                    <TouchableOpacity style={[{backgroundColor:secondary},styleBtn.boton]} >
+                        <Text style={[dark ? {color:primary} : {color:"black"} ,styleBtn.texto]} onPress={dollarBuy}>Confirmar</Text>
+                    </TouchableOpacity>
+            </View>
+            {/* <View style={styleBtn.container} >
+                    <TouchableOpacity style={[{backgroundColor:secondary},styleBtn.boton]} >
+                        <Text style={[dark ? {color:primary} : {color:"black"} ,styleBtn.texto]} onPress={}>Transferencias</Text>
+                    </TouchableOpacity>
+            </View> */}
         </View>
         </View>
     )
 }
 
 export default DollarChange
+
+

@@ -22,6 +22,7 @@ import { useIsFocused } from "@react-navigation/native";
 import viewStyle from "../../Global-Styles/ViewContainer";
 import { darkBlue, orange, white } from "../../Global-Styles/colors";
 
+
 const Movimientos = ({ navigation }) => {
   // LogBox.ignoreAllLogs();
   const windowHeight = Dimensions.get("window").height;
@@ -52,11 +53,16 @@ const Movimientos = ({ navigation }) => {
     Gas: "burn",
     Electricidad: "bolt",
     Internet: "wifi",
+    Dsaliente: "hand-holding-usd",
+    Dentrante: "hand-holding-usd",
+    TDsaliente: "arrow-circle-up",
+    TDentrante: "arrow-circle-down",
     "recarga con tarjeta": "credit-card",
   };
 
   function formatNumber(num) {
-    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    console.log('acaaaaaaaaaaaaaaaaaaaaaaaaaa',num)
+    return parseFloat(num)/* console.log(num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")) */
   }
   useEffect(() => {
     dispatch(getDayMovements(movements.allMovements));
@@ -81,11 +87,13 @@ const Movimientos = ({ navigation }) => {
     }
   }, [selectedIndex, isFocused, movements]);
 
-
   return (
-    <View style={{ backgroundColor: bg }}>
+    <ScrollView style={{ backgroundColor: bg }}>
       <View
-        style={[{ backgroundColor: primary, marginTop: 25 }, viewStyle.container]}
+        style={[
+          { backgroundColor: primary, marginTop: 25 },
+          viewStyle.container,
+        ]}
       >
         <View>
           <ButtonGroup
@@ -138,78 +146,92 @@ const Movimientos = ({ navigation }) => {
             </Text>
           </View>
         ) : (
-              // <View style={{ maxHeight: windowHeight }}>
-              <FlatList
-                data={list}
-                removeClippedSubviews={false}
-                keyExtractor={(mov) => mov.id}
-                style={{ marginVertical: 15 }}
-                renderItem={({ item }) => {
-                  return (
-                    <ListItem
-                      key={item.id}
-                      onPress={() =>
-                        navigation.navigate("Detalle", {
-                          fecha: item.fecha,
-                          monto: item.monto,
-                          hacia: item.hacia,
-                          desde: item.desde,
-                          estado: item.estado,
-                          categoria: item.categoria,
-                          motivo: item.motivo,
-                          operacion: item.operacion,
-                          estado: item.estado,
-                          empresa: item.empresa,
-                          sender: item.sender,
-                          receiver: item.receiver,
-                          card: item.card,
-                        })
-                      }
-                    >
-                      {item.categoria == "Tsaliente" ||
-                        item.operacion == "compra" ||
-                        item.operacion == "servicios" ||
-                        item.operacion == "servicio" ? (
-                          <Icon name={iconList[item.categoria]} size={30} color="red" />
-                        ) : (
-                          <Icon
-                            name={iconList[item.categoria]}
-                            size={30}
-                            color="green"
-                          />
-                        )}
-                      <ListItem.Content>
-                        <ListItem.Title>
-                          {item.operacion
-                            ? item.operacion[0].toUpperCase() +
-                            item.operacion.substring(1)
-                            : null}
-                        </ListItem.Title>
-                        <ListItem.Subtitle>
-                          {new Date(item.fecha).toLocaleDateString()}
-                        </ListItem.Subtitle>
-                      </ListItem.Content>
-                      <Text style={{ marginRight: 3 }}>
+              <ScrollView style={{ maxHeight: windowHeight }}>
+                <FlatList
+                  data={list}
+                  keyExtractor={(mov) => mov.id}
+                  style={{ marginVertical: 15 }}
+                  renderItem={({ item }) => {
+                    return (
+                      <ListItem
+                        key={item.id}
+                        onPress={() =>
+                          navigation.navigate("Detalle", {
+                            fecha: item.fecha,
+                            monto: item.monto,
+                            hacia: item.hacia,
+                            desde: item.desde,
+                            estado: item.estado,
+                            categoria: item.categoria,
+                            motivo: item.motivo,
+                            operacion: item.operacion,
+                            estado: item.estado,
+                            empresa: item.empresa,
+                            sender: item.sender,
+                            receiver: item.receiver,
+                            card: item.card,
+                            dolares: item.dolares,
+                            cotizacion: item.cotizacion
+                          })
+                        }
+                      >
+
                         {item.categoria == "Tsaliente" ||
+                          item.categoria == "Dentrante" ||
+                          item.categoria == "TDsaliente" ||
                           item.operacion == "compra" ||
                           item.operacion == "servicios" ||
-                          item.operacion == "servicio"
-                          ? `- $ ${formatNumber(item.monto)}`
-                          : `$ ${formatNumber(item.monto)}`}
-                      </Text>
-                      <ListItem.Chevron
-                        name="chevron-right"
-                        type="font-awesome"
-                        color="black"
-                      />
-                    </ListItem>
-                  );
-                }}
-              ></FlatList>
-              // // </View>
+                          item.operacion == "servicio" ? (
+                            <Icon
+                              name={iconList[item.categoria]}
+                              size={30}
+                              color="red"
+                            />
+                          ) : (
+                            <Icon
+                              name={iconList[item.categoria]}
+                              size={30}
+                              color="green"
+                            />
+                          )}
+                        <ListItem.Content>
+                          <ListItem.Title>
+                            {item.operacion[0].toUpperCase() +
+                              item.operacion.substring(1)}
+                          </ListItem.Title>
+                          <ListItem.Subtitle>
+                            {new Date(item.fecha).toLocaleDateString()}
+                          </ListItem.Subtitle>
+                        </ListItem.Content>
+                        <Text style={{ marginRight: 3 }}>
+                          {item.categoria == "Tsaliente" ||
+                            item.operacion == "compra" ||
+                            item.operacion == "servicios" ||
+                            item.operacion == "servicio"
+                            ? `- $ ${formatNumber(item.monto)}`
+                            : item.categoria == "Dentrante"
+                            ? `- USD$ ${formatNumber(item.dolares)}`
+                            : item.categoria == "Dsaliente"
+                            ? `USD$ ${formatNumber(item.dolares)}`
+                            : item.categoria == "TDsaliente"
+                            ? `- USD$ ${formatNumber(item.monto)}`
+                            : item.categoria == "TDentrante"
+                            ? `USD$ ${formatNumber(item.monto)}`
+                            : `$ ${formatNumber(item.monto)}`}
+                        </Text>
+                        <ListItem.Chevron
+                          name="chevron-right"
+                          type="font-awesome"
+                          color="black"
+                        />
+                      </ListItem>
+                    );
+                  }}
+                ></FlatList>
+              </ScrollView>
             )}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
