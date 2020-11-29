@@ -8,12 +8,17 @@ import MsjFoto from "./MsjFoto";
 import { changeImage, chat, ordenarArray } from "./FuncionesChat";
 import { storage } from "../../../firebase";
 import { useSelector } from "react-redux";
-import { InputGroup } from "native-base";
 
-const Chat = ({navigation}) => {
+
+const Chat = ({ navigation }) => {
   const user = useSelector((store) => store.user);
-  
+  console.log('usuario', user)
+
   const [bienvenida, setBienvenida] = useState(false);
+  const [abandonar, setAbandonar] = useState(false);
+  const [fechaingreso, setFechaIngreso] = useState(false);
+  const [user1,setUser1]=useState(false);
+  const [user2,setUser2]=useState(false);
   const [message, setMessage] = useState({
     msg: "",
     senderId: user.user.id,
@@ -23,10 +28,10 @@ const Chat = ({navigation}) => {
     entering: false,
     exiting: false
   });
-  const [msjInput,setmsjInput]=useState('')
+  const [msjInput, setmsjInput] = useState('')
 
   const { messages } = chat();
-  
+
   const { bg, text, primary, secondary, dark } = useSelector((store) => store.color);
 
   const sendMessage = async () => {
@@ -35,22 +40,39 @@ const Chat = ({navigation}) => {
     storage.collection("messages").add(mensaje);
     setmsjInput('');
   };
-  
-  ordenarArray(messages, "numero");
 
+  ordenarArray(messages, "numero");
+  let minutos;
+  let nhoras;
+  const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   let msj = "Hola " + user.user.name + '. ¿En qué te puedo ayudar el día de hoy?';
   let hora = new Date();
+  let fecha = hora.getDate() + ' DE ' + (meses[hora.getMonth()]).toUpperCase() + ' DE ' + hora.getFullYear();
+  const { name, lastName } = user.user
+  minutos=hora.getMinutes()<10 ? '0'+hora.getMinutes():hora.getMinutes();
+  nhoras=hora.getHours()<10 ? '0'+hora.getHours():hora.getHours();
 
- 
   const mostrar = () => {
     setTimeout(() => {
-      setBienvenida(true);
-    }, 3000);
+      setFechaIngreso(true);
+      setTimeout(() => {
+        setUser1(true);
+        setTimeout(() => {
+          setUser2(true);
+          setTimeout(() => {
+            setBienvenida(true);
+          }, 1000);
+        }, 1000);
+      }, 1000);
+    }, 1500);
+
   }
   mostrar();
-  const eliminarConversacion = ()=>{
-    setBienvenida(false);
-    navigation.navigate('Ayuda')
+  const eliminarConversacion = () => {
+    setAbandonar(true);
+    setTimeout(() => {
+      navigation.navigate('Ayuda');
+    }, 2000);
   }
 
   return (
@@ -61,31 +83,31 @@ const Chat = ({navigation}) => {
       }
     >
       <View style={styles.cerrarChat}>
-            <Icon
-              size={16}
-              name="times"
-              type="font-awesome"
-              color="#fff"
-              onPress={eliminarConversacion}
-            />
+        <Icon
+          size={16}
+          name="times"
+          type="font-awesome"
+          color="#fff"
+          onPress={eliminarConversacion}
+        />
       </View>
 
-    
-     
+
       <View style={[styles.contMensajes, { backgroundColor: "#fff" }]}>
         <ScrollView style={styles.scroll}>
-          
-
-          {!bienvenida && (
-            <Text style={styles.bienvenida}>
-              Hernán el trolo se ha unido a la conversación ...
-            </Text>
+          {fechaingreso && (
+            <View style={styles.contBienvenida}>
+              <Text style={styles.fecha}>{fecha}</Text>
+            {user1 && <Text style={styles.fecha}>Andrés Sánchez se ha unido</Text>}
+            {user2 && <Text style={styles.fecha}>{name + ' ' + lastName} se ha unido</Text>}
+            </View>
           )}
+
           {bienvenida && (
             <View>
               <MsjBot
                 mensaje={msj}
-                hora={hora.getHours() + ":" + hora.getMinutes() }
+                hora={nhoras + ":" + minutos}
               />
             </View>
           )}
@@ -93,13 +115,12 @@ const Chat = ({navigation}) => {
           {messages.map((m, index) => {
             let hora = new Date();
             let data = m;
-            if (data.senderId === "KB0ULCTcdjOyF6IjVMn2T5rPyQt2") {
-
+            if (data.senderId === "dwB0JOFJOlaE3apd6WGI3wyQRQL2") {
               return (
                 <View key={index}>
                   <MsjBot
                     mensaje={data.msg}
-                    hora={hora.getHours() + ":" + hora.getMinutes()}
+                    hora={hora.getHours() + ":" + minutos}
                   />
                 </View>
               );
@@ -108,12 +129,19 @@ const Chat = ({navigation}) => {
                 <View key={index}>
                   <MsjUser
                     mensaje={data.msg}
-                    hora={hora.getHours() + ":" + hora.getMinutes()}
+                    hora={hora.getHours() + ":" + minutos}
                   />
                 </View>
               );
             }
           })}
+
+          {abandonar && (
+            <View style={styles.contBienvenida}>
+              <Text style={[styles.fecha, styles.abandonar]}>{name + ' ' + lastName} se ha ido</Text>
+            </View>
+          )}
+
         </ScrollView>
       </View>
 
