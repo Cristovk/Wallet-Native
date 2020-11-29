@@ -99,6 +99,24 @@ const styles = StyleSheet.create({
         zIndex:4000,
         borderRadius:100,
         paddingTop:4
+    },
+    contBienvenida:{
+     alignItems:'center',
+     justifyContent:'center'
+    },
+    fecha:{
+       width:'65%',
+        backgroundColor:'#25d366',
+        color:'#fff',
+        marginHorizontal:'auto',
+        textAlign:'center',
+        padding:4,
+        paddingHorizontal:20,
+        borderRadius:2,
+        marginBottom:5
+    },
+    abandonar:{
+        backgroundColor:'#ccc'
     }
  
 });
