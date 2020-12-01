@@ -27,3 +27,5 @@ import PropTypes from "prop-types";
 ```javascript 
 //import PropTypes from "prop-types";
 ```
+### Shots
+![Github stats](https://github.com/larts85/Wallet-Native/blob/master/assets/WhatsApp%20Image%202020-11-30%20at%2023.55.07.jpeg)
