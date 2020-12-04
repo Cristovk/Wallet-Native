@@ -1,74 +1,160 @@
-import React, { useState } from "react";
-import { View, ScrollView, Text, TextInput,Dimensions } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, ScrollView, Text, TextInput, Dimensions } from "react-native";
 import styles from "./EstilosChat";
 import { Icon } from "react-native-elements";
 import MsjBot from "./MsjBot";
 import MsjUser from "./MsjUser";
 import MsjFoto from "./MsjFoto";
-import { changeImage, validarChat } from "./FuncionesChat";
+import { changeImage, chat, ordenarArray } from "./FuncionesChat";
+import { storage } from "../../../firebase";
 import { useSelector } from "react-redux";
-import { auth } from "../../../firebase";
 
-const Prueba = () => {
-  const [conversation, setConversation] = useState([]); //Listado de mensajes del usuario
-  const [msj, setMsj] = useState(""); //Mensaje actual del usuario
-  const alto= Dimensions.get('window').height*0.90;
 
-  const {user} = useSelector((store)=>store.user);
-  const { bg, text, primary, secondary,dark } = useSelector((store) => store.color);
-  const sendMsj = () => {
-    if (msj) {
-      const mensaje = msj.toLowerCase();
+const Chat = ({ navigation }) => {
+  const user = useSelector((store) => store.user);
+  console.log('usuario', user)
 
-      const respuesta = validarChat(mensaje,user.name);
-      setConversation([
-        ...conversation,
-        { msj: msj, res: respuesta, active: false },
-      ]);
-      setMsj("");
-    }
+  const [bienvenida, setBienvenida] = useState(false);
+  const [abandonar, setAbandonar] = useState(false);
+  const [fechaingreso, setFechaIngreso] = useState(false);
+  const [user1,setUser1]=useState(false);
+  const [user2,setUser2]=useState(false);
+  const [message, setMessage] = useState({
+    msg: "",
+    senderId: user.user.id,
+    userName: user.user.name,
+    time: Date.now(),
+    numero: "",
+    entering: false,
+    exiting: false
+  });
+  const [msjInput, setmsjInput] = useState('')
+
+  const { messages } = chat();
+
+  const { bg, text, primary, secondary, dark } = useSelector((store) => store.color);
+
+  const sendMessage = async () => {
+    let mensaje = message;
+    mensaje.numero = messages.length;
+    storage.collection("messages").add(mensaje);
+    setmsjInput('');
   };
-  
+
+  ordenarArray(messages, "numero");
+  let minutos;
+  let nhoras;
+  const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+  let msj = "Hola " + user.user.name + '. ¿En qué te puedo ayudar el día de hoy?';
+  let hora = new Date();
+  let fecha = hora.getDate() + ' DE ' + (meses[hora.getMonth()]).toUpperCase() + ' DE ' + hora.getFullYear();
+  const { name, lastName } = user.user
+  minutos=hora.getMinutes()<10 ? '0'+hora.getMinutes():hora.getMinutes();
+  nhoras=hora.getHours()<10 ? '0'+hora.getHours():hora.getHours();
+
+  const mostrar = () => {
+    setTimeout(() => {
+      setFechaIngreso(true);
+      setTimeout(() => {
+        setUser1(true);
+        setTimeout(() => {
+          setUser2(true);
+          setTimeout(() => {
+            setBienvenida(true);
+          }, 1000);
+        }, 1000);
+      }, 1000);
+    }, 1500);
+
+  }
+  mostrar();
+  const eliminarConversacion = () => {
+    setAbandonar(true);
+    setTimeout(() => {
+      navigation.navigate('Ayuda');
+    }, 2000);
+  }
 
   return (
-    <View style={styles.general,{backgroundColor:dark?'#000':bg,height:'100%'}}>
-      <View style={[styles.contMensajes,{backgroundColor:'#fff'}]}>
-        <ScrollView style={styles.scroll}>
-          <View style={styles.contBot}>
-            <Text style={styles.msjBot}>
-              Hola. {user.name} ¿En qué te podemos ayudar hoy?
-            </Text>
-          </View>
+    <View
+      style={
+        (styles.general,
+          { backgroundColor: dark ? "#000" : bg, height: "100%" })
+      }
+    >
+      <View style={styles.cerrarChat}>
+        <Icon
+          size={16}
+          name="times"
+          type="font-awesome"
+          color="#fff"
+          onPress={eliminarConversacion}
+        />
+      </View>
 
-          {conversation.map((ele, index) => {
-            let data = ele;
-            if (data.msj.slice(0, 4) === "data") {
+
+      <View style={[styles.contMensajes, { backgroundColor: "#fff" }]}>
+        <ScrollView style={styles.scroll}>
+          {fechaingreso && (
+            <View style={styles.contBienvenida}>
+              <Text style={styles.fecha}>{fecha}</Text>
+            {user1 && <Text style={styles.fecha}>Andrés Sánchez se ha unido</Text>}
+            {user2 && <Text style={styles.fecha}>{name + ' ' + lastName} se ha unido</Text>}
+            </View>
+          )}
+
+          {bienvenida && (
+            <View>
+              <MsjBot
+                mensaje={msj}
+                hora={nhoras + ":" + minutos}
+              />
+            </View>
+          )}
+
+          {messages.map((m, index) => {
+            let hora = new Date();
+            let data = m;
+            if (data.senderId === "dwB0JOFJOlaE3apd6WGI3wyQRQL2") {
               return (
                 <View key={index}>
-                  <MsjFoto url={ele.msj} />
-                  <MsjBot mensaje={ele.res} />
+                  <MsjBot
+                    mensaje={data.msg}
+                    hora={hora.getHours() + ":" + minutos}
+                  />
                 </View>
               );
             } else {
               return (
                 <View key={index}>
-                  <MsjUser mensaje={ele.msj} />
-                  <MsjBot mensaje={ele.res} />
+                  <MsjUser
+                    mensaje={data.msg}
+                    hora={hora.getHours() + ":" + minutos}
+                  />
                 </View>
               );
             }
           })}
+
+          {abandonar && (
+            <View style={styles.contBienvenida}>
+              <Text style={[styles.fecha, styles.abandonar]}>{name + ' ' + lastName} se ha ido</Text>
+            </View>
+          )}
+
         </ScrollView>
       </View>
 
-      <View style={[styles.contInput,{backgroundColor:dark ? text:primary}]}>
+
+      <View
+        style={[styles.contInput, { backgroundColor: dark ? text : primary }]}
+      >
         <View style={styles.contCam}>
           <Icon
             size={16}
             name="camera"
             type="font-awesome"
             color="grey"
-            onPress={() => changeImage(conversation, setConversation)}
           />
         </View>
 
@@ -78,8 +164,10 @@ const Prueba = () => {
           numberOfLines={2}
           style={styles.input}
           placeholderTextColor="grey"
-          onChangeText={(data) => setMsj(data)}
-          value={msj}
+          value={msjInput}
+          onChangeText={(data) => {
+            setmsjInput(data), setMessage({ ...message, msg: data });
+          }}
         />
         <View style={styles.contSend}>
           <Icon
@@ -87,12 +175,13 @@ const Prueba = () => {
             name="send"
             type="material"
             color="grey"
-            onPress={sendMsj}
+            onPress={sendMessage}
           />
+
         </View>
       </View>
     </View>
   );
 };
 
-export default Prueba;
+export default Chat;

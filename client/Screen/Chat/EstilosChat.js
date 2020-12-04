@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
         left:0,
         justifyContent:'space-between',
         zIndex:100,
+        position:'relative'
         
         
     },
@@ -22,9 +23,9 @@ const styles = StyleSheet.create({
       overflow:'hidden',
     },
     scroll:{
-      
       height:300,
-      padding:10
+      padding:10,
+     
     },
     contBot:{
         flexDirection:'row',
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
     input:{
         width:'94%',
         paddingLeft:13,
-        paddingTop:12,
+     
         
     },
     imagen:{
@@ -84,8 +85,40 @@ const styles = StyleSheet.create({
     contSend:{
         position:'relative',
         right:22
+    },
+    bienvenida:{
+        
+    },
+    cerrarChat:{
+        backgroundColor:'red',
+        position:'absolute',
+        right:-1,
+        width:25,
+        height:25,
+        top:-1,
+        zIndex:4000,
+        borderRadius:100,
+        paddingTop:4
+    },
+    contBienvenida:{
+     alignItems:'center',
+     justifyContent:'center'
+    },
+    fecha:{
+       width:'65%',
+        backgroundColor:'#25d366',
+        color:'#fff',
+        marginHorizontal:'auto',
+        textAlign:'center',
+        padding:4,
+        paddingHorizontal:20,
+        borderRadius:2,
+        marginBottom:5
+    },
+    abandonar:{
+        backgroundColor:'#ccc'
     }
-   
+ 
 });
 
 

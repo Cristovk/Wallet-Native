@@ -1,8 +1,9 @@
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 
-
-
+import {useState, UseEffect, useEffect} from "react"
+import { auth, storage } from "../../../firebase";
+// import { snapshotConstructor } from "firebase-functions/lib/providers/firestore";
 export async function changeImage(con, setCon) {
   const permisos = await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
@@ -19,42 +20,44 @@ export async function changeImage(con, setCon) {
     });
 
     setCon([...con, { msj: `data:image/jpg;base64,${resultado.base64}`, res: 'Que agradable sujeto' }])
-
-
   }
-
 
 }
 
-export function validarChat(mensaje,user) {
-  let respuesta='En seguida uno de nuestros asesores se hará cargo';
-  if(mensaje.length<3){
-      respuesta='Por favor sé más claro con tu petición';
-  }
-  else {
-     
-      if (mensaje.includes('jaja')) respuesta = 'Tu risa es estupida';
-      if (mensaje.includes('servicios')) respuesta = 'Claro que podés pagar tus servicios con nuestra app';
-      if (mensaje.includes('transferencia')) respuesta = 'Podés transferir a tus contactos o desconocidos';
-      if (mensaje.includes('recarga')) respuesta = 'Podés recargar tu cuenta en puntos autorizados';
-      if (mensaje.includes('tarjeta')) respuesta = 'Asociá tu tarjeta moonbank y empieza a disfrutar de nuestros beneficios';
-      if (mensaje.includes('telefono')) respuesta = 'Podés comunicarte al número 3013184491 para más información';
-      if (mensaje.includes('hola')) respuesta = `Hola ${user}, ¿Cómo te encuentras el día de hoy?`;
-      if (mensaje.includes('buenos dias')) respuesta = `Hola ${user}, ¿Cómo te encuentras el día de hoy?`;
-      if (mensaje.includes('buenos días')) respuesta = `Hola ${user}, ¿Cómo te encuentras el día de hoy?`;
-      if (mensaje.includes('buen dia')) respuesta = `Hola ${user}, ¿Cómo te encuentras el día de hoy?`;
-      if (mensaje.includes('buenas tardes')) respuesta = `Hola ${user}, ¿Cómo te encuentras el día de hoy?`;
-      if (mensaje.includes('buenos noches')) respuesta = `Hola ${user}, ¿Cómo te encuentras el día de hoy?`;
-      if (mensaje.includes('buenos')) respuesta = `Hola ${user}, ¿Cómo te encuentras el día de hoy?`;
-      if (mensaje.includes('chao')) respuesta = 'Hasta luego, volvé pronto!';
-      if (mensaje.includes('contraseña')) respuesta = 'Podés reestablecer tu contraseña';
-      if (mensaje.includes('chao')) respuesta = 'Hasta luego, volvé pronto!';
-      if (mensaje.includes('contactos')) respuesta = 'Podés envíar y recibir dinero de un contacto tuyo';
-      if (mensaje.includes('como estás')) respuesta = '¿Bien y vos?';
-      if (mensaje.includes('como estas')) respuesta = '¿Bien y vos?';
-
-  }
+export const chat = () => {
   
-  return respuesta;
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [messages, setMessages] = useState([])
 
+  useEffect(
+    () => {
+      const unsuscribe = storage.collection("messages").onSnapshot(
+        snapshot => {
+          setLoading(false)
+          setMessages(snapshot.docs.map(d => ({id: d.id, ...d.data()})))
+        },
+        err => {
+          setError(err)
+        }
+      );
+      return () => unsuscribe()
+    },
+    [setMessages]
+  )
+    return {error, loading, messages}
+}
+
+
+export const ordenarArray =(array,propiedad)=>{
+  array.sort((a,b)=>{
+    if(a[propiedad]<b[propiedad]){
+      return -1;
+    }
+    if(a[propiedad]>b[propiedad]){
+      return 1;
+    }
+    return 0;
+ })
+ return array;
 }
