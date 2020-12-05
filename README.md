@@ -1,4 +1,4 @@
-# Wellcome to QuiqueBank 🤗
+# Wellcome to Moonbank 🤗
 
 ## Virtual Wallet with Firebase and React-Native
 
