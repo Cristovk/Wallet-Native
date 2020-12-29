@@ -1,5 +1,6 @@
 /* ====================== IMPORTATIONS ========================= */
 import React, { useEffect, useState } from "react";
+import { Keyboard } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import {
   View,
@@ -30,7 +31,7 @@ const Home = ({ navigation }) => {
   LogBox.ignoreAllLogs();
   const dispatch = useDispatch();
   const [saldo, setSaldo] = useState(0);
-  const [dolares,setDolares] = useState(0);
+  const [dolares, setDolares] = useState(0);
   const [movements, setMovements] = useState([]);
   const [allMovements, setAllMovements] = useState([]);
   const userId = auth.currentUser.uid;
@@ -175,6 +176,7 @@ const Home = ({ navigation }) => {
   };
 
   useEffect(() => {
+    Keyboard.dismiss();
     getSaldo();
     getDolares();
     getAllMovements();
@@ -226,7 +228,6 @@ const Home = ({ navigation }) => {
                   flexDirection: "row",
                   justifyContent: "center",
                   alignItems: "center",
-
                 }}
               >
                 <TouchableOpacity
@@ -236,21 +237,19 @@ const Home = ({ navigation }) => {
                     width: 70,
                     borderRadius: 5,
                     justifyContent: "center",
-                    alignItems: "center"
+                    alignItems: "center",
                   }}
-                  onPress={() => navigation.navigate("Recargas")}>
-                  <Text
-
-                    style={{ fontSize: 14, fontWeight: "bold" }}
-                  >
+                  onPress={() => navigation.navigate("Recargas")}
+                >
+                  <Text style={{ fontSize: 14, fontWeight: "bold" }}>
                     Recargar
-                </Text>
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
           ) : (
-                `$ ${formatNumber(saldo)}`
-              )}
+            `$ ${formatNumber(saldo)}`
+          )}
         </Text>
       </View>
       <View
@@ -291,25 +290,26 @@ const Home = ({ navigation }) => {
             {"Acá se listarán tus movimientos cuando los tengas"}
           </Text>
         ) : (
-              <ScrollView>
-                <FlatList
-                  data={movements}
-                  keyExtractor={(mov) => mov.id}
-                  style={{ marginVertical: 15, backgroundColor: primary }}
-                  renderItem={({ item }) => {
-                    return (
-                      <ListItem
-                        key={item.id}
-                        containerStyle={{
-                          backgroundColor: primary,
-                        }}
-                        style={[
-                          { borderBottomColor: dark ? "grey" : secondary },
-                          style.listaContenedor,
-                        ]}
-                        onPress={() =>
-                          item.categoria == 'Dentrante' || item.categoria == 'Dsaliente'
-                          ? navigation.navigate('Detalle',{
+          <ScrollView>
+            <FlatList
+              data={movements}
+              keyExtractor={(mov) => mov.id}
+              style={{ marginVertical: 15, backgroundColor: primary }}
+              renderItem={({ item }) => {
+                return (
+                  <ListItem
+                    key={item.id}
+                    containerStyle={{
+                      backgroundColor: primary,
+                    }}
+                    style={[
+                      { borderBottomColor: dark ? "grey" : secondary },
+                      style.listaContenedor,
+                    ]}
+                    onPress={() =>
+                      item.categoria == "Dentrante" ||
+                      item.categoria == "Dsaliente"
+                        ? navigation.navigate("Detalle", {
                             operacion: item.operacion,
                             estado: item.estado,
                             motivo: item.motivo,
@@ -320,9 +320,9 @@ const Home = ({ navigation }) => {
                             receiver: item.receiver,
                             fecha: item.fecha,
                             dolares: item.dolares,
-                            cotizacion: item.cotizacion
+                            cotizacion: item.cotizacion,
                           })
-                          : navigation.navigate("Detalle", {
+                        : navigation.navigate("Detalle", {
                             fecha: item.fecha,
                             monto: item.monto,
                             hacia: item.hacia,
@@ -336,77 +336,77 @@ const Home = ({ navigation }) => {
                             sender: item.sender,
                             receiver: item.receiver,
                             categoria: item.categoria,
-                            card: item.card
+                            card: item.card,
                           })
-                        }
-                      >
-                        {item.categoria == "Tsaliente" ||
-                          item.categoria == "Dentrante" ||
-                          item.categoria == "TDsaliente" ||
-                          item.operacion == "compra" ||
-                          item.operacion == "servicios" ||
-                          item.operacion == "servicio" ? (
-                            <Icon
-                              name={iconList[item.categoria]}
-                              size={30}
-                              color="red"
-                            />
-                          ) : (
-                            <Icon
-                              name={iconList[item.categoria]}
-                              size={30}
-                              color="green"
-                            />
-                          )}
-                        <ListItem.Content>
-                          <ListItem.Title>
-                            {item.operacion[0].toUpperCase() +
-                              item.operacion.substring(1)}
-                          </ListItem.Title>
-                          <ListItem.Subtitle>
-                            {new Date(item.fecha).toLocaleDateString()}
-                          </ListItem.Subtitle>
-                        </ListItem.Content>
-                        <Text style={{ marginRight: 3 }}>
-                          {item.categoria == "Tsaliente" ||
-                            item.operacion == "compra" ||
-                            item.operacion == "servicios" ||
-                            item.operacion == "servicio"
-                            ? `- $ ${formatNumber(item.monto)}`
-                            : item.categoria == "Dentrante"
-                            ? `- USD$ ${formatNumber(item.dolares)}`
-                            : item.categoria == "Dsaliente"
-                            ? `USD$ ${formatNumber(item.dolares)}`
-                            : item.categoria == "TDsaliente"
-                            ? `- USD$ ${formatNumber(item.monto)}`
-                            : item.categoria == "TDentrante"
-                            ? `USD$ ${formatNumber(item.monto)}`
-                            : `$ ${formatNumber(item.monto)}`}
-                        </Text>
-                        <ListItem.Chevron
-                          name="chevron-right"
-                          type="font-awesome"
-                          color="black"
-                        />
-                      </ListItem>
-                    );
-                  }}
-                ></FlatList>
-                <View style={[{ marginBottom: 30 }, styleBoton.container]}>
-                  <TouchableOpacity
-                    style={[
-                      { backgroundColor: secondary, marginBottom: 25 },
-                      styleBoton.boton,
-                    ]}
-                    onPress={() => navigation.navigate("Movimientos")}
+                    }
                   >
-                    <Text style={[{ color: text }, styleBoton.texto]}>
-                      Ver todos los Movimientos
+                    {item.categoria == "Tsaliente" ||
+                    item.categoria == "Dentrante" ||
+                    item.categoria == "TDsaliente" ||
+                    item.operacion == "compra" ||
+                    item.operacion == "servicios" ||
+                    item.operacion == "servicio" ? (
+                      <Icon
+                        name={iconList[item.categoria]}
+                        size={30}
+                        color="red"
+                      />
+                    ) : (
+                      <Icon
+                        name={iconList[item.categoria]}
+                        size={30}
+                        color="green"
+                      />
+                    )}
+                    <ListItem.Content>
+                      <ListItem.Title>
+                        {item.operacion[0].toUpperCase() +
+                          item.operacion.substring(1)}
+                      </ListItem.Title>
+                      <ListItem.Subtitle>
+                        {new Date(item.fecha).toLocaleDateString()}
+                      </ListItem.Subtitle>
+                    </ListItem.Content>
+                    <Text style={{ marginRight: 3 }}>
+                      {item.categoria == "Tsaliente" ||
+                      item.operacion == "compra" ||
+                      item.operacion == "servicios" ||
+                      item.operacion == "servicio"
+                        ? `- $ ${formatNumber(item.monto)}`
+                        : item.categoria == "Dentrante"
+                        ? `- USD$ ${formatNumber(item.dolares)}`
+                        : item.categoria == "Dsaliente"
+                        ? `USD$ ${formatNumber(item.dolares)}`
+                        : item.categoria == "TDsaliente"
+                        ? `- USD$ ${formatNumber(item.monto)}`
+                        : item.categoria == "TDentrante"
+                        ? `USD$ ${formatNumber(item.monto)}`
+                        : `$ ${formatNumber(item.monto)}`}
+                    </Text>
+                    <ListItem.Chevron
+                      name="chevron-right"
+                      type="font-awesome"
+                      color="black"
+                    />
+                  </ListItem>
+                );
+              }}
+            ></FlatList>
+            <View style={[{ marginBottom: 30 }, styleBoton.container]}>
+              <TouchableOpacity
+                style={[
+                  { backgroundColor: secondary, marginBottom: 25 },
+                  styleBoton.boton,
+                ]}
+                onPress={() => navigation.navigate("Movimientos")}
+              >
+                <Text style={[{ color: text }, styleBoton.texto]}>
+                  Ver todos los Movimientos
                 </Text>
-                  </TouchableOpacity>
-                </View>
-              </ScrollView>
-            )}
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        )}
       </View>
     </View>
   );

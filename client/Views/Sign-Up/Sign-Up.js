@@ -97,11 +97,10 @@ const SignUp = ({ navigation }) => {
       emptyEmail = "El campo Email es necesario";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       invalidEmailFormat = "Formato de email inválido o ya registrado";
-     }// else if (existe) {
+    } // else if (existe) {
     //   emailExist = "El email ya está registrado";
     // }
 
-    
     if (!day) {
       emptyDay = "El campo día es necesario";
     } else if (day < 1 || day > 31 || isNaN(day)) {
@@ -173,7 +172,6 @@ const SignUp = ({ navigation }) => {
           source={require("../../../assets/sinfondo.png")}
         />
       </View>
-
       <View style={styles.formGroup}>
         <View style={styles.subgroup}>
           <View style={styles.contIcono}>
@@ -190,9 +188,7 @@ const SignUp = ({ navigation }) => {
           />
         </View>
       </View>
-
       {Err.emptyName ? <Text style={styles.error}>{Err.emptyName}</Text> : null}
-
       <View style={styles.formGroup}>
         <View style={styles.subgroup}>
           <View style={[styles.contIcono]}>
@@ -209,11 +205,9 @@ const SignUp = ({ navigation }) => {
           />
         </View>
       </View>
-
       {Err.emptyLastname ? (
         <Text style={styles.error}>{Err.emptyLastname}</Text>
       ) : null}
-
       <View style={styles.formGroup}>
         <View style={styles.subgroup}>
           <View style={styles.contIcono}>
@@ -235,7 +229,6 @@ const SignUp = ({ navigation }) => {
           />
         </View>
       </View>
-
       {Err.emptyEmail ? (
         <Text style={styles.error}>{Err.emptyEmail}</Text>
       ) : null}
@@ -286,7 +279,6 @@ const SignUp = ({ navigation }) => {
       {Err.invalidYearFormat ? (
         <Text style={styles.error}>{Err.invalidYearFormat}</Text>
       ) : null}
-
       <View style={[styles.button, styles.box]}>
         <TouchableOpacity
           style={[styles.btnEnviar, styles.siguiente]}
